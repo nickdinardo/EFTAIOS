@@ -12,4 +12,16 @@
     <panel_attributes>SimpleClass</panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>120</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>/AbstractClass/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
