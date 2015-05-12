@@ -170,8 +170,148 @@ public class GalileiMap {
 		map[13][11] = new Box(12,14);
 		
 		
+		map[0][12] = new DangerousBox(13, 1);
+		map[1][12] = new Box(13, 2);
+		map[2][12] = new DangerousBox(13, 3);
+		map[3][12] = new DangerousBox(13, 4);
+		map[4][12] = new Box(13, 5);
+		map[5][12] = new DangerousBox(13, 6);
+		map[7][12] = new DangerousBox(13, 8);
+		map[8][12] = new Box(13, 9);
+		map[9][12] = new DangerousBox(13, 10);
+		map[10][12] = new Box(13, 11);
+		map[11][12] = new DangerousBox(13, 12);
+		map[12][12] = new DangerousBox(13, 13);
+		map[13][12] = new DangerousBox(13, 14);
 		
+		map[0][13] = new DangerousBox(14, 1);
+		map[1][13] = new DangerousBox(14, 2);
+		map[2][13] = new Box(14, 3);
+		map[3][13] = new DangerousBox(14, 4);
+		map[4][13] = new DangerousBox(14, 5);
+		map[5][13] = new DangerousBox(14, 6);
+		map[7][13] = new DangerousBox(14, 8);
+		map[8][13] = new DangerousBox(14, 9);
+		map[9][13] = new DangerousBox(14, 10);
+		map[10][13] = new DangerousBox(14, 11);
+		map[11][13] = new DangerousBox(14, 12);
+		map[12][13] = new DangerousBox(14, 13);
+		map[13][13] = new Box(14, 14);
 		
+		map[1][14] = new DangerousBox(15, 2);
+		map[4][14] = new Box(15, 5);
+		map[5][14] = new DangerousBox(15, 6);
+		map[6][14] = new DangerousBox(15, 7);
+		map[7][14] = new DangerousBox(15, 8);
+		map[8][14] = new Box(15, 9);
+		map[9][14] = new DangerousBox(15, 10);
+		map[10][14] = new DangerousBox(15, 11);
+		map[11][14] = new DangerousBox(15, 12);
+		map[12][14] = new DangerousBox(15, 13);
+		map[13][14] = new Box(15, 14);
+		
+		map[0][15] = new Box(16, 1);
+		map[1][15] = new DangerousBox(16, 2);
+		map[2][15] = new Box(16, 3);
+		map[3][15] = new Box(16, 4);
+		map[4][15] = new DangerousBox(16, 5);
+		map[5][15] = new DangerousBox(16, 6);
+		map[6][15] = new DangerousBox(16, 7);
+		map[7][15] = new DangerousBox(16, 8);
+		map[8][15] = new DangerousBox(16, 9);
+		map[9][15] = new DangerousBox(16, 10);
+		map[10][15] = new DangerousBox(16, 11);
+		map[11][15] = new Box(16, 12);
+		map[12][15] = new DangerousBox(16, 13);
+		map[13][15] = new DangerousBox(16, 14);
+		
+		map[0][16] = new Box(17, 1);
+		map[1][16] = new DangerousBox(17, 2);
+		map[2][16] = new DangerousBox(17, 3);
+		map[3][16] = new Box(17, 4);
+		map[4][16] = new DangerousBox(17, 5);
+		map[5][16] = new Box(17, 6);
+		map[6][16] = new DangerousBox(17, 7);
+		map[7][16] = new DangerousBox(17, 8);
+		map[8][16] = new DangerousBox(17, 9);
+		map[9][16] = new DangerousBox(17, 10);
+		map[10][16] = new Box(17, 11);
+		map[11][16] = new DangerousBox(17, 12);
+		map[12][16] = new DangerousBox(17, 13);
+		map[13][16] = new Box(17, 14);
+		
+		map[0][17] = new Box(18, 1);
+		map[1][17] = new DangerousBox(18, 2);
+		map[2][17] = new DangerousBox(18, 3);
+		map[3][17] = new Box(18, 4);
+		map[4][17] = new DangerousBox(18, 5);
+		map[5][17] = new Box(18, 6);
+		map[6][17] = new Box(18, 7);
+		map[7][17] = new Box(18, 8);
+		map[8][17] = new DangerousBox(18, 9);
+		map[11][17] = new Box(18, 12);
+		map[12][17] = new DangerousBox(18, 13);
+		
+		map[1][18] = new DangerousBox(19, 2);
+		map[3][18] = new DangerousBox(19, 4);
+		map[4][18] = new DangerousBox(19, 5);
+		map[5][18] = new DangerousBox(19, 6);
+		map[6][18] = new DangerousBox(19, 7);
+		map[7][18] = new DangerousBox(19, 8);
+		map[8][18] = new DangerousBox(19, 9);
+		map[11][18] = new DangerousBox(19, 12);
+		map[12][18] = new DangerousBox(19, 13);
+		
+		map[1][19] = new DangerousBox(20, 2);
+		map[4][19] = new DangerousBox(20, 5);
+		map[5][19] = new DangerousBox(20, 6);
+		map[6][19] = new Box(20, 7);
+		map[7][19] = new Box(20, 8);
+		map[10][19] = new DangerousBox(20, 11);
+		map[11][19] = new DangerousBox(20, 12);
+		map[12][19] = new DangerousBox(20, 13);
+		map[13][19] = new Box(20, 14);
+		
+		map[0][20] = new Box(21, 1);
+		map[1][20] = new DangerousBox(21, 2);
+		map[2][20] = new DangerousBox(21, 3);
+		map[3][20] = new DangerousBox(21, 4);
+		map[4][20] = new Box(21, 5);
+		map[5][20] = new DangerousBox(21, 6);
+		map[6][20] = new DangerousBox(21, 7);
+		map[7][20] = new DangerousBox(21, 8);
+		map[8][20] = new DangerousBox(21, 9);
+		map[9][20] = new DangerousBox(21, 10);
+		map[10][20] = new DangerousBox(21, 11);
+		map[11][20] = new Box(21, 12);
+		map[12][20] = new DangerousBox(21, 13);
+		map[13][20] = new DangerousBox(21, 14);
+		
+		map[0][21] = new Box(22, 1);
+		map[1][21] = new LifeboatBox(22, 2);
+		map[2][21] = new DangerousBox(22, 3);
+		map[3][21] = new DangerousBox(22, 4);
+		map[4][21] = new DangerousBox(22, 5);
+		map[5][21] = new DangerousBox(22, 6);
+		map[7][21] = new Box(22, 8);
+		map[8][21] = new DangerousBox(22, 9);
+		map[9][21] = new DangerousBox(22, 10);
+		map[10][21] = new DangerousBox(22, 11);
+		map[11][21] = new DangerousBox(22, 12);
+		map[12][21] = new LifeboatBox(22, 13);
+		map[13][21] = new DangerousBox(22, 14);
+		
+		map[1][22] = new DangerousBox(23, 2);
+		map[2][22] = new Box(23, 3);
+		map[3][22] = new Box(23, 4);
+		map[4][22] = new Box(23, 5);
+		map[5][22] = new Box(23, 6);
+		map[8][22] = new DangerousBox(23, 9);
+		map[9][22] = new Box(23, 10);
+		map[10][22] = new Box(23, 11);
+		map[11][22] = new Box(23, 12);
+		map[12][22] = new DangerousBox(23, 13);
+		map[13][22] = new DangerousBox(23, 14);
 		
 		
 		
