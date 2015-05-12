@@ -10,7 +10,7 @@ public class HumanPlayer extends Player {
 		
 	}
 	
-	public boolean attack(){
+//	public boolean attack(){
 		
-	}
+	//}
 }

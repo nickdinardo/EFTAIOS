@@ -1,11 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
+import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 import java.util.ArrayList;
 
 public class Box {
 	private int coordX;
 	private int coordY;
 	
-	private Player[] playerHere = new ArrayList(0);
+	private ArrayList<Player> playerHere = new ArrayList<Player>();
 	
 	public Box(int x, int y){
 		this.setCoordX(x);
@@ -29,7 +30,7 @@ public class Box {
 	}
 	
 	public void setPlayer(Player p){
-		playerHere.add(Player p);
+		playerHere.add(p);
 		
 	}
 	

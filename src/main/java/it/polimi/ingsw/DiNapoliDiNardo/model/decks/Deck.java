@@ -1,4 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,7 +23,7 @@ public class Deck {
 		discards.add(drawed);
 		if (deck.isEmpty()){
 			deck=discards;
-			deck.shuffle();
+			Collections.shuffle(deck);
 			discards.clear();
 		}
 		return drawed;

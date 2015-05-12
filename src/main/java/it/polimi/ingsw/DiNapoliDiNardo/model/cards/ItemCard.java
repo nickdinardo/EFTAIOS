@@ -1,5 +1,5 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.cards;
 
-public interface ItemCard {
+public class ItemCard extends Card{
 
 }
