@@ -4,8 +4,8 @@ import java.util.Collections;
 
 public class Deck {
 
-	ArrayList<Card> deck;
-	ArrayList<Card> discards;
+	ArrayList<Card> deck = new ArrayList<Cards>();
+	ArrayList<Card> discards = new ArrayList<Cards>();
 	
 	void shuffleDeck(){
 		Collections.shuffle(deck);
