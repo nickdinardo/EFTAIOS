@@ -161,7 +161,7 @@ public class GalileiMap {
 		map[3][11] = new Box(12,4);
 		map[4][11] = new DangerousBox(12,5);
 		map[5][11] = new AlienBox(12,6);
-		map[7][11] = new HumanBox(12,7);
+		map[7][11] = new HumanBox(12,8);
 		map[8][11] = new Box(12,9);
 		map[9][11] = new DangerousBox(12,10);
 		map[10][11] = new Box(12,11);

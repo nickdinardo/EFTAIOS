@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.cards;
 
-public class DefenseCard {
+public class DefenseCard extends ItemCard{
 	
 
 }

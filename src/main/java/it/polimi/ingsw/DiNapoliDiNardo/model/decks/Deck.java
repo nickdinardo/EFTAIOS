@@ -9,23 +9,44 @@ public class Deck {
 	ArrayList<Card> deck = new ArrayList<Card>();
 	ArrayList<Card> discards = new ArrayList<Card>();
 	
-	void shuffleDeck(){
+	
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+	public void setDeck(ArrayList<Card> deck) {
+		this.deck = deck;
+	}
+	public ArrayList<Card> getDiscards() {
+		return discards;
+	}
+	public void setDiscards(ArrayList<Card> discards) {
+		this.discards = discards;
+	}
+	
+	
+	
+	public void shuffleDeck(){
 		Collections.shuffle(deck);
 	}
-	boolean isEmpty(){
+	public boolean isEmpty(){
 		if (deck.size()==0)
 			return true;
 		else return false;
 	}
-	Card drawCard(){
+	
+	public Card drawCard(){
+		if (deck.isEmpty()){
+			int discardSize=discards.size();
+			for (int i=0; i<discardSize; i++){
+				Card reshuffled = discards.get(0);
+				discards.remove(0);
+				deck.add(reshuffled);
+				}
+			Collections.shuffle(deck);
+		}
 		Card drawed = deck.get(0);
 		deck.remove(0);
 		discards.add(drawed);
-		if (deck.isEmpty()){
-			deck=discards;
-			Collections.shuffle(deck);
-			discards.clear();
-		}
 		return drawed;
 	}
 	

@@ -8,10 +8,18 @@ public abstract class Player {
 	
 	private Box position;
 	private ArrayList< ItemCard > personalDeck = new ArrayList< ItemCard >();
-	
+	private GalileiMap map;
 	//public boolean isValidMovement(Box toPosition){
-		
 	//}
+	
+	public Box getPosition() {
+		return position;
+	}
+	public void setPosition(Box position) {
+		this.position = position;
+	}
+		
+	
 		
 
 }

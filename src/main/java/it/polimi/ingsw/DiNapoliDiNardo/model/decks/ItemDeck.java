@@ -1,7 +1,9 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
 
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+
 public class ItemDeck extends Deck{
-	ItemDeck(){
+	public ItemDeck(){
 		int i;
 		for (i=0; i<2; i++){
 			deck.add(new AttackCard());

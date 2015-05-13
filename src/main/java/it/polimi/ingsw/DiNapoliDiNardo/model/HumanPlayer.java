@@ -1,16 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
-
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(){
-		
-		
-		
+	public HumanPlayer(GalileiMap Galilei){
+		this.setPosition(Galilei.getMap()[7][11]);
 	}
 	
-//	public boolean attack(){
+	//public boolean attack(){
 		
 	//}
 }
