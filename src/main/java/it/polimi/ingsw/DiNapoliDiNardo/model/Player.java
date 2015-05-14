@@ -1,16 +1,11 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 
-import java.util.ArrayList;
 
 public abstract class Player {
 	
-	private Box position;
-	private ArrayList< ItemCard > personalDeck = new ArrayList< ItemCard >();
-	private GalileiMap map;
-	//public boolean isValidMovement(Box toPosition){
-	//}
+	protected Box position;
+	
 	
 	public Box getPosition() {
 		return position;
@@ -19,7 +14,13 @@ public abstract class Player {
 		this.position = position;
 	}
 		
+	//public void doubleMovement(Box destination){
+		
+	//}
+		
+	//public abstract boolean isValidDoubleMovement(Box destination);
+	
 	
 		
+	}
 
-}
