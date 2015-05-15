@@ -1,12 +1,25 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
+import java.util.ArrayList;
+
+import it.polimi.ingsw.DiNapoliDiNardo.Main;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 
 public abstract class Player {
 	
+	protected Main game;
 	protected Box position;
+	protected boolean isAlive=true;
+	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
 	
-	
+	//getters and setters
+	public boolean isAlive() {
+		return isAlive;
+	}
+	public ArrayList<Card> getPersonalDeck() {
+		return personalDeck;
+	}
 	public Box getPosition() {
 		return position;
 	}
@@ -32,6 +45,17 @@ public abstract class Player {
 		return false;
 	};
 	
-		
+	public abstract void movement(Box destination);
+	
+	public void drawItemCard(){
+		Card itemcard = game.getItemdeck().drawCard();
+		//codice che chiama la view per chiedere se si vuole tenere la carta pescata 
+		if (personalDeck.size()<3)
+			personalDeck.add(itemcard);
 	}
+	
+}
+		
+	
+
 

@@ -1,16 +1,20 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Main;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.AlienBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.HumanBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Wall;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 
 public class AlienPlayer extends Player{
 	
 	protected boolean humanfed = false;
 	
-	public AlienPlayer(GalileiMap Galilei){
+	
+	public AlienPlayer(GalileiMap Galilei, Main game){
 		this.setPosition(Galilei.getMap()[5][11]);
+		this.game = game;
 	}
 	
 	public boolean isValidTripleMovement(Box destination){
@@ -34,6 +38,22 @@ public class AlienPlayer extends Player{
 		return false;
 	};
 	
+	public void movement (Box destination){
+		if (humanfed){
+			if(isValidTripleMovement(destination))
+				this.position = destination;
+			else{
+				System.out.println("Not a valid movement, you'll stand still");
+			}
+		}
+		else {
+			if(isValidDoubleMovement(destination))
+				this.position=destination;
+			else{
+				System.out.println("Not a valid movement, you'll stand still");
+			}
+		}
+	}
 	
 	
 }

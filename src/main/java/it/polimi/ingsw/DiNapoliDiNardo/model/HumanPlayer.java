@@ -1,18 +1,20 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import java.util.ArrayList;
-
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.decks.*;
+import it.polimi.ingsw.DiNapoliDiNardo.*;
 
 public class HumanPlayer extends Player {
 
-	protected ArrayList< ItemCard > personalDeck = new ArrayList< ItemCard >();
 	protected boolean adrenalized = false;
 	
-	public HumanPlayer(GalileiMap Galilei){
+	
+	public HumanPlayer(GalileiMap Galilei, Main game){
 		this.setPosition(Galilei.getMap()[7][11]);
+		this.game = game;
 	}
+	
 	
 	public boolean isValidSingleMovement(Box destination){
 		if (destination instanceof Wall) return false;
@@ -28,20 +30,29 @@ public class HumanPlayer extends Player {
 	};
 	
 	
-	public void Movement (Box destination){
+	public void movement (Box destination){
 		if (adrenalized){
-			if(isValidDoubleMovement(destination))
+			if(isValidDoubleMovement(destination)){
 				this.position = destination;
 				this.adrenalized = false;
-			//else
+			}
+			else{
+				System.out.println("Not a valid movement, you'll stand still");
+			}
 		}
 		else {
 			if(isValidSingleMovement(destination))
 				this.position=destination;
-			//else
+			else{
+				System.out.println("Not a valid movement, you'll stand still");
+			}
+		}
+		if (this.position instanceof DangerousBox){
+			game.drawSectorCard(this);
 		}
 			
 	}
+	
 	
 	
 	//public boolean attack(){
