@@ -9,7 +9,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 
 public class AlienPlayer extends Player{
 	
-	protected boolean humanfed = false;
+	protected boolean humanfed = true;
 	
 	
 	public AlienPlayer(GalileiMap Galilei, Main game){
@@ -17,24 +17,43 @@ public class AlienPlayer extends Player{
 		this.game = game;
 	}
 	
+	
 	public boolean isValidTripleMovement(Box destination){
 		if (destination instanceof Wall) return false;
 		if (destination instanceof HumanBox) return false;
 		if (destination instanceof AlienBox) return false;
-		//check the reachable boxes down or on the same level of actual position
-		if (destination.getCoordY()-position.getCoordY() >-1 && destination.getCoordY()-position.getCoordY() < 4)
-			if (destination.getCoordX()-position.getCoordX() >-4 && destination.getCoordX()-position.getCoordX() <4)
-				return true;
-		//check the upper reachable boxes
-		if (destination.getCoordY()-position.getCoordY() == -1)
-			if (destination.getCoordX()-position.getCoordX() >-3 && destination.getCoordX()-position.getCoordX() <3)
-				return true;
-		if (destination.getCoordY()-position.getCoordY() == -2)
-			if (destination.getCoordX()-position.getCoordX() >-2 && destination.getCoordX()-position.getCoordX() <2)
-				return true;
-		if (destination.getCoordY()-position.getCoordY() == -3)
-			if (destination.getCoordX()-position.getCoordX() == 0)
-				return true;
+		if (position.getCoordX()%2==0){//BASSA
+			//check the reachable boxes down or on the same level of actual position
+			if (destination.getCoordY()-position.getCoordY() >-2 && destination.getCoordY()-position.getCoordY() < 3)
+				if (destination.getCoordX()-position.getCoordX() >-4 && destination.getCoordX()-position.getCoordX() <4)
+					return true;
+			//check the upper reachable boxes
+			if (destination.getCoordY()-position.getCoordY() == -2)
+				if (destination.getCoordX()-position.getCoordX() >-3 && destination.getCoordX()-position.getCoordX() <3)
+					return true;
+			if (destination.getCoordY()-position.getCoordY() == -3)
+				if (destination.getCoordX()-position.getCoordX() == 0)
+					return true;
+			if (destination.getCoordY()-position.getCoordY() == 3)
+				if (destination.getCoordX()-position.getCoordX() >-2 && destination.getCoordX()-position.getCoordX() <2)
+					return true;
+		}
+		else{//ALTA
+			//check the reachable boxes down or on the same level of actual position
+			if (destination.getCoordY()-position.getCoordY() >-3 && destination.getCoordY()-position.getCoordY() < 2)
+				if (destination.getCoordX()-position.getCoordX() >-4 && destination.getCoordX()-position.getCoordX() <4)
+					return true;
+			//check the upper reachable boxes
+			if (destination.getCoordY()-position.getCoordY() == -3)
+				if (destination.getCoordX()-position.getCoordX() >-2 && destination.getCoordX()-position.getCoordX() <2)
+					return true;
+			if (destination.getCoordY()-position.getCoordY() == 2)
+				if (destination.getCoordX()-position.getCoordX() >-3 && destination.getCoordX()-position.getCoordX() <3)
+					return true;
+			if (destination.getCoordY()-position.getCoordY() == 3)
+				if (destination.getCoordX()-position.getCoordX() == 0)
+					return true;
+		}
 		return false;
 	};
 	

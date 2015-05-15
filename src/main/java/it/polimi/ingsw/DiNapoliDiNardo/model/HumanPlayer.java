@@ -20,12 +20,22 @@ public class HumanPlayer extends Player {
 		if (destination instanceof Wall) return false;
 		if (destination instanceof HumanBox) return false;
 		if (destination instanceof AlienBox) return false;
-		if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1){
-			if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0){
-				return true;}}
-		if (destination.getCoordX()-position.getCoordX() == 0){
-			if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1){
-				return true;}}
+		if (position.getCoordX()%2==0){//BASSA
+			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0)
+					return true;
+			if (destination.getCoordX()-position.getCoordX() == 0)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
+					return true;
+		}
+		else{//ALTA
+			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
+				if (destination.getCoordY()-position.getCoordY() == -1 || destination.getCoordY()-position.getCoordY() == 0)
+					return true;
+			if (destination.getCoordX()-position.getCoordX() == 0)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
+					return true;
+		}
 		return false;
 	};
 	

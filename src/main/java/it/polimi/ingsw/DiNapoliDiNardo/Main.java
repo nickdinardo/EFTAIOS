@@ -5,11 +5,11 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.*;
-import it.polimi.ingsw.DiNapoliDiNardo.view.View;
+import it.polimi.ingsw.DiNapoliDiNardo.view.*;
 
 public class Main {
 	
-	View view = new View();
+	View view = new TextView();
 	GalileiMap Galilei;
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
@@ -28,7 +28,7 @@ public class Main {
 			for (Player player: game.inGamePlayers){
 				i++;
 				System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
-				System.out.println(player.getPersonalDeck().toString());
+				System.out.println("Items: "+player.getPersonalDeck().toString());
 				Coordinates coordinates = game.view.askMovement(i);
 				Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
 				player.movement(destination);
@@ -37,7 +37,7 @@ public class Main {
 					escaped = true;
 			}
 		}while (!escaped);
-		
+		System.out.println("Lifeboat ship reached, congratulations! You won 3 cookies.");
 		
 	}
 	
