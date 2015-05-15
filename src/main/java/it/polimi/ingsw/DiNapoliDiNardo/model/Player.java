@@ -27,40 +27,59 @@ public abstract class Player {
 		this.position = position;
 	}
 	
-	public boolean isValidDoubleMovement(Box destination){
+	
+	
+	public abstract void movement(Box destination, Box position);
+	
+	
+	public boolean isValidSingleMovement(Box destination, Box position){
 		if (destination instanceof Wall) return false;
 		if (destination instanceof HumanBox) return false;
 		if (destination instanceof AlienBox) return false;
 		if (position.getCoordX()%2==0){//BASSA
-			//check the reachable boxes down or on the same level of actual position
-			if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0 || destination.getCoordY()-position.getCoordY() == -1)
-				if (destination.getCoordX()-position.getCoordX() > -3 && destination.getCoordX()-position.getCoordX() <3)
+			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0)
 					return true;
-			//check the upper reachable boxes
-			if (destination.getCoordY()-position.getCoordY() == 2)
-				if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 0 || destination.getCoordX()-position.getCoordX() == 1)
+			if (destination.getCoordX()-position.getCoordX() == 0)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
 					return true;
-			if (destination.getCoordY()-position.getCoordY() == -2)
-				if (destination.getCoordX()-position.getCoordX() == 0)
-					return true;
-			}
+		}
 		else{//ALTA
-			//check the reachable boxes down or on the same level of actual position
-			if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0 || destination.getCoordY()-position.getCoordY() == -1)
-				if (destination.getCoordX()-position.getCoordX() > -3 && destination.getCoordX()-position.getCoordX() <3)
+			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
+				if (destination.getCoordY()-position.getCoordY() == -1 || destination.getCoordY()-position.getCoordY() == 0)
 					return true;
-			//check the upper reachable boxes
-			if (destination.getCoordY()-position.getCoordY() == -2)
-				if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 0 || destination.getCoordX()-position.getCoordX() == 1)
-					return true;
-			if (destination.getCoordY()-position.getCoordY() == 2)
-				if (destination.getCoordX()-position.getCoordX() == 0)
+			if (destination.getCoordX()-position.getCoordX() == 0)
+				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
 					return true;
 		}
 		return false;
 	};
+			
 	
-	public abstract void movement(Box destination);
+	public boolean isValidDoubleMovement(Box destination, Box position){
+		
+		ArrayList<Box> aroundBoxes = game.getGalilei().givemeAroundBoxes(position);
+		ArrayList<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
+		for (Box box: oneStepBoxes){
+			aroundBoxes = game.getGalilei().givemeAroundBoxes(box);
+			ArrayList<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
+			if (twoStepBoxes.contains(destination))
+				return true;
+		}
+		return false;
+	};
+	
+	
+	//check a group of boxes and return only the reachable from actual position with a single step
+	public ArrayList<Box> checkBoxes (ArrayList<Box> boxesToCheck, Box position){
+		ArrayList<Box> validBoxes = new ArrayList<Box>();
+		for (Box box: boxesToCheck){
+			if (isValidSingleMovement(box, position))
+					validBoxes.add(box);
+			}
+		return validBoxes;
+	}
+		
 	
 	public void drawItemCard(){
 		Card itemcard = game.getItemdeck().drawCard();

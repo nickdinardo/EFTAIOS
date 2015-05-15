@@ -26,12 +26,13 @@ public class Main {
 		do{
 			int i = 0;
 			for (Player player: game.inGamePlayers){
+			
 				i++;
 				System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
 				System.out.println("Items: "+player.getPersonalDeck().toString());
 				Coordinates coordinates = game.view.askMovement(i);
 				Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
-				player.movement(destination);
+				player.movement(destination, player.getPosition());
 				
 				if (destination instanceof LifeboatBox)
 					escaped = true;
@@ -44,13 +45,7 @@ public class Main {
 	
 	
 	
-	public void drawSectorCard (Player player){
-		Card sectorcard = sectordeck.drawCard();
-		//esegui codice per silenzio o rumore, chiamando la view per rumore in ogni settore se necessario
-		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
-			player.drawItemCard();
-		}
-	}
+	
 	
 	public void InitializeGame(){
 		this.Galilei = new GalileiMap();
@@ -66,7 +61,13 @@ public class Main {
 		inGamePlayers.add(chubecca);
 	}
 	
-	
+	public void drawSectorCard (Player player){
+		Card sectorcard = sectordeck.drawCard();
+		//esegui codice per silenzio o rumore, chiamando la view per rumore in ogni settore se necessario
+		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
+			player.drawItemCard();
+		}
+	}
 	
 	//Getters of game decks
 	public SectorDeck getSectordeck() {
@@ -77,6 +78,9 @@ public class Main {
 	}
 	public LifeboatDeck getLifeboatdeck() {
 		return lifeboatdeck;
+	}
+	public GalileiMap getGalilei() {
+		return Galilei;
 	}
 
 }

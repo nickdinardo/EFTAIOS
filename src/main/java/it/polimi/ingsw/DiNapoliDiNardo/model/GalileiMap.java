@@ -1,4 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
+import java.util.ArrayList;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 
 public class GalileiMap {
@@ -15,6 +17,68 @@ public class GalileiMap {
 	public void setMap(Box[][] map) {
 		this.map = map;
 	}
+	
+	public ArrayList<Box> givemeAroundBoxes (Box center){
+		ArrayList<Box> aroundBoxes = new ArrayList<Box>();
+		//corners box, to be treated differently in order to avoid IndexOutofBorder
+		if (center.getCoordX()==1 && center.getCoordY()==1){
+			aroundBoxes.add(map[1][0]);
+			aroundBoxes.add(map[0][1]);
+			aroundBoxes.add(map[1][1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==1 && center.getCoordY()==14){
+			aroundBoxes.add(map[12][0]);
+			aroundBoxes.add(map[12][1]);
+			aroundBoxes.add(map[13][1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==23 && center.getCoordY()==1){
+			aroundBoxes.add(map[0][21]);
+			aroundBoxes.add(map[1][21]);
+			aroundBoxes.add(map[1][22]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==23 && center.getCoordY()==14){
+			aroundBoxes.add(map[12][21]);
+			aroundBoxes.add(map[13][21]);
+			aroundBoxes.add(map[12][22]);
+			return aroundBoxes;
+		}
+		//side boxes
+		if (center.getCoordX()==1){
+			for (int i=center.getCoordX(); i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordY()==14){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY(); j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordY()==1){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY(); j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+			
+		}
+		if (center.getCoordX()==23){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX(); i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;		
+		}
+		
+		for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+			for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+				aroundBoxes.add(map[j-1][i-1]);
+		return aroundBoxes;		
+		
+	}
+	
 	
 	public void buildmap(){
 		for (int i=0; i<14; i++){
@@ -49,8 +113,8 @@ public class GalileiMap {
 		map[13][1] = new DangerousBox(2,14);
 		
 		map[0][2] = new Box(3,1);
-		for (int i=1; i<13; i++){
-			map[i][2] = new DangerousBox(3,i);
+		for (int i=2; i<14; i++){
+			map[i-1][2] = new DangerousBox(3,i);
 		}
 		map[13][2] = new Box(3,14);
 		
