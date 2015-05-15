@@ -14,7 +14,7 @@ public class Main {
 		
 		marco.setPosition(Galilei.getMap()[1][0]);
 		
-		marco.singleMovement(Galilei.getMap()[0][0]);
+		marco.Movement(Galilei.getMap()[0][0]);
 		
 		System.out.println(marco.getPosition().getCoordX()+","+marco.getPosition().getCoordY());
 	}

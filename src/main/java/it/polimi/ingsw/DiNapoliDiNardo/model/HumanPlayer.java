@@ -1,12 +1,14 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import java.util.ArrayList;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 
 public class HumanPlayer extends Player {
 
 	protected ArrayList< ItemCard > personalDeck = new ArrayList< ItemCard >();
+	protected boolean adrenalized = false;
 	
 	public HumanPlayer(GalileiMap Galilei){
 		this.setPosition(Galilei.getMap()[7][11]);
@@ -26,10 +28,19 @@ public class HumanPlayer extends Player {
 	};
 	
 	
-	public void singleMovement (Box destination){
-		if(isValidSingleMovement(destination))
-			this.position=destination;
-		//else
+	public void Movement (Box destination){
+		if (adrenalized){
+			if(isValidDoubleMovement(destination))
+				this.position = destination;
+				this.adrenalized = false;
+			//else
+		}
+		else {
+			if(isValidSingleMovement(destination))
+				this.position=destination;
+			//else
+		}
+			
 	}
 	
 	
