@@ -1,9 +1,14 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
+import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 
 public class AlienBox extends Box {
-	public AlienBox(int x, int y) {
-		super(x,y);
+	public AlienBox(Coordinates coordinates) {
+		super(coordinates);
 		
+	}
+	
+	public AlienBox(int x, int y){
+		super(x,y);
 	}
 	
 }

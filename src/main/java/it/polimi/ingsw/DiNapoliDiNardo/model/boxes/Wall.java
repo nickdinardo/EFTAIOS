@@ -1,9 +1,15 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
+
 public class Wall extends Box {
-	public Wall(int x, int y) {
-		super(x,y);
+	public Wall(Coordinates coordinates) {
+		super(coordinates);
 		
+	}
+	
+	public Wall(int x, int y){
+		super(x, y);
 	}
 	
 }

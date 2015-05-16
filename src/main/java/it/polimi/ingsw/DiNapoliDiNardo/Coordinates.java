@@ -5,7 +5,24 @@ public class Coordinates {
 	int coordY;
 	
 	public Coordinates (int x, int y){
-		this.coordX=x;
-		this.coordY=y;
+		this.setCoordX(x);
+		this.setCoordY(y);
+	}
+	
+	public int getCoordX(){
+		return this.coordX;
+	}
+	
+	public int getCoordY(){
+		return this.coordY;
+	}
+	
+	public void setCoordX(int x){
+		this.coordX = x;
+	}
+	
+	public void setCoordY(int y){
+		this.coordY = y;
 	}
 }
+
