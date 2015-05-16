@@ -15,7 +15,6 @@ public class Box {
 	
 	public Box(Coordinates coordinates){
 		this.setCoord(coordinates);
-		
 	}
 	
 	public Box(int x, int y){

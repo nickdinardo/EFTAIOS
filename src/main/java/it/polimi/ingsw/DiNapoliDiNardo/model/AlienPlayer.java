@@ -26,7 +26,7 @@ public class AlienPlayer extends Player{
 				return true;
 		}
 		return false;
-	};
+	}
 	
 	//alien movement method
 	public void movement (Box destination, Box position){

@@ -4,6 +4,9 @@ public class Coordinates {
 	int coordX;
 	int coordY;
 	
+	public Coordinates (){
+	}
+	
 	public Coordinates (int x, int y){
 		this.setCoordX(x);
 		this.setCoordY(y);
