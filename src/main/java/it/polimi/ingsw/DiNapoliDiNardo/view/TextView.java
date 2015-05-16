@@ -1,7 +1,10 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
+
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -26,7 +29,22 @@ public class TextView extends View{
 		
 	}
 	
+	public boolean askItemUse(int i){
+		System.out.println("Player " + i + " do you want to use an Item Card?");
+		System.out.println("Y: yes    N: no");
+		char risp = in.next().charAt(0);
+		if (risp == 'Y' || risp == 'y')
+			return true;
+		else
+			return false;
+	}
 	
+	public Card whichItem(ArrayList<Card> deck){
+		System.out.println("Tell me the number of the Item you want to use");
+		int index = in.nextInt();
+		Card currentItem = deck.remove(index);
+		return currentItem;
+	}
 	
 	
 }

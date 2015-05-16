@@ -26,13 +26,23 @@ public class Main {
 		do{
 			int i = 0;
 			for (Player player: game.inGamePlayers){
-			
-				i++;
-				System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
-				System.out.println("Items: "+player.getPersonalDeck().toString());
-				Coordinates coordinates = game.view.askMovement(i);
-				Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
-				player.movement(destination, player.getPosition());
+				
+					i++;
+					System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
+					System.out.println("Items: "+player.getPersonalDeck().toString());
+					if(player.getPersonalDeck().size() > 0){
+						boolean itemUse = game.view.askItemUse(i);
+						if (itemUse && player instanceof HumanPlayer){
+							Card item = game.view.whichItem(player.getPersonalDeck());
+							if (item instanceof TeleportCard)
+								player.teleport();
+						}
+					}		
+						
+					
+					Coordinates coordinates = game.view.askMovement(i);
+					Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
+					player.movement(destination, player.getPosition());
 				
 				if (destination instanceof LifeboatBox)
 					escaped = true;

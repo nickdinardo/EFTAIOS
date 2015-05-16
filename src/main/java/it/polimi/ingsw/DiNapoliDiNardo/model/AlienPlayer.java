@@ -13,7 +13,7 @@ public class AlienPlayer extends Player{
 	
 	//constructor
 	public AlienPlayer(GalileiMap Galilei, Main game){
-		this.setPosition(Galilei.getMap()[5][11]);
+		this.setPosition(this.alienStartBox);
 		this.game = game;
 	}
 	
@@ -49,5 +49,11 @@ public class AlienPlayer extends Player{
 		}
 	}
 	
-	
+	public void teleport(){
+		if(super.teleportized){
+			this.setPosition(this.humanStartBox);
+			super.teleportized = false;
+			System.out.println("You're back in the starting position");
+		}
+	}
 }

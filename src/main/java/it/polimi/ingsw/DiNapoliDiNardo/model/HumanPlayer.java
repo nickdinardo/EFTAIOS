@@ -6,10 +6,12 @@ import it.polimi.ingsw.DiNapoliDiNardo.*;
 public class HumanPlayer extends Player {
 
 	protected boolean adrenalized = false;
+	//protected boolean teleportized = false;
+	protected boolean sedated = false;
 	
 	//constructor
 	public HumanPlayer(GalileiMap Galilei, Main game){
-		this.setPosition(Galilei.getMap()[7][11]);
+		this.setPosition(this.humanStartBox);
 		this.game = game;
 	}
 	
@@ -31,15 +33,23 @@ public class HumanPlayer extends Player {
 				System.out.println("Not a valid movement, you'll stand still");
 			}
 		}
-		if (this.position instanceof DangerousBox){
+		if (this.position instanceof DangerousBox && this.sedated == false){
 			game.drawSectorCard(this);
 		}
 			
 	}
 	
+	public void setTeleportized(boolean value){
+		super.teleportized = value;
+	}
+	
+	public void teleport(){
+		if(super.teleportized){
+			this.setPosition(this.humanStartBox);
+			super.teleportized = false;
+			System.out.println("You're back in the starting position");
+		}
+	}
 	
 	
-	//public boolean attack(){
-		
-	//}
 }
