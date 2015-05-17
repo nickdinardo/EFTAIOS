@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 	
 	//human movement method
 	public void movement (Box destination, Box position){
-		position.unsetPlayer(this);
+		this.position.unsetPlayer(this);
 		
 		if (adrenalized){
 			if(isValidDoubleMovement(destination, position)){
@@ -37,7 +37,7 @@ public class HumanPlayer extends Player {
 				System.out.println("Not a valid movement, you'll stand still");
 			}
 		}
-		position.setPlayer(this);
+		this.position.setPlayer(this);
 		if (this.position instanceof DangerousBox && this.sedated == false){
 			game.drawSectorCard(this);
 		}
@@ -46,9 +46,9 @@ public class HumanPlayer extends Player {
 	
 	
 	public void teleport(){
-		position.unsetPlayer(this);
+		this.position.unsetPlayer(this);
 		this.setPosition(game.getGalilei().getHumanStartBox());
-		position.setPlayer(this);
+		this.position.setPlayer(this);
 		System.out.println("You're back in the starting position");
 	}
 	

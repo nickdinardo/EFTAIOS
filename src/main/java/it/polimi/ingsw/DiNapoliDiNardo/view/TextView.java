@@ -42,7 +42,7 @@ public class TextView extends View{
 	
 	
 	public boolean askForAttack(){
-		System.out.println("Filthy alien do you want to attack this position?");
+		System.out.println("Filthy alien, do you want to attack this position?");
 		System.out.println("Y: yes    N: no");
 		char risp = in.next().charAt(0);
 		if (risp == 'Y' || risp == 'y')

@@ -46,7 +46,8 @@ public class Main {
 					Coordinates coordinates = game.view.askMovement(i);
 					Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
 					player.movement(destination, player.getPosition());
-				
+					
+					
 					if (destination instanceof LifeboatBox)
 						escaped = true;
 			}

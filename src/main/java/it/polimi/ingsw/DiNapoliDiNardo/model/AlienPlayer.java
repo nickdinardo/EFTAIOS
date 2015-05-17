@@ -31,7 +31,7 @@ public class AlienPlayer extends Player{
 	
 	//alien movement method
 	public void movement (Box destination, Box position){
-		position.unsetPlayer(this);
+		this.position.unsetPlayer(this);
 		if (humanfed){
 			if(isValidTripleMovement(destination, position))
 				this.position = destination;
@@ -41,12 +41,12 @@ public class AlienPlayer extends Player{
 		}
 		else {
 			if(isValidDoubleMovement(destination, position))
-				this.position=destination;
+				this.position = destination;
 			else{
 				System.out.println("Not a valid movement, you'll stand still");
 			}
 		}
-		position.setPlayer(this);
+		this.position.setPlayer(this);
 		if (this.position instanceof DangerousBox){
 			game.drawSectorCard(this);
 		}
