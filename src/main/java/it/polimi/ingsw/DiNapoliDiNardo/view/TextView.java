@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 
 import java.io.PrintWriter;
@@ -46,5 +47,12 @@ public class TextView extends View{
 		return currentItem;
 	}
 	
+	public void killPlayer(Player player){
+		System.out.println("Player " + player +  " you are died");
+	}
+	
+	public void attackNotSuccesful(){
+		System.out.println("Attack not been succesful!");
+	}
 	
 }

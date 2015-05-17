@@ -43,4 +43,12 @@ public class Box {
 	public boolean isEmpty(){
 		return playerHere.size() == 0;
 	}
+	
+	public ArrayList<Player> getPlayerHere(){
+		return playerHere;
+	}
+	
+	public void removePlayerHere(){
+		playerHere.clear();
+	}
 }

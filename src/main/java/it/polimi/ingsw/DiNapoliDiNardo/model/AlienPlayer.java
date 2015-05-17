@@ -56,4 +56,18 @@ public class AlienPlayer extends Player{
 			System.out.println("You're back in the starting position");
 		}
 	}
+	
+	public ArrayList<Player> attack(Box position){
+		ArrayList<Player> playerInBox = new ArrayList<Player>();
+		if(!position.isEmpty()){
+			playerInBox = position.getPlayerHere();
+			for(Player player : playerInBox ){
+				if(this != player)
+					player.kill();
+			}
+		}
+		playerInBox.remove(this);
+		return playerInBox;
+		
+	}
 }

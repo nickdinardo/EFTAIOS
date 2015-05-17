@@ -1,5 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.*;
 
@@ -8,6 +10,7 @@ public class HumanPlayer extends Player {
 	protected boolean adrenalized = false;
 	//protected boolean teleportized = false;
 	protected boolean sedated = false;
+	protected boolean canAttack = false;
 	
 	//constructor
 	public HumanPlayer(GalileiMap Galilei, Main game){
@@ -49,6 +52,20 @@ public class HumanPlayer extends Player {
 			super.teleportized = false;
 			System.out.println("You're back in the starting position");
 		}
+	}
+	
+	public ArrayList<Player> attack(Box position){
+		ArrayList<Player> playerInBox = new ArrayList<Player>();
+		if(!position.isEmpty()){
+			playerInBox = position.getPlayerHere();
+			for(Player player : playerInBox ){
+				if(this != player)
+					player.kill();
+			}
+		}
+		playerInBox.remove(this);
+		return playerInBox;
+		
 	}
 	
 	

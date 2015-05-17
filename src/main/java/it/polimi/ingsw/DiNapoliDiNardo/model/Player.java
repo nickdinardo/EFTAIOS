@@ -34,6 +34,7 @@ public abstract class Player {
 	
 	public abstract void movement(Box destination, Box position);
 	public abstract void teleport();
+	public abstract ArrayList<Player> attack(Box position);
 	
 	
 	public boolean isValidSingleMovement(Box destination, Box position){
@@ -95,6 +96,9 @@ public abstract class Player {
 		}	
 	}
 	
+	public void kill(){
+		this.isAlive = false;
+	}
 }
 		
 	

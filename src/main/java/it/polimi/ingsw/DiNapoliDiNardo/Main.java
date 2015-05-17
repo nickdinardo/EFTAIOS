@@ -30,22 +30,33 @@ public class Main {
 					i++;
 					System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
 					System.out.println("Items: "+player.getPersonalDeck().toString());
-					if(player.getPersonalDeck().size() > 0){
+					if(player instanceof HumanPlayer && player.getPersonalDeck().size() > 0){
 						boolean itemUse = game.view.askItemUse(i);
-						if (itemUse && player instanceof HumanPlayer){
+						if(itemUse){
 							Card item = game.view.whichItem(player.getPersonalDeck());
 							if (item instanceof TeleportCard)
 								player.teleport();
+							if (item instanceof AttackCard){
+								ArrayList<Player> killed = player.attack(player.getPosition());
+								if(killed.size() > 0){
+									game.inGamePlayers.removeAll(killed);
+									for(Player killedPlayer : killed){
+										game.view.killPlayer(killedPlayer);
+									}
+								} 
+								if(killed.size() == 0){
+									game.view.attackNotSuccesful();
+								}
+							}
 						}
-					}		
-						
-					
+					}
+			
 					Coordinates coordinates = game.view.askMovement(i);
 					Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
 					player.movement(destination, player.getPosition());
 				
-				if (destination instanceof LifeboatBox)
-					escaped = true;
+					if (destination instanceof LifeboatBox)
+						escaped = true;
 			}
 		}while (!escaped);
 		System.out.println("Lifeboat ship reached, congratulations! You won 3 cookies.");
