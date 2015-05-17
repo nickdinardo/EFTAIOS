@@ -40,6 +40,20 @@ public class TextView extends View{
 			return false;
 	}
 	
+	
+	public boolean askForAttack(){
+		System.out.println("Filthy alien do you want to attack this position?");
+		System.out.println("Y: yes    N: no");
+		char risp = in.next().charAt(0);
+		if (risp == 'Y' || risp == 'y')
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
+	
 	public Card whichItem(ArrayList<Card> deck){
 		System.out.println("Tell me the number of the Item you want to use");
 		int index = in.nextInt();
@@ -52,7 +66,7 @@ public class TextView extends View{
 	}
 	
 	public void attackNotSuccesful(){
-		System.out.println("Attack not been succesful!");
+		System.out.println("Attack has not been successful!");
 	}
 	
 }

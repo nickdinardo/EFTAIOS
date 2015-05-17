@@ -5,13 +5,10 @@ import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import java.util.ArrayList;
 
 public class Box {
-	//private int coordX;
-	//private int coordY;
 	
 	private Coordinates coord = new Coordinates(0, 0);
-	
-	
 	private ArrayList<Player> playerHere = new ArrayList<Player>();
+	
 	
 	public Box(Coordinates coordinates){
 		this.setCoord(coordinates);
@@ -40,6 +37,16 @@ public class Box {
 		
 	}
 	
+	public void unsetPlayer(Player p){
+		playerHere.remove(p);
+		
+	}
+	
+	public void clearPlayersHere(){
+		playerHere.clear();
+		
+	}
+	
 	public boolean isEmpty(){
 		return playerHere.size() == 0;
 	}
@@ -48,7 +55,5 @@ public class Box {
 		return playerHere;
 	}
 	
-	public void removePlayerHere(){
-		playerHere.clear();
-	}
+	
 }

@@ -5,11 +5,10 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 
 public class GalileiMap {
 	private Box[][] map;
+	private Box humanStartBox;
+	private Box alienStartBox;
 	
-	public GalileiMap() {
-		this.setMap(new Box[14][23]);
-	}
-
+		
 	public Box[][] getMap() {
 		return map;
 	}
@@ -17,6 +16,15 @@ public class GalileiMap {
 	public void setMap(Box[][] map) {
 		this.map = map;
 	}
+	
+	public Box getHumanStartBox() {
+		return humanStartBox;
+	}
+
+	public Box getAlienStartBox() {
+		return alienStartBox;
+	}
+	
 	
 	public ArrayList<Box> givemeAroundBoxes (Box center){
 		ArrayList<Box> aroundBoxes = new ArrayList<Box>();
@@ -80,7 +88,8 @@ public class GalileiMap {
 	}
 	
 	
-	public void buildmap(){
+	public GalileiMap(){
+		this.setMap(new Box[14][23]);
 		for (int i=0; i<14; i++){
 			for (int j=0; j<23; j++){
 				map[i][j] = new Wall(i+1,j+1);
@@ -225,7 +234,9 @@ public class GalileiMap {
 		map[3][11] = new Box(12,4);
 		map[4][11] = new DangerousBox(12,5);
 		map[5][11] = new AlienBox(12,6);
+		alienStartBox = map[5][11];
 		map[7][11] = new HumanBox(12,8);
+		humanStartBox = map[7][11];
 		map[8][11] = new Box(12,9);
 		map[9][11] = new DangerousBox(12,10);
 		map[10][11] = new Box(12,11);
@@ -376,20 +387,9 @@ public class GalileiMap {
 		map[11][22] = new Box(23, 12);
 		map[12][22] = new DangerousBox(23, 13);
 		map[13][22] = new DangerousBox(23, 14);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
+	
 	
 	
 	@Override

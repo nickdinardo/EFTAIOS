@@ -10,11 +10,11 @@ public abstract class Player {
 	
 	protected Main game;
 	protected Box position;
-	protected final Box humanStartBox = new Box(12, 8);
-	protected final Box alienStartBox = new Box(12, 6);
 	protected boolean isAlive=true;
 	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
-	protected boolean teleportized = false;
+		
+		
+	
 	
 	//getters and setters
 	public boolean isAlive() {
@@ -33,11 +33,25 @@ public abstract class Player {
 	
 	
 	public abstract void movement(Box destination, Box position);
-	public abstract void teleport();
-	public abstract ArrayList<Player> attack(Box position);
+	public void teleport(){};
+	public ArrayList<Player> attack(Box position){
+		ArrayList<Player> playerInBox = new ArrayList<Player>();
+		if(!position.isEmpty()){
+			playerInBox = position.getPlayerHere();
+			for(Player player : playerInBox ){
+				if(this != player){
+					player.kill();
+					}
+			}
+		}
+		playerInBox.remove(this);
+		return playerInBox;
+		
+	}
 	
 	
 	public boolean isValidSingleMovement(Box destination, Box position){
+		
 		if (destination instanceof Wall) return false;
 		if (destination instanceof HumanBox) return false;
 		if (destination instanceof AlienBox) return false;
@@ -91,8 +105,6 @@ public abstract class Player {
 		//codice che chiama la view per chiedere se si vuole tenere la carta pescata 
 		if (personalDeck.size()<3){
 			personalDeck.add(itemcard);
-			if (itemcard instanceof TeleportCard)
-				this.teleportized = true;
 		}	
 	}
 	

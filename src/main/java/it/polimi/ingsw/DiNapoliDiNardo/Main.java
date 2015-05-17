@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
@@ -22,35 +23,26 @@ public class Main {
 		game.InitializeGame();
 		System.out.println(game.Galilei.toString());
 		
+		//local game simulation
 		boolean escaped=false;
 		do{
 			int i = 0;
+			
+			//objects and movement phase
 			for (Player player: game.inGamePlayers){
 				
 					i++;
 					System.out.println("Actual position: "+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY());
 					System.out.println("Items: "+player.getPersonalDeck().toString());
+					
+					//objects usage
 					if(player instanceof HumanPlayer && player.getPersonalDeck().size() > 0){
-						boolean itemUse = game.view.askItemUse(i);
-						if(itemUse){
-							Card item = game.view.whichItem(player.getPersonalDeck());
-							if (item instanceof TeleportCard)
-								player.teleport();
-							if (item instanceof AttackCard){
-								ArrayList<Player> killed = player.attack(player.getPosition());
-								if(killed.size() > 0){
-									game.inGamePlayers.removeAll(killed);
-									for(Player killedPlayer : killed){
-										game.view.killPlayer(killedPlayer);
-									}
-								} 
-								if(killed.size() == 0){
-									game.view.attackNotSuccesful();
-								}
-							}
+						if(game.view.askItemUse(i)){
+							game.itemUsageManagement(player);
 						}
 					}
-			
+					
+					//movement
 					Coordinates coordinates = game.view.askMovement(i);
 					Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
 					player.movement(destination, player.getPosition());
@@ -58,6 +50,26 @@ public class Main {
 					if (destination instanceof LifeboatBox)
 						escaped = true;
 			}
+			
+			//alien attacks phase
+			for (Player alienplayer: game.inGamePlayers){
+				if(alienplayer instanceof AlienPlayer){
+					if(game.view.askForAttack()){
+						game.attackManagement(alienplayer);
+					}
+				}
+			}
+			
+			//removing players from the game who has been killed
+			for (Iterator<Player> it = game.inGamePlayers.iterator(); it.hasNext(); ) {
+			    Player player = it.next();
+			    if (!player.isAlive()) {
+			        it.remove();
+			    }
+			}
+			
+			
+			
 		}while (!escaped);
 		System.out.println("Lifeboat ship reached, congratulations! You won 3 cookies.");
 		
@@ -70,7 +82,6 @@ public class Main {
 	
 	public void InitializeGame(){
 		this.Galilei = new GalileiMap();
-		Galilei.buildmap();
 		this.sectordeck = new SectorDeck();
 		this.itemdeck = new ItemDeck();
 		this.lifeboatdeck = new LifeboatDeck();
@@ -89,6 +100,34 @@ public class Main {
 			player.drawItemCard();
 		}
 	}
+	
+	public void itemUsageManagement(Player player){
+		Card item = this.view.whichItem(player.getPersonalDeck());
+		
+		if (item instanceof TeleportCard)
+			player.teleport();
+		
+		if (item instanceof AttackCard){
+			this.attackManagement(player);
+		}
+	}
+	
+	public void attackManagement(Player player){
+		ArrayList<Player> killed = player.attack(player.getPosition());
+		if(killed.size() > 0){
+			for(Player killedPlayer : killed){
+				this.view.killPlayer(killedPlayer);
+			}
+			//remove all the players from box and then replace the attacker there
+			player.getPosition().clearPlayersHere();
+			player.getPosition().setPlayer(player);
+		} 
+		if(killed.size() == 0){
+			this.view.attackNotSuccesful();
+		}
+	}
+	
+	
 	
 	//Getters of game decks
 	public SectorDeck getSectordeck() {

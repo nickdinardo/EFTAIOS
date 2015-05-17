@@ -18,5 +18,7 @@ public abstract class View {
 	public abstract void killPlayer(Player player);
 	
 	public abstract void attackNotSuccesful();
+	
+	public abstract boolean askForAttack();
 
 	}
