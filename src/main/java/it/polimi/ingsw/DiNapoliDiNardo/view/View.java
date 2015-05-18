@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 
 public abstract class View {
@@ -20,5 +21,9 @@ public abstract class View {
 	public abstract void attackNotSuccesful();
 	
 	public abstract boolean askForAttack();
+	
+	public abstract Coordinates askForLights();
+	
+	public abstract void revealingLights(Box box);
 
 	}

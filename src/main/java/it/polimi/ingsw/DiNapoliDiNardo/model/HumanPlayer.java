@@ -7,7 +7,7 @@ public class HumanPlayer extends Player {
 
 	protected boolean adrenalized = false;
 	protected boolean sedated = false;
-	protected boolean canAttack = false;
+	
 	
 	//constructor
 	public HumanPlayer(GalileiMap Galilei, Main game){
@@ -24,7 +24,6 @@ public class HumanPlayer extends Player {
 		if (adrenalized){
 			if(isValidDoubleMovement(destination, position)){
 				this.position = destination;
-				this.adrenalized = false;
 			}
 			else{
 				System.out.println("Not a valid movement, you'll stand still");
@@ -38,12 +37,14 @@ public class HumanPlayer extends Player {
 			}
 		}
 		this.position.setPlayer(this);
-		if (this.position instanceof DangerousBox && this.sedated == false){
+		
+		//sector card drawing
+		if (this.position instanceof DangerousBox && !this.isSedated()){
 			game.drawSectorCard(this);
 		}
 			
 	}
-	
+		
 	
 	public void teleport(){
 		this.position.unsetPlayer(this);
@@ -53,6 +54,22 @@ public class HumanPlayer extends Player {
 	}
 	
 	
+	//getters and setters
+	public boolean isAdrenalized() {
+		return adrenalized;
+	}
+
+	public void setAdrenalized(boolean adrenalized) {
+		this.adrenalized = adrenalized;
+	}
+
+	public boolean isSedated() {
+		return sedated;
+	}
+
+	public void setSedated(boolean sedated) {
+		this.sedated = sedated;
+	}
 	
 	
 	

@@ -38,7 +38,7 @@ public class Main {
 					//objects usage
 					if(player instanceof HumanPlayer && player.getPersonalDeck().size() > 0){
 						if(game.view.askItemUse(i)){
-							game.itemUsageManagement(player);
+							game.itemUsageManagement((HumanPlayer)player);
 						}
 					}
 					
@@ -69,7 +69,13 @@ public class Main {
 			    }
 			}
 			
-			
+			//removing in-turn advantages
+			for (Player humanplayer: game.inGamePlayers){
+				if(humanplayer instanceof HumanPlayer){
+					((HumanPlayer) humanplayer).setAdrenalized(false);
+					((HumanPlayer) humanplayer).setSedated(false);
+				}
+			}
 			
 		}while (!escaped);
 		System.out.println("Lifeboat ship reached, congratulations! You won 3 cookies.");
@@ -102,7 +108,7 @@ public class Main {
 		}
 	}
 	
-	public void itemUsageManagement(Player player){
+	public void itemUsageManagement(HumanPlayer player){
 		Card item = this.view.whichItem(player.getPersonalDeck());
 		
 		if (item instanceof TeleportCard)
@@ -111,6 +117,28 @@ public class Main {
 		if (item instanceof AttackCard){
 			this.attackManagement(player);
 		}
+		
+		if (item instanceof AdrenalineCard){
+			player.setAdrenalized(true);
+		}
+
+		if (item instanceof SedativesCard){
+			player.setSedated(true);
+		}
+		
+		if (item instanceof LightsCard){
+			Coordinates coordinates = this.view.askForLights();
+			Box lightfocus = this.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];			
+			//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
+			ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+			ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+			enlighted.add(lightfocus);
+			for (Box box : enlighted){
+				this.view.revealingLights(box);
+			}
+		}
+		
+		
 	}
 	
 	public void attackManagement(Player player){

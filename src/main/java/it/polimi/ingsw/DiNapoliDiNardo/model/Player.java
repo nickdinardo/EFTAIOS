@@ -8,6 +8,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 public abstract class Player {
 	
+	protected String name;
 	protected Main game;
 	protected Box position;
 	protected boolean isAlive=true;

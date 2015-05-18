@@ -9,8 +9,13 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.DangerousBox;
 
 public class AlienPlayer extends Player{
 	
-	protected boolean humanfed = true;
+	protected boolean humanfed = false;
 	
+	//humanfed setter
+	public void setHumanfed(boolean humanfed) {
+		this.humanfed = humanfed;
+	}
+
 	//constructor
 	public AlienPlayer(GalileiMap Galilei, Main game){
 		this.game = game;
@@ -52,5 +57,21 @@ public class AlienPlayer extends Player{
 		}
 	}
 	
-	
+	//alien attack method, with setHumanfed
+	public ArrayList<Player> attack(Box position){
+		ArrayList<Player> playerInBox = new ArrayList<Player>();
+		if(!position.isEmpty()){
+			playerInBox = position.getPlayerHere();
+			for(Player player : playerInBox ){
+				if(this != player){
+					player.kill();
+					if (this.humanfed == false && player instanceof HumanPlayer)
+						this.setHumanfed(true);
+					}
+			}
+		}
+		playerInBox.remove(this);
+		return playerInBox;
+		
+	}
 }
