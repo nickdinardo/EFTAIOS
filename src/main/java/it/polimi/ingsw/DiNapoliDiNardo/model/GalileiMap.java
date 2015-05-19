@@ -393,7 +393,7 @@ public class GalileiMap {
 	
 	
 	
-	public String toString(){
+	/*public String toString(){
 		String ret="";
 		ret+="-----------------------------------------------------------------------\n";
 		for	(int i=0;i<14;i++){
@@ -418,9 +418,9 @@ public class GalileiMap {
 		}
 	ret+="\n";
 	return ret;
-	}
+	}*/
 	
-	/*@Override
+	@Override
 	public String toString(){
 		String ret ="   ___       ___       ___       ___       ___       ___       ___       ___       ___       ___       ___       ___    \n";
 				ret += "  /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\ \n";
@@ -482,8 +482,8 @@ public class GalileiMap {
 				ret += "     \\  D  /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\  D  /  \\     /  \\     /  \\  D  /     \n";
 				ret += "      \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/      \n";
 		
-		return ret;
-		
-	}*/
+	return ret;
+
+	}
 	
 }
