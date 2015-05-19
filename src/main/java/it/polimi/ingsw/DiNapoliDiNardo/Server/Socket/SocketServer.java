@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 
 
-public class SocketServer implements Runnable {
+public class SocketServer {
 
 	private int port;
 	private String address;
@@ -21,6 +21,7 @@ public class SocketServer implements Runnable {
 	private List<SocketHandler> handlers;
 	
 	private PrintStream out=System.out;
+	
 	
 	public void startListening() throws IOException {
 		if(!listening){
@@ -46,10 +47,11 @@ public class SocketServer implements Runnable {
 					ex.printStackTrace();
 				}
 			}
+			
 		}
 	}
 	
-	//Initialize model();
+	
 	public void askForMovement() throws IOException{
 		for (SocketHandler sh : handlers){
 			sh.askForMovement();
@@ -69,16 +71,6 @@ public class SocketServer implements Runnable {
 		}
 	}
 
-	public void run() {
-		try{
-			startListening();
-			askForMovement();
-		} catch (IOException ex){
-			status = "Error: "+ex.getMessage();
-		}
-	}
-	
-	
 	
 	
 	//Getters and Setters

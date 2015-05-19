@@ -4,9 +4,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RmiHandlerObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -36,30 +34,29 @@ public class Server {
         }
 		
 		//Starting socket server
-		SocketServer server = new SocketServer();
+		
+        SocketServer server = new SocketServer();
 		System.out.println("Starting the server...");
-		Thread t = new Thread(server);
-		t.start();
+		server.startListening();
+		server.askForMovement();
+		
 		System.out.println("Server started. Status: "+server.getStatus()+". Port: "+server.getPort());
 		boolean finish = false;
 		
 		while(!finish){
-			String read = readLine("Press S to get the server status;\nPress Q to exit\n");
-			if(read.equals("Q")){
-				finish = true;
+			
+				//corpo partita
 			}
-			if(read.equals("S")){
-				System.out.println("Server status: "+server.getStatus());
-			}
-		}
 		
-		t.interrupt();
+		
+		
 		server.endListening();
 		if(registry != null)
 			registry.unbind(name);
 	}
 	
-	private static String readLine(String format, Object... args) throws IOException {
+	
+	/*private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {
 	        return System.console().readLine(format, args);
 	    }
@@ -74,5 +71,5 @@ public class Server {
 	    read = br.readLine();
 	    
 	    return read;
-	}
+	}*/
 }
