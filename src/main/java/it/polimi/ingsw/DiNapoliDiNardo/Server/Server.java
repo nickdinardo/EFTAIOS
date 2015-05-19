@@ -13,14 +13,25 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 public class Server {
-	public static void main(String[] args) throws IOException, NotBoundException{
+	int playersnum = 0;
+	RemoteHandler handler= new RmiHandlerObject(this);; 
+	
+	
+	public static void main(String[] args) throws IOException, NotBoundException {
+		Server headserver = new Server();
+		headserver.openconnections();
+		
+	};
+	
+	
+	public void openconnections() throws IOException, NotBoundException{
 		Registry registry = null;
 		String name = "Handler";
+		
 		//Starting RMI server
-		       
-        try {
+		try {
             
-            RemoteHandler handler = new RmiHandlerObject();
+            //RemoteHandler handler = new RmiHandlerObject(this);
             RemoteHandler stub =
                 (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0);            
             registry = LocateRegistry.createRegistry(2020);            
@@ -34,16 +45,16 @@ public class Server {
         }
 		
 		//Starting socket server
-		
-        SocketServer server = new SocketServer();
+		SocketServer server = new SocketServer(this);
 		System.out.println("Starting the server...");
 		server.startListening();
-		server.askForMovement();
-		
+		System.out.println("players connected: there are "+playersnum+" players now");
 		System.out.println("Server started. Status: "+server.getStatus()+". Port: "+server.getPort());
 		boolean finish = false;
 		
 		while(!finish){
+			server.askForMovement();
+			
 			
 				//corpo partita
 			}
@@ -56,6 +67,15 @@ public class Server {
 	}
 	
 	
+	//getters and setters
+	public int getPlayersnum() {
+		return playersnum;
+	}
+	public void IncreasePlayersnum() {
+		this.playersnum += 1;
+	}
+
+
 	/*private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {
 	        return System.console().readLine(format, args);

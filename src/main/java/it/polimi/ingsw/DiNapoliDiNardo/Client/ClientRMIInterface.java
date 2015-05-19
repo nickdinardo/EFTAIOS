@@ -38,8 +38,17 @@ public class ClientRMIInterface implements NetworkInterface {
 
 	
 	//interaction method
-		public void startInterface() {
+		public void startInterface() throws RemoteException {
 			
+			handler.IncreaseNumPlayers();
+			
+			while(!handler.isFinish()){
+				//corpo del turno
+				
+				
+				
+					
+			}
 		}
 	
 		

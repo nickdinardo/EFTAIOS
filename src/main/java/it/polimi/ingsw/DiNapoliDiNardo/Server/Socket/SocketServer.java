@@ -1,5 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -19,7 +21,7 @@ public class SocketServer {
 	private boolean listening;
 	private String status; 
 	private List<SocketHandler> handlers;
-	
+	private Server headserver;
 	private PrintStream out=System.out;
 	
 	
@@ -33,13 +35,14 @@ public class SocketServer {
 			listening = true;
 			while(listening){
 				try{
-					while(handlers.size()<2){
+					while(headserver.getPlayersnum()<3){
 						
 						Socket s = serversocket.accept();
 						SocketHandler sockethandler = new SocketHandler(s);
 						handlers.add(sockethandler);
 						executor.submit(sockethandler);
-						out.println("player connected: there are "+(handlers.size())+" players now");
+						headserver.IncreasePlayersnum();
+						
 					}
 					
 					listening=false;
@@ -74,21 +77,23 @@ public class SocketServer {
 	
 	
 	//Getters and Setters
-	public SocketServer() {
+	public SocketServer(Server head) {
 		port = 8888;
 		address = "127.0.0.1";
 		listening = false;
 		status = "Created";
 		handlers = new LinkedList<SocketHandler>();
+		headserver = head;
 	}
 	
-	public SocketServer(int port, String address) {
+	public SocketServer(int port, String address, Server head) {
 		super();
 		this.port = port;
 		this.address = address;
 		listening = false;
 		status = "Created";
 		handlers = new LinkedList<SocketHandler>();
+		headserver = head;
 	}
 	
 	public String getStatus() {

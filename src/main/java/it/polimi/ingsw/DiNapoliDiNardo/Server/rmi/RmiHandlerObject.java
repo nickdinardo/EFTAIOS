@@ -1,20 +1,41 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
+import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
+
 import java.rmi.RemoteException;
 
 public class RmiHandlerObject implements RemoteHandler {
+	Server headserver;
+	private TextView view = new TextView();
+	boolean finish = false;
+	
+	
+	
+	public TextView getView() {
+		return view;
+	}
+	
+	
+	public boolean isFinish() {
+		return finish;
+	}
+	public void setFinish(boolean finish) {
+		this.finish = finish;
+	}
 
-	private boolean on;
-	
-	
-	public boolean isOn() throws RemoteException{
-		return on;
+
+	//constructor
+	public RmiHandlerObject(Server server){
+		this.headserver = server;
 	}
 	
 	
-	public boolean turn(boolean value) throws RemoteException {
-		this.on = value;
-		return this.on;
+	public void IncreaseNumPlayers() throws RemoteException{
+		headserver.IncreasePlayersnum();
 	}
+	
+	
+	
 
 }
