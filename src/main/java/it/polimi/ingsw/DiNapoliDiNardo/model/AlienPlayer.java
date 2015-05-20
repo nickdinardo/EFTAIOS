@@ -17,8 +17,9 @@ public class AlienPlayer extends Player{
 	}
 
 	//constructor
-	public AlienPlayer(GalileiMap Galilei, Main game){
+	public AlienPlayer(GalileiMap Galilei, Main game, String name){
 		this.game = game;
+		this.name = name;
 		this.setPosition(Galilei.getAlienStartBox());
 		position.setPlayer(this);
 	}

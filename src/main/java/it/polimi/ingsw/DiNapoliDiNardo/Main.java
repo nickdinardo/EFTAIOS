@@ -94,8 +94,8 @@ public class Main {
 		this.lifeboatdeck = new LifeboatDeck();
 		
 		//sistemare per consentire differente numero di giocatori poi
-		HumanPlayer hansolo= new HumanPlayer(this.Galilei, this);
-		AlienPlayer chubecca= new AlienPlayer(this.Galilei, this);
+		HumanPlayer hansolo= new HumanPlayer(this.Galilei, this, "hansolo");
+		AlienPlayer chubecca= new AlienPlayer(this.Galilei, this, "chubecca");
 		inGamePlayers.add(hansolo);
 		inGamePlayers.add(chubecca);
 	}

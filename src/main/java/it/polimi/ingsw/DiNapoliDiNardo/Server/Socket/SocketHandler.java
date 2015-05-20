@@ -10,6 +10,7 @@ public class SocketHandler extends Thread{
 	private Socket socket;
 	private PrintWriter out;
 	private BufferedReader in;
+	private String name = "";
 
 
 	public SocketHandler(Socket socket) {
@@ -31,6 +32,14 @@ public class SocketHandler extends Thread{
 		}
 	}
 
+	public String askName() throws IOException{
+		out.println("object=player&action=askname");
+		this.name = in.readLine();
+		return(name);
+	}
+	
+	
+	
 	
 	public void askForMovement() throws IOException{
 		out.println("object=player&action=askmovement");

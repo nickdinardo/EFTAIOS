@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class Client {
 
 	public static void main(String[] args) throws IOException {
+			
 		String read = "";
 		while(!read.equals("1")  && !read.equals("2")){
 			System.out.println("Scegli che interfaccia di rete usare:");

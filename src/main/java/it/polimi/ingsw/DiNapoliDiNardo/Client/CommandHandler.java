@@ -19,13 +19,21 @@ public class CommandHandler {
 		String action = param.get("action");
 		String toRet = "Command unknown";
 		if(object.equals("player")){
+			if(action.equals("askname")){
+			
+			return view.askName();
+			
+			
+			}
+		}
+		if(object.equals("player")){
 			if(action.equals("askmovement")){
 			
 			return view.askMovement(1).toString();
 			
 			
 			}
-		}	
+		}
 		return toRet;
 	}
 }

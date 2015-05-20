@@ -10,6 +10,8 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 public abstract class View {
 
 	
+	public abstract String askName();
+	
 	public abstract Coordinates askMovement(int i);
 	
 	public abstract boolean askItemUse(int i);

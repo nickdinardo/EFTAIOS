@@ -35,34 +35,37 @@ public class SocketServer {
 			listening = true;
 			while(listening){
 				try{
-					while(headserver.getPlayersnum()<3){
+					while(headserver.getTotalPlayers()<3){
 						
 						Socket s = serversocket.accept();
 						SocketHandler sockethandler = new SocketHandler(s);
 						handlers.add(sockethandler);
 						executor.submit(sockethandler);
-						headserver.IncreasePlayersnum();
-						
+						headserver.IncreaseTotalPlayers();
+						System.out.println("Now "+headserver.getTotalPlayers()+ "players");
 					}
-					
 					listening=false;
+					
 				} catch (IOException ex){ 
 					ex.printStackTrace();
 				}
 			}
-			
 		}
 	}
 	
 	
-	public void askForMovement() throws IOException{
+	public void askForNames() throws IOException{
 		for (SocketHandler sh : handlers){
-			sh.askForMovement();
-			
-		}
+			headserver.putPlayerconnected(sh.askName(),"Socket");
+			}
 	}
 		
 
+	
+	
+	
+	
+	//close connections
 	public void endListening() throws IOException{
 		if(listening){
 			listening = false;
@@ -74,8 +77,7 @@ public class SocketServer {
 		}
 	}
 
-	
-	
+		
 	//Getters and Setters
 	public SocketServer(Server head) {
 		port = 8888;

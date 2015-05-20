@@ -10,8 +10,9 @@ public class HumanPlayer extends Player {
 	
 	
 	//constructor
-	public HumanPlayer(GalileiMap Galilei, Main game){
+	public HumanPlayer(GalileiMap Galilei, Main game, String name){
 		this.game = game;
+		this.name = name;
 		this.setPosition(Galilei.getHumanStartBox());
 		position.setPlayer(this);
 		

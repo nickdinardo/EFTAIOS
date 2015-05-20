@@ -15,6 +15,12 @@ public class TextView extends View{
 	PrintWriter out = new PrintWriter(System.out);
 	
 	
+	public String askName (){
+		System.out.println("Connected to the server game. Which is your name?");
+		return in.nextLine();
+	}
+	
+	
 	public Coordinates askMovement(int i){
 		System.out.println("Player "+i+" where do you want to move? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
 		
