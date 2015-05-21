@@ -31,8 +31,10 @@ public class Server {
 	CallableClient client = new RemoteCallableClient(this);
 	SocketServer socketserver = new SocketServer(this);
 	boolean finish = false;
+	boolean isStarted = false;
 	private static final int MINPLAYERS = 2;
 	private static final int MAXPLAYERS = 8;
+	
 	
 	public static void main(String[] args) throws IOException, NotBoundException {
 		Server headserver = new Server();
@@ -101,11 +103,8 @@ public class Server {
 			}
 		}
 		this.stopAcceptingOthersPlayers();
-		if(registry != null){
-			registry.unbind(name);
-			registry.unbind(clientName);
-		}
-		toAvoidChurning = "Starting game...";
+		isStarted = true;
+		toAvoidChurning = "Starting game, waiting for all the players to input their names...";
 		System.out.println(toAvoidChurning);
 		
 	}
@@ -113,8 +112,24 @@ public class Server {
 	
 	
 	
-	public void startgame() throws IOException{
+	public void startgame() throws IOException, NotBoundException{
+			//asking names and waiting them from socket players
 			socketserver.askForNames();
+			
+			//waiting for RMI players who connected but still haven't register their names
+			String toAvoidChurning ="";
+			while(playersconnected.size()<totalplayers){
+				toAvoidChurning += "avoided";
+				if (toAvoidChurning.length()>10000)
+					toAvoidChurning = "";
+			}
+			//when all players have registered their name we can unbind the remote objects 
+			//to avoid further rmi connections to this game
+			if(registry != null){
+				registry.unbind(name);
+				registry.unbind(clientName);
+			}
+			//then start the game
 			GameServer gameserver = new GameServer(totalplayers, playersconnected, notifiers, sockethandlers);
 			gameserver.rungame();
 	}		
@@ -126,6 +141,9 @@ public class Server {
 	
 	
 	//getters and setters
+	public boolean isStarted() {
+		return isStarted;
+	}
 	public int getRMIPlayers() {
 		return RMIplayers;
 	}

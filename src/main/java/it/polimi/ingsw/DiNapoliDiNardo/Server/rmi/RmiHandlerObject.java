@@ -30,7 +30,9 @@ public class RmiHandlerObject implements RemoteHandler {
 		
 	}
 	
-	
+	public boolean isStarted(){
+		return headserver.isStarted();
+	}
 	
 	//constructor
 	public RmiHandlerObject(Server server){
