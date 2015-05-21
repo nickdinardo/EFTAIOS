@@ -16,9 +16,9 @@ public class Notifier implements RemoteNotifier {
 	}
 	
 
-	public void notifyMessage(String message, String source)
+	public void notifyMessage(String message)
 			throws RemoteException {
-		System.out.println(source.toUpperCase()+") "+message);
+		System.out.println(message);
 
 	}
 

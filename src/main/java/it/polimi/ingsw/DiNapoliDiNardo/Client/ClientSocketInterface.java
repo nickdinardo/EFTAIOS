@@ -28,7 +28,7 @@ public class ClientSocketInterface implements NetworkInterface {
 			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
 			return false;
 		}
 		

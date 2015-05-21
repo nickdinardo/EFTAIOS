@@ -30,10 +30,12 @@ public class CommandHandler {
 			if(action.equals("askmovement")){
 			
 			return view.askMovement(1).toString();
-			
-			
 			}
 		}
+		if(object.equals("print")){
+			System.out.println(action);
+		}
+		
 		return toRet;
 	}
 }

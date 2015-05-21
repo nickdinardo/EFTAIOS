@@ -3,7 +3,6 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
@@ -13,41 +12,50 @@ import java.util.concurrent.Executors;
 
 
 
-public class SocketServer {
+public class SocketServer extends Thread{
 
 	private int port;
 	private String address;
 	private ServerSocket serversocket;
 	private boolean listening;
 	private String status; 
-	private List<SocketHandler> handlers;
+	private List<SocketHandler> sockethandlers;
 	private Server headserver;
-	private PrintStream out=System.out;
+	private static final int MAXPLAYERS = 8;
 	
 	
-	public void startListening() throws IOException {
+	public void run() {
+		try {
+			this.startListening();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void startListening()  throws IOException {
 		if(!listening){
 			
 			ExecutorService executor=Executors.newCachedThreadPool();
-			
 			serversocket = new ServerSocket(port);
 			status = "Listening...";
 			listening = true;
+			
 			while(listening){
 				try{
-					while(headserver.getTotalPlayers()<3){
+					while(headserver.getTotalPlayers()<MAXPLAYERS){
 						
 						Socket s = serversocket.accept();
 						SocketHandler sockethandler = new SocketHandler(s);
-						handlers.add(sockethandler);
+						sockethandlers.add(sockethandler);
 						executor.submit(sockethandler);
 						headserver.IncreaseTotalPlayers();
-						System.out.println("Now "+headserver.getTotalPlayers()+ "players");
+						
 					}
 					listening=false;
 					
 				} catch (IOException ex){ 
-					ex.printStackTrace();
+				//ex.printStackTrace();
 				}
 			}
 		}
@@ -55,8 +63,10 @@ public class SocketServer {
 	
 	
 	public void askForNames() throws IOException{
-		for (SocketHandler sh : handlers){
-			headserver.putPlayerconnected(sh.askName(),"Socket");
+		for (SocketHandler sh : sockethandlers){
+			String name = sh.askName();
+			headserver.putPlayerconnected(name,"Socket");
+			headserver.putSockethandlers(name, sh);
 			}
 	}
 		
@@ -69,22 +79,29 @@ public class SocketServer {
 	public void endListening() throws IOException{
 		if(listening){
 			listening = false;
-			for(SocketHandler sh : handlers)
+			for(SocketHandler sh : sockethandlers)
 				sh.Close();			
 			
 			serversocket.close();
 			status = "Closed.";
 		}
 	}
-
-		
-	//Getters and Setters
+	
+	//stop accepting connections but keeps alive current handlers
+	public void stopAcceptingOthersPlayers() throws IOException{
+		if(listening){
+			listening = false;
+			serversocket.close();
+			}
+	}	
+	
+	//Constructors, Getters and Setters
 	public SocketServer(Server head) {
 		port = 8888;
 		address = "127.0.0.1";
 		listening = false;
 		status = "Created";
-		handlers = new LinkedList<SocketHandler>();
+		sockethandlers = new LinkedList<SocketHandler>();
 		headserver = head;
 	}
 	
@@ -94,7 +111,7 @@ public class SocketServer {
 		this.address = address;
 		listening = false;
 		status = "Created";
-		handlers = new LinkedList<SocketHandler>();
+		sockethandlers = new LinkedList<SocketHandler>();
 		headserver = head;
 	}
 	

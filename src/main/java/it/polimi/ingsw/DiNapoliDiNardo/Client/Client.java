@@ -20,8 +20,10 @@ public class Client {
 		}
 		
 		NetworkInterface ni = NetworkInterfaceFactory.getInterface(read);
-		ni.connect();
-		ni.startInterface();
+		boolean connection = ni.connect();
+		if(connection){
+			ni.startInterface();
+		}
 		
 		
 		

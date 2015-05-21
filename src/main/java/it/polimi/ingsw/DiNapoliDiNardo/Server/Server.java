@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
@@ -20,11 +21,18 @@ import java.util.HashMap;
 public class Server {
 	int RMIplayers = 0;
 	int totalplayers = 0;
+	Registry registry = null;
+	String name = "Handler";
+	String clientName = "Client";  
 	HashMap<String, String> playersconnected = new HashMap<String, String>();
 	HashMap<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
+	HashMap<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
 	RemoteHandler handler = new RmiHandlerObject(this);
 	CallableClient client = new RemoteCallableClient(this);
-	
+	SocketServer socketserver = new SocketServer(this);
+	boolean finish = false;
+	private static final int MINPLAYERS = 2;
+	private static final int MAXPLAYERS = 8;
 	
 	public static void main(String[] args) throws IOException, NotBoundException {
 		Server headserver = new Server();
@@ -34,68 +42,87 @@ public class Server {
 	
 	
 	public void openconnections() throws IOException, NotBoundException{
-		Registry registry = null;
-		String name = "Handler";
-		String clientName = "Client";  
 		
-		//Starting RMI server
-		try {
-            
-            //RemoteHandler handler = new RmiHandlerObject(this);
-            RemoteHandler stub =
-                (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0); 
+		
+		
+		//Starting RMI server and binding handler and remotecallableclient
+		try {           
+            RemoteHandler stub = (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0); 
             CallableClient clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040);
             registry = LocateRegistry.createRegistry(2020);            
             registry.bind(name, stub);
             registry.bind(clientName, clientStub);
+            System.out.println("Remote Objects bound");
             
-            System.out.println("ComputeEngine bound");
         } catch (Exception e) {
             System.err.println("ComputeEngine exception:");
             e.printStackTrace();
             registry = null;
         }
 		
+		
 		//Starting socket server
-		SocketServer socketserver = new SocketServer(this);
-		System.out.println("Starting the server...");
-		socketserver.startListening();
-		boolean finish = false;
-		
-		//After collecting an appropriate amount of players the game starts. 
-		while(!finish){
-			
-			socketserver.askForNames();
-			System.out.println(playersconnected.toString());
-			System.out.println(notifiers.toString());
-			for (RemoteNotifier rn: notifiers.values()){
-				rn.notifyMessage("ciaone", rn.getName());
-				
-			}
-			
-			
-				//corpo partita
-			}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("Starting the SocketServer...");
+		Thread t = socketserver;
+		t.start();
+		this.collectplayers();
+		this.startgame();
 		
 		
 		socketserver.endListening();
-		if(registry != null)
-			registry.unbind(name);
+		
 	}
+	
+	
+	public void collectplayers() throws IOException, NotBoundException{		
+		//Waiting here at least 2 players
+		String toAvoidChurning ="";
+		while (totalplayers<MINPLAYERS){
+			toAvoidChurning += "avoided";
+			if (toAvoidChurning.length()>10000)
+				toAvoidChurning = "";
+		}
+		System.out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
+		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 
+		while (totalplayers<MAXPLAYERS){
+			long time= System.currentTimeMillis();
+			long end = time+20000;
+			int connectedplayers = totalplayers;
+			while (time<end){
+				time = System.currentTimeMillis();
+				toAvoidChurning += "avoided";
+				if (connectedplayers < totalplayers){
+					System.out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
+					break;
+					}
+				}
+			if (connectedplayers == totalplayers){
+				break;
+			}
+		}
+		this.stopAcceptingOthersPlayers();
+		if(registry != null){
+			registry.unbind(name);
+			registry.unbind(clientName);
+		}
+		toAvoidChurning = "Starting game...";
+		System.out.println(toAvoidChurning);
+		
+	}
+			
+	
+	
+	
+	public void startgame() throws IOException{
+			socketserver.askForNames();
+			GameServer gameserver = new GameServer(totalplayers, playersconnected, notifiers, sockethandlers);
+			gameserver.rungame();
+	}		
+		
+			
+		
+	
+	
 	
 	
 	//getters and setters
@@ -126,21 +153,12 @@ public class Server {
 		notifiers.put(name, rn);
 	}
 	
+	public void putSockethandlers(String name, SocketHandler sh) {
+		sockethandlers.put(name, sh);
+	}
 	
-	/*private static String readLine(String format, Object... args) throws IOException {
-	    if (System.console() != null) {
-	        return System.console().readLine(format, args);
-	    }
-	    System.out.print(String.format(format, args));
-	    
-	    BufferedReader br = null;
-	    InputStreamReader isr = null;
-	    String read = null;
-	    
-	    isr = new InputStreamReader(System.in);
-	    br = new BufferedReader(isr);
-	    read = br.readLine();
-	    
-	    return read;
-	}*/
+	public void stopAcceptingOthersPlayers() throws IOException{
+		socketserver.stopAcceptingOthersPlayers();
+	}
+	
 }

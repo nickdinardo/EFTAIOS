@@ -4,6 +4,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.*;
 import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
+
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -39,61 +40,56 @@ public class ClientRMIInterface implements NetworkInterface {
 			e.printStackTrace();
 			return false;
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+			System.out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
 			return false;
 		}
 		return true;
 	}
 
 	
-	//interaction method
-		public void startInterface() throws RemoteException {
+	public void startInterface() throws RemoteException {
 			
-			handler.IncreaseRMINumPlayers();
-			name = view.askName();
-			handler.addPlayer(name);
-			this.clientport = 3030+handler.getRMINumPlayers();
+		handler.IncreaseRMINumPlayers();
+		this.clientport = 3030+handler.getRMINumPlayers();
+		name = view.askName();
+		handler.addPlayer(name);
+		
 			
-			//Starting RMI registry
-			Registry myregistry = null;
-			String notName = "Notifier";
+		//Starting RMI client registry
+		Registry myregistry = null;
+		String notName = "Notifier";			
+		try {
+		//Binding the notifier
+		    RemoteNotifier notifier = new Notifier(name, view);
+		    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);            
+		    myregistry = LocateRegistry.createRegistry(clientport);            
+		    myregistry.bind(notName, stub);
+		    } catch (Exception exc) {
+		    	System.err.println("RMI exception:");
+		    	exc.printStackTrace();
+		    	myregistry = null;
+		    	}
 			
-			try {
-			//Binding the notifier
-			    RemoteNotifier notifier = new Notifier(name, view);
-			    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);            
-			    myregistry = LocateRegistry.createRegistry(clientport);            
-			    myregistry.bind(notName, stub);
-			    } catch (Exception exc) {
-			    	System.err.println("RMI exception:");
-			    	exc.printStackTrace();
-			    	myregistry = null;
-			    	}
-			
-			//register on server
-			String clientName = "Client";
-			try {
-				((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
-			} catch (AccessException e) {
-				e.printStackTrace();
+		//Register on server and set the notifier on the server
+		String clientName = "Client";
+		try {
+			((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
+		} catch (AccessException e) {
+			e.printStackTrace();
 				
-			} catch (RemoteException e) {
-				e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
 				
-			} catch (NotBoundException e) {
-				e.printStackTrace();
-			}
-			
-			
-			
-			while(!handler.isFinish()){
-				//corpo del turno
-				
-				
-				
-					
-			}
+		} catch (NotBoundException e) {
+			e.printStackTrace();
 		}
+			
+		
+			
+		while(!handler.isFinish()){
+		
+			}
+	}
 	
 		
 	

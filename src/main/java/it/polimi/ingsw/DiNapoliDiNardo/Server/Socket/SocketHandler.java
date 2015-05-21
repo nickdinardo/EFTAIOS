@@ -46,9 +46,15 @@ public class SocketHandler extends Thread{
 		System.out.println(in.readLine());
 	}
 	
+	public void printWelcomeMessage(String name, String list) throws IOException{
+		out.println("object=print&action=Welcome to the game "+name+". The crew of the infected spaceship is composed by: "+list+". Good luck.");
+		System.out.println(in.readLine());
+	}
 	
 	
-	
+	public String getShName(){
+		return this.name;
+	}
 	
 	public void Close() throws IOException{
 		

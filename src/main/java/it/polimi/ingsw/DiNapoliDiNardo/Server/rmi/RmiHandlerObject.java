@@ -3,6 +3,8 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 
+
+
 import java.rmi.RemoteException;
 
 public class RmiHandlerObject implements RemoteHandler {
@@ -19,13 +21,14 @@ public class RmiHandlerObject implements RemoteHandler {
 		return headserver.getRMIPlayers();
 	}
 	
+	public int getTotalPlayers(){
+		return headserver.getTotalPlayers();
+	}
 	
 	public void addPlayer(String name) {
 		headserver.putPlayerconnected(name,"RMI");
 		
 	}
-	
-
 	
 	
 	
