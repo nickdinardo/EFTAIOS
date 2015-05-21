@@ -2,10 +2,16 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
+import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
+import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
+import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+
 
 public class GameServer {
 	int totalplayers;
@@ -13,11 +19,14 @@ public class GameServer {
 	HashMap<String, RemoteNotifier> notifiers; 
 	HashMap<String, SocketHandler> sockethandlers; 
 	boolean finish;
+	GameState gamestate;
 	
 	public void rungame() throws IOException{
 		
-		giveWelcome();
 		
+		giveWelcome();
+		this.gamestate = new GameState(this);
+		createPlayersInGame(playersconnected);
 		
 		
 		
@@ -34,6 +43,21 @@ public class GameServer {
 	
 	
 
+
+
+
+	private void createPlayersInGame(HashMap<String, String> playersconnected) {
+		ArrayList<String> keys = new ArrayList<String>(playersconnected.keySet());
+		Collections.shuffle(keys);
+		int i = 0;
+		for (String name : keys){
+			i++;
+			if (i%2 == 1)
+				gamestate.getInGamePlayers().add(new AlienPlayer(gamestate.getGalilei(), gamestate, name));
+			else 
+				gamestate.getInGamePlayers().add(new HumanPlayer(gamestate.getGalilei(), gamestate, name));
+				}
+	}
 
 
 
@@ -55,8 +79,6 @@ public class GameServer {
 	}
 
 
-
-
 	public RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		for (RemoteNotifier rn: notifiers.values()){
 			if (rn.getName().equals(lookforname)){
@@ -75,10 +97,7 @@ public class GameServer {
 		return null;
 	}
 	
-	
-	
-	
-	
+		
 	public GameServer (int t, HashMap<String, String> pc, HashMap<String, RemoteNotifier> rn, HashMap<String, SocketHandler> sh){
 		this.totalplayers = t;
 		this.playersconnected = pc;

@@ -8,7 +8,9 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 public abstract class Player {
 	
+	
 	protected String name;
+	protected GameState gamestate;
 	protected Main game;
 	protected Box position;
 	protected boolean isAlive=true;
@@ -111,6 +113,10 @@ public abstract class Player {
 	
 	public void kill(){
 		this.isAlive = false;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }
 		

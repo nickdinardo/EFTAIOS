@@ -16,13 +16,21 @@ public class AlienPlayer extends Player{
 		this.humanfed = humanfed;
 	}
 
-	//constructor
+	//local constructor to remove finished testing
 	public AlienPlayer(GalileiMap Galilei, Main game, String name){
 		this.game = game;
 		this.name = name;
 		this.setPosition(Galilei.getAlienStartBox());
 		position.setPlayer(this);
 	}
+	//multiplayer constructor
+	 	public AlienPlayer(GalileiMap Galilei, GameState gs, String name){
+			this.gamestate = gs;
+			this.name = name;
+			this.setPosition(Galilei.getHumanStartBox());
+			position.setPlayer(this);
+			
+		}
 	
 	//triple movement check
 	public boolean isValidTripleMovement(Box destination, Box position){

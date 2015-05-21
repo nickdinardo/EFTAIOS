@@ -9,9 +9,17 @@ public class HumanPlayer extends Player {
 	protected boolean sedated = false;
 	
 	
-	//constructor
-	public HumanPlayer(GalileiMap Galilei, Main game, String name){
+	//local constructor to remove finished testing
+ 	public HumanPlayer(GalileiMap Galilei, Main game, String name){
 		this.game = game;
+		this.name = name;
+		this.setPosition(Galilei.getHumanStartBox());
+		position.setPlayer(this);
+		
+	}
+ 	//multiplayer constructor
+ 	public HumanPlayer(GalileiMap Galilei, GameState gs, String name){
+		this.gamestate = gs;
 		this.name = name;
 		this.setPosition(Galilei.getHumanStartBox());
 		position.setPlayer(this);
