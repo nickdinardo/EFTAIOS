@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Main;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.DangerousBox;
+
 
 
 public class AlienPlayer extends Player{
@@ -16,25 +16,18 @@ public class AlienPlayer extends Player{
 		this.humanfed = humanfed;
 	}
 
-	//local constructor to remove finished testing
-	public AlienPlayer(GalileiMap Galilei, Main game, String name){
-		this.game = game;
-		this.name = name;
-		this.setPosition(Galilei.getAlienStartBox());
-		position.setPlayer(this);
-	}
 	//multiplayer constructor
 	 	public AlienPlayer(GalileiMap Galilei, GameState gs, String name){
 			this.gamestate = gs;
 			this.name = name;
-			this.setPosition(Galilei.getHumanStartBox());
+			this.setPosition(Galilei.getAlienStartBox());
 			position.setPlayer(this);
 			
 		}
 	
 	//triple movement check
 	public boolean isValidTripleMovement(Box destination, Box position){
-		ArrayList<Box> aroundBoxes = game.getGalilei().givemeAroundBoxes(position);
+		ArrayList<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
 		ArrayList<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
 		for (Box box: oneStepBoxes){
 			if (isValidDoubleMovement(destination, box))
@@ -44,25 +37,29 @@ public class AlienPlayer extends Player{
 	}
 	
 	//alien movement method
-	public void movement (Box destination, Box position){
-		this.position.unsetPlayer(this);
+	public boolean movement (Box destination, Box position){
+		
 		if (humanfed){
-			if(isValidTripleMovement(destination, position))
+			if(isValidTripleMovement(destination, position)){
+				this.position.unsetPlayer(this);
 				this.position = destination;
+				this.position.setPlayer(this);
+				return true;
+			}
 			else{
-				System.out.println("Not a valid movement, you'll stand still");
+				return false;
 			}
 		}
 		else {
-			if(isValidDoubleMovement(destination, position))
+			if(isValidDoubleMovement(destination, position)){
+				this.position.unsetPlayer(this);
 				this.position = destination;
-			else{
-				System.out.println("Not a valid movement, you'll stand still");
+				this.position.setPlayer(this);
+				return true;
 			}
-		}
-		this.position.setPlayer(this);
-		if (this.position instanceof DangerousBox){
-			game.drawSectorCard(this);
+			else{
+				return false;
+			}
 		}
 	}
 	

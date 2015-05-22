@@ -43,7 +43,7 @@ public class Main {
 					}
 					
 					//movement
-					Coordinates coordinates = game.view.askMovement(i);
+					Coordinates coordinates = game.view.askMovement(true);
 					Box destination = game.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];
 					player.movement(destination, player.getPosition());
 					
@@ -94,10 +94,10 @@ public class Main {
 		this.lifeboatdeck = new LifeboatDeck();
 		
 		//sistemare per consentire differente numero di giocatori poi
-		HumanPlayer hansolo= new HumanPlayer(this.Galilei, this, "hansolo");
-		AlienPlayer chubecca= new AlienPlayer(this.Galilei, this, "chubecca");
-		inGamePlayers.add(hansolo);
-		inGamePlayers.add(chubecca);
+		//HumanPlayer hansolo= new HumanPlayer(this.Galilei, this, "hansolo");
+		//AlienPlayer chubecca= new AlienPlayer(this.Galilei, this, "chubecca");
+		//inGamePlayers.add(hansolo);
+		//inGamePlayers.add(chubecca);
 	}
 	
 	public void drawSectorCard (Player player){

@@ -12,7 +12,7 @@ public abstract class View {
 	
 	public abstract String askName();
 	
-	public abstract Coordinates askMovement(int i);
+	public abstract Coordinates askMovement(boolean reask);
 	
 	public abstract boolean askItemUse(int i);
 	
@@ -27,5 +27,8 @@ public abstract class View {
 	public abstract Coordinates askForLights();
 	
 	public abstract void revealingLights(Box box);
+	
+	public abstract void showBeingAlien (String name);
+	public abstract void showBeingHuman (String name);
 
 	}

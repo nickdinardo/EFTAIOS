@@ -131,7 +131,11 @@ public class Server {
 			}
 			//then start the game
 			GameServer gameserver = new GameServer(totalplayers, playersconnected, notifiers, sockethandlers);
-			gameserver.rungame();
+			try {
+				gameserver.rungame();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 	}		
 		
 			

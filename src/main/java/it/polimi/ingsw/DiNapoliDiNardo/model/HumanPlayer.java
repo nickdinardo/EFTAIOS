@@ -9,15 +9,7 @@ public class HumanPlayer extends Player {
 	protected boolean sedated = false;
 	
 	
-	//local constructor to remove finished testing
- 	public HumanPlayer(GalileiMap Galilei, Main game, String name){
-		this.game = game;
-		this.name = name;
-		this.setPosition(Galilei.getHumanStartBox());
-		position.setPlayer(this);
-		
-	}
- 	//multiplayer constructor
+	//multiplayer constructor
  	public HumanPlayer(GalileiMap Galilei, GameState gs, String name){
 		this.gamestate = gs;
 		this.name = name;
@@ -27,38 +19,42 @@ public class HumanPlayer extends Player {
 	}
 	
 	//human movement method
-	public void movement (Box destination, Box position){
-		this.position.unsetPlayer(this);
+	public boolean movement (Box destination, Box position){
+		
 		
 		if (adrenalized){
 			if(isValidDoubleMovement(destination, position)){
+				this.position.unsetPlayer(this);
 				this.position = destination;
+				this.position.setPlayer(this);
+				return true;
 			}
 			else{
-				System.out.println("Not a valid movement, you'll stand still");
+				return false;
 			}
 		}
 		else {
-			if(isValidSingleMovement(destination, position))
+			if(isValidSingleMovement(destination, position)){
+				this.position.unsetPlayer(this);
 				this.position=destination;
+				this.position.setPlayer(this);
+				return true;	
+			}
 			else{
-				System.out.println("Not a valid movement, you'll stand still");
+				return false;
 			}
 		}
-		this.position.setPlayer(this);
 		
-		//sector card drawing
-		if (this.position instanceof DangerousBox && !this.isSedated()){
-			game.drawSectorCard(this);
-		}
-			
+		
+		
 	}
 		
 	
 	public void teleport(){
 		this.position.unsetPlayer(this);
-		this.setPosition(game.getGalilei().getHumanStartBox());
+		this.setPosition(gamestate.getGalilei().getHumanStartBox());
 		this.position.setPlayer(this);
+		//farlo fare alla view:
 		System.out.println("You're back in the starting position");
 	}
 	

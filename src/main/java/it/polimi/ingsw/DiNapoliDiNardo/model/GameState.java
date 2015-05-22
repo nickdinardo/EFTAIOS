@@ -2,13 +2,11 @@ package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.GameServer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.NoiseAnywhereCardPlusItem;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.NoiseHereCardPlusItem;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
@@ -16,8 +14,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.LifeboatDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
-
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class GameState {
@@ -28,33 +24,44 @@ public class GameState {
 	LifeboatDeck lifeboatdeck;
 	ArrayList< Player > inGamePlayers = new ArrayList< Player >();
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
 	//constructor
-	public GameState(GameServer gs){
-		this.Galilei = new GalileiMap();
-		this.sectordeck = new SectorDeck();
-		this.itemdeck = new ItemDeck();
-		this.lifeboatdeck = new LifeboatDeck();
-		this.gameserver = gs;
+		public GameState(GameServer gs){
+			this.Galilei = new GalileiMap();
+			this.sectordeck = new SectorDeck();
+			this.itemdeck = new ItemDeck();
+			this.lifeboatdeck = new LifeboatDeck();
+			this.gameserver = gs;
+		}
+	
+	public boolean updatePlayerPosition (String name, Coordinates coord){
+		Player player = givemePlayerByName(name);
+		Box destination = this.Galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
+		if(player.movement(destination, player.getPosition()))
+			return true;
+		else
+			return false;
 	}
+	
+	
+	//sector card drawing
+			//if (this.position instanceof DangerousBox && !this.isSedated()){
+			//	game.drawSectorCard(this);
+			//}
+				
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+	
 	
 	
 	public void drawSectorCard (Player player){

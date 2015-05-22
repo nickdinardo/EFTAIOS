@@ -2,6 +2,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 import java.rmi.RemoteException;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
@@ -11,21 +12,28 @@ public class Notifier implements RemoteNotifier {
 	private String name;
 	
 	public Notifier(String n, TextView v){
-		this.view = view;
+		this.view = v;
 		this.name = n;
 	}
 	
-
+	public Coordinates askForMovement(boolean reask){
+		return view.askMovement(reask);
+	}
+	
 	public void notifyMessage(String message)
 			throws RemoteException {
 		System.out.println(message);
 
 	}
 
+	public void showBeingAlien (String name){
+		view.showBeingAlien(name);
+	}
 	
-	
-	
-	
+	public void showBeingHuman (String name){
+		view.showBeingHuman(name);
+	}
+			
 	
 	
 	//getters and setters

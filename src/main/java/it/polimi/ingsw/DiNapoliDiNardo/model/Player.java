@@ -11,7 +11,6 @@ public abstract class Player {
 	
 	protected String name;
 	protected GameState gamestate;
-	protected Main game;
 	protected Box position;
 	protected boolean isAlive=true;
 	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
@@ -35,7 +34,7 @@ public abstract class Player {
 	
 	
 	
-	public abstract void movement(Box destination, Box position);
+	public abstract boolean movement(Box destination, Box position);
 	public void teleport(){};
 	public ArrayList<Player> attack(Box position){
 		ArrayList<Player> playerInBox = new ArrayList<Player>();
@@ -80,10 +79,10 @@ public abstract class Player {
 	
 	public boolean isValidDoubleMovement(Box destination, Box position){
 		
-		ArrayList<Box> aroundBoxes = game.getGalilei().givemeAroundBoxes(position);
+		ArrayList<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
 		ArrayList<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
 		for (Box box: oneStepBoxes){
-			aroundBoxes = game.getGalilei().givemeAroundBoxes(box);
+			aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(box);
 			ArrayList<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
 			if (twoStepBoxes.contains(destination))
 				return true;
@@ -104,7 +103,7 @@ public abstract class Player {
 		
 	
 	public void drawItemCard(){
-		Card itemcard = game.getItemdeck().drawCard();
+		Card itemcard = gamestate.getItemdeck().drawCard();
 		//codice che chiama la view per chiedere se si vuole tenere la carta pescata 
 		if (personalDeck.size()<3){
 			personalDeck.add(itemcard);

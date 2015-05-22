@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
@@ -21,29 +22,50 @@ public class GameServer {
 	boolean finish;
 	GameState gamestate;
 	
-	public void rungame() throws IOException{
+	public void rungame() throws IOException, ClassNotFoundException{
 		
 		
 		giveWelcome();
 		this.gamestate = new GameState(this);
 		createPlayersInGame(playersconnected);
-		
-		
-		
-		
+		informPlayersOfTheirNature();
+		//askForMovement();
 		
 		
 		
 		
 		
 		while(!finish){
-			//corpo partita
+			askForMovement();
 			}
 	}
 	
 	
-
-
+	
+	private void askForMovement() throws ClassNotFoundException, IOException{
+		Coordinates coordinates;
+		boolean validmove = false;
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			if(entry.getValue().equals("RMI")){
+				coordinates = givemeNotifierByName(entry.getKey()).askForMovement(false);
+			}
+			else {
+				coordinates = givemeSocketHandlerByName(entry.getKey()).askForMovement(false);
+			}
+			
+			do{
+				validmove = gamestate.updatePlayerPosition(entry.getKey(), coordinates);
+				if(!validmove){
+					if(entry.getValue().equals("RMI")){
+						coordinates = givemeNotifierByName(entry.getKey()).askForMovement(true);
+					}
+					else {
+						coordinates = givemeSocketHandlerByName(entry.getKey()).askForMovement(true);
+					}
+				}
+			}while(!validmove);
+		}
+	}
 
 
 	private void createPlayersInGame(HashMap<String, String> playersconnected) {
@@ -61,24 +83,47 @@ public class GameServer {
 
 
 
-	public void giveWelcome() throws IOException{
+	private void giveWelcome() throws IOException{
 		//print a welcome message and give the list of players to each player.
-				String listofplayers = "";
-				for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-					listofplayers += entry.getKey()+", ";
+			String listofplayers = "";
+			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+				listofplayers += entry.getKey()+", ";
+			}
+			listofplayers = listofplayers.substring(0, listofplayers.length()-2);
+			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+				if(entry.getValue().equals("RMI")){
+					givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
 				}
-				listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-				for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-					if(entry.getValue().equals("RMI")){
-						givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". Good luck.");
-					}
-					else {
-						givemeSocketHandlerByName(entry.getKey()).printWelcomeMessage(entry.getKey(), listofplayers);
-					}
+				else {
+					givemeSocketHandlerByName(entry.getKey()).printWelcomeMessage(entry.getKey(), listofplayers);
 				}
+			}
 	}
 
-
+	private void informPlayersOfTheirNature() throws RemoteException{
+		//Inform players on the nature of their character
+			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+				String playername = entry.getKey();
+				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
+					if(entry.getValue().equals("RMI")){
+						givemeNotifierByName(entry.getKey()).showBeingAlien(entry.getKey());
+					}
+					else {
+						givemeSocketHandlerByName(entry.getKey()).showBeingAlien(entry.getKey());
+					}
+				}
+				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
+					if(entry.getValue().equals("RMI")){
+						givemeNotifierByName(entry.getKey()).showBeingHuman(entry.getKey());
+					}
+					else {
+						givemeSocketHandlerByName(entry.getKey()).showBeingHuman(entry.getKey());
+					}
+				}
+			}
+	}
+	
+	
 	public RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		for (RemoteNotifier rn: notifiers.values()){
 			if (rn.getName().equals(lookforname)){

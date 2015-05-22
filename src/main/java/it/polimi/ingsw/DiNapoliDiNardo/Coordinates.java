@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo;
 
-public class Coordinates {
+public class Coordinates implements java.io.Serializable {
 	int coordX;
 	int coordY;
 	
