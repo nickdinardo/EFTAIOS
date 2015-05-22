@@ -46,10 +46,11 @@ public class SocketServer extends Thread{
 					while(headserver.getTotalPlayers()<MAXPLAYERS){
 						
 						Socket s = serversocket.accept();
+						headserver.IncreaseTotalPlayers();
 						SocketHandler sockethandler = new SocketHandler(s);
 						sockethandlers.add(sockethandler);
 						executor.submit(sockethandler);
-						headserver.IncreaseTotalPlayers();
+						
 						
 					}
 					listening=false;

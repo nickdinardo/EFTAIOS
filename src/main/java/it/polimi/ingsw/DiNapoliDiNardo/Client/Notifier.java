@@ -34,6 +34,14 @@ public class Notifier implements RemoteNotifier {
 		view.showBeingHuman(name);
 	}
 			
+	public void showActualSituation (String name, String position, String objects){
+		view.showActualSituation(name, position, objects);
+	}
+	
+	
+	
+	
+	
 	
 	
 	//getters and setters

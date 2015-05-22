@@ -21,9 +21,11 @@ import java.util.HashMap;
 public class Server {
 	int RMIplayers = 0;
 	int totalplayers = 0;
-	Registry registry = null;
+	Registry registry;
 	String name = "Handler";
+	RemoteHandler stub; 
 	String clientName = "Client";  
+    CallableClient clientStub;
 	HashMap<String, String> playersconnected = new HashMap<String, String>();
 	HashMap<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
 	HashMap<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
@@ -34,6 +36,7 @@ public class Server {
 	boolean isStarted = false;
 	private static final int MINPLAYERS = 2;
 	private static final int MAXPLAYERS = 8;
+	private static final int WAITINGTIME = 10000;
 	
 	
 	public static void main(String[] args) throws IOException, NotBoundException {
@@ -49,8 +52,8 @@ public class Server {
 		
 		//Starting RMI server and binding handler and remotecallableclient
 		try {           
-            RemoteHandler stub = (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0); 
-            CallableClient clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040);
+            stub = (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0); 
+            clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040);
             registry = LocateRegistry.createRegistry(2020);            
             registry.bind(name, stub);
             registry.bind(clientName, clientStub);
@@ -88,7 +91,7 @@ public class Server {
 		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 
 		while (totalplayers<MAXPLAYERS){
 			long time= System.currentTimeMillis();
-			long end = time+20000;
+			long end = time+WAITINGTIME;
 			int connectedplayers = totalplayers;
 			while (time<end){
 				time = System.currentTimeMillis();
@@ -118,7 +121,7 @@ public class Server {
 			
 			//waiting for RMI players who connected but still haven't register their names
 			String toAvoidChurning ="";
-			while(playersconnected.size()<totalplayers){
+			while(playersconnected.size()<totalplayers || notifiers.size()<RMIplayers){
 				toAvoidChurning += "avoided";
 				if (toAvoidChurning.length()>10000)
 					toAvoidChurning = "";

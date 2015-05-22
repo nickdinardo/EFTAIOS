@@ -6,6 +6,13 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
+import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -30,16 +37,69 @@ public class GameServer {
 		createPlayersInGame(playersconnected);
 		informPlayersOfTheirNature();
 		//askForMovement();
-		
-		
-		
-		
-		
+
 		while(!finish){
-			askForMovement();
+			showActualSituation ();
+			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+				String playername = entry.getKey();
+				
+				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
+					askForHumanTurn(playername);
+				}
+				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
+					askForAlienTurn(playername);
+				}
 			}
+		}
+		
+	
+	
+	
 	}
 	
+	
+	
+	
+	public void showActualSituation () throws RemoteException{
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			Player player;
+			player = gamestate.givemePlayerByName(entry.getKey());
+			String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();	
+			String objects = "";
+			for (Card item : player.getPersonalDeck()){
+				if (item instanceof TeleportCard)
+					objects += "TeleportCard, ";
+				if (item instanceof AttackCard)
+					objects += "AttackCard, ";
+				if (item instanceof AdrenalineCard)
+					objects += "AdrenalineCard, ";
+				if (item instanceof SedativesCard)
+					objects += "SedativesCard, ";
+				if (item instanceof LightsCard)
+					objects += "LightsCard, ";
+				objects = objects.substring(0, objects.length()-2);
+			}
+			if (objects.length()<2)
+				objects = "no";
+			if(entry.getValue().equals("RMI"))
+				givemeNotifierByName(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
+			else{
+				givemeSocketHandlerByName(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
+				
+			}
+				
+		}
+	}
+	
+	
+	
+	public void askForHumanTurn(String playername) throws ClassNotFoundException, IOException{
+		askForMovement();
+	}
+		
+	public void askForAlienTurn(String playername) throws ClassNotFoundException, IOException{
+		askForMovement();
+	}
 	
 	
 	private void askForMovement() throws ClassNotFoundException, IOException{
@@ -82,7 +142,6 @@ public class GameServer {
 	}
 
 
-
 	private void giveWelcome() throws IOException{
 		//print a welcome message and give the list of players to each player.
 			String listofplayers = "";
@@ -123,7 +182,7 @@ public class GameServer {
 			}
 	}
 	
-	
+		
 	public RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		for (RemoteNotifier rn: notifiers.values()){
 			if (rn.getName().equals(lookforname)){

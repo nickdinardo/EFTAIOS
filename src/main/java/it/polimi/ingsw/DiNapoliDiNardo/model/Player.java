@@ -6,7 +6,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 
-public abstract class Player {
+public abstract class Player implements java.io.Serializable{
 	
 	
 	protected String name;

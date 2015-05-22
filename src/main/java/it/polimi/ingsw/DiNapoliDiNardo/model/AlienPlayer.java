@@ -7,7 +7,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 
 
-public class AlienPlayer extends Player{
+public class AlienPlayer extends Player implements java.io.Serializable{
 	
 	protected boolean humanfed = false;
 	

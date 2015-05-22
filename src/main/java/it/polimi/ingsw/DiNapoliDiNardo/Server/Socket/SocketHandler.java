@@ -52,6 +52,11 @@ public class SocketHandler extends Thread{
 	public void showBeingHuman (String name){
 		out.println("object="+name+"&action=beingHuman");
 	}
+	public void showActualSituation (String name, String position, String objects){
+		out.println("object=situation&action="+name+";"+position+";"+objects+";");
+	}
+	
+	
 	public Coordinates askForMovement(boolean reask) throws IOException, ClassNotFoundException{
 		if(!reask)
 			out.println("object=player&action=askmovement");
