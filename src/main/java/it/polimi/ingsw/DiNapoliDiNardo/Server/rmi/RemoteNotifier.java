@@ -13,5 +13,6 @@ public interface RemoteNotifier extends Remote {
 	public void showBeingHuman (String name)throws RemoteException;
 	public void showBeingAlien (String name)throws RemoteException;
 	public Coordinates askForMovement(boolean reask)  throws RemoteException;
+	public String askForNoise() throws RemoteException;
 	public void showActualSituation (String name, String position, String objects) throws RemoteException;
 }

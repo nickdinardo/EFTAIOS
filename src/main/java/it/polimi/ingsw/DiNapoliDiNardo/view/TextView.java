@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class TextView extends View{
 	Scanner in = new Scanner(System.in);
 	PrintWriter out = new PrintWriter(System.out);
-	
+	boolean isFirstTurn = true;
 	
 	public String askName (){
 		System.out.println("Connected to the server game. What's your name?");
@@ -21,7 +21,11 @@ public class TextView extends View{
 	}
 	
 	public void showActualSituation (String name, String position, String objects){
-		printGalileiMap();
+		if(isFirstTurn){
+			printGalileiMap();
+			isFirstTurn = false;
+		}
+		System.out.println("________________________________________________________________________________________________________________________");
 		System.out.println(name+ " you are now in the "+position+" position.");
 		if (!objects.equals("no")){
 			System.out.println("In your item deck you have the following cards: "+objects);
@@ -65,14 +69,28 @@ public class TextView extends View{
 		
 	}
 	
-	public boolean askItemUse(int i){
-		System.out.println("Player " + i + " do you want to use an Item Card?");
+	public int askItemUse(String objects){
+		String[] Items = objects.split(",");
+		System.out.println("Do you want to use an Item Card?");
 		System.out.println("Y: yes    N: no");
 		char risp = in.next().charAt(0);
-		if (risp == 'Y' || risp == 'y')
-			return true;
-		else
-			return false;
+		if (risp == 'Y' || risp == 'y'){
+			int answer;
+			do{
+				System.out.println("Select the number of the item you want to use:");
+				for (int i=1; i<Items.length+1; i++)
+					System.out.println(1+"- "+Items[i]);
+				answer = in.nextInt();
+				if (answer <=0 || answer>Items.length)
+					System.out.println("Please write the number of the object youm want to use and nothing more");
+			}while (answer <=0 || answer>Items.length);
+			return answer;
+		}
+		else if (risp != 'N' && risp != 'n'){
+			System.out.println("Please insert 'Y' or 'N'");
+			askItemUse(objects);
+		}
+		return -1;	
 	}
 	
 	
@@ -101,6 +119,21 @@ public class TextView extends View{
 		return coordinates;
 		
 	}
+	
+	public String askForNoise(){
+		System.out.println("In which sector of the map do you want to declare there's noise?");
+		
+		char letter = in.next().charAt(0);
+		int number = in.nextInt();
+		String noise ="";
+		noise += letter;
+		noise = noise.toUpperCase();
+		if (number<10)
+			noise +="0";
+		noise+=number;
+		return noise;
+	}
+	
 	
 	public void revealingLights(Box box){
 		System.out.println("In the position "+(char)(box.getCoordX()+64)+box.getCoordY()+" there are the following players: ");
@@ -185,7 +218,6 @@ public class TextView extends View{
 		textmap += " \\___/ B14\\___/ D14\\___     \\___/ H14\\___/ J14\\___/ L14\\___/ N14\\___/ P14\\___/      ___/ T14\\___/ V14\\___/ \n";
 		textmap += "     \\  D  /  \\     /  \\     /  \\     /  \\     /  \\     /  \\     /  \\  D  /  \\     /  \\     /  \\  D  /     \n";
 		textmap += "      \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/    \\___/      \n";
-		textmap += "________________________________________________________________________________________________________________________";
 		textmap += "                                                                                                                        ";
 		System.out.println(textmap);
 	}

@@ -20,6 +20,10 @@ public class Notifier implements RemoteNotifier {
 		return view.askMovement(reask);
 	}
 	
+	public String askForNoise(){
+		return view.askForNoise();
+	}
+	
 	public void notifyMessage(String message)
 			throws RemoteException {
 		System.out.println(message);

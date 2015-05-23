@@ -36,11 +36,11 @@ public class Main {
 					System.out.println("Items: "+player.getPersonalDeck().toString());
 					
 					//objects usage
-					if(player instanceof HumanPlayer && player.getPersonalDeck().size() > 0){
-						if(game.view.askItemUse(i)){
-							game.itemUsageManagement((HumanPlayer)player);
-						}
-					}
+					//if(player instanceof HumanPlayer && player.getPersonalDeck().size() > 0){
+						//if(game.view.askItemUse(i)){
+							//game.itemUsageManagement((HumanPlayer)player);
+					//	}
+					//}
 					
 					//movement
 					Coordinates coordinates = game.view.askMovement(true);
@@ -108,7 +108,7 @@ public class Main {
 		}
 	}
 	
-	public void itemUsageManagement(HumanPlayer player){
+	/*public void itemUsageManagement(HumanPlayer player){
 		Card item = this.view.whichItem(player.getPersonalDeck());
 		
 		if (item instanceof TeleportCard)
@@ -139,7 +139,7 @@ public class Main {
 		}
 		
 		
-	}
+	}*/
 	
 	public void attackManagement(Player player){
 		ArrayList<Player> killed = player.attack(player.getPosition());

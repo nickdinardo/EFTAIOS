@@ -56,6 +56,11 @@ public class SocketHandler extends Thread{
 		out.println("object=situation&action="+name+";"+position+";"+objects+";");
 	}
 	
+	public String askForNoise() throws ClassNotFoundException, IOException{
+		out.println("object=player&action=asknoise");
+		String noise = in.readLine();
+		return (noise);
+	}
 	
 	public Coordinates askForMovement(boolean reask) throws IOException, ClassNotFoundException{
 		if(!reask)
@@ -66,11 +71,23 @@ public class SocketHandler extends Thread{
 		return (coord);
 	}
 	
+	public int askForItem(String objects) throws IOException{
+		out.println("object=playeritems&action="+objects);
+		int index = in.read();
+		System.out.println(index);
+		return index;
+	}
+	
+	
+	
 	public void printWelcomeMessage(String name, String list) throws IOException{
 		out.println("object=print&action=Welcome to the game "+name+". The crew of the infected spaceship is composed by: "+list+". ");
 		
 	}
 	
+	public void notifyMessage(String message){
+		out.println("object=print&action="+message);
+	}
 	
 	public String getShName(){
 		return this.name;

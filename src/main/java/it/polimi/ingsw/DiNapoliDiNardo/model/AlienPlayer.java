@@ -1,20 +1,16 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import java.util.ArrayList;
-
-import it.polimi.ingsw.DiNapoliDiNardo.Main;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 
 
-public class AlienPlayer extends Player implements java.io.Serializable{
+public class AlienPlayer extends Player {
 	
 	protected boolean humanfed = false;
+	protected boolean hasAttacked = false;
 	
-	//humanfed setter
-	public void setHumanfed(boolean humanfed) {
-		this.humanfed = humanfed;
-	}
+	
 
 	//multiplayer constructor
 	 	public AlienPlayer(GalileiMap Galilei, GameState gs, String name){
@@ -79,5 +75,14 @@ public class AlienPlayer extends Player implements java.io.Serializable{
 		playerInBox.remove(this);
 		return playerInBox;
 		
+	}
+	
+	
+	public boolean isHasAttacked() {
+		return hasAttacked;
+	}
+
+	public void setHumanfed(boolean humanfed) {
+		this.humanfed = humanfed;
 	}
 }

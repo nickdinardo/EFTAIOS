@@ -6,9 +6,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.NoiseAnywhereCardPlusItem;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.NoiseHereCardPlusItem;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
@@ -43,37 +40,17 @@ public class GameState {
 	}
 	
 	
-	//sector card drawing
-			//if (this.position instanceof DangerousBox && !this.isSedated()){
-			//	game.drawSectorCard(this);
-			//}
-				
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 
 
 
 	
 	
 	
-	public void drawSectorCard (Player player){
-		Card sectorcard = sectordeck.drawCard();
-		//esegui codice per silenzio o rumore, chiamando la view per rumore in ogni settore se necessario
-		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
-			player.drawItemCard();
-		}
-	}
 	
-	public void itemUsageManagement(HumanPlayer player, ItemCard item){
-		//Card item = this.view.whichItem(player.getPersonalDeck());
+	//implement with view lights card
+	public void itemUsageManagement(String name, int index){
+		HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
+		Card item = player.getPersonalDeck().remove(index);
 		
 		if (item instanceof TeleportCard)
 			player.teleport();

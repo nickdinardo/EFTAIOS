@@ -1,12 +1,10 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 import java.util.ArrayList;
-
-import it.polimi.ingsw.DiNapoliDiNardo.Main;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 
-public abstract class Player implements java.io.Serializable{
+public abstract class Player {
 	
 	
 	protected String name;

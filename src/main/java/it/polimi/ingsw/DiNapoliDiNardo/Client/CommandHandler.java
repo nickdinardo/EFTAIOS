@@ -22,10 +22,7 @@ public class CommandHandler {
 		String object = param.get("object");
 		String action = param.get("action");
 		
-		//String[] result = "this is a test".split("\\s");
-	    // for (int x=0; x<result.length; x++)
-	    //     System.out.println(result[x]);
-		
+				
 		if(object.equals("player")){
 			if(action.equals("askname")){
 				CSI.getOut().println(view.askName());
@@ -34,6 +31,11 @@ public class CommandHandler {
 			if(action.equals("askmovement")){
 				Coordinates coord = view.askMovement(false);
 				CSI.getOutObj().writeObject(coord);
+			}
+			if(action.equals("asknoise")){
+				String noise = view.askForNoise();
+				CSI.getOut().println(noise);
+				CSI.getOut().flush();
 			}
 			if(action.equals("reaskmovement")){
 				Coordinates coord = view.askMovement(true);
@@ -53,6 +55,10 @@ public class CommandHandler {
 			String[] result = action.split(";");
 			view.showActualSituation(result[0], result[1], result[2]);
 		    }
+		if (object.equals("playeritems")){
+			CSI.getOut().println(view.askItemUse(action)); 
+			CSI.getOut().flush();
+		}
 			
 		
 		

@@ -1,9 +1,9 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
-import it.polimi.ingsw.DiNapoliDiNardo.*;
 
-public class HumanPlayer extends Player implements java.io.Serializable{
+
+public class HumanPlayer extends Player{
 
 	protected boolean adrenalized = false;
 	protected boolean sedated = false;
