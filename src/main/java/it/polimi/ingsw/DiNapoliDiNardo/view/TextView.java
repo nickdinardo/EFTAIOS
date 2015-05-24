@@ -3,10 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import it.polimi.ingsw.DiNapoliDiNardo.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
-
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -25,6 +22,8 @@ public class TextView extends View{
 			printGalileiMap();
 			isFirstTurn = false;
 		}
+		if (position.length() == 2)
+			position = position.substring(0, 1) + "0" + position.substring(1, position.length());
 		System.out.println("________________________________________________________________________________________________________________________");
 		System.out.println(name+ " you are now in the "+position+" position.");
 		if (!objects.equals("no")){
@@ -55,19 +54,12 @@ public class TextView extends View{
 			System.out.println("The movement you selected is not valid. Please select another box.");
 		}
 		System.out.println("Where do you want to move? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
-		
-		char letter = in.next().charAt(0);
-		//parse the ASCII code of the char and convert it to a number, starting from 'A'-->1
-		int numberX = (int)letter;
-		if (numberX<88) numberX-=64;
-		else numberX-=96;
-		
-		int numberY = in.nextInt();
-		
-		Coordinates coordinates = new Coordinates(numberX, numberY);
+		Coordinates coordinates = solveCoordInput();		
 		return coordinates;
 		
 	}
+	
+	
 	
 	public int askItemUse(String objects){
 		String[] Items = objects.split(";");
@@ -78,7 +70,7 @@ public class TextView extends View{
 			int answer;
 			do{
 				System.out.println("Select the number of the item you want to use:");
-				for (int i=0; i<Items.length; i++){
+				for (int i=0; i<Items.length && i<3; i++){
 					int j = i+1;
 					System.out.println(j+"- "+Items[i]);
 				}
@@ -95,7 +87,41 @@ public class TextView extends View{
 		return 8;	
 	}
 	
-	public int askItemDiscard(String objects){
+	
+	public int askAlienItemDiscard(String objects){
+		String[] Items = objects.split(";");
+		System.out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
+		System.out.println("D: discard an item	N: no, I'll keep my actual items");
+		char risp = in.next().charAt(0);
+		boolean validanswer = false;
+		do{
+			if (risp == 'D' || risp == 'd'){
+				validanswer = true;
+				int answer;
+				
+				do{
+					System.out.println("Select the number of the item you want to discard:");
+					for (int i=0; i<Items.length && i<3; i++){
+						int j = i+1;
+						System.out.println(j+"- "+Items[i]);
+					}
+					answer = in.nextInt()+3;
+					if (answer <=3 || answer>Items.length+3)
+						System.out.println("Please write the number of the object you want to discard and nothing more");
+				}while (answer <=3 || answer>Items.length+3);
+				return answer;
+			}
+			if (risp == 'N' || risp == 'n'){
+				validanswer = true;
+				return 8;
+			}	
+			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+		}while(!validanswer);
+		return 18;
+	}
+	
+	
+	public int askHumanItemDiscard(String objects){
 		String[] Items = objects.split(";");
 		System.out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
 		System.out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
@@ -113,9 +139,9 @@ public class TextView extends View{
 						System.out.println(j+"- "+Items[i]);
 					}
 					answer = in.nextInt()+3;
-					if (answer <=0 || answer>Items.length)
-						System.out.println("Please write the number of the object youm want to use and nothing more");
-				}while (answer <=0 || answer>Items.length);
+					if (answer <=3 || answer>Items.length+3)
+						System.out.println("Please write the number of the object you want to discard and nothing more");
+				}while (answer <=3 || answer>Items.length+3);
 				return answer;
 			}
 			if (risp == 'U' || risp == 'u'){
@@ -131,6 +157,7 @@ public class TextView extends View{
 		return 18;
 	}
 	
+	//da sistemare
 	public boolean askForAttack(){
 		System.out.println("Filthy alien, do you want to attack this position?");
 		System.out.println("Y: yes    N: no");
@@ -141,6 +168,7 @@ public class TextView extends View{
 			return false;
 	}
 	
+	//da sistemare
 	public Coordinates askForLights(){
 		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
 		
@@ -159,15 +187,12 @@ public class TextView extends View{
 	
 	public String askForNoise(){
 		System.out.println("In which sector of the map do you want to declare there's noise?");
-		
-		char letter = in.next().charAt(0);
-		int number = in.nextInt();
-		String noise ="";
-		noise += letter;
-		noise = noise.toUpperCase();
-		if (number<10)
-			noise +="0";
-		noise+=number;
+		Coordinates coordinates = solveCoordInput();
+		String noise = ""+(char)(coordinates.getCoordX()+64);
+		String number = ""+ coordinates.getCoordY();
+		if (number.length() == 1)
+			number = "0"+ coordinates.getCoordY();
+		noise += number;
 		return noise;
 	}
 	
@@ -177,13 +202,6 @@ public class TextView extends View{
 		System.out.println(box.getPlayerHere().toString());
 	}
 	
-	
-	public Card whichItem(ArrayList<Card> deck){
-		System.out.println("Tell me the number of the Item you want to use");
-		int index = in.nextInt();
-		Card currentItem = deck.remove(index);
-		return currentItem;
-	}
 	
 	public void killPlayer(Player player){
 		System.out.println("Player " + player +  " you are died");
@@ -259,5 +277,32 @@ public class TextView extends View{
 		System.out.println(textmap);
 	}
 	
-
+	public Coordinates solveCoordInput (){
+		int numberX = 0;
+		int numberY = 0;
+		boolean validanswer = false;
+		do{
+			String input = in.nextLine();
+			if (input.length()>1 && input.length()<4){
+				char letter = input.charAt(0);
+				input = input.substring(1);
+				//parse the ASCII code of the char and convert it to a number, starting from 'A'-->1
+				numberX = (int)letter;
+				if (numberX<88) numberX-=64;
+				else numberX-=96;
+				try	{
+					numberY = Integer.parseInt(input);
+				}			
+				catch (NumberFormatException ex){
+					numberY = 0;
+				}
+				if (numberX>0 && numberX<24 && numberY>0 && numberY<15)
+					validanswer = true;
+			}
+			if (validanswer == false)
+				System.out.println("Please write the coordinates in a line as they appear in one of the boxes of the map");
+		}while(!validanswer);
+		return (new Coordinates(numberX, numberY));
+	}
+	
 }

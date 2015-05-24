@@ -220,12 +220,16 @@ public class GameServer {
 					//givemeNotifierByName(name).;
 				else{
 					String objects = "";
+					int index;
 					for (int i=0; i<itemdeck.size(); i++)
 						objects += itemdeck.get(i).getName()+" ;";
-					int index = givemeSocketHandlerByName(name).askForItemChange(objects);
+					if (player instanceof HumanPlayer)
+						index = givemeSocketHandlerByName(name).askHumanForItemChange(objects);
+					else
+						index = givemeSocketHandlerByName(name).askAlienForItemChange(objects);
 					//if selection has been use/discard an item call the game state method with his index 
 					//then replace the card with the new card. Do nothing if index == -1.
-					if (index != -1){
+					if (index != 8){
 						gamestate.itemUsageManagement(name, index-1);
 						gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
 					}

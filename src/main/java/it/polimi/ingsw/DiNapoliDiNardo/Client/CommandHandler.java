@@ -59,11 +59,14 @@ public class CommandHandler {
 			CSI.getOut().println(view.askItemUse(action)); 
 			CSI.getOut().flush();
 		}
-		if (object.equals("playeritemsdiscard")){
-			CSI.getOut().println(view.askItemDiscard(action)); 
+		if (object.equals("humanplayeritemsdiscard")){
+			CSI.getOut().println(view.askHumanItemDiscard(action)); 
 			CSI.getOut().flush();
 		}
-			
+		if (object.equals("alienplayeritemsdiscard")){
+			CSI.getOut().println(view.askAlienItemDiscard(action)); 
+			CSI.getOut().flush();
+		}	
 		
 		
 	}

@@ -49,9 +49,10 @@ public class GameState {
 	
 	//implement with view lights card
 	public void itemUsageManagement(String name, int index){
-		HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
+		
 		
 		if (index > -1 && index < 3){
+			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			Card item = player.getPersonalDeck().remove(index);
 			
 			if (item instanceof TeleportCard)
@@ -83,6 +84,7 @@ public class GameState {
 		}
 		else if (index > 2 && index < 6){
 			//remove the card user selected to discard passing index+10
+			Player player = givemePlayerByName(name);
 			player.getPersonalDeck().remove(index-3);
 		}
 		
