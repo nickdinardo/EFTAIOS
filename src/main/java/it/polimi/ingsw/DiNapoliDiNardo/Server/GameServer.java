@@ -34,10 +34,10 @@ public class GameServer {
 		this.gamestate = new GameState(this);
 		createPlayersInGame(playersconnected);
 		informPlayersOfTheirNature();
-		//askForMovement();
+		
 
 		while(!finish){
-			//non va bene qui show
+			
 			showActualSituation ();
 			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 				String playername = entry.getKey();
@@ -63,8 +63,13 @@ public class GameServer {
 		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
+			ArrayList<Card> itemdeck = player.getPersonalDeck();
 			String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();	
-			String objects = personalDeckListify(player);			
+			String objects = "";
+			for (int i=0; i<itemdeck.size(); i++)
+				objects += itemdeck.get(i).getName()+" ";		
+			if (objects.length()<2)
+				objects = "no";
 			if(entry.getValue().equals("RMI"))
 				givemeNotifierByName(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
 			else{
@@ -77,15 +82,22 @@ public class GameServer {
 	
 	
 	//usare index in gamestate per gli items e fare i metodi item usage RMI
+	
 	public void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+		
 		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
 		//item usage phase 1
+		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			String objects = personalDeckListify(gamestate.givemePlayerByName(playername))+",";
+			String objects = "";
+			for (int i=0; i<itemdeck.size(); i++)
+				objects += itemdeck.get(i).getName()+" ;";
 			//if(connection.equals("RMI"))
 				//givemeNotifierByName(playername).askForItem();
 			//else
 				int index = givemeSocketHandlerByName(playername).askForItem(objects);
+				if (index != -1)
+					gamestate.itemUsageManagement(playername, index-1);
 		}
 		//movement
 		askForMovement(playername, connection);
@@ -94,11 +106,15 @@ public class GameServer {
 			drawSectorCard(playername, connection, player);
 		//item usage phase 2
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			String objects = personalDeckListify(gamestate.givemePlayerByName(playername))+",";
+			String objects = "";
+			for (int i=0; i<itemdeck.size(); i++)
+				objects += itemdeck.get(i).getName()+" ;";
 			//if(connection.equals("RMI"))
 				//givemeNotifierByName(playername).askForItem();
 			//else
 				int index = givemeSocketHandlerByName(playername).askForItem(objects);
+				if (index != -1)
+					gamestate.itemUsageManagement(playername, index-1);
 		}
 	}
 	
@@ -151,12 +167,17 @@ public class GameServer {
 				}
 	}
 
-	//da inserire poi la pesca degli oggetti
+	
 	private void drawSectorCard (String name, String connection, Player player) throws ClassNotFoundException, IOException{
 		
 		Card sectorcard;
-		//metti lo zero davanti se è <10
-		String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();	
+		//put a 0 before the numeric coordinate if necessary
+		String position = ""+(char)(player.getPosition().getCoordX()+64);
+		String number = ""+ player.getPosition().getCoordY();
+		if (number.length() == 1)
+			number = "0"+ player.getPosition().getCoordY();
+		position += number;
+		System.out.println(position);
 		sectorcard = gamestate.getSectordeck().drawCard();
 		if (sectorcard instanceof SilenceCard){
 			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
@@ -187,6 +208,39 @@ public class GameServer {
 					givemeSocketHandlerByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
 			}
 		}
+		//Item Cards
+		ItemCard itemcard;
+		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
+			itemcard = (ItemCard)gamestate.getItemdeck().drawCard();
+			ArrayList<Card> itemdeck = gamestate.givemePlayerByName(name).getPersonalDeck();	 
+			if (itemdeck.size()==3){
+				if(connection.equals("RMI")){
+					
+				}
+					//givemeNotifierByName(name).;
+				else{
+					String objects = "";
+					for (int i=0; i<itemdeck.size(); i++)
+						objects += itemdeck.get(i).getName()+" ;";
+					int index = givemeSocketHandlerByName(name).askForItemChange(objects);
+					//if selection has been use/discard an item call the game state method with his index 
+					//then replace the card with the new card. Do nothing if index == -1.
+					if (index != -1){
+						gamestate.itemUsageManagement(name, index-1);
+						gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
+					}
+				}
+			}			
+			if (itemdeck.size()<3){
+				gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
+				if(connection.equals("RMI"))
+					givemeNotifierByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+				else
+					givemeSocketHandlerByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+			}
+			
+		}
+		
 	}
 
 	

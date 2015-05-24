@@ -73,8 +73,20 @@ public class SocketHandler extends Thread{
 	
 	public int askForItem(String objects) throws IOException{
 		out.println("object=playeritems&action="+objects);
-		int index = in.read();
+		int index = in.read()-48;
+		in.readLine();
 		System.out.println(index);
+		return index;
+	}
+	
+	
+	public int askForItemChange(String objects) throws IOException{
+		out.println("object=playeritemsdiscard&action="+objects);
+		int index = in.read()-48;
+		in.readLine();
+		System.out.println(index);
+		if (index == 7)
+			index = askForItem(objects);
 		return index;
 	}
 	

@@ -70,7 +70,7 @@ public class TextView extends View{
 	}
 	
 	public int askItemUse(String objects){
-		String[] Items = objects.split(",");
+		String[] Items = objects.split(";");
 		System.out.println("Do you want to use an Item Card?");
 		System.out.println("Y: yes    N: no");
 		char risp = in.next().charAt(0);
@@ -78,8 +78,10 @@ public class TextView extends View{
 			int answer;
 			do{
 				System.out.println("Select the number of the item you want to use:");
-				for (int i=1; i<Items.length+1; i++)
-					System.out.println(1+"- "+Items[i]);
+				for (int i=0; i<Items.length; i++){
+					int j = i+1;
+					System.out.println(j+"- "+Items[i]);
+				}
 				answer = in.nextInt();
 				if (answer <=0 || answer>Items.length)
 					System.out.println("Please write the number of the object youm want to use and nothing more");
@@ -90,9 +92,44 @@ public class TextView extends View{
 			System.out.println("Please insert 'Y' or 'N'");
 			askItemUse(objects);
 		}
-		return -1;	
+		return 8;	
 	}
 	
+	public int askItemDiscard(String objects){
+		String[] Items = objects.split(";");
+		System.out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
+		System.out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
+		char risp = in.next().charAt(0);
+		boolean validanswer = false;
+		do{
+			if (risp == 'D' || risp == 'd'){
+				validanswer = true;
+				int answer;
+				
+				do{
+					System.out.println("Select the number of the item you want to discard:");
+					for (int i=0; i<Items.length; i++){
+						int j = i+1;
+						System.out.println(j+"- "+Items[i]);
+					}
+					answer = in.nextInt()+3;
+					if (answer <=0 || answer>Items.length)
+						System.out.println("Please write the number of the object youm want to use and nothing more");
+				}while (answer <=0 || answer>Items.length);
+				return answer;
+			}
+			if (risp == 'U' || risp == 'u'){
+				validanswer = true;
+				return 9;
+			}
+			if (risp == 'N' || risp == 'n'){
+				validanswer = true;
+				return 8;
+			}	
+			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+		}while(!validanswer);
+		return 18;
+	}
 	
 	public boolean askForAttack(){
 		System.out.println("Filthy alien, do you want to attack this position?");

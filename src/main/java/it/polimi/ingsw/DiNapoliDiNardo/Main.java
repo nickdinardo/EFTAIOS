@@ -104,7 +104,7 @@ public class Main {
 		Card sectorcard = sectordeck.drawCard();
 		//esegui codice per silenzio o rumore, chiamando la view per rumore in ogni settore se necessario
 		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
-			player.drawItemCard();
+			//player.drawItemCard();
 		}
 	}
 	

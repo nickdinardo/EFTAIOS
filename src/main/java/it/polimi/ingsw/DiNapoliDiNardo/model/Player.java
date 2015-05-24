@@ -100,13 +100,7 @@ public abstract class Player {
 	}
 		
 	
-	public void drawItemCard(){
-		Card itemcard = gamestate.getItemdeck().drawCard();
-		//codice che chiama la view per chiedere se si vuole tenere la carta pescata 
-		if (personalDeck.size()<3){
-			personalDeck.add(itemcard);
-		}	
-	}
+	
 	
 	public void kill(){
 		this.isAlive = false;

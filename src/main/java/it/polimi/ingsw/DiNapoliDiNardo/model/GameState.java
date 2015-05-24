@@ -50,34 +50,41 @@ public class GameState {
 	//implement with view lights card
 	public void itemUsageManagement(String name, int index){
 		HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
-		Card item = player.getPersonalDeck().remove(index);
 		
-		if (item instanceof TeleportCard)
-			player.teleport();
-		
-		if (item instanceof AttackCard){
-			this.attackManagement(player);
-		}
-		
-		if (item instanceof AdrenalineCard){
-			player.setAdrenalized(true);
-		}
-
-		if (item instanceof SedativesCard){
-			player.setSedated(true);
-		}
-		
-		/*if (item instanceof LightsCard){
-			Coordinates coordinates = this.view.askForLights();
-			Box lightfocus = this.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];			
-			//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-			ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
-			ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
-			enlighted.add(lightfocus);
-			for (Box box : enlighted){
-				this.view.revealingLights(box);
+		if (index > -1 && index < 3){
+			Card item = player.getPersonalDeck().remove(index);
+			
+			if (item instanceof TeleportCard)
+				player.teleport();
+			
+			if (item instanceof AttackCard){
+				this.attackManagement(player);
 			}
-		}*/
+			
+			if (item instanceof AdrenalineCard){
+				player.setAdrenalized(true);
+			}
+	
+			if (item instanceof SedativesCard){
+				player.setSedated(true);
+			}
+			
+			/*if (item instanceof LightsCard){
+				Coordinates coordinates = this.view.askForLights();
+				Box lightfocus = this.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];			
+				//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
+				ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+				ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+				enlighted.add(lightfocus);
+				for (Box box : enlighted){
+					this.view.revealingLights(box);
+				}
+			}*/
+		}
+		else if (index > 2 && index < 6){
+			//remove the card user selected to discard passing index+10
+			player.getPersonalDeck().remove(index-3);
+		}
 		
 		
 	}
