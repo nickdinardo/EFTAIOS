@@ -12,10 +12,12 @@ public class TextView extends View{
 	PrintWriter out = new PrintWriter(System.out);
 	boolean isFirstTurn = true;
 	
+	
 	public String askName (){
 		System.out.println("Connected to the server game. What's your name?");
 		return in.nextLine();
 	}
+	
 	
 	public void showActualSituation (String name, String position, String objects){
 		if(isFirstTurn){
@@ -31,9 +33,7 @@ public class TextView extends View{
 		}
 	}
 	
-	
-	
-	
+		
 	
 	public void showBeingAlien (String name){
 		System.out.println(name+", the horrible alien disease that is infecting the spaceships has caught you time ago. ");
@@ -41,13 +41,15 @@ public class TextView extends View{
 		System.out.println("Your objective is tracking down the poor humans that are trying to reach the lifeboat ships and kill'em before they do it.");
 		System.out.println("All the miserable humans. Enjoy your meal.");
 	}
-		
+	
+	
 	public void showBeingHuman (String name){
 		System.out.println(name+", you are one of the survivors on the spaceship that resisted to the spreading, horrible disease that could have infected anyone of your team mates.");
 		System.out.println("Horrendous aliens that once were your friends are lurking in the dark to kill you and eat you, and they could be anyone and anywhere. ");
 		System.out.println("Your objective is reaching one of the avaiable lifeboat ships avoiding to attract the attentions of the blood-thirsty monsters that surround you.");
 		System.out.println("The mission depends on you. Your life too. Good luck.");
 	}
+	
 	
 	public Coordinates askMovement(boolean reask){
 		if(reask){
@@ -59,8 +61,7 @@ public class TextView extends View{
 		
 	}
 	
-	
-	
+		
 	public int askItemUse(String objects){
 		String[] Items = objects.split(";");
 		System.out.println("Do you want to use an Item Card?");
@@ -170,17 +171,9 @@ public class TextView extends View{
 	
 	//da sistemare
 	public Coordinates askForLights(){
+		
 		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
-		
-		char letter = in.next().charAt(0);
-		//parse the ASCII code of the char and convert it to a number, starting from 'A'-->1
-		int numberX = (int)letter;
-		if (numberX<88) numberX-=64;
-		else numberX-=96;
-		
-		int numberY = in.nextInt();
-		
-		Coordinates coordinates = new Coordinates(numberX, numberY);
+		Coordinates coordinates = solveCoordInput();
 		return coordinates;
 		
 	}

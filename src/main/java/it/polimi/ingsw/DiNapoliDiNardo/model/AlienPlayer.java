@@ -85,4 +85,8 @@ public class AlienPlayer extends Player {
 	public void setHumanfed(boolean humanfed) {
 		this.humanfed = humanfed;
 	}
+	
+	public void setHasAttacked(boolean humanfed) {
+		this.hasAttacked = humanfed;
+	}
 }

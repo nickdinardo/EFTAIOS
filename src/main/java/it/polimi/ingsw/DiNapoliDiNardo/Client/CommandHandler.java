@@ -32,6 +32,10 @@ public class CommandHandler {
 				Coordinates coord = view.askMovement(false);
 				CSI.getOutObj().writeObject(coord);
 			}
+			if(action.equals("asklights")){
+				Coordinates coord = view.askForLights();
+				CSI.getOutObj().writeObject(coord);
+			}
 			if(action.equals("asknoise")){
 				String noise = view.askForNoise();
 				CSI.getOut().println(noise);

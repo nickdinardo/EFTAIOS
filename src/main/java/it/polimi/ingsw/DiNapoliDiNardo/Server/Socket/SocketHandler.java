@@ -71,11 +71,17 @@ public class SocketHandler extends Thread{
 		return (coord);
 	}
 	
+	public Coordinates askForLights() throws IOException, ClassNotFoundException{
+		out.println("object=player&action=asklights");
+		Coordinates coord = (Coordinates)inObj.readObject();
+		return (coord);
+	}
+	
+	
 	public int askForItem(String objects) throws IOException{
 		out.println("object=playeritems&action="+objects);
 		int index = in.read()-48;
 		in.readLine();
-		System.out.println(index);
 		return index;
 	}
 	
@@ -84,8 +90,7 @@ public class SocketHandler extends Thread{
 		out.println("object=humanplayeritemsdiscard&action="+objects);
 		int index = in.read()-48;
 		in.readLine();
-		System.out.println(index);
-		if (index == 7)
+		if (index == 9)
 			index = askForItem(objects);
 		return index;
 	}
@@ -94,7 +99,6 @@ public class SocketHandler extends Thread{
 		out.println("object=alienplayeritemsdiscard&action="+objects);
 		int index = in.read()-48;
 		in.readLine();
-		System.out.println(index);
 		return index;
 	}
 	

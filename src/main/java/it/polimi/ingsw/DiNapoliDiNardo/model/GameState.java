@@ -6,11 +6,16 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.LifeboatDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
+
+import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class GameState {
@@ -38,50 +43,70 @@ public class GameState {
 		else
 			return false;
 	}
+		
 	
 	
-
-
-
-	
-	
-	
-	
-	//implement with view lights card
-	public void itemUsageManagement(String name, int index){
+	public void itemUsageManagement(String name, int index) throws ClassNotFoundException, RemoteException, IOException{
 		
 		
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
-			Card item = player.getPersonalDeck().remove(index);
+			Card item = player.getPersonalDeck().get(index);
 			
-			if (item instanceof TeleportCard)
+			if (item instanceof DefenseCard){
+				gameserver.cardsMessages(name, "defense");
+			}
+				
+			if (item instanceof TeleportCard){
 				player.teleport();
-			
+				gameserver.cardsMessages(name, "teleport");
+				player.getPersonalDeck().remove(index);
+			}
 			if (item instanceof AttackCard){
 				this.attackManagement(player);
+				player.getPersonalDeck().remove(index);
 			}
 			
 			if (item instanceof AdrenalineCard){
 				player.setAdrenalized(true);
+				gameserver.cardsMessages(name, "adrenaline");
+				player.getPersonalDeck().remove(index);
 			}
 	
 			if (item instanceof SedativesCard){
 				player.setSedated(true);
+				gameserver.cardsMessages(name, "sedative");
+				player.getPersonalDeck().remove(index);
 			}
 			
-			/*if (item instanceof LightsCard){
-				Coordinates coordinates = this.view.askForLights();
-				Box lightfocus = this.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];			
+			if (item instanceof LightsCard){
+				Coordinates coordinates = gameserver.askForLights(name);
+				Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
 				//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
 				ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
 				ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
 				enlighted.add(lightfocus);
+				
 				for (Box box : enlighted){
-					this.view.revealingLights(box);
+					ArrayList<Player> peoplehere = box.getPlayerHere();
+					String playersinbox = "";
+					for (int i=0; i<peoplehere.size(); i++){
+						playersinbox += peoplehere.get(i).getName();
+						playersinbox += ", ";
+					}
+					if (playersinbox.length()>2)
+						playersinbox = playersinbox.substring(0, playersinbox.length()-2);
+					String lightposition = ""+(char)(box.getCoordX()+64);
+					String number = ""+ box.getCoordY();
+					if (number.length() == 1)
+						number = "0"+ box.getCoordY();
+					lightposition += number;
+					gameserver.showLights(name, lightposition, playersinbox);
 				}
-			}*/
+				player.getPersonalDeck().remove(index);
+			}
 		}
+		
 		else if (index > 2 && index < 6){
 			//remove the card user selected to discard passing index+10
 			Player player = givemePlayerByName(name);
@@ -122,11 +147,13 @@ public class GameState {
 		
 	
 	public void removeInTurnBonus (){
-		for (Player humanplayer: this.inGamePlayers){
-			if(humanplayer instanceof HumanPlayer){
-				((HumanPlayer) humanplayer).setAdrenalized(false);
-				((HumanPlayer) humanplayer).setSedated(false);
+		for (Player player: this.inGamePlayers){
+			if(player instanceof HumanPlayer){
+				((HumanPlayer) player).setAdrenalized(false);
+				((HumanPlayer) player).setSedated(false);
 			}
+			else
+				((AlienPlayer) player).setHasAttacked(false);
 		}
 	}
 	

@@ -42,13 +42,14 @@ public class GameServer {
 			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 				String playername = entry.getKey();
 				
-				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
+				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 					askForAlienTurn(playername, entry.getValue());
-				}
-				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
+				
+				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 					askForHumanTurn(playername, entry.getValue());
+				
 				}
-			}
+			gamestate.removeInTurnBonus();
 		}
 		
 	
@@ -60,6 +61,7 @@ public class GameServer {
 	
 	
 	public void showActualSituation () throws RemoteException{
+		
 		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
@@ -81,39 +83,38 @@ public class GameServer {
 	}
 	
 	
-	//usare index in gamestate per gli items e fare i metodi item usage RMI
 	
 	public void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
 		
 		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
-		//item usage phase 1
+		
 		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
+		int index;
+		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			String objects = "";
-			for (int i=0; i<itemdeck.size(); i++)
-				objects += itemdeck.get(i).getName()+" ;";
-			//if(connection.equals("RMI"))
-				//givemeNotifierByName(playername).askForItem();
-			//else
-				int index = givemeSocketHandlerByName(playername).askForItem(objects);
-				if (index != -1)
+			
+			String objects = personalDeckListify(itemdeck);
+			if(connection.equals("RMI"))
+				index = givemeNotifierByName(playername).askForItem(objects);
+			else
+				index = givemeSocketHandlerByName(playername).askForItem(objects);
+				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
-		//movement
+		
 		askForMovement(playername, connection);
-		//draw a sector card in dangerous box and manage the consequences
+		
 		if (player.getPosition() instanceof DangerousBox && !player.isSedated())
 			drawSectorCard(playername, connection, player);
-		//item usage phase 2
+		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			String objects = "";
-			for (int i=0; i<itemdeck.size(); i++)
-				objects += itemdeck.get(i).getName()+" ;";
-			//if(connection.equals("RMI"))
-				//givemeNotifierByName(playername).askForItem();
-			//else
-				int index = givemeSocketHandlerByName(playername).askForItem(objects);
-				if (index != -1)
+			
+			String objects = personalDeckListify(itemdeck);
+			if(connection.equals("RMI"))
+				index = givemeNotifierByName(playername).askForItem(objects);
+			else
+				index = givemeSocketHandlerByName(playername).askForItem(objects);
+				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
 	}
@@ -121,16 +122,18 @@ public class GameServer {
 		
 		
 	public void askForAlienTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
-		//movement
+		
 		askForMovement(playername, connection);
-		//draw a sector card in dangerous box and manage the consequences
 		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
 	}
 	
 	
+	
 	private void askForMovement(String playername, String connection) throws ClassNotFoundException, IOException{
+		
 		Coordinates coordinates;
 		boolean validmove = false;
 		if(connection.equals("RMI")){
@@ -153,7 +156,57 @@ public class GameServer {
 		}while(!validmove);
 	}
 
-
+	
+	
+	public Coordinates askForLights(String name) throws ClassNotFoundException, RemoteException, IOException{
+		Coordinates coordinates;
+		if (notifiers.containsKey(name))
+			coordinates = notifiers.get(name).askForLights();
+		else
+			coordinates = sockethandlers.get(name).askForLights();
+		return coordinates;
+	}
+	
+	
+	
+	public void showLights(String name, String lightposition, String playersinbox) throws ClassNotFoundException, RemoteException, IOException{
+		if (playersinbox.equals("")){
+			if (notifiers.containsKey(name))
+				notifiers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
+			else
+				sockethandlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
+		}
+		else{
+			if (notifiers.containsKey(name))
+				notifiers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);
+			else
+				sockethandlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
+			}
+	}
+	
+	
+	 
+	public void cardsMessages(String name, String type) throws ClassNotFoundException, RemoteException, IOException{
+		String message = "";
+		if (type.equals("defense"))
+			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked-\n");
+		if (type.equals("teleport"))
+			message = ("-BZZZ...You successfully teleported back to L08, your starting position-\n");
+		if (type.equals("sedative"))	
+			message = ("-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-\n");
+		if (type.equals("adrenaline"))
+			message = ("-Injecting yourself adrenaline you feel your body answer more quickly. You're faster in movements this turn-\n");
+		
+		
+		if (notifiers.containsKey(name))
+			notifiers.get(name).notifyMessage(message);
+		else
+			sockethandlers.get(name).notifyMessage(message);
+		
+	}
+	
+	
+	
 	private void createPlayersInGame(HashMap<String, String> playersconnected) {
 		ArrayList<String> keys = new ArrayList<String>(playersconnected.keySet());
 		Collections.shuffle(keys);
@@ -168,17 +221,17 @@ public class GameServer {
 	}
 
 	
+	
 	private void drawSectorCard (String name, String connection, Player player) throws ClassNotFoundException, IOException{
 		
-		Card sectorcard;
+		Card sectorcard = gamestate.getSectordeck().drawCard();
 		//put a 0 before the numeric coordinate if necessary
 		String position = ""+(char)(player.getPosition().getCoordX()+64);
 		String number = ""+ player.getPosition().getCoordY();
 		if (number.length() == 1)
 			number = "0"+ player.getPosition().getCoordY();
 		position += number;
-		System.out.println(position);
-		sectorcard = gamestate.getSectordeck().drawCard();
+				
 		if (sectorcard instanceof SilenceCard){
 			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 				if(entry.getValue().equals("RMI"))
@@ -208,109 +261,115 @@ public class GameServer {
 					givemeSocketHandlerByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
 			}
 		}
-		//Item Cards
-		ItemCard itemcard;
-		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem){
-			itemcard = (ItemCard)gamestate.getItemdeck().drawCard();
-			ArrayList<Card> itemdeck = gamestate.givemePlayerByName(name).getPersonalDeck();	 
-			if (itemdeck.size()==3){
-				if(connection.equals("RMI")){
-					
-				}
-					//givemeNotifierByName(name).;
-				else{
-					String objects = "";
-					int index;
-					for (int i=0; i<itemdeck.size(); i++)
-						objects += itemdeck.get(i).getName()+" ;";
-					if (player instanceof HumanPlayer)
-						index = givemeSocketHandlerByName(name).askHumanForItemChange(objects);
-					else
-						index = givemeSocketHandlerByName(name).askAlienForItemChange(objects);
-					//if selection has been use/discard an item call the game state method with his index 
-					//then replace the card with the new card. Do nothing if index == -1.
-					if (index != 8){
-						gamestate.itemUsageManagement(name, index-1);
-						gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
-					}
-				}
-			}			
-			if (itemdeck.size()<3){
-				gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
-				if(connection.equals("RMI"))
-					givemeNotifierByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+		
+		//call method to draw item cards if required by sector card
+		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem)
+			drawItemCard (name, connection, player);
+	}
+
+	
+	
+	private void drawItemCard (String name, String connection, Player player) throws RemoteException, IOException, ClassNotFoundException{
+		
+		//manage the personal decks of the players when a new item card is drawn	
+		ItemCard itemcard = (ItemCard)gamestate.getItemdeck().drawCard();
+		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(name).getPersonalDeck();	 
+		
+		if (itemdeck.size()==3){
+			int index;
+			String objects = personalDeckListify(itemdeck);
+			if(connection.equals("RMI")){
+				if (player instanceof HumanPlayer)
+					index = givemeNotifierByName(name).askHumanForItemChange(objects);
 				else
-					givemeSocketHandlerByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+					index = givemeNotifierByName(name).askAlienForItemChange(objects);
+			}
+			else{
+				if (player instanceof HumanPlayer)
+					index = givemeSocketHandlerByName(name).askHumanForItemChange(objects);
+				else
+					index = givemeSocketHandlerByName(name).askAlienForItemChange(objects);
+			}
+			//if selection has been use/discard an item call the game state method with his index 
+			//then replace the card with the new card. Do nothing if index == 8 (keep actuals).
+			if (index != 8){
+				gamestate.itemUsageManagement(name, index-1);
+				gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
 			}
 			
+		}		
+		
+		if (itemdeck.size()<3){
+			gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
+			if(connection.equals("RMI"))
+				givemeNotifierByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+			else
+				givemeSocketHandlerByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
 		}
 		
 	}
-
+	
+	
 	
 	private void giveWelcome() throws IOException{
+	
 		//print a welcome message and give the list of players to each player.
-			String listofplayers = "";
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				listofplayers += entry.getKey()+", ";
+		String listofplayers = "";
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			listofplayers += entry.getKey()+", ";
+		}
+		listofplayers = listofplayers.substring(0, listofplayers.length()-2);
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			if(entry.getValue().equals("RMI")){
+				givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
 			}
-			listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				if(entry.getValue().equals("RMI")){
-					givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
-				}
-				else {
-					givemeSocketHandlerByName(entry.getKey()).printWelcomeMessage(entry.getKey(), listofplayers);
-				}
+			else {
+				givemeSocketHandlerByName(entry.getKey()).printWelcomeMessage(entry.getKey(), listofplayers);
 			}
+		}
 	}
 
+	
+	
 	private void informPlayersOfTheirNature() throws RemoteException{
-		//Inform players on the nature of their character
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				String playername = entry.getKey();
-				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
-					if(entry.getValue().equals("RMI")){
-						givemeNotifierByName(entry.getKey()).showBeingAlien(entry.getKey());
-					}
-					else {
-						givemeSocketHandlerByName(entry.getKey()).showBeingAlien(entry.getKey());
-					}
+		
+		//inform players on the nature of their character
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			String playername = entry.getKey();
+			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
+				if(entry.getValue().equals("RMI")){
+					givemeNotifierByName(entry.getKey()).showBeingAlien(entry.getKey());
 				}
-				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
-					if(entry.getValue().equals("RMI")){
-						givemeNotifierByName(entry.getKey()).showBeingHuman(entry.getKey());
-					}
-					else {
-						givemeSocketHandlerByName(entry.getKey()).showBeingHuman(entry.getKey());
-					}
+				else {
+					givemeSocketHandlerByName(entry.getKey()).showBeingAlien(entry.getKey());
 				}
 			}
+			else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
+				if(entry.getValue().equals("RMI")){
+					givemeNotifierByName(entry.getKey()).showBeingHuman(entry.getKey());
+				}
+				else {
+					givemeSocketHandlerByName(entry.getKey()).showBeingHuman(entry.getKey());
+				}
+			}
+		}
 	}
 	
 	
-	public String personalDeckListify (Player player){
+	
+	public String personalDeckListify (ArrayList<Card> itemdeck){
+	
+		//utility for other methods, put in a string all the item cards of a personal deck
 		String objects = "";
-		for (Card item : player.getPersonalDeck()){
-			if (item instanceof TeleportCard)
-				objects += "TeleportCard, ";
-			if (item instanceof AttackCard)
-				objects += "AttackCard, ";
-			if (item instanceof AdrenalineCard)
-				objects += "AdrenalineCard, ";
-			if (item instanceof SedativesCard)
-				objects += "SedativesCard, ";
-			if (item instanceof LightsCard)
-				objects += "LightsCard, ";
-			objects = objects.substring(0, objects.length()-2);
-		}
-		if (objects.length()<2)
-			objects = "no";
+		for (int i=0; i<itemdeck.size(); i++)
+			objects += itemdeck.get(i).getName()+" ;";
 		return objects;
 	}
 	
 	
+	
 	public RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
+		
 		for (RemoteNotifier rn: notifiers.values()){
 			if (rn.getName().equals(lookforname)){
 				return rn;
@@ -319,7 +378,10 @@ public class GameServer {
 		return null;
 	}
 
+	
+	
 	public SocketHandler givemeSocketHandlerByName (String lookforname) throws RemoteException{
+		
 		for (SocketHandler sh: sockethandlers.values()){
 			if (sh.getShName().equals(lookforname)){
 				return sh;
@@ -328,8 +390,10 @@ public class GameServer {
 		return null;
 	}
 	
-		
+	
+	
 	public GameServer (int t, HashMap<String, String> pc, HashMap<String, RemoteNotifier> rn, HashMap<String, SocketHandler> sh){
+		
 		this.totalplayers = t;
 		this.playersconnected = pc;
 		this.notifiers = rn;
