@@ -55,11 +55,11 @@ public class Main {
 			//alien attacks phase
 			for (Player alienplayer: game.inGamePlayers){
 				if(alienplayer instanceof AlienPlayer){
-					if(game.view.askForAttack()){
-						game.attackManagement(alienplayer);
+					//if(game.view.askForAttack()){
+				//		game.attackManagement(alienplayer);
 					}
 				}
-			}
+			//}
 			
 			//removing players from the game who has been killed
 			for (Iterator<Player> it = game.inGamePlayers.iterator(); it.hasNext(); ) {

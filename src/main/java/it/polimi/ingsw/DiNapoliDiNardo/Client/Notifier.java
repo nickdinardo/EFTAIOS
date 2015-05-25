@@ -17,6 +17,13 @@ public class Notifier implements RemoteNotifier {
 		this.name = n;
 	}
 	
+	public boolean askForAttack() throws ClassNotFoundException, IOException{
+		String answer = view.askForAttack();
+		if (answer.equalsIgnoreCase("Y"))
+			return true;
+		else 
+			return false;
+	}
 	
 	public Coordinates askForMovement(boolean reask){
 		

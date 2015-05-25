@@ -66,7 +66,8 @@ public class TextView extends View{
 		String[] Items = objects.split(";");
 		System.out.println("Do you want to use an Item Card?");
 		System.out.println("Y: yes    N: no");
-		char risp = in.next().charAt(0);
+		String input = in.nextLine();
+		char risp = input.charAt(0);
 		if (risp == 'Y' || risp == 'y'){
 			int answer;
 			do{
@@ -158,15 +159,24 @@ public class TextView extends View{
 		return 18;
 	}
 	
-	//da sistemare
-	public boolean askForAttack(){
+	
+	public String askForAttack(){
 		System.out.println("Filthy alien, do you want to attack this position?");
 		System.out.println("Y: yes    N: no");
-		char risp = in.next().charAt(0);
-		if (risp == 'Y' || risp == 'y')
-			return true;
-		else
-			return false;
+		boolean validanswer = false;
+		do{
+			
+			String ans = in.nextLine();
+			if (ans.length()>0)
+				ans = ans.substring(0, 1);
+			if (ans.equalsIgnoreCase("Y"))
+				return ans;
+			if (ans.equalsIgnoreCase("N"))
+				return ans;	
+			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+		}while(!validanswer);
+		
+		return null;
 	}
 	
 	//da sistemare

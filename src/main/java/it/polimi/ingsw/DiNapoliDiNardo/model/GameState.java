@@ -63,7 +63,7 @@ public class GameState {
 				player.getPersonalDeck().remove(index);
 			}
 			if (item instanceof AttackCard){
-				this.attackManagement(player);
+				//this.attackManagement(player);
 				player.getPersonalDeck().remove(index);
 			}
 			
@@ -119,33 +119,23 @@ public class GameState {
 	
 	
 	
-	public void attackManagement(Player player){
+	public ArrayList<Player> attackManagement(Player player){
 		ArrayList<Player> killed = player.attack(player.getPosition());
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
-				//code to notify the players killed
+				inGamePlayers.remove(killedPlayer);
 			}
 			//remove all the players from box and then replace the attacker there
-			player.getPosition().clearPlayersHere();
-			player.getPosition().setPlayer(player);
-		} 
-		if(killed.size() == 0){
-			//code to notify the player of missed attack
-		}
-	}
-	
-	
-	
-	public void removeDeadPlayers(){
-		for (Player humanplayer: this.inGamePlayers){
-			if(humanplayer instanceof HumanPlayer){
-				((HumanPlayer) humanplayer).setAdrenalized(false);
-				((HumanPlayer) humanplayer).setSedated(false);
-			}
-		}
-	}
 		
+			
+			
+		} 
+		AlienPlayer alien = (AlienPlayer) player;
+		alien.setHasAttacked(true);
+		return killed;
+	}
 	
+		
 	public void removeInTurnBonus (){
 		for (Player player: this.inGamePlayers){
 			if(player instanceof HumanPlayer){

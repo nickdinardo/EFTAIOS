@@ -15,6 +15,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+
 
 
 
@@ -39,28 +41,27 @@ public class GameServer {
 		while(!finish){
 			
 			showActualSituation ();
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				String playername = entry.getKey();
+			
+			    Iterator<HashMap.Entry<String, String>> it = playersconnected.entrySet().iterator();
+		        while (it.hasNext()) {
+		           HashMap.Entry<String, String> entry = it.next();
+		           String playername = entry.getKey();
 				
-				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
-					askForAlienTurn(playername, entry.getValue());
-				
-				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
-					askForHumanTurn(playername, entry.getValue());
-				
-				}
-			gamestate.removeInTurnBonus();
-		}
-		
-	
-	
-	
+					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
+						askForAlienTurn(playername, entry.getValue());
+					
+					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
+						askForHumanTurn(playername, entry.getValue());
+					}
+				gamestate.removeInTurnBonus();
+			    
+		}	        
 	}
 	
 	
 	
 	
-	public void showActualSituation () throws RemoteException{
+	private void showActualSituation () throws RemoteException{
 		
 		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
 			Player player;
@@ -84,15 +85,13 @@ public class GameServer {
 	
 	
 	
-	public void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+	private void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
 		
 		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
-		
 		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		int index;
 		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			
 			String objects = personalDeckListify(itemdeck);
 			if(connection.equals("RMI"))
 				index = givemeNotifierByName(playername).askForItem(objects);
@@ -108,7 +107,6 @@ public class GameServer {
 			drawSectorCard(playername, connection, player);
 		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
-			
 			String objects = personalDeckListify(itemdeck);
 			if(connection.equals("RMI"))
 				index = givemeNotifierByName(playername).askForItem(objects);
@@ -121,11 +119,30 @@ public class GameServer {
 	
 		
 		
-	public void askForAlienTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+	private void askForAlienTurn(String playername, String connection) throws ClassNotFoundException, IOException{
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
 		
 		askForMovement(playername, connection);
+		boolean attack = false;
+		if(connection.equals("RMI"))
+			attack = givemeNotifierByName(playername).askForAttack();
+		else
+			attack = givemeSocketHandlerByName(playername).askForAttack();
+		if (attack){
+			String position = positionToString(player);
+			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+				if(entry.getValue().equals("RMI"))
+					givemeNotifierByName(entry.getKey()).notifyMessage(playername+" has ATTACKED sector "+position);
+				else
+					givemeSocketHandlerByName(entry.getKey()).notifyMessage(playername+" has ATTACKED sector "+position);
+			}
+			ArrayList<Player> killed = gamestate.attackManagement(player);
+			for (Player dead : killed)				
+				sayByeToLosers(dead.getName(), player.getName());
+			player.getPosition().clearPlayersHere();
+			player.getPosition().setPlayer(player);
+		}
 		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
 	}
@@ -189,13 +206,13 @@ public class GameServer {
 	public void cardsMessages(String name, String type) throws ClassNotFoundException, RemoteException, IOException{
 		String message = "";
 		if (type.equals("defense"))
-			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked-\n");
+			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked-");
 		if (type.equals("teleport"))
-			message = ("-BZZZ...You successfully teleported back to L08, your starting position-\n");
+			message = ("-BZZZ...You successfully teleported back to L08, your starting position-");
 		if (type.equals("sedative"))	
-			message = ("-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-\n");
+			message = ("-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-");
 		if (type.equals("adrenaline"))
-			message = ("-Injecting yourself adrenaline you feel your body answer more quickly. You're faster in movements this turn-\n");
+			message = ("-Injecting yourself adrenaline you feel your body answer more quickly. You're faster in movements this turn-");
 		
 		
 		if (notifiers.containsKey(name))
@@ -225,12 +242,7 @@ public class GameServer {
 	private void drawSectorCard (String name, String connection, Player player) throws ClassNotFoundException, IOException{
 		
 		Card sectorcard = gamestate.getSectordeck().drawCard();
-		//put a 0 before the numeric coordinate if necessary
-		String position = ""+(char)(player.getPosition().getCoordX()+64);
-		String number = ""+ player.getPosition().getCoordY();
-		if (number.length() == 1)
-			number = "0"+ player.getPosition().getCoordY();
-		position += number;
+		String position = positionToString(player);
 				
 		if (sectorcard instanceof SilenceCard){
 			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
@@ -311,6 +323,27 @@ public class GameServer {
 	
 	
 	
+	private void sayByeToLosers(String dead, String killer) throws RemoteException{
+
+		if (notifiers.containsKey(dead)){
+			notifiers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
+			notifiers.get(dead).notifyMessage("Unfortunately, your game ends here");
+		}
+		else{
+			sockethandlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
+			sockethandlers.get(dead).notifyMessage("Unfortunately, your game ends here");
+		}
+		
+		playersconnected.remove(dead);
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			if(entry.getValue().equals("RMI"))
+				givemeNotifierByName(entry.getKey()).notifyMessage(dead+" has been killed by "+killer+" and has left the game");
+			else
+				givemeSocketHandlerByName(entry.getKey()).notifyMessage(dead+" has been killed by "+killer+" and has left the game");
+		}
+	}
+	
+	
 	private void giveWelcome() throws IOException{
 	
 		//print a welcome message and give the list of players to each player.
@@ -357,7 +390,7 @@ public class GameServer {
 	
 	
 	
-	public String personalDeckListify (ArrayList<Card> itemdeck){
+	private String personalDeckListify (ArrayList<Card> itemdeck){
 	
 		//utility for other methods, put in a string all the item cards of a personal deck
 		String objects = "";
@@ -368,7 +401,7 @@ public class GameServer {
 	
 	
 	
-	public RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
+	private RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		
 		for (RemoteNotifier rn: notifiers.values()){
 			if (rn.getName().equals(lookforname)){
@@ -380,7 +413,7 @@ public class GameServer {
 
 	
 	
-	public SocketHandler givemeSocketHandlerByName (String lookforname) throws RemoteException{
+	private SocketHandler givemeSocketHandlerByName (String lookforname) throws RemoteException{
 		
 		for (SocketHandler sh: sockethandlers.values()){
 			if (sh.getShName().equals(lookforname)){
@@ -390,6 +423,15 @@ public class GameServer {
 		return null;
 	}
 	
+	
+	private String positionToString (Player player){
+		String position = ""+(char)(player.getPosition().getCoordX()+64);
+		String number = ""+ player.getPosition().getCoordY();
+		if (number.length() == 1)
+			number = "0"+ player.getPosition().getCoordY();
+		position += number;
+		return position;
+	}
 	
 	
 	public GameServer (int t, HashMap<String, String> pc, HashMap<String, RemoteNotifier> rn, HashMap<String, SocketHandler> sh){

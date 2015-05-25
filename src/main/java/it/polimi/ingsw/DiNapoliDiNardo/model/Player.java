@@ -33,7 +33,10 @@ public abstract class Player {
 	
 	
 	public abstract boolean movement(Box destination, Box position);
+	
 	public void teleport(){};
+	
+	
 	public ArrayList<Player> attack(Box position){
 		ArrayList<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty()){
@@ -45,6 +48,8 @@ public abstract class Player {
 			}
 		}
 		playerInBox.remove(this);
+		for (Player player : playerInBox)
+			System.out.println("inbox "+ player.getName());
 		return playerInBox;
 		
 	}

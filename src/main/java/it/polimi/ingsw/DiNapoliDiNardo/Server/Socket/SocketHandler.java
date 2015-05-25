@@ -56,6 +56,16 @@ public class SocketHandler extends Thread{
 		out.println("object=situation&action="+name+";"+position+";"+objects+";");
 	}
 	
+	
+	public boolean askForAttack() throws ClassNotFoundException, IOException{
+		out.println("object=player&action=askattack");
+		String answer = in.readLine();
+		if (answer.equalsIgnoreCase("Y"))
+			return true;
+		else 
+			return false;
+	}
+	
 	public String askForNoise() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=asknoise");
 		String noise = in.readLine();

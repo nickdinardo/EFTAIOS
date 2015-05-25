@@ -22,7 +22,7 @@ public abstract class View {
 	
 	public abstract void attackNotSuccesful();
 	
-	public abstract boolean askForAttack();
+	public abstract String askForAttack();
 	
 	public abstract Coordinates askForLights();
 	

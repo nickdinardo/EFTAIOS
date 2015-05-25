@@ -28,6 +28,10 @@ public class CommandHandler {
 				CSI.getOut().println(view.askName());
 				CSI.getOut().flush();
 				}
+			if(action.equals("askattack")){
+				CSI.getOut().println(view.askForAttack());
+				CSI.getOut().flush();
+				}
 			if(action.equals("askmovement")){
 				Coordinates coord = view.askMovement(false);
 				CSI.getOutObj().writeObject(coord);
