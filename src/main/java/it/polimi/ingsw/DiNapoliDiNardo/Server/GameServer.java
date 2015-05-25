@@ -72,15 +72,10 @@ public class GameServer {
 		        if(!dead.isAlive()){
 			        sayByeToLosers(playername, dead.getKiller());
 			        remover.remove();
-				    for (HashMap.Entry<String, String> remaining : playersconnected.entrySet()){
-						if(remaining.getValue().equals("RMI"))
-							givemeNotifierByName(remaining.getKey()).notifyMessage(playername+" has been killed and has left the game");
-						else
-							givemeSocketHandlerByName(remaining.getKey()).notifyMessage(playername+" has been killed and has left the game");
+				    notifyMessage(playername+" has been killed and has left the game");
 			        }
-		        }
-		    }
-		    
+		       }
+		   
 		    //check for winning conditions, code still to make
 		}
 	}	
@@ -162,12 +157,7 @@ public class GameServer {
 			attack = givemeSocketHandlerByName(playername).askForAttack();
 		if (attack){
 			String position = positionToString(player);
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				if(entry.getValue().equals("RMI"))
-					givemeNotifierByName(entry.getKey()).notifyMessage(playername+" has ATTACKED sector "+position);
-				else
-					givemeSocketHandlerByName(entry.getKey()).notifyMessage(playername+" has ATTACKED sector "+position);
-			}
+			notifyMessage(playername+" has ATTACKED sector "+position);
 			gamestate.attackManagement(player);
 			player.getPosition().clearPlayersHere();
 	        player.getPosition().setPlayer(player);
@@ -205,6 +195,16 @@ public class GameServer {
 
 	
 	
+	public void notifyMessage(String message) throws RemoteException{
+		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+			if(entry.getValue().equals("RMI"))
+				givemeNotifierByName(entry.getKey()).notifyMessage(message);
+			else
+				givemeSocketHandlerByName(entry.getKey()).notifyMessage(message);
+		}
+	}
+	
+	
 	
 	public Coordinates askForLights(String name) throws ClassNotFoundException, RemoteException, IOException{
 		Coordinates coordinates;
@@ -240,13 +240,24 @@ public class GameServer {
 		String message = "";
 		if (type.equals("defense"))
 			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked-");
-		if (type.equals("teleport"))
+		if (type.equals("teleport")){
 			message = ("-BZZZ...You successfully teleported back to L08, your starting position-");
-		if (type.equals("sedative"))	
+			notifyMessage(name+" has used a Teleport Card");
+		}
+		if (type.equals("sedative")){
 			message = ("-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-");
-		if (type.equals("adrenaline"))
+			notifyMessage(name+" has used a Sedative Card");
+		}
+			
+		if (type.equals("adrenaline")){
 			message = ("-Injecting yourself adrenaline you feel your body answer more quickly. You're faster in movements this turn-");
-		
+			notifyMessage(name+" has used an Adrenaline Card");
+		}
+		if (type.equals("attack")){
+			message = ("-You charge, point and fire your weapon in the darkness. If someone (or something) is there he will suffer the consequences-");
+			String position = positionToString(gamestate.givemePlayerByName(name));
+			notifyMessage(name+" has ATTACKED position "+position+" using an Attack Card");
+		}
 		
 		if (notifiers.containsKey(name))
 			notifiers.get(name).notifyMessage(message);
@@ -280,20 +291,10 @@ public class GameServer {
 		String position = positionToString(player);
 				
 		if (sectorcard instanceof SilenceCard){
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				if(entry.getValue().equals("RMI"))
-					givemeNotifierByName(entry.getKey()).notifyMessage(name+" declares: SILENCE.");
-				else
-					givemeSocketHandlerByName(entry.getKey()).notifyMessage(name+" declares: SILENCE.");
-			}
+			notifyMessage(name+" declares: SILENCE.");
 		}
 		if (sectorcard instanceof NoiseHereCard){
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				if(entry.getValue().equals("RMI"))
-					givemeNotifierByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+position+".");
-				else
-					givemeSocketHandlerByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+position+".");
-			}
+			notifyMessage(name+" declares: NOISE in sector "+position+".");
 		}
 		if (sectorcard instanceof NoiseAnywhereCard){
 			String noiseIn = "";
@@ -301,12 +302,7 @@ public class GameServer {
 				noiseIn = givemeNotifierByName(name).askForNoise();
 			else
 				noiseIn = givemeSocketHandlerByName(name).askForNoise();
-			for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-				if(entry.getValue().equals("RMI"))
-					givemeNotifierByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
-				else
-					givemeSocketHandlerByName(entry.getKey()).notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
-			}
+			notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
 		}
 		
 		//call method to draw item cards if required by sector card

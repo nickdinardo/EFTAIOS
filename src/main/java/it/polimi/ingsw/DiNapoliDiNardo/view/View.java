@@ -2,6 +2,8 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 
 
+
+
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;

@@ -3,7 +3,9 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import it.polimi.ingsw.DiNapoliDiNardo.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+
 import java.io.PrintWriter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -67,7 +69,10 @@ public class TextView extends View{
 		System.out.println("Do you want to use an Item Card?");
 		System.out.println("Y: yes    N: no");
 		String input = in.nextLine();
-		char risp = input.charAt(0);
+		char risp;
+		if (input.length()>0)
+			risp = input.charAt(0);
+		else risp = 'w';
 		if (risp == 'Y' || risp == 'y'){
 			int answer;
 			do{
@@ -76,9 +81,14 @@ public class TextView extends View{
 					int j = i+1;
 					System.out.println(j+"- "+Items[i]);
 				}
-				answer = in.nextInt();
+				try{
+					answer = in.nextInt();
+				}catch (InputMismatchException e){
+					answer=0;
+				}
+				in.nextLine();
 				if (answer <=0 || answer>Items.length)
-					System.out.println("Please write the number of the object youm want to use and nothing more");
+					System.out.println("Please write the number of the object you want to use and nothing more");
 			}while (answer <=0 || answer>Items.length);
 			return answer;
 		}
@@ -94,7 +104,11 @@ public class TextView extends View{
 		String[] Items = objects.split(";");
 		System.out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
 		System.out.println("D: discard an item	N: no, I'll keep my actual items");
-		char risp = in.next().charAt(0);
+		String input = in.nextLine();
+		char risp;
+		if (input.length()>0)
+			risp = input.charAt(0);
+		else risp = 'w';
 		boolean validanswer = false;
 		do{
 			if (risp == 'D' || risp == 'd'){
@@ -107,7 +121,12 @@ public class TextView extends View{
 						int j = i+1;
 						System.out.println(j+"- "+Items[i]);
 					}
-					answer = in.nextInt()+3;
+					try{
+						answer = in.nextInt()+3;
+					}catch (InputMismatchException e){
+						answer=0;
+					}
+					in.nextLine();
 					if (answer <=3 || answer>Items.length+3)
 						System.out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>Items.length+3);
@@ -127,7 +146,11 @@ public class TextView extends View{
 		String[] Items = objects.split(";");
 		System.out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
 		System.out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
-		char risp = in.next().charAt(0);
+		String input = in.nextLine();
+		char risp;
+		if (input.length()>0)
+			risp = input.charAt(0);
+		else risp = 'w';
 		boolean validanswer = false;
 		do{
 			if (risp == 'D' || risp == 'd'){
@@ -140,7 +163,13 @@ public class TextView extends View{
 						int j = i+1;
 						System.out.println(j+"- "+Items[i]);
 					}
-					answer = in.nextInt()+3;
+					try{
+						answer = in.nextInt()+3;
+					}catch (InputMismatchException e){
+						answer=0;
+					}
+					
+					in.nextLine();
 					if (answer <=3 || answer>Items.length+3)
 						System.out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>Items.length+3);

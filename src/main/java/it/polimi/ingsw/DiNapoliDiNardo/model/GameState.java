@@ -65,7 +65,8 @@ public class GameState {
 				player.getPersonalDeck().remove(index);
 			}
 			if (item instanceof AttackCard){
-				//this.attackManagement(player);
+				this.attackManagement(player);
+				gameserver.cardsMessages(name, "attack");
 				player.getPersonalDeck().remove(index);
 			}
 			
