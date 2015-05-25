@@ -55,7 +55,7 @@ public class TextView extends View{
 		if(reask){
 			System.out.println("The movement you selected is not valid. Please select another box.");
 		}
-		System.out.println("Where do you want to move? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
+		System.out.println("Where do you want to move? Insert the coordinates of the box you want to move in");
 		Coordinates coordinates = solveCoordInput();		
 		return coordinates;
 		
@@ -179,10 +179,10 @@ public class TextView extends View{
 		return null;
 	}
 	
-	//da sistemare
+	
 	public Coordinates askForLights(){
 		
-		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in. Insert the letter, press enter, then the number of the box, then press enter again.");
+		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in");
 		Coordinates coordinates = solveCoordInput();
 		return coordinates;
 		

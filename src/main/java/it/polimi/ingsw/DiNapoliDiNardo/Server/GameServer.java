@@ -29,6 +29,7 @@ public class GameServer {
 	boolean finish;
 	GameState gamestate;
 	
+	
 	public void rungame() throws IOException, ClassNotFoundException{
 		
 		
@@ -42,21 +43,49 @@ public class GameServer {
 			
 			showActualSituation ();
 			
-			    Iterator<HashMap.Entry<String, String>> it = playersconnected.entrySet().iterator();
-		        while (it.hasNext()) {
-		           HashMap.Entry<String, String> entry = it.next();
-		           String playername = entry.getKey();
+			//turn iteration
+			Iterator<HashMap.Entry<String, String>> it = playersconnected.entrySet().iterator();
+		    while (it.hasNext()) {
+		    
+		    	HashMap.Entry<String, String> entry = it.next();
+		        String playername = entry.getKey();
 				
+		        if(gamestate.givemePlayerByName(playername).isAlive()){
 					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 						askForAlienTurn(playername, entry.getValue());
-					
+						
 					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 						askForHumanTurn(playername, entry.getValue());
-					}
+				}
+		        
 				gamestate.removeInTurnBonus();
-			    
-		}	        
-	}
+		    }	
+		
+		    //removing dead players iteration
+		    Iterator<HashMap.Entry<String, String>> remover = playersconnected.entrySet().iterator();
+		    while (remover.hasNext()) {
+		    
+		    	HashMap.Entry<String, String> entry = remover.next();
+		        String playername = entry.getKey();
+		        System.out.println(playername);
+		        Player dead = gamestate.givemePlayerByName(playername);
+		        if(!dead.isAlive()){
+			        sayByeToLosers(playername, dead.getKiller());
+			        remover.remove();
+				    for (HashMap.Entry<String, String> remaining : playersconnected.entrySet()){
+						if(remaining.getValue().equals("RMI"))
+							givemeNotifierByName(remaining.getKey()).notifyMessage(playername+" has been killed and has left the game");
+						else
+							givemeSocketHandlerByName(remaining.getKey()).notifyMessage(playername+" has been killed and has left the game");
+			        }
+		        }
+		    }
+		    
+		    //check for winning conditions, code still to make
+		}
+	}	
+	
+	
 	
 	
 	
@@ -82,6 +111,7 @@ public class GameServer {
 				
 		}
 	}
+	
 	
 	
 	
@@ -118,7 +148,8 @@ public class GameServer {
 	}
 	
 		
-		
+	
+	
 	private void askForAlienTurn(String playername, String connection) throws ClassNotFoundException, IOException{
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
@@ -137,15 +168,14 @@ public class GameServer {
 				else
 					givemeSocketHandlerByName(entry.getKey()).notifyMessage(playername+" has ATTACKED sector "+position);
 			}
-			ArrayList<Player> killed = gamestate.attackManagement(player);
-			for (Player dead : killed)				
-				sayByeToLosers(dead.getName(), player.getName());
+			gamestate.attackManagement(player);
 			player.getPosition().clearPlayersHere();
-			player.getPosition().setPlayer(player);
+	        player.getPosition().setPlayer(player);
 		}
 		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
 	}
+	
 	
 	
 	
@@ -175,6 +205,7 @@ public class GameServer {
 
 	
 	
+	
 	public Coordinates askForLights(String name) throws ClassNotFoundException, RemoteException, IOException{
 		Coordinates coordinates;
 		if (notifiers.containsKey(name))
@@ -183,6 +214,7 @@ public class GameServer {
 			coordinates = sockethandlers.get(name).askForLights();
 		return coordinates;
 	}
+	
 	
 	
 	
@@ -203,6 +235,7 @@ public class GameServer {
 	
 	
 	 
+	
 	public void cardsMessages(String name, String type) throws ClassNotFoundException, RemoteException, IOException{
 		String message = "";
 		if (type.equals("defense"))
@@ -224,6 +257,7 @@ public class GameServer {
 	
 	
 	
+	
 	private void createPlayersInGame(HashMap<String, String> playersconnected) {
 		ArrayList<String> keys = new ArrayList<String>(playersconnected.keySet());
 		Collections.shuffle(keys);
@@ -237,6 +271,7 @@ public class GameServer {
 				}
 	}
 
+	
 	
 	
 	private void drawSectorCard (String name, String connection, Player player) throws ClassNotFoundException, IOException{
@@ -281,6 +316,7 @@ public class GameServer {
 
 	
 	
+	
 	private void drawItemCard (String name, String connection, Player player) throws RemoteException, IOException, ClassNotFoundException{
 		
 		//manage the personal decks of the players when a new item card is drawn	
@@ -323,6 +359,7 @@ public class GameServer {
 	
 	
 	
+	
 	private void sayByeToLosers(String dead, String killer) throws RemoteException{
 
 		if (notifiers.containsKey(dead)){
@@ -333,15 +370,10 @@ public class GameServer {
 			sockethandlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
 			sockethandlers.get(dead).notifyMessage("Unfortunately, your game ends here");
 		}
-		
-		playersconnected.remove(dead);
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
-			if(entry.getValue().equals("RMI"))
-				givemeNotifierByName(entry.getKey()).notifyMessage(dead+" has been killed by "+killer+" and has left the game");
-			else
-				givemeSocketHandlerByName(entry.getKey()).notifyMessage(dead+" has been killed by "+killer+" and has left the game");
-		}
+		gamestate.getInGamePlayers().remove(dead);
 	}
+	
+	
 	
 	
 	private void giveWelcome() throws IOException{
@@ -362,6 +394,7 @@ public class GameServer {
 		}
 	}
 
+	
 	
 	
 	private void informPlayersOfTheirNature() throws RemoteException{
@@ -390,6 +423,7 @@ public class GameServer {
 	
 	
 	
+	
 	private String personalDeckListify (ArrayList<Card> itemdeck){
 	
 		//utility for other methods, put in a string all the item cards of a personal deck
@@ -400,7 +434,7 @@ public class GameServer {
 	}
 	
 	
-	
+		
 	private RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		
 		for (RemoteNotifier rn: notifiers.values()){

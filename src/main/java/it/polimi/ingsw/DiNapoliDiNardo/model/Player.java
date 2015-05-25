@@ -11,6 +11,7 @@ public abstract class Player {
 	protected GameState gamestate;
 	protected Box position;
 	protected boolean isAlive=true;
+	protected String myKiller ="";
 	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
 		
 		
@@ -109,6 +110,14 @@ public abstract class Player {
 	
 	public void kill(){
 		this.isAlive = false;
+	}
+	
+	public void setKiller(String killer){
+		this.myKiller = killer;
+	}
+	
+	public String getKiller(){
+		return this.myKiller;
 	}
 	
 	public String getName() {

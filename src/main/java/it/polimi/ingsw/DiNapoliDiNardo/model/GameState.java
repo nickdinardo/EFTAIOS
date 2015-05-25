@@ -27,14 +27,16 @@ public class GameState {
 	ArrayList< Player > inGamePlayers = new ArrayList< Player >();
 	
 	//constructor
-		public GameState(GameServer gs){
-			this.Galilei = new GalileiMap();
-			this.sectordeck = new SectorDeck();
-			this.itemdeck = new ItemDeck();
-			this.lifeboatdeck = new LifeboatDeck();
-			this.gameserver = gs;
-		}
+	public GameState(GameServer gs){
+		this.Galilei = new GalileiMap();
+		this.sectordeck = new SectorDeck();
+		this.itemdeck = new ItemDeck();
+		this.lifeboatdeck = new LifeboatDeck();
+		this.gameserver = gs;
+	}
 	
+		
+		
 	public boolean updatePlayerPosition (String name, Coordinates coord){
 		Player player = givemePlayerByName(name);
 		Box destination = this.Galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
@@ -119,20 +121,19 @@ public class GameState {
 	
 	
 	
-	public ArrayList<Player> attackManagement(Player player){
+	public void attackManagement(Player player){
 		ArrayList<Player> killed = player.attack(player.getPosition());
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
-				inGamePlayers.remove(killedPlayer);
+				killedPlayer.kill();
+				killedPlayer.setKiller(player.getName());
 			}
-			//remove all the players from box and then replace the attacker there
-		
-			
-			
 		} 
-		AlienPlayer alien = (AlienPlayer) player;
-		alien.setHasAttacked(true);
-		return killed;
+		if (player instanceof AlienPlayer){
+			AlienPlayer alien = (AlienPlayer) player;
+			alien.setHasAttacked(true);
+		}
+		
 	}
 	
 		
@@ -146,6 +147,7 @@ public class GameState {
 				((AlienPlayer) player).setHasAttacked(false);
 		}
 	}
+	
 	
 	
 	//give reference of player object looking for the name you ask
