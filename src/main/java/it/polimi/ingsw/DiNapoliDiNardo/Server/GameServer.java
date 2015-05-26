@@ -1,8 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
@@ -24,8 +22,7 @@ import java.util.Map;
 public class GameServer {
 	int totalplayers;
 	Map<String, String> playersconnected; 
-	Map<String, RemoteNotifier> notifiers; 
-	Map<String, SocketHandler> sockethandlers; 
+	Map<String, Handler> handlers;
 	boolean finish;
 	GameState gamestate;
 	
@@ -94,6 +91,7 @@ public class GameServer {
 	private void showActualSituation () throws RemoteException{
 		
 		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
+		
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
 			ArrayList<Card> itemdeck = player.getPersonalDeck();
@@ -103,13 +101,7 @@ public class GameServer {
 				objects += itemdeck.get(i).getName()+" ";		
 			if (objects.length()<2)
 				objects = "no";
-			if(entry.getValue().equals("RMI"))
-				givemeNotifierByName(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
-			else{
-				givemeSocketHandlerByName(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
-				
-			}
-				
+			handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
 		}
 	}
 	
@@ -124,10 +116,8 @@ public class GameServer {
 		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
 			String objects = personalDeckListify(itemdeck);
-			if(connection.equals("RMI"))
-				index = givemeNotifierByName(playername).askForItem(objects);
-			else
-				index = givemeSocketHandlerByName(playername).askForItem(objects);
+		
+			index = handlers.get(playername).askForItem(objects);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
@@ -139,10 +129,7 @@ public class GameServer {
 		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
 			String objects = personalDeckListify(itemdeck);
-			if(connection.equals("RMI"))
-				index = givemeNotifierByName(playername).askForItem(objects);
-			else
-				index = givemeSocketHandlerByName(playername).askForItem(objects);
+			index = handlers.get(playername).askForItem(objects);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
@@ -157,10 +144,8 @@ public class GameServer {
 		
 		askForMovement(playername, connection);
 		boolean attack = false;
-		if(connection.equals("RMI"))
-			attack = givemeNotifierByName(playername).askForAttack();
-		else
-			attack = givemeSocketHandlerByName(playername).askForAttack();
+		attack = handlers.get(playername).askForAttack();
+		
 		if (attack){
 			String position = positionToString(player);
 			notifyMessage(playername+" has ATTACKED sector "+position);
@@ -178,45 +163,27 @@ public class GameServer {
 		
 		Coordinates coordinates;
 		boolean validmove = false;
-		if(connection.equals("RMI")){
-			coordinates = givemeNotifierByName(playername).askForMovement(false);
-		}
-		else {
-			coordinates = givemeSocketHandlerByName(playername).askForMovement(false);
-		}
-			
+		coordinates = handlers.get(playername).askForMovement(false);
 		do{
 			validmove = gamestate.updatePlayerPosition(playername, coordinates);
-			if(!validmove){
-				if(connection.equals("RMI")){
-					coordinates = givemeNotifierByName(playername).askForMovement(true);
-				}
-				else {
-					coordinates = givemeSocketHandlerByName(playername).askForMovement(true);
-				}
-			}
+			if(!validmove)
+				coordinates = handlers.get(playername).askForMovement(true);
 		}while(!validmove);
 	}
 
 	
 	
 	public void notifyMessage(String message) throws RemoteException{
-		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
-			if(entry.getValue().equals("RMI"))
-				givemeNotifierByName(entry.getKey()).notifyMessage(message);
-			else
-				givemeSocketHandlerByName(entry.getKey()).notifyMessage(message);
-		}
+		
+		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+			handlers.get(entry.getKey()).notifyMessage(message);
 	}
 	
 	
 	
 	public Coordinates askForLights(String name) throws ClassNotFoundException, RemoteException, IOException{
 		Coordinates coordinates;
-		if (notifiers.containsKey(name))
-			coordinates = notifiers.get(name).askForLights();
-		else
-			coordinates = sockethandlers.get(name).askForLights();
+		coordinates = handlers.get(name).askForLights();
 		return coordinates;
 	}
 	
@@ -224,18 +191,10 @@ public class GameServer {
 	
 	
 	public void showLights(String name, String lightposition, String playersinbox) throws ClassNotFoundException, RemoteException, IOException{
-		if (playersinbox.equals("")){
-			if (notifiers.containsKey(name))
-				notifiers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
-			else
-				sockethandlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
-		}
-		else{
-			if (notifiers.containsKey(name))
-				notifiers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);
-			else
-				sockethandlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
-			}
+		if (playersinbox.equals(""))
+			handlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
+		else
+			handlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
 	}
 	
 	
@@ -264,11 +223,7 @@ public class GameServer {
 			notifyMessage(name+" has ATTACKED position "+position+" using an Attack Card");
 		}
 		
-		if (notifiers.containsKey(name))
-			notifiers.get(name).notifyMessage(message);
-		else
-			sockethandlers.get(name).notifyMessage(message);
-		
+		handlers.get(name).notifyMessage(message);
 	}
 	
 	
@@ -303,10 +258,7 @@ public class GameServer {
 		}
 		if (sectorcard instanceof NoiseAnywhereCard){
 			String noiseIn = "";
-			if(connection.equals("RMI"))
-				noiseIn = givemeNotifierByName(name).askForNoise();
-			else
-				noiseIn = givemeSocketHandlerByName(name).askForNoise();
+			noiseIn = handlers.get(name).askForNoise();
 			notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
 		}
 		
@@ -327,20 +279,11 @@ public class GameServer {
 		if (itemdeck.size()==3){
 			int index;
 			String objects = personalDeckListify(itemdeck);
-			if(connection.equals("RMI")){
-				if (player instanceof HumanPlayer)
-					index = givemeNotifierByName(name).askHumanForItemChange(objects);
-				else
-					index = givemeNotifierByName(name).askAlienForItemChange(objects);
-			}
-			else{
-				if (player instanceof HumanPlayer)
-					index = givemeSocketHandlerByName(name).askHumanForItemChange(objects);
-				else
-					index = givemeSocketHandlerByName(name).askAlienForItemChange(objects);
-			}
-			//if selection has been use/discard an item call the game state method with his index 
-			//then replace the card with the new card. Do nothing if index == 8 (keep actuals).
+			
+			if (player instanceof HumanPlayer)
+				index = handlers.get(name).askHumanForItemChange(objects);
+			else
+				index = handlers.get(name).askAlienForItemChange(objects);
 			if (index != 8){
 				gamestate.itemUsageManagement(name, index-1);
 				gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
@@ -350,10 +293,7 @@ public class GameServer {
 		
 		if (itemdeck.size()<3){
 			gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
-			if(connection.equals("RMI"))
-				givemeNotifierByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
-			else
-				givemeSocketHandlerByName(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
+			handlers.get(name).notifyMessage(name+" you drew one "+itemcard.getName()+".");
 		}
 		
 	}
@@ -363,18 +303,11 @@ public class GameServer {
 	
 	public void sayByeToLosers(String dead, String killer) throws RemoteException{
 
-		if (notifiers.containsKey(dead)){
-			notifiers.get(dead).notifyMessage("-----------------------------------------------");
-			notifiers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
-			notifiers.get(dead).notifyMessage("Unfortunately, your game ends here");
-			notifiers.get(dead).notifyMessage("-----------------------------------------------");
-		}
-		else{
-			sockethandlers.get(dead).notifyMessage("-----------------------------------------------");
-			sockethandlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
-			sockethandlers.get(dead).notifyMessage("Unfortunately, your game ends here");
-			sockethandlers.get(dead).notifyMessage("-----------------------------------------------");
-		}
+		handlers.get(dead).notifyMessage("-----------------------------------------------");
+		handlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
+		handlers.get(dead).notifyMessage("Unfortunately, your game ends here");
+		handlers.get(dead).notifyMessage("-----------------------------------------------");
+		
 		gamestate.getInGamePlayers().remove(dead);
 	}
 	
@@ -385,18 +318,12 @@ public class GameServer {
 	
 		//print a welcome message and give the list of players to each player.
 		String listofplayers = "";
-		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet())
 			listofplayers += entry.getKey()+", ";
-		}
 		listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
-			if(entry.getValue().equals("RMI")){
-				givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
-			}
-			else {
-				givemeSocketHandlerByName(entry.getKey()).printWelcomeMessage(entry.getKey(), listofplayers);
-			}
-		}
+		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+			handlers.get(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
+		
 	}
 
 	
@@ -407,22 +334,11 @@ public class GameServer {
 		//inform players on the nature of their character
 		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			String playername = entry.getKey();
-			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
-				if(entry.getValue().equals("RMI")){
-					givemeNotifierByName(entry.getKey()).showBeingAlien(entry.getKey());
-				}
-				else {
-					givemeSocketHandlerByName(entry.getKey()).showBeingAlien(entry.getKey());
-				}
-			}
-			else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer){
-				if(entry.getValue().equals("RMI")){
-					givemeNotifierByName(entry.getKey()).showBeingHuman(entry.getKey());
-				}
-				else {
-					givemeSocketHandlerByName(entry.getKey()).showBeingHuman(entry.getKey());
-				}
-			}
+			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
+				handlers.get(entry.getKey()).showBeingAlien(entry.getKey());
+			else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
+				handlers.get(entry.getKey()).showBeingHuman(entry.getKey());
+		
 		}
 	}
 	
@@ -439,31 +355,7 @@ public class GameServer {
 	}
 	
 	
-		
-	
-	private RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
-		
-		for (RemoteNotifier rn: notifiers.values()){
-			if (rn.getName().equals(lookforname)){
-				return rn;
-			}
-		}
-		return null;
-	}
-
-	
-	
-	private SocketHandler givemeSocketHandlerByName (String lookforname) throws RemoteException{
-		
-		for (SocketHandler sh: sockethandlers.values()){
-			if (sh.getShName().equals(lookforname)){
-				return sh;
-			}
-		}
-		return null;
-	}
-	
-	
+			
 	private String positionToString (Player player){
 		String position = ""+(char)(player.getPosition().getCoordX()+64);
 		String number = ""+ player.getPosition().getCoordY();
@@ -474,12 +366,11 @@ public class GameServer {
 	}
 	
 	
-	public GameServer (int t, Map<String, String> pc, Map<String, RemoteNotifier> rn, Map<String, SocketHandler> sh){
+	public GameServer (int t, Map<String, String> pc, Map<String, Handler> hand){
 		
 		this.totalplayers = t;
 		this.playersconnected = pc;
-		this.notifiers = rn;
-		this.sockethandlers = sh;
+		this.handlers = hand;
 	}
 
 }

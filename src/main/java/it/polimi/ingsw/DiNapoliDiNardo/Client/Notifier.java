@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
-public class Notifier implements RemoteNotifier {
+public class Notifier implements RemoteNotifier, Handler {
 	public TextView view;
 	private String name;
 	

@@ -68,6 +68,7 @@ public class SocketServer extends Thread{
 			String name = sh.askName();
 			headserver.putPlayerconnected(name,"Socket");
 			headserver.putSockethandlers(name, sh);
+			headserver.putInHandlers(name, sh);
 			}
 	}
 		

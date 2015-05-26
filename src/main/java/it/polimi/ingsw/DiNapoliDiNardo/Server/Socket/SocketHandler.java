@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
-public class SocketHandler extends Thread{
+public class SocketHandler implements Handler, Runnable {
 	private Socket socket;
 	private PrintWriter out;
 	private BufferedReader in;
@@ -112,13 +114,6 @@ public class SocketHandler extends Thread{
 		return index;
 	}
 	
-	
-	
-	public void printWelcomeMessage(String name, String list) throws IOException{
-		out.println("object=print&action=Welcome to the game "+name+". The crew of the infected spaceship is composed by: "+list+". ");
-		
-	}
-	
 	public void notifyMessage(String message){
 		out.println("object=print&action="+message);
 	}
@@ -132,6 +127,18 @@ public class SocketHandler extends Thread{
 		in.close();
 		out.close();
 		socket.close();
+	}
+
+	
+	@Override
+	public String getName() {
+		return this.name;
+		
+	}
+
+	@Override
+	public void setName(String name) throws RemoteException {
+		this.name = name;
 	}
 	
 	

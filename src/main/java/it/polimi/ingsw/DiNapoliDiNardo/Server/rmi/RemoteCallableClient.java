@@ -24,7 +24,9 @@ public class RemoteCallableClient implements CallableClient {
 			//Locate the registry and get the remote notifier
 			registry = LocateRegistry.getRegistry(port);
 			RemoteNotifier rn = (RemoteNotifier)registry.lookup("Notifier");
+			
 			headserver.putNotifiers(name, rn);
+			headserver.putInHandlers(name, rn);
 			
 			
 		

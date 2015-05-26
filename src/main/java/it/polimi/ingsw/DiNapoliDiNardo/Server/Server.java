@@ -28,6 +28,7 @@ public class Server {
 	String clientName = "Client";  
     CallableClient clientStub;
 	Map<String, String> playersconnected = new HashMap<String, String>();
+	Map<String, Handler> handlers = new HashMap<String, Handler>();
 	Map<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
 	Map<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
 	RemoteHandler handler = new RmiHandlerObject(this);
@@ -134,7 +135,7 @@ public class Server {
 				registry.unbind(clientName);
 			}
 			//then start the game
-			GameServer gameserver = new GameServer(totalplayers, playersconnected, notifiers, sockethandlers);
+			GameServer gameserver = new GameServer(totalplayers, playersconnected, handlers);
 			try {
 				gameserver.rungame();
 			} catch (ClassNotFoundException e) {
@@ -181,6 +182,10 @@ public class Server {
 	
 	public void putSockethandlers(String name, SocketHandler sh) {
 		sockethandlers.put(name, sh);
+	}
+	
+	public void putInHandlers(String name, Handler handler) {
+		handlers.put(name, handler);
 	}
 	
 	public void stopAcceptingOthersPlayers() throws IOException{
