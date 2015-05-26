@@ -4,19 +4,19 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
-import java.io.PrintWriter;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class TextView extends View{
 	Scanner in = new Scanner(System.in);
-	PrintWriter out = new PrintWriter(System.out);
+	private PrintStream out = System.out;
 	boolean isFirstTurn = true;
 	
 	
 	public String askName (){
-		out.println("Connected to the server game. What's your name?");
+		System.out.println("Connected to the server game. What's your name?");
 		return in.nextLine();
 	}
 	
@@ -41,10 +41,10 @@ public class TextView extends View{
 			printGalileiMap();
 			isFirstTurn = false;
 		}
-		System.out.println(name+", the horrible alien disease that is infecting the spaceships has caught you time ago. ");
-		System.out.println("Your body is now a brutal and deformed machine eager to kill any human that is still alive carrying fresh meat.");
-		System.out.println("Your objective is tracking down the poor humans that are trying to reach the lifeboat ships and kill'em before they do it.");
-		System.out.println("All the miserable humans. Enjoy your meal.");
+		out.println(name+", the horrible alien disease that is infecting the spaceships has caught you time ago. ");
+		out.println("Your body is now a brutal and deformed machine eager to kill any human that is still alive carrying fresh meat.");
+		out.println("Your objective is tracking down the poor humans that are trying to reach the lifeboat ships and kill'em before they do it.");
+		out.println("All the miserable humans. Enjoy your meal.");
 	}
 	
 	
@@ -53,18 +53,18 @@ public class TextView extends View{
 			printGalileiMap();
 			isFirstTurn = false;
 		}
-		System.out.println(name+", you are one of the survivors on the spaceship that resisted to the spreading, horrible disease that could have infected anyone of your team mates.");
-		System.out.println("Horrendous aliens that once were your friends are lurking in the dark to kill you and eat you, and they could be anyone and anywhere. ");
-		System.out.println("Your objective is reaching one of the avaiable lifeboat ships avoiding to attract the attentions of the blood-thirsty monsters that surround you.");
-		System.out.println("The mission depends on you. Your life too. Good luck.");
+		out.println(name+", you are one of the survivors on the spaceship that resisted to the spreading, horrible disease that could have infected anyone of your team mates.");
+		out.println("Horrendous aliens that once were your friends are lurking in the dark to kill you and eat you, and they could be anyone and anywhere. ");
+		out.println("Your objective is reaching one of the avaiable lifeboat ships avoiding to attract the attentions of the blood-thirsty monsters that surround you.");
+		out.println("The mission depends on you. Your life too. Good luck.");
 	}
 	
 	
 	public Coordinates askMovement(boolean reask){
 		if(reask){
-			System.out.println("The movement you selected is not valid. Please select another box.");
+			out.println("The movement you selected is not valid. Please select another box.");
 		}
-		System.out.println("Where do you want to move? Insert the coordinates of the box you want to move in");
+		out.println("Where do you want to move? Insert the coordinates of the box you want to move in");
 		Coordinates coordinates = solveCoordInput();		
 		return coordinates;
 		
@@ -73,8 +73,8 @@ public class TextView extends View{
 		
 	public int askItemUse(String objects){
 		String[] items = objects.split(";");
-		System.out.println("Do you want to use an Item Card?");
-		System.out.println("Y: yes    N: no");
+		out.println("Do you want to use an Item Card?");
+		out.println("Y: yes    N: no");
 		String input = in.nextLine();
 		char risp;
 		if (input.length()>0)
@@ -83,10 +83,10 @@ public class TextView extends View{
 		if (risp == 'Y' || risp == 'y'){
 			int answer;
 			do{
-				System.out.println("Select the number of the item you want to use:");
+				out.println("Select the number of the item you want to use:");
 				for (int i=0; i<items.length && i<3; i++){
 					int j = i+1;
-					System.out.println(j+"- "+items[i]);
+					out.println(j+"- "+items[i]);
 				}
 				try{
 					answer = in.nextInt();
@@ -95,12 +95,12 @@ public class TextView extends View{
 				}
 				in.nextLine();
 				if (answer <=0 || answer>items.length)
-					System.out.println("Please write the number of the object you want to use and nothing more");
+					out.println("Please write the number of the object you want to use and nothing more");
 			}while (answer <=0 || answer>items.length);
 			return answer;
 		}
 		else if (risp != 'N' && risp != 'n'){
-			System.out.println("Please insert 'Y' or 'N'");
+			out.println("Please insert 'Y' or 'N'");
 			askItemUse(objects);
 		}
 		return 8;	
@@ -109,8 +109,8 @@ public class TextView extends View{
 	
 	public int askAlienItemDiscard(String objects){
 		String[] items = objects.split(";");
-		System.out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
-		System.out.println("D: discard an item	N: no, I'll keep my actual items");
+		out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
+		out.println("D: discard an item	N: no, I'll keep my actual items");
 		String input = in.nextLine();
 		char risp;
 		if (input.length()>0)
@@ -123,10 +123,10 @@ public class TextView extends View{
 				int answer;
 				
 				do{
-					System.out.println("Select the number of the item you want to discard:");
+					out.println("Select the number of the item you want to discard:");
 					for (int i=0; i<items.length && i<3; i++){
 						int j = i+1;
-						System.out.println(j+"- "+items[i]);
+						out.println(j+"- "+items[i]);
 					}
 					try{
 						answer = in.nextInt()+3;
@@ -135,7 +135,7 @@ public class TextView extends View{
 					}
 					in.nextLine();
 					if (answer <=3 || answer>items.length+3)
-						System.out.println("Please write the number of the object you want to discard and nothing more");
+						out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>items.length+3);
 				return answer;
 			}
@@ -143,7 +143,7 @@ public class TextView extends View{
 				validanswer = true;
 				return 8;
 			}	
-			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println("Please select one of the options writing the corresponding letter and nothing more");
 		}while(!validanswer);
 		return 18;
 	}
@@ -151,8 +151,8 @@ public class TextView extends View{
 	
 	public int askHumanItemDiscard(String objects){
 		String[] items = objects.split(";");
-		System.out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
-		System.out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
+		out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
+		out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
 		String input = in.nextLine();
 		char risp;
 		if (input.length()>0)
@@ -165,7 +165,7 @@ public class TextView extends View{
 				int answer;
 				
 				do{
-					System.out.println("Select the number of the item you want to discard:");
+					out.println("Select the number of the item you want to discard:");
 					for (int i=0; i<items.length; i++){
 						int j = i+1;
 						System.out.println(j+"- "+items[i]);
@@ -178,7 +178,7 @@ public class TextView extends View{
 					
 					in.nextLine();
 					if (answer <=3 || answer>items.length+3)
-						System.out.println("Please write the number of the object you want to discard and nothing more");
+						out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>items.length+3);
 				return answer;
 			}
@@ -190,15 +190,15 @@ public class TextView extends View{
 				validanswer = true;
 				return 8;
 			}	
-			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println("Please select one of the options writing the corresponding letter and nothing more");
 		}while(!validanswer);
 		return 18;
 	}
 	
 	
 	public String askForAttack(){
-		System.out.println("Filthy alien, do you want to attack this position?");
-		System.out.println("Y: yes    N: no");
+		out.println("Filthy alien, do you want to attack this position?");
+		out.println("Y: yes    N: no");
 		boolean validanswer = false;
 		do{
 			
@@ -209,7 +209,7 @@ public class TextView extends View{
 				return ans;
 			if ("N".equalsIgnoreCase(ans))
 				return ans;	
-			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println("Please select one of the options writing the corresponding letter and nothing more");
 		}while(!validanswer);
 		
 		return null;
@@ -217,14 +217,14 @@ public class TextView extends View{
 	
 	
 	public Coordinates askForLights(){
-		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
+		out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
 		Coordinates coordinates = solveCoordInput();
 		return coordinates;
 		
 	}
 	
 	public String askForNoise(){
-		System.out.println("In which sector of the map do you want to declare there's noise?");
+		out.println("In which sector of the map do you want to declare there's noise?");
 		Coordinates coordinates = solveCoordInput();
 		String noise = ""+(char)(coordinates.getCoordX()+64);
 		String number = ""+ coordinates.getCoordY();
@@ -236,17 +236,17 @@ public class TextView extends View{
 	
 	
 	public void revealingLights(Box box){
-		System.out.println("In the position "+(char)(box.getCoordX()+64)+box.getCoordY()+" there are the following players: ");
-		System.out.println(box.getPlayerHere().toString());
+		out.println("In the position "+(char)(box.getCoordX()+64)+box.getCoordY()+" there are the following players: ");
+		out.println(box.getPlayerHere().toString());
 	}
 	
 	
 	public void killPlayer(Player player){
-		System.out.println("Player " + player +  " you are died");
+		out.println("Player " + player +  " you are died");
 	}
 	
 	public void attackNotSuccesful(){
-		System.out.println("Attack has not been successful!");
+		out.println("Attack has not been successful!");
 	}
 	
 	
@@ -313,7 +313,7 @@ public class TextView extends View{
 		textmap += "         \\___/     \\___/     \\___/     \\___/     \\___/     \\___/     \\___/     \\___/     \\___/     \\___/     \\___/       \n";
 		textmap += "   _____________________________________________________________________________________________________________________\n";
 		textmap += "                                                                                                                           ";
-		System.out.println(textmap);
+		out.println(textmap);
 	}
 	
 	
@@ -341,7 +341,7 @@ public class TextView extends View{
 					validanswer = true;
 			}
 			if (validanswer == false)
-				System.out.println("Please write the coordinates in a line as they appear in one of the boxes of the map");
+				out.println("Please write the coordinates in a line as they appear in one of the boxes of the map");
 		}while(!validanswer);
 		return (new Coordinates(numberX, numberY));
 	}
