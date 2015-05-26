@@ -9,6 +9,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableClient;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.CallableClient;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -27,6 +28,7 @@ public class Server {
 	RemoteHandler stub; 
 	String clientName = "Client";  
     CallableClient clientStub;
+    private PrintStream out = System.out;
 	Map<String, String> playersconnected = new HashMap<String, String>();
 	Map<String, Handler> handlers = new HashMap<String, Handler>();
 	Map<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
@@ -59,7 +61,7 @@ public class Server {
             registry = LocateRegistry.createRegistry(2020);            
             registry.bind(name, stub);
             registry.bind(clientName, clientStub);
-            System.out.println("Remote Objects bound");
+            out.println("Remote Objects bound");
             
         } catch (Exception e) {
             System.err.println("ComputeEngine exception:");
@@ -69,7 +71,7 @@ public class Server {
 		
 		
 		//Starting socket server
-		System.out.println("Starting the SocketServer...");
+		out.println("Starting the SocketServer...");
 		Thread t = socketserver;
 		t.start();
 		this.collectplayers();
@@ -89,7 +91,7 @@ public class Server {
 			if (toAvoidChurning.length()>10000)
 				toAvoidChurning = "";
 		}
-		System.out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
+		out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
 		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 
 		while (totalplayers<MAXPLAYERS){
 			long time= System.currentTimeMillis();
@@ -99,7 +101,7 @@ public class Server {
 				time = System.currentTimeMillis();
 				toAvoidChurning += "avoided";
 				if (connectedplayers < totalplayers){
-					System.out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
+					out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
 					break;
 					}
 				}
@@ -110,7 +112,7 @@ public class Server {
 		this.stopAcceptingOthersPlayers();
 		isStarted = true;
 		toAvoidChurning = "Starting game, waiting for all the players to input their names...";
-		System.out.println(toAvoidChurning);
+		out.println(toAvoidChurning);
 		
 	}
 			

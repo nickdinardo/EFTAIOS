@@ -13,10 +13,10 @@ public class TextView extends View{
 	Scanner in = new Scanner(System.in);
 	private PrintStream out = System.out;
 	boolean isFirstTurn = true;
-	
+	private final String invletter = "Please select one of the options writing the corresponding letter and nothing more";
 	
 	public String askName (){
-		System.out.println("Connected to the server game. What's your name?");
+		out.println("Connected to the server game. What's your name?");
 		return in.nextLine();
 	}
 	
@@ -29,9 +29,9 @@ public class TextView extends View{
 		out.println("________________________________________________________________________________________________________________________");
 		out.println(name+ " you are now in the "+printposition+" position.");
 		if (!"no".equals(objects)){
-			System.out.println("In your item deck you have the following cards: "+objects);
+			out.println("In your item deck you have the following cards: "+objects);
 		}
-		System.out.println("--------");
+		out.println("--------");
 	}
 	
 		
@@ -65,8 +65,8 @@ public class TextView extends View{
 			out.println("The movement you selected is not valid. Please select another box.");
 		}
 		out.println("Where do you want to move? Insert the coordinates of the box you want to move in");
-		Coordinates coordinates = solveCoordInput();		
-		return coordinates;
+		
+		return solveCoordInput();
 		
 	}
 	
@@ -143,7 +143,7 @@ public class TextView extends View{
 				validanswer = true;
 				return 8;
 			}	
-			out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println();
 		}while(!validanswer);
 		return 18;
 	}
@@ -168,7 +168,7 @@ public class TextView extends View{
 					out.println("Select the number of the item you want to discard:");
 					for (int i=0; i<items.length; i++){
 						int j = i+1;
-						System.out.println(j+"- "+items[i]);
+						out.println(j+"- "+items[i]);
 					}
 					try{
 						answer = in.nextInt()+3;
@@ -190,7 +190,7 @@ public class TextView extends View{
 				validanswer = true;
 				return 8;
 			}	
-			out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println(invletter);
 		}while(!validanswer);
 		return 18;
 	}
@@ -209,7 +209,7 @@ public class TextView extends View{
 				return ans;
 			if ("N".equalsIgnoreCase(ans))
 				return ans;	
-			out.println("Please select one of the options writing the corresponding letter and nothing more");
+			out.println(invletter);
 		}while(!validanswer);
 		
 		return null;
@@ -218,8 +218,7 @@ public class TextView extends View{
 	
 	public Coordinates askForLights(){
 		out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
-		Coordinates coordinates = solveCoordInput();
-		return coordinates;
+		return solveCoordInput();
 		
 	}
 	
@@ -340,10 +339,10 @@ public class TextView extends View{
 				if (numberX>0 && numberX<24 && numberY>0 && numberY<15)
 					validanswer = true;
 			}
-			if (validanswer == false)
+			if (!validanswer)
 				out.println("Please write the coordinates in a line as they appear in one of the boxes of the map");
 		}while(!validanswer);
-		return (new Coordinates(numberX, numberY));
+		return new Coordinates(numberX, numberY);
 	}
 	
 }

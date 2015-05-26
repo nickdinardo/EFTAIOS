@@ -6,6 +6,8 @@ import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
 
+
+import java.io.PrintStream;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -16,7 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class ClientRMIInterface implements NetworkInterface {
 
 	private RemoteHandler handler;
-	//set getter
+	private PrintStream out = System.out;
 	private TextView view = new TextView();
 	private String name = "";
 	Registry registry;
@@ -42,7 +44,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			e.printStackTrace();
 			return false;
 		} catch (NotBoundException e) {
-			System.out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
+			out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
 			return false;
 		}
 		return true;
@@ -91,7 +93,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			}
 		}	
 		else {
-			System.out.println("The game you tried to connect has already started");
+			out.println("The game you tried to connect has already started");
 		}
 		
 			
