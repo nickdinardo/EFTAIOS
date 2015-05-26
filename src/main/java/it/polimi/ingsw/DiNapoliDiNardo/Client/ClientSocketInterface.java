@@ -19,12 +19,13 @@ public class ClientSocketInterface implements NetworkInterface {
 	ObjectOutputStream outObj;
 	ObjectInputStream inObj;
 	boolean stop = false;
-	private CommandHandler ComHan = new CommandHandler(this);
+	private CommandHandler comhan = new CommandHandler(this);
 	
 	public ClientSocketInterface() {
 		
 	} 
 	
+	@Override
 	public boolean connect() throws IOException {
 		try {
 			s = new Socket("127.0.0.1", 8888);
@@ -57,7 +58,7 @@ public class ClientSocketInterface implements NetworkInterface {
 	}
 
 	
-	//interaction method
+	@Override
 	public void startInterface() {
 		
 			String input;
@@ -68,7 +69,7 @@ public class ClientSocketInterface implements NetworkInterface {
 					for(String s : splitted){
 						params.put(s.split("=")[0],s.split("=")[1]);
 					}
-					this.ComHan.handleCommand(params);
+					this.comhan.handleCommand(params);
 					
 				}
 			} catch (IOException e) {

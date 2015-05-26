@@ -49,7 +49,7 @@ public class Box {
 	}
 	
 	public boolean isEmpty(){
-		return playerHere.size() == 0;
+		return playerHere.isEmpty();
 	}
 	
 	public List<Player> getPlayerHere(){

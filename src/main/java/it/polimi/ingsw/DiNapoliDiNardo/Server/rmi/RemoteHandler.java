@@ -12,7 +12,7 @@ public interface RemoteHandler extends Remote {
 	public boolean isStarted() throws RemoteException;
 	public boolean isFinish() throws RemoteException;
 	
-	public void IncreaseRMINumPlayers() throws RemoteException;
+	public void increaseRMINumPlayers() throws RemoteException;
 	public void addPlayer(String name) throws RemoteException;
 	
 }

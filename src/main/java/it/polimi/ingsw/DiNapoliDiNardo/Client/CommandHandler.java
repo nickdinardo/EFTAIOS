@@ -11,10 +11,10 @@ import it.polimi.ingsw.DiNapoliDiNardo.view.*;
 public class CommandHandler {
 	//sistemare con singleton
 	private TextView view = new TextView();
-	private ClientSocketInterface CSI;
+	private ClientSocketInterface csi;
 	
 	public CommandHandler(ClientSocketInterface csi){
-		this.CSI = csi;
+		this.csi = csi;
 	}
 	
 	
@@ -25,29 +25,29 @@ public class CommandHandler {
 				
 		if(object.equals("player")){
 			if(action.equals("askname")){
-				CSI.getOut().println(view.askName());
-				CSI.getOut().flush();
+				csi.getOut().println(view.askName());
+				csi.getOut().flush();
 				}
 			if(action.equals("askattack")){
-				CSI.getOut().println(view.askForAttack());
-				CSI.getOut().flush();
+				csi.getOut().println(view.askForAttack());
+				csi.getOut().flush();
 				}
 			if(action.equals("askmovement")){
 				Coordinates coord = view.askMovement(false);
-				CSI.getOutObj().writeObject(coord);
+				csi.getOutObj().writeObject(coord);
 			}
 			if(action.equals("asklights")){
 				Coordinates coord = view.askForLights();
-				CSI.getOutObj().writeObject(coord);
+				csi.getOutObj().writeObject(coord);
 			}
 			if(action.equals("asknoise")){
 				String noise = view.askForNoise();
-				CSI.getOut().println(noise);
-				CSI.getOut().flush();
+				csi.getOut().println(noise);
+				csi.getOut().flush();
 			}
 			if(action.equals("reaskmovement")){
 				Coordinates coord = view.askMovement(true);
-				CSI.getOutObj().writeObject(coord);
+				csi.getOutObj().writeObject(coord);
 			}
 		}
 		if(object.equals("print")){
@@ -64,16 +64,16 @@ public class CommandHandler {
 			view.showActualSituation(result[0], result[1], result[2]);
 		    }
 		if (object.equals("playeritems")){
-			CSI.getOut().println(view.askItemUse(action)); 
-			CSI.getOut().flush();
+			csi.getOut().println(view.askItemUse(action)); 
+			csi.getOut().flush();
 		}
 		if (object.equals("humanplayeritemsdiscard")){
-			CSI.getOut().println(view.askHumanItemDiscard(action)); 
-			CSI.getOut().flush();
+			csi.getOut().println(view.askHumanItemDiscard(action)); 
+			csi.getOut().flush();
 		}
 		if (object.equals("alienplayeritemsdiscard")){
-			CSI.getOut().println(view.askAlienItemDiscard(action)); 
-			CSI.getOut().flush();
+			csi.getOut().println(view.askAlienItemDiscard(action)); 
+			csi.getOut().flush();
 		}	
 		
 		

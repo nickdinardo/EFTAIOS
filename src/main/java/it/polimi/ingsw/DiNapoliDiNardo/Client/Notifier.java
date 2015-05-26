@@ -18,6 +18,7 @@ public class Notifier implements RemoteNotifier, Handler {
 		this.name = n;
 	}
 	
+	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		String answer = view.askForAttack();
 		if (answer.equalsIgnoreCase("Y"))
@@ -26,32 +27,33 @@ public class Notifier implements RemoteNotifier, Handler {
 			return false;
 	}
 	
+	@Override
 	public Coordinates askForMovement(boolean reask){
 		
 		return view.askMovement(reask);
 	}
 	
-	
+	@Override
 	public Coordinates askForLights() throws IOException, ClassNotFoundException{
 		
 		Coordinates coord = view.askForLights();
 		return (coord);
 	}
 	
-		
+	@Override	
 	public String askForNoise(){
 		
 		return view.askForNoise();
 	}
 	
-	
+	@Override
 	public int askForItem(String objects) throws IOException{
 		
 		int index = view.askItemUse(objects);
 		return index;
 	}
 	
-	
+	@Override
 	public int askHumanForItemChange(String objects) throws IOException{
 		
 		int index = view.askHumanItemDiscard(objects);
@@ -60,33 +62,33 @@ public class Notifier implements RemoteNotifier, Handler {
 		return index;
 	}
 	
-	
+	@Override
 	public int askAlienForItemChange(String objects) throws IOException{
 		
 		int index = view.askAlienItemDiscard(objects);
 		return index;
 	}
 	
-	
+	@Override
 	public void notifyMessage(String message)throws RemoteException {
 		
 		System.out.println(message);
 
 	}
 
-	
+	@Override
 	public void showBeingAlien (String name){
 		
 		view.showBeingAlien(name);
 	}
 	
-	
+	@Override
 	public void showBeingHuman (String name){
 		
 		view.showBeingHuman(name);
 	}
 			
-	
+	@Override
 	public void showActualSituation (String name, String position, String objects){
 		
 		view.showActualSituation(name, position, objects);
@@ -98,11 +100,12 @@ public class Notifier implements RemoteNotifier, Handler {
 	
 	
 	
-	//getters and setters
+	@Override
 	public String getName() {
 		return name;
 	}
-
+	
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}

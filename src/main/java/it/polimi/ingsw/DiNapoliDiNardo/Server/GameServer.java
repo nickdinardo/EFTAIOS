@@ -115,7 +115,7 @@ public class GameServer {
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		int index;
 		
-		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
+		if (!gamestate.givemePlayerByName(playername).getPersonalDeck().isEmpty()){
 			String objects = personalDeckListify(itemdeck);
 		
 			index = handlers.get(playername).askForItem(objects);
@@ -128,7 +128,7 @@ public class GameServer {
 		if (player.getPosition() instanceof DangerousBox && !player.isSedated())
 			drawSectorCard(playername, connection, player);
 		
-		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
+		if (!gamestate.givemePlayerByName(playername).getPersonalDeck().isEmpty()){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects);
 				if (index != 8)

@@ -10,15 +10,15 @@ public class HumanPlayer extends Player{
 	
 	
 	//constructor
- 	public HumanPlayer(GalileiMap Galilei, GameState gs, String name){
+ 	public HumanPlayer(GalileiMap galilei, GameState gs, String name){
 		this.gamestate = gs;
 		this.name = name;
-		this.setPosition(Galilei.getHumanStartBox());
+		this.setPosition(galilei.getHumanStartBox());
 		position.setPlayer(this);
 		
 	}
 	
-	//human movement method
+	@Override
 	public boolean movement (Box destination, Box position){
 		
 		

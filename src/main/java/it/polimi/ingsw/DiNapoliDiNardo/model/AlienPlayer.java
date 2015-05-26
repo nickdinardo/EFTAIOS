@@ -15,10 +15,10 @@ public class AlienPlayer extends Player {
 	
 
 	//constructor
-	 	public AlienPlayer(GalileiMap Galilei, GameState gs, String name){
+	 	public AlienPlayer(GalileiMap galilei, GameState gs, String name){
 			this.gamestate = gs;
 			this.name = name;
-			this.setPosition(Galilei.getAlienStartBox());
+			this.setPosition(galilei.getAlienStartBox());
 			position.setPlayer(this);
 			
 		}
@@ -34,7 +34,7 @@ public class AlienPlayer extends Player {
 		return false;
 	}
 	
-	//alien movement method
+	@Override
 	public boolean movement (Box destination, Box position){
 		
 		if (humanfed){

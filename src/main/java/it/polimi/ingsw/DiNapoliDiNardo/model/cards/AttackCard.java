@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.cards;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
+
 
 public class AttackCard extends ItemCard{
 	private String name = "AttackCard";

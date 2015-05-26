@@ -23,9 +23,7 @@ public class Deck {
 	}
 	
 	public boolean isEmpty(){
-		if (deck.size()==0)
-			return true;
-		else return false;
+		return deck.isEmpty();
 	}
 	
 	public Card drawCard(){

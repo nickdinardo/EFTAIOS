@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GameState {
 	GameServer gameserver;
-	GalileiMap Galilei;
+	GalileiMap galilei;
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
 	LifeboatDeck lifeboatdeck;
@@ -27,7 +27,7 @@ public class GameState {
 	
 	//constructor
 	public GameState(GameServer gs){
-		this.Galilei = new GalileiMap();
+		this.galilei = new GalileiMap();
 		this.sectordeck = new SectorDeck();
 		this.itemdeck = new ItemDeck();
 		this.lifeboatdeck = new LifeboatDeck();
@@ -38,7 +38,7 @@ public class GameState {
 		
 	public boolean updatePlayerPosition (String name, Coordinates coord){
 		Player player = givemePlayerByName(name);
-		Box destination = this.Galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
+		Box destination = this.galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
 		if(player.movement(destination, player.getPosition()))
 			return true;
 		else
@@ -76,9 +76,9 @@ public class GameState {
 	
 	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, RemoteException, IOException{
 		Coordinates coordinates = gameserver.askForLights(player.getName());
-		Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
+		Box lightfocus = this.galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
 		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-		List<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+		List<Box> toCheck = this.galilei.givemeAroundBoxes(lightfocus);
 		List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
 		enlighted.add(lightfocus);
 		
@@ -104,7 +104,7 @@ public class GameState {
 	
 	public void attackManagement(Player player) throws RemoteException{
 		List<Player> killed = player.attack(player.getPosition());
-		if(killed.size() > 0){
+		if(!killed.isEmpty()){
 			for(Player killedPlayer : killed){
 				boolean hasDefense = false;
 				Card toRemoveDefCard = null;
@@ -175,7 +175,7 @@ public class GameState {
 		return lifeboatdeck;
 	}
 	public GalileiMap getGalilei() {
-		return Galilei;
+		return galilei;
 	}
 
 	public List<Player> getInGamePlayers() {

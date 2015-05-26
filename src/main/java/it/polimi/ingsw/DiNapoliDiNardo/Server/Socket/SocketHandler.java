@@ -42,23 +42,27 @@ public class SocketHandler implements Handler, Runnable {
 		}
 	}
 
+	
 	public String askName() throws IOException{
 		out.println("object=player&action=askname");
 		this.name = in.readLine();
 		return(name);
 	}
-		
+	
+	@Override
 	public void showBeingAlien (String name){
 		out.println("object="+name+"&action=beingAlien");
 	}
+	@Override
 	public void showBeingHuman (String name){
 		out.println("object="+name+"&action=beingHuman");
 	}
+	@Override
 	public void showActualSituation (String name, String position, String objects){
 		out.println("object=situation&action="+name+";"+position+";"+objects+";");
 	}
 	
-	
+	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=askattack");
 		String answer = in.readLine();
@@ -68,12 +72,14 @@ public class SocketHandler implements Handler, Runnable {
 			return false;
 	}
 	
+	@Override
 	public String askForNoise() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=asknoise");
 		String noise = in.readLine();
 		return (noise);
 	}
 	
+	@Override
 	public Coordinates askForMovement(boolean reask) throws IOException, ClassNotFoundException{
 		if(!reask)
 			out.println("object=player&action=askmovement");
@@ -83,13 +89,14 @@ public class SocketHandler implements Handler, Runnable {
 		return (coord);
 	}
 	
+	@Override
 	public Coordinates askForLights() throws IOException, ClassNotFoundException{
 		out.println("object=player&action=asklights");
 		Coordinates coord = (Coordinates)inObj.readObject();
 		return (coord);
 	}
 	
-	
+	@Override
 	public int askForItem(String objects) throws IOException{
 		out.println("object=playeritems&action="+objects);
 		int index = in.read()-48;
@@ -97,7 +104,7 @@ public class SocketHandler implements Handler, Runnable {
 		return index;
 	}
 	
-	
+	@Override
 	public int askHumanForItemChange(String objects) throws IOException{
 		out.println("object=humanplayeritemsdiscard&action="+objects);
 		int index = in.read()-48;
@@ -107,6 +114,7 @@ public class SocketHandler implements Handler, Runnable {
 		return index;
 	}
 	
+	@Override
 	public int askAlienForItemChange(String objects) throws IOException{
 		out.println("object=alienplayeritemsdiscard&action="+objects);
 		int index = in.read()-48;
@@ -114,15 +122,18 @@ public class SocketHandler implements Handler, Runnable {
 		return index;
 	}
 	
+	@Override
 	public void notifyMessage(String message){
 		out.println("object=print&action="+message);
 	}
+	
 	
 	public String getShName(){
 		return this.name;
 	}
 	
-	public void Close() throws IOException{
+	
+	public void close() throws IOException{
 		
 		in.close();
 		out.close();

@@ -48,13 +48,13 @@ public class ClientRMIInterface implements NetworkInterface {
 		return true;
 	}
 
-	
+	@Override
 	public void startInterface() throws RemoteException {
 		
 		//check if the game as already started, to avoid to connect while 
 		//some rmi players keep the registry on without inputting their names
 		if(!handler.isStarted()){
-			handler.IncreaseRMINumPlayers();
+			handler.increaseRMINumPlayers();
 			this.clientport = 3030+handler.getRMINumPlayers();
 			name = view.askName();
 			handler.addPlayer(name);
@@ -101,7 +101,7 @@ public class ClientRMIInterface implements NetworkInterface {
 	}
 	
 		
-	
+	@Override
 	public boolean close() {
 		return true;
 	}

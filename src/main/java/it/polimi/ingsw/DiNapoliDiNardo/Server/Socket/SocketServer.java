@@ -82,7 +82,7 @@ public class SocketServer extends Thread{
 		if(listening){
 			listening = false;
 			for(SocketHandler sh : sockethandlers)
-				sh.Close();			
+				sh.close();			
 			
 			serversocket.close();
 			status = "Closed.";

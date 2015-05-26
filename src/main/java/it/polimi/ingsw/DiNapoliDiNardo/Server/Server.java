@@ -45,7 +45,7 @@ public class Server {
 		Server headserver = new Server();
 		headserver.openconnections();
 		
-	};
+	}
 	
 	
 	public void openconnections() throws IOException, NotBoundException{
