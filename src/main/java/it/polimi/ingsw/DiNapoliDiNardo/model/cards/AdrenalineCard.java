@@ -9,7 +9,9 @@ public class AdrenalineCard extends ItemCard{
 	public String getName() {
 		return name;
 	}
-	
+	public String getUseMessage(){
+		return useMessage;
+	}
 	public void doAction(HumanPlayer player){
 		player.setAdrenalized(true);
 	}

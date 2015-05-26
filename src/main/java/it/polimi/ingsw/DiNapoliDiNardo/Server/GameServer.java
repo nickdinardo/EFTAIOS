@@ -207,8 +207,8 @@ public class GameServer {
 			String position = positionToString(gamestate.givemePlayerByName(playername));
 			notifyMessage(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
-			
-		notifyMessage(playername+" has used one "+cardname);
+		if (!cardname.equals("DefenseCard"))	
+			notifyMessage(playername+" has used one "+cardname);
 		handlers.get(playername).notifyMessage(usemessage);
 	}
 	

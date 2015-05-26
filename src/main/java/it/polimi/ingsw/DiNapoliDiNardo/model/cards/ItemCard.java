@@ -14,6 +14,7 @@ public abstract class ItemCard extends Card{
 	public String getUseMessage(){
 		return useMessage;
 	}
+	
 	public void doAction(HumanPlayer player){};
 	
 }

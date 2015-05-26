@@ -10,7 +10,9 @@ public class SedativesCard extends ItemCard {
 	public String getName() {
 		return name;
 	}
-	
+	public String getUseMessage(){
+		return useMessage;
+	}
 	public void doAction(HumanPlayer player){
 		player.setSedated(true);
 	}

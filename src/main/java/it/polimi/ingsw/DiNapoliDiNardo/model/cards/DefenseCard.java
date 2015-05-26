@@ -7,5 +7,8 @@ public class DefenseCard extends ItemCard{
 	public String getName() {
 		return name;
 	}
-
+	public String getUseMessage(){
+		return useMessage;
+	}
+	
 }

@@ -76,6 +76,7 @@ public class GameState {
 	}	
 	
 	
+	
 	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, RemoteException, IOException{
 		Coordinates coordinates = gameserver.askForLights(player.getName());
 		Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
@@ -101,6 +102,7 @@ public class GameState {
 			gameserver.showLights(player.getName(), lightposition, playersinbox);
 		}
 	}
+	
 	
 	
 	public void attackManagement(Player player) throws RemoteException{
@@ -138,7 +140,8 @@ public class GameState {
 		
 	}
 	
-		
+	
+	
 	public void removeInTurnBonus (){
 		for (Player player: this.inGamePlayers){
 			if(player instanceof HumanPlayer){

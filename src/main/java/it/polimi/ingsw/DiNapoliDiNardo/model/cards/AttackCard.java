@@ -9,5 +9,7 @@ public class AttackCard extends ItemCard{
 	public String getName() {
 		return name;
 	}
-	
+	public String getUseMessage(){
+		return useMessage;
+	}
 }

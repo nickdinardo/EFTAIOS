@@ -216,7 +216,7 @@ public class TextView extends View{
 	
 	
 	public Coordinates askForLights(){
-		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in");
+		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
 		Coordinates coordinates = solveCoordInput();
 		return coordinates;
 		
