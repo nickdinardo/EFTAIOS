@@ -13,7 +13,7 @@ public class TextView extends View{
 	Scanner in = new Scanner(System.in);
 	private PrintStream out = System.out;
 	boolean isFirstTurn = true;
-	private final String invletter = "Please select one of the options writing the corresponding letter and nothing more";
+	private final static String invletter = "Please select one of the options writing the corresponding letter and nothing more";
 	
 	public String askName (){
 		out.println("Connected to the server game. What's your name?");

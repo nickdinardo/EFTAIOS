@@ -27,7 +27,7 @@ public class ClientRMIInterface implements NetworkInterface {
 	@Override
 	public boolean connect() {
 		//first thing get the handler client->server
-		String name = "Handler";
+		String handlername = "Handler";
 		try {
 			registry = LocateRegistry.getRegistry(2020);
 		} catch (RemoteException e) {			
@@ -35,7 +35,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			return false;
 		}
         try {
-			handler = (RemoteHandler) registry.lookup(name);
+			handler = (RemoteHandler) registry.lookup(handlername);
 			
 		} catch (AccessException e) {
 			e.printStackTrace();

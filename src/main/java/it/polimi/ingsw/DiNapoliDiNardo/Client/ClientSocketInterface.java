@@ -66,8 +66,8 @@ public class ClientSocketInterface implements NetworkInterface {
 				while((input = in.readLine()) != null && !stop){
 					String[] splitted = input.split("&");
 					Map<String, String> params = new HashMap<String, String>();
-					for(String s : splitted){
-						params.put(s.split("=")[0],s.split("=")[1]);
+					for(String str : splitted){
+						params.put(str.split("=")[0],str.split("=")[1]);
 					}
 					this.comhan.handleCommand(params);
 					

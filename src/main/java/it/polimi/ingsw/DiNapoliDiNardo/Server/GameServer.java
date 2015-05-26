@@ -65,9 +65,6 @@ public class GameServer {
 		    	
 		    	Map.Entry<String, String> entry = remover.next();
 		        String playername = entry.getKey();
-		        System.out.println(positionToString(gamestate.givemePlayerByName(playername)));
-		        
-		        
 		        Player maybedead = gamestate.givemePlayerByName(playername);
 		        		        	
 		        if(!maybedead.isAlive()){
@@ -123,7 +120,7 @@ public class GameServer {
 					gamestate.itemUsageManagement(playername, index-1);
 		}
 		
-		askForMovement(playername, connection);
+		askForMovement(playername);
 		
 		if (player.getPosition() instanceof DangerousBox && !player.isSedated())
 			drawSectorCard(playername, connection, player);
@@ -143,7 +140,7 @@ public class GameServer {
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
 		
-		askForMovement(playername, connection);
+		askForMovement(playername);
 		boolean attack = false;
 		attack = handlers.get(playername).askForAttack();
 		
@@ -160,7 +157,7 @@ public class GameServer {
 	
 	
 	
-	private void askForMovement(String playername, String connection) throws ClassNotFoundException, IOException{
+	private void askForMovement(String playername) throws ClassNotFoundException, IOException{
 		
 		Coordinates coordinates;
 		boolean validmove = false;
@@ -182,7 +179,7 @@ public class GameServer {
 	
 	
 	
-	public Coordinates askForLights(String name) throws ClassNotFoundException, RemoteException, IOException{
+	public Coordinates askForLights(String name) throws ClassNotFoundException, IOException{
 		Coordinates coordinates;
 		coordinates = handlers.get(name).askForLights();
 		return coordinates;
@@ -191,8 +188,8 @@ public class GameServer {
 	
 	
 	
-	public void showLights(String name, String lightposition, String playersinbox) throws ClassNotFoundException, RemoteException, IOException{
-		if (playersinbox.equals(""))
+	public void showLights(String name, String lightposition, String playersinbox) throws ClassNotFoundException, IOException{
+		if ("".equals(playersinbox))
 			handlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
 		else
 			handlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
@@ -201,13 +198,13 @@ public class GameServer {
 	
 	 
 	
-	public void cardsMessages(String playername, String cardname, String usemessage) throws ClassNotFoundException, RemoteException, IOException{
+	public void cardsMessages(String playername, String cardname, String usemessage) throws ClassNotFoundException, IOException{
 		
-		if (cardname.equals("AttackCard")){
+		if ("AttackCard".equals(cardname)){
 			String position = positionToString(gamestate.givemePlayerByName(playername));
 			notifyMessage(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
-		if (!cardname.equals("DefenseCard"))	
+		if (!"DefenseCard".equals(cardname))	
 			notifyMessage(playername+" has used one "+cardname);
 		handlers.get(playername).notifyMessage(usemessage);
 	}
@@ -256,7 +253,7 @@ public class GameServer {
 	
 	
 	
-	private void drawItemCard (String name, String connection, Player player) throws RemoteException, IOException, ClassNotFoundException{
+	private void drawItemCard (String name, String connection, Player player) throws IOException, ClassNotFoundException{
 		
 		//manage the personal decks of the players when a new item card is drawn	
 		ItemCard itemcard = (ItemCard)gamestate.getItemdeck().drawCard();

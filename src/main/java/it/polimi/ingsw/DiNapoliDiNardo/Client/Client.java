@@ -2,9 +2,9 @@ package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 import it.polimi.ingsw.DiNapoliDiNardo.view.InitialWindow;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 
 public class Client {

@@ -1,19 +1,21 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Deck {
 
-	protected ArrayList<Card> deck = new ArrayList<Card>();
-	protected ArrayList<Card> discards = new ArrayList<Card>();
+	protected List<Card> deck = new ArrayList<Card>();
+	protected List<Card> discards = new ArrayList<Card>();
 	
 	
-	public ArrayList<Card> getDeck() {
+	public List<Card> getDeck() {
 		return deck;
 	}
 	
-	public ArrayList<Card> getDiscards() {
+	public List<Card> getDiscards() {
 		return discards;
 	}
 	

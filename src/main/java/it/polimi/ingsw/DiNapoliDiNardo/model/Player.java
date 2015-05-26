@@ -22,7 +22,7 @@ public abstract class Player {
 	public abstract boolean movement(Box destination, Box position);
 	
 	
-	public void teleport(){};
+	public void teleport(){}
 	
 	
 	public List<Player> attack(Box position){
@@ -38,9 +38,12 @@ public abstract class Player {
 	
 	public boolean isValidSingleMovement(Box destination, Box position){
 		
-		if (destination instanceof Wall) return false;
-		if (destination instanceof HumanBox) return false;
-		if (destination instanceof AlienBox) return false;
+		if (destination instanceof Wall) 
+			return false;
+		if (destination instanceof HumanBox) 
+			return false;
+		if (destination instanceof AlienBox) 
+			return false;
 		if (position.getCoordX()%2==0){//BASSA
 			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
 				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0)
@@ -58,7 +61,7 @@ public abstract class Player {
 					return true;
 		}
 		return false;
-	};
+	}
 			
 	
 	public boolean isValidDoubleMovement(Box destination, Box position){
@@ -72,7 +75,7 @@ public abstract class Player {
 				return true;
 		}
 		return false;
-	};
+	}
 	
 	
 	//check a group of boxes and return only the reachable from actual position with a single step

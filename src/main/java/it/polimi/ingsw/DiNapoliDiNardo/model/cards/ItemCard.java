@@ -8,13 +8,13 @@ public abstract class ItemCard extends Card{
 	private String useMessage = "";
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public String getUseMessage(){
-		return useMessage;
+		return this.useMessage;
 	}
 	
-	public void doAction(HumanPlayer player){};
+	public void doAction(HumanPlayer player){}
 	
 }

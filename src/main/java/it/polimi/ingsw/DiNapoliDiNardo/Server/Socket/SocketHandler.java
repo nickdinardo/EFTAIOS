@@ -31,6 +31,7 @@ public class SocketHandler implements Handler, Runnable {
 		return socket;
 	}
 
+	@Override
 	public void run() {
 		try{
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -46,7 +47,7 @@ public class SocketHandler implements Handler, Runnable {
 	public String askName() throws IOException{
 		out.println("object=player&action=askname");
 		this.name = in.readLine();
-		return(name);
+		return name;
 	}
 	
 	@Override
@@ -66,17 +67,19 @@ public class SocketHandler implements Handler, Runnable {
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=askattack");
 		String answer = in.readLine();
+		boolean wantattack = false;
 		if (answer.equalsIgnoreCase("Y"))
-			return true;
+			wantattack = true;
 		else 
-			return false;
+			wantattack = false;
+		return wantattack;
 	}
 	
 	@Override
 	public String askForNoise() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=asknoise");
 		String noise = in.readLine();
-		return (noise);
+		return noise;
 	}
 	
 	@Override
@@ -86,14 +89,14 @@ public class SocketHandler implements Handler, Runnable {
 		else
 			out.println("object=player&action=reaskmovement");
 		Coordinates coord = (Coordinates)inObj.readObject();
-		return (coord);
+		return coord;
 	}
 	
 	@Override
 	public Coordinates askForLights() throws IOException, ClassNotFoundException{
 		out.println("object=player&action=asklights");
 		Coordinates coord = (Coordinates)inObj.readObject();
-		return (coord);
+		return coord;
 	}
 	
 	@Override
