@@ -1,6 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 
@@ -23,8 +25,8 @@ public class AlienPlayer extends Player {
 	
 	//triple movement check
 	public boolean isValidTripleMovement(Box destination, Box position){
-		ArrayList<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
-		ArrayList<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
+		List<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
+		List<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
 		for (Box box: oneStepBoxes){
 			if (isValidDoubleMovement(destination, box))
 				return true;
@@ -60,8 +62,8 @@ public class AlienPlayer extends Player {
 	}
 	
 	//alien attack method, with setHumanfed
-	public ArrayList<Player> attack(Box position){
-		ArrayList<Player> playerInBox = new ArrayList<Player>();
+	public List<Player> attack(Box position){
+		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty()){
 			playerInBox = position.getPlayerHere();
 			for(Player player : playerInBox ){

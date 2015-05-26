@@ -1,6 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
@@ -15,7 +17,7 @@ public class Main {
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
 	LifeboatDeck lifeboatdeck;
-	ArrayList< Player > inGamePlayers = new ArrayList< Player >();
+	List< Player > inGamePlayers = new ArrayList< Player >();
 	
 	public static void main( String[] args){
 		
@@ -130,8 +132,8 @@ public class Main {
 			Coordinates coordinates = this.view.askForLights();
 			Box lightfocus = this.Galilei.getMap()[coordinates.coordY-1][coordinates.coordX-1];			
 			//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-			ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
-			ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+			List<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+			List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
 			enlighted.add(lightfocus);
 			for (Box box : enlighted){
 				this.view.revealingLights(box);
@@ -142,7 +144,7 @@ public class Main {
 	}*/
 	
 	public void attackManagement(Player player){
-		ArrayList<Player> killed = player.attack(player.getPosition());
+		List<Player> killed = player.attack(player.getPosition());
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
 				this.view.killPlayer(killedPlayer);

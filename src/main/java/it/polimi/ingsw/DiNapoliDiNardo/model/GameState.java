@@ -7,6 +7,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
@@ -17,6 +18,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameState {
 	GameServer gameserver;
@@ -24,7 +26,7 @@ public class GameState {
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
 	LifeboatDeck lifeboatdeck;
-	ArrayList< Player > inGamePlayers = new ArrayList< Player >();
+	List< Player > inGamePlayers = new ArrayList< Player >();
 	
 	//constructor
 	public GameState(GameServer gs){
@@ -53,7 +55,7 @@ public class GameState {
 		
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
-			Card item = player.getPersonalDeck().get(index);
+			ItemCard item = player.getPersonalDeck().get(index);
 			
 			if (item instanceof DefenseCard){
 				gameserver.cardsMessages(name, "defense");
@@ -86,12 +88,12 @@ public class GameState {
 				Coordinates coordinates = gameserver.askForLights(name);
 				Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
 				//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-				ArrayList<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
-				ArrayList<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+				List<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+				List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
 				enlighted.add(lightfocus);
 				
 				for (Box box : enlighted){
-					ArrayList<Player> peoplehere = box.getPlayerHere();
+					List<Player> peoplehere = box.getPlayerHere();
 					String playersinbox = "";
 					for (int i=0; i<peoplehere.size(); i++){
 						playersinbox += peoplehere.get(i).getName();
@@ -123,7 +125,7 @@ public class GameState {
 	
 	
 	public void attackManagement(Player player) throws RemoteException{
-		ArrayList<Player> killed = player.attack(player.getPosition());
+		List<Player> killed = player.attack(player.getPosition());
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
 				boolean hasDefense = false;
@@ -197,11 +199,11 @@ public class GameState {
 		return Galilei;
 	}
 
-	public ArrayList<Player> getInGamePlayers() {
+	public List<Player> getInGamePlayers() {
 		return inGamePlayers;
 	}
 
-	public void setInGamePlayers(ArrayList<Player> inGamePlayers) {
+	public void setInGamePlayers(List<Player> inGamePlayers) {
 		this.inGamePlayers = inGamePlayers;
 	}
 

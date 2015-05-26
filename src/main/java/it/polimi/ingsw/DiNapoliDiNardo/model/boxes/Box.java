@@ -3,11 +3,12 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Box {
 	
 	private Coordinates coord = new Coordinates(0, 0);
-	private ArrayList<Player> playerHere = new ArrayList<Player>();
+	private List<Player> playerHere = new ArrayList<Player>();
 	
 	
 	public Box(Coordinates coordinates){
@@ -51,7 +52,7 @@ public class Box {
 		return playerHere.size() == 0;
 	}
 	
-	public ArrayList<Player> getPlayerHere(){
+	public List<Player> getPlayerHere(){
 		return playerHere;
 	}
 	

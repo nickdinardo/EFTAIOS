@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -94,7 +95,7 @@ public class GameServer {
 		
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
-			ArrayList<Card> itemdeck = player.getPersonalDeck();
+			List<ItemCard> itemdeck = player.getPersonalDeck();
 			String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();	
 			String objects = "";
 			for (int i=0; i<itemdeck.size(); i++)
@@ -111,7 +112,7 @@ public class GameServer {
 	private void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
 		
 		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
-		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
+		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		int index;
 		
 		if (gamestate.givemePlayerByName(playername).getPersonalDeck().size()>0){
@@ -230,7 +231,7 @@ public class GameServer {
 	
 	
 	private void createPlayersInGame(Map<String, String> playersconnected) {
-		ArrayList<String> keys = new ArrayList<String>(playersconnected.keySet());
+		List<String> keys = new ArrayList<String>(playersconnected.keySet());
 		Collections.shuffle(keys);
 		int i = 0;
 		for (String name : keys){
@@ -274,7 +275,7 @@ public class GameServer {
 		
 		//manage the personal decks of the players when a new item card is drawn	
 		ItemCard itemcard = (ItemCard)gamestate.getItemdeck().drawCard();
-		ArrayList<Card> itemdeck = gamestate.givemePlayerByName(name).getPersonalDeck();	 
+		List<ItemCard> itemdeck = gamestate.givemePlayerByName(name).getPersonalDeck();	 
 		
 		if (itemdeck.size()==3){
 			int index;
@@ -345,7 +346,7 @@ public class GameServer {
 	
 	
 	
-	private String personalDeckListify (ArrayList<Card> itemdeck){
+	private String personalDeckListify (List<ItemCard> itemdeck){
 	
 		//utility for other methods, put in a string all the item cards of a personal deck
 		String objects = "";

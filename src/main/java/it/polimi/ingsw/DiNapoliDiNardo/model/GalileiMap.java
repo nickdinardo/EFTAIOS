@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 
@@ -26,8 +27,8 @@ public class GalileiMap {
 	}
 	
 	
-	public ArrayList<Box> givemeAroundBoxes (Box center){
-		ArrayList<Box> aroundBoxes = new ArrayList<Box>();
+	public List<Box> givemeAroundBoxes (Box center){
+		List<Box> aroundBoxes = new ArrayList<Box>();
 		//corners box, to be treated differently in order to avoid IndexOutofBorder
 		if (center.getCoordX()==1 && center.getCoordY()==1){
 			aroundBoxes.add(map[1][0]);

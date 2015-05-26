@@ -1,5 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
@@ -13,7 +15,7 @@ public abstract class Player {
 	protected boolean isAlive = true;
 	protected boolean savedWithDefenseCard = false;
 	protected String myKiller ="";
-	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
+	protected List< ItemCard > personalDeck = new ArrayList< ItemCard >();
 		
 		
 	
@@ -23,8 +25,8 @@ public abstract class Player {
 	public void teleport(){};
 	
 	
-	public ArrayList<Player> attack(Box position){
-		ArrayList<Player> playerInBox = new ArrayList<Player>();
+	public List<Player> attack(Box position){
+		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty())
 			playerInBox = position.getPlayerHere();
 	
@@ -61,11 +63,11 @@ public abstract class Player {
 	
 	public boolean isValidDoubleMovement(Box destination, Box position){
 		
-		ArrayList<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
-		ArrayList<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
+		List<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
+		List<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
 		for (Box box: oneStepBoxes){
 			aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(box);
-			ArrayList<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
+			List<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
 			if (twoStepBoxes.contains(destination))
 				return true;
 		}
@@ -74,8 +76,8 @@ public abstract class Player {
 	
 	
 	//check a group of boxes and return only the reachable from actual position with a single step
-	public ArrayList<Box> checkBoxes (ArrayList<Box> boxesToCheck, Box position){
-		ArrayList<Box> validBoxes = new ArrayList<Box>();
+	public List<Box> checkBoxes (List<Box> boxesToCheck, Box position){
+		List<Box> validBoxes = new ArrayList<Box>();
 		for (Box box: boxesToCheck){
 			if (isValidSingleMovement(box, position))
 					validBoxes.add(box);
@@ -90,7 +92,7 @@ public abstract class Player {
 		return isAlive;
 	}
 	
-	public ArrayList<Card> getPersonalDeck() {
+	public List<ItemCard> getPersonalDeck() {
 		return personalDeck;
 	}
 
