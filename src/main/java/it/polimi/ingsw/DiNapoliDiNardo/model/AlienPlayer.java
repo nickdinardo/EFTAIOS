@@ -62,6 +62,7 @@ public class AlienPlayer extends Player {
 	}
 	
 	//alien attack method, with setHumanfed
+	@Override
 	public List<Player> attack(Box position){
 		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty()){

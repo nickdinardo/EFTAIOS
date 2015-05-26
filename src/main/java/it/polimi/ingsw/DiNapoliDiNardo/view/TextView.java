@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
@@ -23,11 +24,12 @@ public class TextView extends View{
 	
 	public void showActualSituation (String name, String position, String objects){
 		
+		String printposition = position;
 		if (position.length() == 2)
-			position = position.substring(0, 1) + "0" + position.substring(1, position.length());
+			printposition = position.substring(0, 1) + "0" + position.substring(1, position.length());
 		System.out.println("________________________________________________________________________________________________________________________");
-		System.out.println(name+ " you are now in the "+position+" position.");
-		if (!objects.equals("no")){
+		System.out.println(name+ " you are now in the "+printposition+" position.");
+		if (!"no".equals(objects)){
 			System.out.println("In your item deck you have the following cards: "+objects);
 		}
 		System.out.println("--------");
@@ -71,7 +73,7 @@ public class TextView extends View{
 	
 		
 	public int askItemUse(String objects){
-		String[] Items = objects.split(";");
+		String[] items = objects.split(";");
 		System.out.println("Do you want to use an Item Card?");
 		System.out.println("Y: yes    N: no");
 		String input = in.nextLine();
@@ -83,9 +85,9 @@ public class TextView extends View{
 			int answer;
 			do{
 				System.out.println("Select the number of the item you want to use:");
-				for (int i=0; i<Items.length && i<3; i++){
+				for (int i=0; i<items.length && i<3; i++){
 					int j = i+1;
-					System.out.println(j+"- "+Items[i]);
+					System.out.println(j+"- "+items[i]);
 				}
 				try{
 					answer = in.nextInt();
@@ -93,9 +95,9 @@ public class TextView extends View{
 					answer=0;
 				}
 				in.nextLine();
-				if (answer <=0 || answer>Items.length)
+				if (answer <=0 || answer>items.length)
 					System.out.println("Please write the number of the object you want to use and nothing more");
-			}while (answer <=0 || answer>Items.length);
+			}while (answer <=0 || answer>items.length);
 			return answer;
 		}
 		else if (risp != 'N' && risp != 'n'){
@@ -107,7 +109,7 @@ public class TextView extends View{
 	
 	
 	public int askAlienItemDiscard(String objects){
-		String[] Items = objects.split(";");
+		String[] items = objects.split(";");
 		System.out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
 		System.out.println("D: discard an item	N: no, I'll keep my actual items");
 		String input = in.nextLine();
@@ -123,9 +125,9 @@ public class TextView extends View{
 				
 				do{
 					System.out.println("Select the number of the item you want to discard:");
-					for (int i=0; i<Items.length && i<3; i++){
+					for (int i=0; i<items.length && i<3; i++){
 						int j = i+1;
-						System.out.println(j+"- "+Items[i]);
+						System.out.println(j+"- "+items[i]);
 					}
 					try{
 						answer = in.nextInt()+3;
@@ -133,9 +135,9 @@ public class TextView extends View{
 						answer=0;
 					}
 					in.nextLine();
-					if (answer <=3 || answer>Items.length+3)
+					if (answer <=3 || answer>items.length+3)
 						System.out.println("Please write the number of the object you want to discard and nothing more");
-				}while (answer <=3 || answer>Items.length+3);
+				}while (answer <=3 || answer>items.length+3);
 				return answer;
 			}
 			if (risp == 'N' || risp == 'n'){
@@ -149,7 +151,7 @@ public class TextView extends View{
 	
 	
 	public int askHumanItemDiscard(String objects){
-		String[] Items = objects.split(";");
+		String[] items = objects.split(";");
 		System.out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
 		System.out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
 		String input = in.nextLine();
@@ -165,9 +167,9 @@ public class TextView extends View{
 				
 				do{
 					System.out.println("Select the number of the item you want to discard:");
-					for (int i=0; i<Items.length; i++){
+					for (int i=0; i<items.length; i++){
 						int j = i+1;
-						System.out.println(j+"- "+Items[i]);
+						System.out.println(j+"- "+items[i]);
 					}
 					try{
 						answer = in.nextInt()+3;
@@ -176,9 +178,9 @@ public class TextView extends View{
 					}
 					
 					in.nextLine();
-					if (answer <=3 || answer>Items.length+3)
+					if (answer <=3 || answer>items.length+3)
 						System.out.println("Please write the number of the object you want to discard and nothing more");
-				}while (answer <=3 || answer>Items.length+3);
+				}while (answer <=3 || answer>items.length+3);
 				return answer;
 			}
 			if (risp == 'U' || risp == 'u'){
@@ -204,9 +206,9 @@ public class TextView extends View{
 			String ans = in.nextLine();
 			if (ans.length()>0)
 				ans = ans.substring(0, 1);
-			if (ans.equalsIgnoreCase("Y"))
+			if ("Y".equalsIgnoreCase(ans))
 				return ans;
-			if (ans.equalsIgnoreCase("N"))
+			if ("N".equalsIgnoreCase(ans))
 				return ans;	
 			System.out.println("Please select one of the options writing the corresponding letter and nothing more");
 		}while(!validanswer);
@@ -327,7 +329,8 @@ public class TextView extends View{
 				input = input.substring(1);
 				//parse the ASCII code of the char and convert it to a number, starting from 'A'-->1
 				numberX = (int)letter;
-				if (numberX<88) numberX-=64;
+				if (numberX<88) 
+					numberX-=64;
 				else numberX-=96;
 				try	{
 					numberY = Integer.parseInt(input);

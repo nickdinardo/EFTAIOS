@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;

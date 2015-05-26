@@ -5,6 +5,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
 
+
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -16,11 +17,12 @@ public class ClientRMIInterface implements NetworkInterface {
 
 	private RemoteHandler handler;
 	//set getter
-	public TextView view = new TextView();
+	private TextView view = new TextView();
 	private String name = "";
 	Registry registry;
 	int clientport;
 	
+	@Override
 	public boolean connect() {
 		//first thing get the handler client->server
 		String name = "Handler";

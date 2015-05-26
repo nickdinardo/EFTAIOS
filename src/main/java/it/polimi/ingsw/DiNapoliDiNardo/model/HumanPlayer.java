@@ -46,7 +46,7 @@ public class HumanPlayer extends Player{
 		}
 	}
 		
-	
+	@Override
 	public void teleport(){
 		this.position.unsetPlayer(this);
 		this.setPosition(gamestate.getGalilei().getHumanStartBox());

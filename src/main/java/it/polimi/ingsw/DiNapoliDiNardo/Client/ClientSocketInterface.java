@@ -94,7 +94,7 @@ public class ClientSocketInterface implements NetworkInterface {
 	}
 
 	
-	
+	@Override
 	public boolean close() {
 		try{
 			in.close();

@@ -1,16 +1,13 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.GameServer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.LifeboatDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
