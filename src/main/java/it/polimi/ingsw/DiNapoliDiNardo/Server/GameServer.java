@@ -162,8 +162,7 @@ public class GameServer {
 			String position = positionToString(player);
 			notifyMessage(playername+" has ATTACKED sector "+position);
 			gamestate.attackManagement(player);
-			//player.getPosition().clearPlayersHere();
-	        //player.getPosition().setPlayer(player);
+			
 		}
 		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
