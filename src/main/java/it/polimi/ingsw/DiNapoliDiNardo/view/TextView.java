@@ -1,6 +1,5 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
-import it.polimi.ingsw.DiNapoliDiNardo.*;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
@@ -17,7 +16,7 @@ public class TextView extends View{
 	
 	
 	public String askName (){
-		System.out.println("Connected to the server game. What's your name?");
+		out.println("Connected to the server game. What's your name?");
 		return in.nextLine();
 	}
 	
@@ -27,8 +26,8 @@ public class TextView extends View{
 		String printposition = position;
 		if (position.length() == 2)
 			printposition = position.substring(0, 1) + "0" + position.substring(1, position.length());
-		System.out.println("________________________________________________________________________________________________________________________");
-		System.out.println(name+ " you are now in the "+printposition+" position.");
+		out.println("________________________________________________________________________________________________________________________");
+		out.println(name+ " you are now in the "+printposition+" position.");
 		if (!"no".equals(objects)){
 			System.out.println("In your item deck you have the following cards: "+objects);
 		}
