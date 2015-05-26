@@ -12,7 +12,7 @@ public class AlienPlayer extends Player {
 	
 	
 
-	//multiplayer constructor
+	//constructor
 	 	public AlienPlayer(GalileiMap Galilei, GameState gs, String name){
 			this.gamestate = gs;
 			this.name = name;

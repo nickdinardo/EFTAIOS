@@ -127,12 +127,12 @@ public class GameState {
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
 				boolean hasDefense = false;
-				Card toRemove = null;
+				Card toRemoveDefCard = null;
 				if (killedPlayer instanceof HumanPlayer){
 					for (Card card: killedPlayer.getPersonalDeck()){
 						if (card instanceof DefenseCard){
 							hasDefense = true;
-							toRemove = card;
+							toRemoveDefCard = card;
 						}
 					}
 				}
@@ -143,7 +143,7 @@ public class GameState {
 					gameserver.notifyMessage(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
 				else{
-					killedPlayer.getPersonalDeck().remove(toRemove);
+					killedPlayer.getPersonalDeck().remove(toRemoveDefCard);
 					gameserver.notifyMessage(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
 			    }
 			}

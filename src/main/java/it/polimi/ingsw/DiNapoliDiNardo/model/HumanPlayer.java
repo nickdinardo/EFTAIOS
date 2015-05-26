@@ -9,7 +9,7 @@ public class HumanPlayer extends Player{
 	protected boolean sedated = false;
 	
 	
-	//multiplayer constructor
+	//constructor
  	public HumanPlayer(GalileiMap Galilei, GameState gs, String name){
 		this.gamestate = gs;
 		this.name = name;
@@ -44,9 +44,6 @@ public class HumanPlayer extends Player{
 				return false;
 			}
 		}
-		
-		
-		
 	}
 		
 	
@@ -54,8 +51,7 @@ public class HumanPlayer extends Player{
 		this.position.unsetPlayer(this);
 		this.setPosition(gamestate.getGalilei().getHumanStartBox());
 		this.position.setPlayer(this);
-		//farlo fare alla view:
-		System.out.println("You're back in the starting position");
+		
 	}
 	
 	

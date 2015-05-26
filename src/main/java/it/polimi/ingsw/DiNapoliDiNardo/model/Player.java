@@ -17,24 +17,8 @@ public abstract class Player {
 		
 		
 	
-	
-	//getters and setters
-	public boolean isAlive() {
-		return isAlive;
-	}
-	public ArrayList<Card> getPersonalDeck() {
-		return personalDeck;
-	}
-	public Box getPosition() {
-		return position;
-	}
-	public void setPosition(Box position) {
-		this.position = position;
-	}
-	
-	
-	
 	public abstract boolean movement(Box destination, Box position);
+	
 	
 	public void teleport(){};
 	
@@ -101,6 +85,22 @@ public abstract class Player {
 		
 	
 	
+	//getters and setters
+	public boolean isAlive() {
+		return isAlive;
+	}
+	
+	public ArrayList<Card> getPersonalDeck() {
+		return personalDeck;
+	}
+
+	public Box getPosition() {
+		return position;
+	}
+	
+	public void setPosition(Box position) {
+		this.position = position;
+	}
 	
 	public void kill(){
 		this.isAlive = false;
@@ -110,21 +110,14 @@ public abstract class Player {
 		this.myKiller = killer;
 	}
 	
-	public void setSavedWithDefenseCard(boolean saved){
-		this.savedWithDefenseCard = saved;
-	}
-	
 	public String getKiller(){
 		return this.myKiller;
-	}
-	
-	public boolean isSavedWithDefenseCard(){
-		return this.savedWithDefenseCard;
 	}
 	
 	public String getName() {
 		return this.name;
 	}
+
 }
 		
 	

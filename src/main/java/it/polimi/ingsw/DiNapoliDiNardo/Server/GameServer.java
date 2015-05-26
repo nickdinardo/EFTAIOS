@@ -64,9 +64,12 @@ public class GameServer {
 		    //removing dead players iteration
 		    Iterator<HashMap.Entry<String, String>> remover = playersconnected.entrySet().iterator();
 		    while (remover.hasNext()) {
-		    
+		    	
 		    	HashMap.Entry<String, String> entry = remover.next();
 		        String playername = entry.getKey();
+		        System.out.println(positionToString(gamestate.givemePlayerByName(playername)));
+		        
+		        
 		        Player maybedead = gamestate.givemePlayerByName(playername);
 		        		        	
 		        if(!maybedead.isAlive()){
@@ -281,7 +284,7 @@ public class GameServer {
 				gamestate.getInGamePlayers().add(new AlienPlayer(gamestate.getGalilei(), gamestate, name));
 			else 
 				gamestate.getInGamePlayers().add(new HumanPlayer(gamestate.getGalilei(), gamestate, name));
-				}
+		}
 	}
 
 	
@@ -361,12 +364,16 @@ public class GameServer {
 	public void sayByeToLosers(String dead, String killer) throws RemoteException{
 
 		if (notifiers.containsKey(dead)){
+			notifiers.get(dead).notifyMessage("-----------------------------------------------");
 			notifiers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
 			notifiers.get(dead).notifyMessage("Unfortunately, your game ends here");
+			notifiers.get(dead).notifyMessage("-----------------------------------------------");
 		}
 		else{
+			notifiers.get(dead).notifyMessage("-----------------------------------------------");
 			sockethandlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
 			sockethandlers.get(dead).notifyMessage("Unfortunately, your game ends here");
+			notifiers.get(dead).notifyMessage("-----------------------------------------------");
 		}
 		gamestate.getInGamePlayers().remove(dead);
 	}
@@ -433,6 +440,7 @@ public class GameServer {
 	
 	
 		
+	
 	private RemoteNotifier givemeNotifierByName (String lookforname) throws RemoteException{
 		
 		for (RemoteNotifier rn: notifiers.values()){

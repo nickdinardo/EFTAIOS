@@ -309,6 +309,7 @@ public class TextView extends View{
 		System.out.println(textmap);
 	}
 	
+	
 	public Coordinates solveCoordInput (){
 		int numberX = 0;
 		int numberY = 0;

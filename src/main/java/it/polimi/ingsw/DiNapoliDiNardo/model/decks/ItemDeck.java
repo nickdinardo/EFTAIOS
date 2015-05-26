@@ -5,7 +5,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 public class ItemDeck extends Deck{
 	public ItemDeck(){
 		int i;
-		for (i=0; i<200; i++){
+		for (i=0; i<2; i++){
 			deck.add(new AttackCard());
 			}
 		for (i=0; i<2; i++){
@@ -14,14 +14,11 @@ public class ItemDeck extends Deck{
 		for (i=0; i<3; i++){
 			deck.add(new SedativesCard());
 			}
-		for (i=0; i<200; i++){
+		for (i=0; i<2; i++){
 			deck.add(new LightsCard());
 			}
 		for (i=0; i<2; i++){
 			deck.add(new AdrenalineCard());
-			}
-		for (i=0; i<100; i++){
-			deck.add(new DefenseCard());
 			}
 		deck.add(new DefenseCard());
 		this.shuffleDeck();	
