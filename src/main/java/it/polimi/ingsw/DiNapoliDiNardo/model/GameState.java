@@ -65,8 +65,8 @@ public class GameState {
 				player.getPersonalDeck().remove(index);
 			}
 			if (item instanceof AttackCard){
-				this.attackManagement(player);
 				gameserver.cardsMessages(name, "attack");
+				this.attackManagement(player);
 				player.getPersonalDeck().remove(index);
 			}
 			
@@ -122,12 +122,30 @@ public class GameState {
 	
 	
 	
-	public void attackManagement(Player player){
+	public void attackManagement(Player player) throws RemoteException{
 		ArrayList<Player> killed = player.attack(player.getPosition());
 		if(killed.size() > 0){
 			for(Player killedPlayer : killed){
-				killedPlayer.kill();
-				killedPlayer.setKiller(player.getName());
+				boolean hasDefense = false;
+				Card toRemove = null;
+				if (killedPlayer instanceof HumanPlayer){
+					for (Card card: killedPlayer.getPersonalDeck()){
+						if (card instanceof DefenseCard){
+							hasDefense = true;
+							toRemove = card;
+						}
+					}
+				}
+				if (!hasDefense){
+					killedPlayer.kill();
+					killedPlayer.setKiller(player.getName());
+					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
+					gameserver.notifyMessage(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
+				}
+				else{
+					killedPlayer.getPersonalDeck().remove(toRemove);
+					gameserver.notifyMessage(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
+			    }
 			}
 		} 
 		if (player instanceof AlienPlayer){

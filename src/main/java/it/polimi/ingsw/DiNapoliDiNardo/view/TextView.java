@@ -33,6 +33,7 @@ public class TextView extends View{
 		if (!objects.equals("no")){
 			System.out.println("In your item deck you have the following cards: "+objects);
 		}
+		System.out.println("--------");
 	}
 	
 		
@@ -210,7 +211,6 @@ public class TextView extends View{
 	
 	
 	public Coordinates askForLights(){
-		
 		System.out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to move in");
 		Coordinates coordinates = solveCoordInput();
 		return coordinates;

@@ -10,7 +10,8 @@ public abstract class Player {
 	protected String name;
 	protected GameState gamestate;
 	protected Box position;
-	protected boolean isAlive=true;
+	protected boolean isAlive = true;
+	protected boolean savedWithDefenseCard = false;
 	protected String myKiller ="";
 	protected ArrayList< Card > personalDeck = new ArrayList< Card >();
 		
@@ -40,17 +41,10 @@ public abstract class Player {
 	
 	public ArrayList<Player> attack(Box position){
 		ArrayList<Player> playerInBox = new ArrayList<Player>();
-		if(!position.isEmpty()){
+		if(!position.isEmpty())
 			playerInBox = position.getPlayerHere();
-			for(Player player : playerInBox ){
-				if(this != player){
-					player.kill();
-					}
-			}
-		}
+	
 		playerInBox.remove(this);
-		for (Player player : playerInBox)
-			System.out.println("inbox "+ player.getName());
 		return playerInBox;
 		
 	}
@@ -116,8 +110,16 @@ public abstract class Player {
 		this.myKiller = killer;
 	}
 	
+	public void setSavedWithDefenseCard(boolean saved){
+		this.savedWithDefenseCard = saved;
+	}
+	
 	public String getKiller(){
 		return this.myKiller;
+	}
+	
+	public boolean isSavedWithDefenseCard(){
+		return this.savedWithDefenseCard;
 	}
 	
 	public String getName() {

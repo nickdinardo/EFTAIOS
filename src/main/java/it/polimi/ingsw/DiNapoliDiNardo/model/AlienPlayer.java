@@ -65,13 +65,11 @@ public class AlienPlayer extends Player {
 		if(!position.isEmpty()){
 			playerInBox = position.getPlayerHere();
 			for(Player player : playerInBox ){
-				if(this != player){
-					player.kill();
-					if (this.humanfed == false && player instanceof HumanPlayer)
-						this.setHumanfed(true);
-					}
+				if (this.humanfed == false && player instanceof HumanPlayer)
+					this.setHumanfed(true);
 			}
 		}
+		
 		playerInBox.remove(this);
 		return playerInBox;
 		

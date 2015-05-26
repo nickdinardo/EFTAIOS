@@ -67,17 +67,20 @@ public class GameServer {
 		    
 		    	HashMap.Entry<String, String> entry = remover.next();
 		        String playername = entry.getKey();
-		        System.out.println(playername);
-		        Player dead = gamestate.givemePlayerByName(playername);
-		        if(!dead.isAlive()){
-			        sayByeToLosers(playername, dead.getKiller());
-			        remover.remove();
-				    notifyMessage(playername+" has been killed and has left the game");
-			        }
-		       }
+		        Player maybedead = gamestate.givemePlayerByName(playername);
+		        		        	
+		        if(!maybedead.isAlive()){
+			       remover.remove();
+			       maybedead.getPosition().getPlayerHere().remove(maybedead);
+			    }
+		   
+		    }
 		   
 		    //check for winning conditions, code still to make
 		}
+	
+	
+	
 	}	
 	
 	
@@ -159,8 +162,8 @@ public class GameServer {
 			String position = positionToString(player);
 			notifyMessage(playername+" has ATTACKED sector "+position);
 			gamestate.attackManagement(player);
-			player.getPosition().clearPlayersHere();
-	        player.getPosition().setPlayer(player);
+			//player.getPosition().clearPlayersHere();
+	        //player.getPosition().setPlayer(player);
 		}
 		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
@@ -239,7 +242,7 @@ public class GameServer {
 	public void cardsMessages(String name, String type) throws ClassNotFoundException, RemoteException, IOException{
 		String message = "";
 		if (type.equals("defense"))
-			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked-");
+			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked");
 		if (type.equals("teleport")){
 			message = ("-BZZZ...You successfully teleported back to L08, your starting position-");
 			notifyMessage(name+" has used a Teleport Card");
@@ -356,7 +359,7 @@ public class GameServer {
 	
 	
 	
-	private void sayByeToLosers(String dead, String killer) throws RemoteException{
+	public void sayByeToLosers(String dead, String killer) throws RemoteException{
 
 		if (notifiers.containsKey(dead)){
 			notifiers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
