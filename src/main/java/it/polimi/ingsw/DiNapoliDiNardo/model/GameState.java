@@ -56,72 +56,51 @@ public class GameState {
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
+			gameserver.cardsMessages(name, item.getName(), item.getUseMessage());
 			
-			if (item instanceof DefenseCard){
-				gameserver.cardsMessages(name, "defense");
-			}
-				
-			if (item instanceof TeleportCard){
-				player.teleport();
-				gameserver.cardsMessages(name, "teleport");
-				player.getPersonalDeck().remove(index);
-			}
-			if (item instanceof AttackCard){
-				gameserver.cardsMessages(name, "attack");
-				this.attackManagement(player);
-				player.getPersonalDeck().remove(index);
-			}
+			if (item instanceof LightsCard)
+				lightsManagement(player);
+			else if (item instanceof AttackCard)
+				attackManagement(player);
+			else 
+				item.doAction(player);
 			
-			if (item instanceof AdrenalineCard){
-				player.setAdrenalized(true);
-				gameserver.cardsMessages(name, "adrenaline");
-				player.getPersonalDeck().remove(index);
-			}
-	
-			if (item instanceof SedativesCard){
-				player.setSedated(true);
-				gameserver.cardsMessages(name, "sedative");
-				player.getPersonalDeck().remove(index);
-			}
-			
-			if (item instanceof LightsCard){
-				Coordinates coordinates = gameserver.askForLights(name);
-				Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
-				//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-				List<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
-				List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
-				enlighted.add(lightfocus);
-				
-				for (Box box : enlighted){
-					List<Player> peoplehere = box.getPlayerHere();
-					String playersinbox = "";
-					for (int i=0; i<peoplehere.size(); i++){
-						playersinbox += peoplehere.get(i).getName();
-						playersinbox += ", ";
-					}
-					if (playersinbox.length()>2)
-						playersinbox = playersinbox.substring(0, playersinbox.length()-2);
-					String lightposition = ""+(char)(box.getCoordX()+64);
-					String number = ""+ box.getCoordY();
-					if (number.length() == 1)
-						number = "0"+ box.getCoordY();
-					lightposition += number;
-					gameserver.showLights(name, lightposition, playersinbox);
-				}
-				player.getPersonalDeck().remove(index);
-			}
-		}
+			player.getPersonalDeck().remove(index);
 		
+		}
 		else if (index > 2 && index < 6){
 			//remove the card user selected to discard passing index+10
 			Player player = givemePlayerByName(name);
 			player.getPersonalDeck().remove(index-3);
 		}
+	}	
+	
+	
+	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, RemoteException, IOException{
+		Coordinates coordinates = gameserver.askForLights(player.getName());
+		Box lightfocus = this.Galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
+		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
+		List<Box> toCheck = this.Galilei.givemeAroundBoxes(lightfocus);
+		List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+		enlighted.add(lightfocus);
 		
-		
+		for (Box box : enlighted){
+			List<Player> peoplehere = box.getPlayerHere();
+			String playersinbox = "";
+			for (int i=0; i<peoplehere.size(); i++){
+				playersinbox += peoplehere.get(i).getName();
+				playersinbox += ", ";
+			}
+			if (playersinbox.length()>2)
+				playersinbox = playersinbox.substring(0, playersinbox.length()-2);
+			String lightposition = ""+(char)(box.getCoordX()+64);
+			String number = ""+ box.getCoordY();
+			if (number.length() == 1)
+				number = "0"+ box.getCoordY();
+			lightposition += number;
+			gameserver.showLights(player.getName(), lightposition, playersinbox);
+		}
 	}
-	
-	
 	
 	
 	public void attackManagement(Player player) throws RemoteException{

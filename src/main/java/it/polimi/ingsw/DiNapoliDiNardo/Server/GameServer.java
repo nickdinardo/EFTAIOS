@@ -201,30 +201,15 @@ public class GameServer {
 	
 	 
 	
-	public void cardsMessages(String name, String type) throws ClassNotFoundException, RemoteException, IOException{
-		String message = "";
-		if (type.equals("defense"))
-			message = ("You can't use a Defense Card, it will activate by itself when you'll be attacked");
-		if (type.equals("teleport")){
-			message = ("-BZZZ...You successfully teleported back to L08, your starting position-");
-			notifyMessage(name+" has used a Teleport Card");
-		}
-		if (type.equals("sedative")){
-			message = ("-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-");
-			notifyMessage(name+" has used a Sedative Card");
+	public void cardsMessages(String playername, String cardname, String usemessage) throws ClassNotFoundException, RemoteException, IOException{
+		
+		if (cardname.equals("AttackCard")){
+			String position = positionToString(gamestate.givemePlayerByName(playername));
+			notifyMessage(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
 			
-		if (type.equals("adrenaline")){
-			message = ("-Injecting yourself adrenaline you feel your body answer more quickly. You're faster in movements this turn-");
-			notifyMessage(name+" has used an Adrenaline Card");
-		}
-		if (type.equals("attack")){
-			message = ("-You charge, point and fire your weapon in the darkness. If someone (or something) is there he will suffer the consequences-");
-			String position = positionToString(gamestate.givemePlayerByName(name));
-			notifyMessage(name+" has ATTACKED position "+position+" using an Attack Card");
-		}
-		
-		handlers.get(name).notifyMessage(message);
+		notifyMessage(playername+" has used one "+cardname);
+		handlers.get(playername).notifyMessage(usemessage);
 	}
 	
 	
