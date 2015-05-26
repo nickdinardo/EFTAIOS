@@ -14,6 +14,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -26,9 +27,9 @@ public class Server {
 	RemoteHandler stub; 
 	String clientName = "Client";  
     CallableClient clientStub;
-	HashMap<String, String> playersconnected = new HashMap<String, String>();
-	HashMap<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
-	HashMap<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
+	Map<String, String> playersconnected = new HashMap<String, String>();
+	Map<String, RemoteNotifier> notifiers = new HashMap<String, RemoteNotifier>();
+	Map<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
 	RemoteHandler handler = new RmiHandlerObject(this);
 	CallableClient client = new RemoteCallableClient(this);
 	SocketServer socketserver = new SocketServer(this);
@@ -166,7 +167,7 @@ public class Server {
 		this.totalplayers += 1;
 	}
 
-	public HashMap<String, String> getPlayersconnected() {
+	public Map<String, String> getPlayersconnected() {
 		return playersconnected;
 	}
 

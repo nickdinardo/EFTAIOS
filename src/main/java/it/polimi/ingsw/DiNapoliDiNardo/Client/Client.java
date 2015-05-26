@@ -37,7 +37,7 @@ public class Client {
 		
 		
 	
-	private static String readLine(String format, Object... args) throws IOException {
+	/*private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {
 	        return System.console().readLine(format, args);
 	    }
@@ -52,5 +52,5 @@ public class Client {
 	    read = br.readLine();
 	    
 	    return read;
-	}
+	}*/
 }

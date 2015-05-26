@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 
 
@@ -23,9 +23,9 @@ import java.util.Iterator;
 
 public class GameServer {
 	int totalplayers;
-	HashMap<String, String> playersconnected; 
-	HashMap<String, RemoteNotifier> notifiers; 
-	HashMap<String, SocketHandler> sockethandlers; 
+	Map<String, String> playersconnected; 
+	Map<String, RemoteNotifier> notifiers; 
+	Map<String, SocketHandler> sockethandlers; 
 	boolean finish;
 	GameState gamestate;
 	
@@ -44,10 +44,10 @@ public class GameServer {
 			showActualSituation ();
 			
 			//turn iteration
-			Iterator<HashMap.Entry<String, String>> it = playersconnected.entrySet().iterator();
+			Iterator<Map.Entry<String, String>> it = playersconnected.entrySet().iterator();
 		    while (it.hasNext()) {
 		    
-		    	HashMap.Entry<String, String> entry = it.next();
+		    	Map.Entry<String, String> entry = it.next();
 		        String playername = entry.getKey();
 				
 		        if(gamestate.givemePlayerByName(playername).isAlive()){
@@ -62,10 +62,10 @@ public class GameServer {
 		    }	
 		
 		    //removing dead players iteration
-		    Iterator<HashMap.Entry<String, String>> remover = playersconnected.entrySet().iterator();
+		    Iterator<Map.Entry<String, String>> remover = playersconnected.entrySet().iterator();
 		    while (remover.hasNext()) {
 		    	
-		    	HashMap.Entry<String, String> entry = remover.next();
+		    	Map.Entry<String, String> entry = remover.next();
 		        String playername = entry.getKey();
 		        System.out.println(positionToString(gamestate.givemePlayerByName(playername)));
 		        
@@ -93,7 +93,7 @@ public class GameServer {
 	
 	private void showActualSituation () throws RemoteException{
 		
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
 			ArrayList<Card> itemdeck = player.getPersonalDeck();
@@ -201,7 +201,7 @@ public class GameServer {
 	
 	
 	public void notifyMessage(String message) throws RemoteException{
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			if(entry.getValue().equals("RMI"))
 				givemeNotifierByName(entry.getKey()).notifyMessage(message);
 			else
@@ -274,7 +274,7 @@ public class GameServer {
 	
 	
 	
-	private void createPlayersInGame(HashMap<String, String> playersconnected) {
+	private void createPlayersInGame(Map<String, String> playersconnected) {
 		ArrayList<String> keys = new ArrayList<String>(playersconnected.keySet());
 		Collections.shuffle(keys);
 		int i = 0;
@@ -385,11 +385,11 @@ public class GameServer {
 	
 		//print a welcome message and give the list of players to each player.
 		String listofplayers = "";
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			listofplayers += entry.getKey()+", ";
 		}
 		listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			if(entry.getValue().equals("RMI")){
 				givemeNotifierByName(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
 			}
@@ -405,7 +405,7 @@ public class GameServer {
 	private void informPlayersOfTheirNature() throws RemoteException{
 		
 		//inform players on the nature of their character
-		for (HashMap.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
 			String playername = entry.getKey();
 			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer){
 				if(entry.getValue().equals("RMI")){
@@ -474,7 +474,7 @@ public class GameServer {
 	}
 	
 	
-	public GameServer (int t, HashMap<String, String> pc, HashMap<String, RemoteNotifier> rn, HashMap<String, SocketHandler> sh){
+	public GameServer (int t, Map<String, String> pc, Map<String, RemoteNotifier> rn, Map<String, SocketHandler> sh){
 		
 		this.totalplayers = t;
 		this.playersconnected = pc;
