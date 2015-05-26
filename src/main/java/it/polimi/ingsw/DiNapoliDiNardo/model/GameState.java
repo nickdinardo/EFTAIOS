@@ -37,17 +37,19 @@ public class GameState {
 		
 		
 	public boolean updatePlayerPosition (String name, Coordinates coord){
+		boolean acceptable;
 		Player player = givemePlayerByName(name);
 		Box destination = this.galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
 		if(player.movement(destination, player.getPosition()))
-			return true;
+			acceptable = true;
 		else
-			return false;
+			acceptable = false;
+		return acceptable;
 	}
 		
 	
 	
-	public void itemUsageManagement(String name, int index) throws ClassNotFoundException, RemoteException, IOException{
+	public void itemUsageManagement(String name, int index) throws ClassNotFoundException, IOException{
 		
 		
 		if (index > -1 && index < 3){
@@ -74,7 +76,7 @@ public class GameState {
 	
 	
 	
-	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, RemoteException, IOException{
+	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, IOException{
 		Coordinates coordinates = gameserver.askForLights(player.getName());
 		Box lightfocus = this.galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
 		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)

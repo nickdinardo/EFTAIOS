@@ -13,8 +13,8 @@ public class RmiHandlerObject implements RemoteHandler {
 	String name = "";
 	
 	
-	public void IncreaseRMINumPlayers() throws RemoteException{
-		headserver.IncreaseRMIPlayers();
+	public void increaseRMINumPlayers() throws RemoteException{
+		headserver.increaseRMIPlayers();
 	}
 	
 	public int getRMINumPlayers(){

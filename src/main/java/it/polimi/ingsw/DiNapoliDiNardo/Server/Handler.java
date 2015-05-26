@@ -13,13 +13,13 @@ public interface Handler {
 	public void notifyMessage(String message) throws RemoteException;
 	public void showBeingHuman (String name)throws RemoteException;
 	public void showBeingAlien (String name)throws RemoteException;
-	public Coordinates askForMovement(boolean reask)  throws RemoteException, IOException, ClassNotFoundException;
-	public boolean askForAttack() throws ClassNotFoundException, IOException, RemoteException;
-	public String askForNoise() throws RemoteException, ClassNotFoundException, IOException;
-	public int askForItem(String objects) throws IOException,RemoteException;
-	public Coordinates askForLights() throws IOException, ClassNotFoundException, RemoteException;
-	public int askAlienForItemChange(String objects) throws IOException,RemoteException;
-	public int askHumanForItemChange(String objects) throws IOException,RemoteException;
+	public Coordinates askForMovement(boolean reask)  throws IOException, ClassNotFoundException;
+	public boolean askForAttack() throws ClassNotFoundException, IOException;
+	public String askForNoise() throws ClassNotFoundException, IOException;
+	public int askForItem(String objects) throws IOException;
+	public Coordinates askForLights() throws IOException, ClassNotFoundException;
+	public int askAlienForItemChange(String objects) throws IOException;
+	public int askHumanForItemChange(String objects) throws IOException;
 	public void showActualSituation (String name, String position, String objects) throws RemoteException;
 
 }

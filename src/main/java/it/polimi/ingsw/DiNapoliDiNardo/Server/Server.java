@@ -159,12 +159,12 @@ public class Server {
 	public int getTotalPlayers() {
 		return totalplayers;
 	}
-	public void IncreaseRMIPlayers() {
+	public void increaseRMIPlayers() {
 		this.RMIplayers += 1;
 		this.totalplayers += 1;
 	}
 	
-	public void IncreaseTotalPlayers() {
+	public void increaseTotalPlayers() {
 		this.totalplayers += 1;
 	}
 
