@@ -22,10 +22,7 @@ public class TextView extends View{
 	
 	
 	public void showActualSituation (String name, String position, String objects){
-		if(isFirstTurn){
-			printGalileiMap();
-			isFirstTurn = false;
-		}
+		
 		if (position.length() == 2)
 			position = position.substring(0, 1) + "0" + position.substring(1, position.length());
 		System.out.println("________________________________________________________________________________________________________________________");
@@ -39,6 +36,10 @@ public class TextView extends View{
 		
 	
 	public void showBeingAlien (String name){
+		if(isFirstTurn){
+			printGalileiMap();
+			isFirstTurn = false;
+		}
 		System.out.println(name+", the horrible alien disease that is infecting the spaceships has caught you time ago. ");
 		System.out.println("Your body is now a brutal and deformed machine eager to kill any human that is still alive carrying fresh meat.");
 		System.out.println("Your objective is tracking down the poor humans that are trying to reach the lifeboat ships and kill'em before they do it.");
@@ -47,6 +48,10 @@ public class TextView extends View{
 	
 	
 	public void showBeingHuman (String name){
+		if(isFirstTurn){
+			printGalileiMap();
+			isFirstTurn = false;
+		}
 		System.out.println(name+", you are one of the survivors on the spaceship that resisted to the spreading, horrible disease that could have infected anyone of your team mates.");
 		System.out.println("Horrendous aliens that once were your friends are lurking in the dark to kill you and eat you, and they could be anyone and anywhere. ");
 		System.out.println("Your objective is reaching one of the avaiable lifeboat ships avoiding to attract the attentions of the blood-thirsty monsters that surround you.");

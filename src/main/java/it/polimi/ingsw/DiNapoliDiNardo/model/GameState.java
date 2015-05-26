@@ -152,6 +152,7 @@ public class GameState {
 			AlienPlayer alien = (AlienPlayer) player;
 			alien.setHasAttacked(true);
 		}
+		//to check
 		player.getPosition().setPlayer(player);
 		
 	}

@@ -370,10 +370,10 @@ public class GameServer {
 			notifiers.get(dead).notifyMessage("-----------------------------------------------");
 		}
 		else{
-			notifiers.get(dead).notifyMessage("-----------------------------------------------");
+			sockethandlers.get(dead).notifyMessage("-----------------------------------------------");
 			sockethandlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
 			sockethandlers.get(dead).notifyMessage("Unfortunately, your game ends here");
-			notifiers.get(dead).notifyMessage("-----------------------------------------------");
+			sockethandlers.get(dead).notifyMessage("-----------------------------------------------");
 		}
 		gamestate.getInGamePlayers().remove(dead);
 	}
