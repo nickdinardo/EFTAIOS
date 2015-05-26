@@ -1,33 +1,42 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
+import it.polimi.ingsw.DiNapoliDiNardo.view.InitialWindow;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 
 public class Client {
-
+	String read = "";
+	
 	public static void main(String[] args) throws IOException {
-			
-		String read = "";
-		while(!read.equals("1")  && !read.equals("2")){
-			System.out.println("Scegli che interfaccia di rete usare:");
-			System.out.println("1 - Socket");
-			System.out.println("2 - RMI");
-			read = readLine("\n");
-			if(!read.equals("1")  && !read.equals("2"))
+		
+		Client client = new Client();
+		client.select();
+	}	
+	
+	public void select() throws IOException{
+		while(!this.read.equals("1")  && !this.read.equals("2")){
+			//System.out.println("Scegli che interfaccia di rete usare:");
+			//System.out.println("1 - Socket");
+			//System.out.println("2 - RMI");
+			//read = readLine("\n");
+			InitialWindow init = new InitialWindow();
+			this.read = init.connectionSelect();
+			if(!this.read.equals("1")  && !this.read.equals("2"))
 				System.out.println("Comando non riconosciuto!");
 		}
 		
-		NetworkInterface ni = NetworkInterfaceFactory.getInterface(read);
+		NetworkInterface ni = NetworkInterfaceFactory.getInterface(this.read);
 		boolean connection = ni.connect();
 		if(connection){
 			ni.startInterface();
 		}
+	}	
 		
 		
-		
-	}
+	
 	private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {
 	        return System.console().readLine(format, args);
