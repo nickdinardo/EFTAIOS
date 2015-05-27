@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 import java.io.IOException;
 import java.rmi.RemoteException;

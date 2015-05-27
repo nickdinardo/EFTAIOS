@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.GameServer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;

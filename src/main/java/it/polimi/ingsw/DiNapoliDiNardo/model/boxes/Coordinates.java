@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.model;
+package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 
 public class Coordinates implements java.io.Serializable {
 	int coordX;

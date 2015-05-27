@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 public class HumanBox extends Box {
 	public HumanBox(Coordinates coordinates) {

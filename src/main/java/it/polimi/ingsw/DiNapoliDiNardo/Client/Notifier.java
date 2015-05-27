@@ -3,7 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.Client;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
@@ -21,7 +21,7 @@ public class Notifier implements RemoteNotifier, Handler {
 	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		String answer = view.askForAttack();
-		if (answer.equalsIgnoreCase("Y"))
+		if ("Y".equalsIgnoreCase(answer))
 			return true;
 		else 
 			return false;

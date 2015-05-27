@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 
 import java.io.BufferedReader;
@@ -68,7 +68,7 @@ public class SocketHandler implements Handler, Runnable {
 		out.println("object=player&action=askattack");
 		String answer = in.readLine();
 		boolean wantattack = false;
-		if (answer.equalsIgnoreCase("Y"))
+		if ("Y".equalsIgnoreCase(answer))
 			wantattack = true;
 		else 
 			wantattack = false;
@@ -130,7 +130,19 @@ public class SocketHandler implements Handler, Runnable {
 		out.println("object=print&action="+message);
 	}
 	
+		
+	@Override
+	public String getName() {
+		return this.name;
+		
+	}
+
+	@Override
+	public void setName(String name) throws RemoteException {
+		this.name = name;
+	}
 	
+
 	public String getShName(){
 		return this.name;
 	}
@@ -143,17 +155,4 @@ public class SocketHandler implements Handler, Runnable {
 		socket.close();
 	}
 
-	
-	@Override
-	public String getName() {
-		return this.name;
-		
-	}
-
-	@Override
-	public void setName(String name) throws RemoteException {
-		this.name = name;
-	}
-	
-	
 }
