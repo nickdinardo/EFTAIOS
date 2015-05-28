@@ -109,7 +109,7 @@ public class GalileiMap {
 		map[13][0] = new DangerousBox(1,14);
 		
 		map[0][1] = new DangerousBox(2,1);
-		map[1][1] = new LifeboatBox(2,2);
+		map[1][1] = new LifeboatBox(2,2,1);
 		map[2][1] = new DangerousBox(2,3);
 		map[3][1] = new DangerousBox(2,4);
 		map[4][1] = new Box(2,5);
@@ -119,7 +119,7 @@ public class GalileiMap {
 		map[9][1] = new Box(2,10);
 		map[10][1] = new DangerousBox(2,11);
 		map[11][1] = new DangerousBox(2,12);
-		map[12][1] = new LifeboatBox(2,13);
+		map[12][1] = new LifeboatBox(2,13,4);
 		map[13][1] = new DangerousBox(2,14);
 		
 		map[0][2] = new Box(3,1);
@@ -237,7 +237,8 @@ public class GalileiMap {
 		map[5][11] = new AlienBox(12,6);
 		alienStartBox = map[5][11];
 		map[7][11] = new HumanBox(12,8);
-		humanStartBox = map[7][11];
+		//humanStartBox = map[7][11];
+		humanStartBox = map[11][1];
 		map[8][11] = new Box(12,9);
 		map[9][11] = new DangerousBox(12,10);
 		map[10][11] = new Box(12,11);
@@ -364,7 +365,7 @@ public class GalileiMap {
 		map[13][20] = new DangerousBox(21, 14);
 		
 		map[0][21] = new Box(22, 1);
-		map[1][21] = new LifeboatBox(22, 2);
+		map[1][21] = new LifeboatBox(22, 2, 2);
 		map[2][21] = new DangerousBox(22, 3);
 		map[3][21] = new DangerousBox(22, 4);
 		map[4][21] = new DangerousBox(22, 5);
@@ -374,7 +375,7 @@ public class GalileiMap {
 		map[9][21] = new DangerousBox(22, 10);
 		map[10][21] = new DangerousBox(22, 11);
 		map[11][21] = new DangerousBox(22, 12);
-		map[12][21] = new LifeboatBox(22, 13);
+		map[12][21] = new LifeboatBox(22, 13, 3);
 		map[13][21] = new DangerousBox(22, 14);
 		
 		map[1][22] = new DangerousBox(23, 2);

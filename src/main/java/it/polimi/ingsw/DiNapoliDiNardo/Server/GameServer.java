@@ -1,11 +1,11 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.LifeboatBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.DangerousBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 import java.io.IOException;
@@ -24,8 +24,10 @@ public class GameServer {
 	int totalplayers;
 	Map<String, String> playersconnected; 
 	Map<String, Handler> handlers;
-	boolean finish;
+	boolean finished;
 	GameState gamestate;
+	int humanplayers = 0;
+	private static final int FINALTURN = 39;
 	
 	
 	public void rungame() throws IOException, ClassNotFoundException{
@@ -37,8 +39,9 @@ public class GameServer {
 		informPlayersOfTheirNature();
 		
 
-		while(!finish){
+		while(!finished){
 			
+			gamestate.increaseTurnNumber();
 			showActualSituation ();
 			
 			//turn iteration
@@ -67,13 +70,14 @@ public class GameServer {
 		        String playername = entry.getKey();
 		        Player maybedead = gamestate.givemePlayerByName(playername);
 		        		        	
-		        if(!maybedead.isAlive()){
+		        if(!maybedead.isAlive() || maybedead.isEscaped()){
 			       remover.remove();
 			       maybedead.getPosition().getPlayerHere().remove(maybedead);
 			    }
 		   
 		    }
-		   
+		    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
+		    	finished = true;
 		    //check for winning conditions, code still to make
 		}
 	
@@ -122,8 +126,21 @@ public class GameServer {
 		
 		askForMovement(playername);
 		
-		if (player.getPosition() instanceof DangerousBox && !player.isSedated())
+		if (player.getPosition().isDrawingSectorCardHere() && !player.isSedated())
 			drawSectorCard(playername, connection, player);
+		
+		//check for possible escape if on escape-box
+		boolean escaped;
+		if (player.getPosition().isLifeBoatShipHere()){
+			escaped = gamestate.escapeManagement(player);
+			notifyOfEscape(escaped, player);
+			if (escaped){
+				humanplayers--;
+				return;
+			}
+				
+		}
+		
 		
 		if (!gamestate.givemePlayerByName(playername).getPersonalDeck().isEmpty()){
 			String objects = personalDeckListify(itemdeck);
@@ -150,7 +167,7 @@ public class GameServer {
 			gamestate.attackManagement(player);
 			
 		}
-		if (player.getPosition() instanceof DangerousBox && !player.isHasAttacked())
+		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
 			drawSectorCard(playername, connection, player);
 	}
 	
@@ -175,6 +192,14 @@ public class GameServer {
 		
 		for (Map.Entry<String, String> entry : playersconnected.entrySet())
 			handlers.get(entry.getKey()).notifyMessage(message);
+	}
+	
+	
+	
+	public void notifyOfEscape (boolean escaped, Player player) throws RemoteException{
+		LifeboatBox ship = (LifeboatBox)player.getPosition();
+		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+			handlers.get(entry.getKey()).notifyEscape(escaped, player.getName(), String.valueOf(ship.getNumber()));
 	}
 	
 	
@@ -206,6 +231,7 @@ public class GameServer {
 		}
 		if (!"DefenseCard".equals(cardname))	
 			notifyMessage(playername+" has used one "+cardname);
+		
 		handlers.get(playername).notifyMessage(usemessage);
 	}
 	
@@ -220,8 +246,10 @@ public class GameServer {
 			i++;
 			if (i%2 == 1)
 				gamestate.getInGamePlayers().add(new AlienPlayer(gamestate.getGalilei(), gamestate, name));
-			else 
+			else{ 
 				gamestate.getInGamePlayers().add(new HumanPlayer(gamestate.getGalilei(), gamestate, name));
+				humanplayers++;
+			}
 		}
 	}
 

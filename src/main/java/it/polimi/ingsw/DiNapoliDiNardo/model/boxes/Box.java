@@ -9,7 +9,8 @@ public class Box {
 	
 	private Coordinates coord = new Coordinates(0, 0);
 	private List<Player> playerHere = new ArrayList<Player>();
-	
+	protected boolean LifeBoatShipHere = false;
+	protected boolean DrawingSectorCardHere = false;
 	
 	public Box(Coordinates coordinates){
 		this.setCoord(coordinates);
@@ -55,6 +56,15 @@ public class Box {
 	public List<Player> getPlayerHere(){
 		return playerHere;
 	}
-	
+
+	public boolean isLifeBoatShipHere() {
+		return this.LifeBoatShipHere;
+	}
+	public void setLifeBoatShipHere(boolean lifeboat) {
+		this.LifeBoatShipHere = lifeboat;
+	}
+	public boolean isDrawingSectorCardHere() {
+		return DrawingSectorCardHere;
+	}
 	
 }

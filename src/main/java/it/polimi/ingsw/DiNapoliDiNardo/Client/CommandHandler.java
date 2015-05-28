@@ -51,13 +51,23 @@ public class CommandHandler {
 			}
 		}
 		if("print".equals(object)){
-			System.out.println(action);
+			view.print(action);
 		}
 		if("beingAlien".equals(action)){
 			view.showBeingAlien(object);
 		}
 		if("beingHuman".equals(action)){
 			view.showBeingHuman(object);
+		}
+		if ("escape".equals(object)){
+			String name = action.substring(0, action.length()-1);
+			String shipnumber = action.substring(action.length()-1, action.length());
+			view.notifyEscape(true, name, shipnumber);
+		}
+		if ("escapefailed".equals(object)){
+			String name = action.substring(0, action.length()-1);
+			String shipnumber = action.substring(action.length()-1, action.length());
+			view.notifyEscape(false, name, shipnumber);
 		}
 		if ("situation".equals(object)){
 			String[] result = action.split(";");

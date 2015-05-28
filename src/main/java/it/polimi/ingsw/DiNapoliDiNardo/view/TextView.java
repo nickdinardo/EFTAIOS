@@ -1,7 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
-import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 import java.io.PrintStream;
@@ -240,12 +239,23 @@ public class TextView extends View{
 	}
 	
 	
-	public void killPlayer(Player player){
-		out.println("Player " + player +  " you are died");
+	@Override
+	public void notifyEscape(boolean escaped, String name, String shipnumber) {
+		out.println(name+" has REACHED THE LIFEBOAT SHIP "+shipnumber+" .....");
+		if(escaped){
+			out.println("The lifeboat ship "+shipnumber+" is incredibly still working!!!");
+			out.println(name+" is now safe and far from here. The lifeboat ship "+shipnumber+" won't be accessible anymore");
+		}
+		else{
+			out.println("The lifeboat ship "+shipnumber+" does not answer to commands! "+name+" still couldn't escape!");
+			out.println("You'd better remember lifeboat "+shipnumber+" is not working...");
+		}
+				
 	}
 	
-	public void attackNotSuccesful(){
-		out.println("Attack has not been successful!");
+	
+	public void print (String message){
+		out.println(message);
 	}
 	
 	
@@ -344,5 +354,7 @@ public class TextView extends View{
 		}while(!validanswer);
 		return new Coordinates(numberX, numberY);
 	}
+
+
 	
 }

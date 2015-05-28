@@ -9,8 +9,9 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 public class AlienPlayer extends Player {
 	
-	protected boolean humanfed = false;
-	protected boolean hasAttacked = false;
+	private boolean humanfed = false;
+	private boolean hasAttacked = false;
+	
 	
 	
 

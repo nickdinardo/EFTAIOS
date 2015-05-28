@@ -3,23 +3,31 @@ package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 public class LifeboatBox extends Box {
-	private boolean working;
+	private boolean LifeBoatShipHere = true;
+	private int number;
 	
-	public LifeboatBox(Coordinates coordinates) {
+	
+	public LifeboatBox(Coordinates coordinates, int number) {
 		super(coordinates);
-		this.setWorking(false); 
+		this.number = number;
+		
 	}
 	
-	public LifeboatBox(int x, int y){
+	public LifeboatBox(int x, int y, int number){
 		super(x, y);
-		this.setWorking(false);
+		this.number = number;
 	}
-
-	public boolean isWorking() {
-		return working;
+	
+	@Override
+	public boolean isLifeBoatShipHere() {
+		return this.LifeBoatShipHere;
 	}
-
-	public void setWorking(boolean working) {
-		this.working = working;
+	@Override
+	public void setLifeBoatShipHere(boolean lifeboat) {
+		this.LifeBoatShipHere = lifeboat;
+	}
+	
+	public int getNumber() {
+		return number;
 	}
 }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LifeboatCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.LifeboatDeck;
@@ -23,7 +24,10 @@ public class GameState {
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
 	LifeboatDeck lifeboatdeck;
+	int turnNumber = 0;
 	List< Player > inGamePlayers = new ArrayList< Player >();
+	List< Player > winners = new ArrayList< Player >();
+	List< Player > losers = new ArrayList< Player >();
 	
 	//constructor
 	public GameState(GameServer gs){
@@ -121,6 +125,8 @@ public class GameState {
 				if (!hasDefense){
 					killedPlayer.kill();
 					killedPlayer.setKiller(player.getName());
+					if (killedPlayer.isLosesIfKilledType())
+						losers.add(killedPlayer);
 					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
 					gameserver.notifyMessage(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
@@ -137,6 +143,25 @@ public class GameState {
 		//to check
 		player.getPosition().setPlayer(player);
 		
+	}
+	
+	
+	
+	public boolean escapeManagement(HumanPlayer player){
+		
+		boolean escaped = false;
+		boolean shipworks = player.getPosition().isLifeBoatShipHere();
+		if(shipworks){
+			player.getPosition().setLifeBoatShipHere(false);
+			LifeboatCard card = (LifeboatCard)lifeboatdeck.drawCard();
+			if (card.isWorking()){
+				escaped = true;
+				player.setEscaped(true);
+				player.getPosition().unsetPlayer(player);
+				winners.add(player);
+			}
+		}
+		return escaped;
 	}
 	
 	
@@ -186,6 +211,14 @@ public class GameState {
 
 	public void setInGamePlayers(List<Player> inGamePlayers) {
 		this.inGamePlayers = inGamePlayers;
+	}
+
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	public void increaseTurnNumber() {
+		turnNumber++;
 	}
 
 

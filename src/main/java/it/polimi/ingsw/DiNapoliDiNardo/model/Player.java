@@ -14,6 +14,8 @@ public abstract class Player {
 	protected Box position;
 	protected boolean isAlive = true;
 	protected boolean savedWithDefenseCard = false;
+	protected boolean losesIfKilledType = false;
+	private boolean escaped = false;
 	protected String myKiller ="";
 	protected List< ItemCard > personalDeck = new ArrayList< ItemCard >();
 		
@@ -95,6 +97,15 @@ public abstract class Player {
 		return isAlive;
 	}
 	
+	public boolean isEscaped() {
+		return this.escaped;
+	}
+	
+	public boolean isLosesIfKilledType() {
+		return losesIfKilledType;
+	}
+
+	
 	public List<ItemCard> getPersonalDeck() {
 		return personalDeck;
 	}
@@ -122,6 +133,7 @@ public abstract class Player {
 	public String getName() {
 		return this.name;
 	}
+	
 
 }
 		

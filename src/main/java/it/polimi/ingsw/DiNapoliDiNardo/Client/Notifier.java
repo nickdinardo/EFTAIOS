@@ -9,6 +9,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
+
 public class Notifier implements RemoteNotifier, Handler {
 	private TextView view;
 	private String name;
@@ -95,6 +96,11 @@ public class Notifier implements RemoteNotifier, Handler {
 	}
 	
 	
+	@Override
+	public void notifyEscape(boolean escaped, String name, String shipnumber) throws RemoteException {
+		
+		view.notifyEscape(escaped, name, shipnumber);
+	}
 	
 	
 	
@@ -109,4 +115,6 @@ public class Notifier implements RemoteNotifier, Handler {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	
 }

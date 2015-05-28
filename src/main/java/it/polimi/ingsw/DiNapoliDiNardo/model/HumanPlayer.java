@@ -5,8 +5,10 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 
 public class HumanPlayer extends Player{
 
-	protected boolean adrenalized = false;
-	protected boolean sedated = false;
+	private boolean adrenalized = false;
+	private boolean sedated = false;
+	private boolean escaped = false;
+	protected boolean losesIfKilledType = true;
 	
 	
 	//constructor
@@ -71,7 +73,18 @@ public class HumanPlayer extends Player{
 	public void setSedated(boolean sedated) {
 		this.sedated = sedated;
 	}
+	@Override
+	public boolean isEscaped() {
+		return this.escaped;
+	}
+
+	public void setEscaped(boolean escaped) {
+		this.escaped = escaped;
+	}
 	
-	
+	@Override
+	public boolean isLosesIfKilledType() {
+		return losesIfKilledType;
+	}
 	
 }

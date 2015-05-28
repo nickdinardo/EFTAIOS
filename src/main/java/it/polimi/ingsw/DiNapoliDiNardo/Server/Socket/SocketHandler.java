@@ -130,7 +130,16 @@ public class SocketHandler implements Handler, Runnable {
 		out.println("object=print&action="+message);
 	}
 	
-		
+
+	@Override
+	public void notifyEscape(boolean escaped, String name, String shipnumber){
+		if (escaped)
+			out.println("object=escape&action="+name+shipnumber);
+		else
+			out.println("object=escapefailed&action="+name+shipnumber);
+	}
+	
+	
 	@Override
 	public String getName() {
 		return this.name;
@@ -154,5 +163,6 @@ public class SocketHandler implements Handler, Runnable {
 		out.close();
 		socket.close();
 	}
+
 
 }
