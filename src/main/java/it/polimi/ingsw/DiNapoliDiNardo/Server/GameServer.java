@@ -8,6 +8,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -22,9 +23,10 @@ import java.util.Map;
 
 public class GameServer {
 	int totalplayers;
-	Map<String, String> playersconnected; 
+	Map<String, String> playersInGame; 
 	Map<String, Handler> handlers;
 	boolean finished;
+	boolean theLastHumanEscaped;
 	GameState gamestate;
 	int humanplayers = 0;
 	private static final int FINALTURN = 39;
@@ -35,7 +37,7 @@ public class GameServer {
 		
 		giveWelcome();
 		this.gamestate = new GameState(this);
-		createPlayersInGame(playersconnected);
+		createPlayersInGame(playersInGame);
 		informPlayersOfTheirNature();
 		
 
@@ -45,7 +47,7 @@ public class GameServer {
 			showActualSituation ();
 			
 			//turn iteration
-			Iterator<Map.Entry<String, String>> it = playersconnected.entrySet().iterator();
+			Iterator<Map.Entry<String, String>> it = playersInGame.entrySet().iterator();
 		    while (it.hasNext()) {
 		    
 		    	Map.Entry<String, String> entry = it.next();
@@ -63,7 +65,7 @@ public class GameServer {
 		    }	
 		
 		    //removing dead players iteration
-		    Iterator<Map.Entry<String, String>> remover = playersconnected.entrySet().iterator();
+		    Iterator<Map.Entry<String, String>> remover = playersInGame.entrySet().iterator();
 		    while (remover.hasNext()) {
 		    	
 		    	Map.Entry<String, String> entry = remover.next();
@@ -76,11 +78,35 @@ public class GameServer {
 			    }
 		   
 		    }
+		    
 		    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
 		    	finished = true;
 		    //check for winning conditions, code still to make
 		}
 	
+		List<String> alienplayers = new ArrayList<String>();
+		List<String> humanplayers = new ArrayList<String>();
+		for (Map.Entry<String, Handler> entry : handlers.entrySet()){
+			if (gamestate.givemePlayerByName(entry.getKey()) instanceof AlienPlayer)
+				alienplayers.add(entry.getKey());
+			if (gamestate.givemePlayerByName(entry.getKey()) instanceof HumanPlayer)
+				humanplayers.add(entry.getKey());
+			
+		}
+		
+		if(gamestate.getTurnNumber() == FINALTURN){
+			notifyMessageToAll("---THE FINAL TURN HAS ENDED---");
+		}
+		//change with view method
+		else{
+			for (Handler h : handlers.values()){
+				if (theLastHumanEscaped)
+					h.notifyMessage("The last human on the ship managed to escape!");
+				else
+					h.notifyMessage("The last human on the shiphas been killed by the aliens!");
+			}
+		}
+			
 	
 	
 	}	
@@ -92,7 +118,7 @@ public class GameServer {
 	
 	private void showActualSituation () throws RemoteException{
 		
-		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 		
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
@@ -103,7 +129,7 @@ public class GameServer {
 				objects += itemdeck.get(i).getName()+" ";		
 			if (objects.length()<2)
 				objects = "no";
-			handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects);
+			handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects, String.valueOf(gamestate.getTurnNumber()));
 		}
 	}
 	
@@ -116,7 +142,8 @@ public class GameServer {
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		int index;
 		
-		if (!gamestate.givemePlayerByName(playername).getPersonalDeck().isEmpty()){
+		List<ItemCard> personaldeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
+		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
 		
 			index = handlers.get(playername).askForItem(objects);
@@ -135,14 +162,14 @@ public class GameServer {
 			escaped = gamestate.escapeManagement(player);
 			notifyOfEscape(escaped, player);
 			if (escaped){
-				humanplayers--;
+				decreaseHumansAndCheck(player);
 				return;
 			}
 				
 		}
 		
 		
-		if (!gamestate.givemePlayerByName(playername).getPersonalDeck().isEmpty()){
+		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects);
 				if (index != 8)
@@ -163,7 +190,7 @@ public class GameServer {
 		
 		if (attack){
 			String position = positionToString(player);
-			notifyMessage(playername+" has ATTACKED sector "+position);
+			notifyMessageToAll(playername+" has ATTACKED sector "+position);
 			gamestate.attackManagement(player);
 			
 		}
@@ -188,17 +215,27 @@ public class GameServer {
 
 	
 	
-	public void notifyMessage(String message) throws RemoteException{
+	public void notifyMessageToAll(String message) throws RemoteException{
 		
-		for (Map.Entry<String, String> entry : playersconnected.entrySet())
-			handlers.get(entry.getKey()).notifyMessage(message);
+		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
+			Player player = gamestate.givemePlayerByName(entry.getKey());
+			if (player.isAlive()){
+				if (player instanceof AlienPlayer)
+					handlers.get(entry.getKey()).notifyMessage(message);
+				else{
+					HumanPlayer human = (HumanPlayer) player;
+					if (!human.isEscaped())
+						handlers.get(entry.getKey()).notifyMessage(message);
+				}
+			}
+		}
 	}
 	
 	
 	
 	public void notifyOfEscape (boolean escaped, Player player) throws RemoteException{
 		LifeboatBox ship = (LifeboatBox)player.getPosition();
-		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+		for (Map.Entry<String, String> entry : playersInGame.entrySet())
 			handlers.get(entry.getKey()).notifyEscape(escaped, player.getName(), String.valueOf(ship.getNumber()));
 	}
 	
@@ -227,10 +264,10 @@ public class GameServer {
 		
 		if ("AttackCard".equals(cardname)){
 			String position = positionToString(gamestate.givemePlayerByName(playername));
-			notifyMessage(playername+" has ATTACKED position "+position+" using an Attack Card");
+			notifyMessageToAll(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
 		if (!"DefenseCard".equals(cardname))	
-			notifyMessage(playername+" has used one "+cardname);
+			notifyMessageToAll(playername+" has used one "+cardname);
 		
 		handlers.get(playername).notifyMessage(usemessage);
 	}
@@ -262,15 +299,15 @@ public class GameServer {
 		String position = positionToString(player);
 				
 		if (sectorcard instanceof SilenceCard){
-			notifyMessage(name+" declares: SILENCE.");
+			notifyMessageToAll(name+" declares: SILENCE.");
 		}
 		if (sectorcard instanceof NoiseHereCard){
-			notifyMessage(name+" declares: NOISE in sector "+position+".");
+			notifyMessageToAll(name+" declares: NOISE in sector "+position+".");
 		}
 		if (sectorcard instanceof NoiseAnywhereCard){
 			String noiseIn = "";
 			noiseIn = handlers.get(name).askForNoise();
-			notifyMessage(name+" declares: NOISE in sector "+noiseIn+".");
+			notifyMessageToAll(name+" declares: NOISE in sector "+noiseIn+".");
 		}
 		
 		//call method to draw item cards if required by sector card
@@ -329,10 +366,10 @@ public class GameServer {
 	
 		//print a welcome message and give the list of players to each player.
 		String listofplayers = "";
-		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+		for (Map.Entry<String, String> entry : playersInGame.entrySet())
 			listofplayers += entry.getKey()+", ";
 		listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-		for (Map.Entry<String, String> entry : playersconnected.entrySet())
+		for (Map.Entry<String, String> entry : playersInGame.entrySet())
 			handlers.get(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
 		
 	}
@@ -343,7 +380,7 @@ public class GameServer {
 	private void informPlayersOfTheirNature() throws RemoteException{
 		
 		//inform players on the nature of their character
-		for (Map.Entry<String, String> entry : playersconnected.entrySet()){
+		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			String playername = entry.getKey();
 			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 				handlers.get(entry.getKey()).showBeingAlien(entry.getKey());
@@ -377,10 +414,24 @@ public class GameServer {
 	}
 	
 	
+	//when last human is removed from game check if is escaped or killed to see if Alien team wins
+	public void decreaseHumansAndCheck (Player player){
+		this.humanplayers--;
+		if (humanplayers == 0){
+			if (player.isAlive())
+				theLastHumanEscaped = true;
+			else
+				theLastHumanEscaped = false;
+		}
+			
+		
+	}
+	
+	
 	public GameServer (int t, Map<String, String> pc, Map<String, Handler> hand){
 		
 		this.totalplayers = t;
-		this.playersconnected = pc;
+		this.playersInGame = pc;
 		this.handlers = hand;
 	}
 

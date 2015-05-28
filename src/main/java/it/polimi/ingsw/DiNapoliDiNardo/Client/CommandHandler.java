@@ -71,7 +71,7 @@ public class CommandHandler {
 		}
 		if ("situation".equals(object)){
 			String[] result = action.split(";");
-			view.showActualSituation(result[0], result[1], result[2]);
+			view.showActualSituation(result[0], result[1], result[2], result[3]);
 		    }
 		if ("playeritems".equals(object)){
 			csi.getOut().println(view.askItemUse(action)); 

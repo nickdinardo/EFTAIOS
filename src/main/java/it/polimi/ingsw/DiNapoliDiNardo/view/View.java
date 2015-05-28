@@ -30,7 +30,7 @@ public abstract class View {
 	public abstract void showBeingAlien (String name);
 	public abstract void showBeingHuman (String name);
 
-	public abstract void showActualSituation (String name, String position, String objects);
+	public abstract void showActualSituation (String name, String position, String objects, String turn);
 	
 	public abstract void notifyEscape (boolean escaped, String name, String shipnumber);
 	}

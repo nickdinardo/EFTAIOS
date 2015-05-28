@@ -20,12 +20,12 @@ public class TextView extends View{
 	}
 	
 	
-	public void showActualSituation (String name, String position, String objects){
-		
+	public void showActualSituation (String name, String position, String objects, String turn){
 		String printposition = position;
 		if (position.length() == 2)
 			printposition = position.substring(0, 1) + "0" + position.substring(1, position.length());
 		out.println("________________________________________________________________________________________________________________________");
+		out.println("Turn number : "+turn);
 		out.println(name+ " you are now in the "+printposition+" position.");
 		if (!"no".equals(objects)){
 			out.println("In your item deck you have the following cards: "+objects);

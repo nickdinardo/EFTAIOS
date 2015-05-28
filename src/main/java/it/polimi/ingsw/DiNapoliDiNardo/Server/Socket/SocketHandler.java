@@ -59,8 +59,8 @@ public class SocketHandler implements Handler, Runnable {
 		out.println("object="+name+"&action=beingHuman");
 	}
 	@Override
-	public void showActualSituation (String name, String position, String objects){
-		out.println("object=situation&action="+name+";"+position+";"+objects+";");
+	public void showActualSituation (String name, String position, String objects, String turn){
+		out.println("object=situation&action="+name+";"+position+";"+objects+";"+turn+";");
 	}
 	
 	@Override

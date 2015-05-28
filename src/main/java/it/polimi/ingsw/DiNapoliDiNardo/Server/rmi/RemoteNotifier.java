@@ -36,7 +36,7 @@ public interface RemoteNotifier extends Remote, Handler {
 	@Override
 	public int askHumanForItemChange(String objects) throws IOException;
 	@Override
-	public void showActualSituation (String name, String position, String objects) throws RemoteException;
+	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;
 	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) throws RemoteException;
 	

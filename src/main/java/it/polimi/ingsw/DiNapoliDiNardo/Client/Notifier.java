@@ -90,9 +90,9 @@ public class Notifier implements RemoteNotifier, Handler {
 	}
 			
 	@Override
-	public void showActualSituation (String name, String position, String objects){
+	public void showActualSituation (String name, String position, String objects, String turn){
 		
-		view.showActualSituation(name, position, objects);
+		view.showActualSituation(name, position, objects, turn);
 	}
 	
 	

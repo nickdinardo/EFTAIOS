@@ -125,14 +125,16 @@ public class GameState {
 				if (!hasDefense){
 					killedPlayer.kill();
 					killedPlayer.setKiller(player.getName());
+					if(killedPlayer instanceof HumanPlayer)
+						gameserver.decreaseHumansAndCheck(killedPlayer);
 					if (killedPlayer.isLosesIfKilledType())
 						losers.add(killedPlayer);
 					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
-					gameserver.notifyMessage(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
+					gameserver.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
 				else{
 					killedPlayer.getPersonalDeck().remove(toRemoveDefCard);
-					gameserver.notifyMessage(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
+					gameserver.notifyMessageToAll(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
 			    }
 			}
 		} 
