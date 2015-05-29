@@ -22,4 +22,5 @@ public interface Handler {
 	public int askHumanForItemChange(String objects) throws IOException;
 	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;
 	public void notifyEscape (boolean escaped, String name, String shipnumber) throws RemoteException;
+	public void showFinalResults (boolean iWon, String name, String humanlosers, String humanwinners, String alienwinners, String alienlosers) throws RemoteException;
 }

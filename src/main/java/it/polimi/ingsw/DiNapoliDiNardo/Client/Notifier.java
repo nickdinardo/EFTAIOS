@@ -102,10 +102,14 @@ public class Notifier implements RemoteNotifier, Handler {
 		view.notifyEscape(escaped, name, shipnumber);
 	}
 	
-	
-	
-	
-	
+	@Override
+	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers)
+			throws RemoteException {
+		
+		view.showFinalResults(iWon, name, humanlosers, humanwinners, alienwinners, alienlosers);
+	}
+
+		
 	@Override
 	public String getName() {
 		return name;
@@ -116,5 +120,6 @@ public class Notifier implements RemoteNotifier, Handler {
 		this.name = name;
 	}
 
+	
 	
 }

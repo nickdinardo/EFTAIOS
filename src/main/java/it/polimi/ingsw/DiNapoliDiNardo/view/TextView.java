@@ -253,7 +253,28 @@ public class TextView extends View{
 				
 	}
 	
+	@Override
+	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers) {
+		out.println("--------");
+		if (iWon)
+			out.println(name+ " YOU WON!!!");
+		else
+			out.println(name+ " YOU LOST!!!");
+		out.println("--------");
+		if (!humanwinners.isEmpty())
+		out.println("The HUMANS that managed to escape and WON the game are: "+humanwinners);
+		if (!humanlosers.isEmpty())
+		out.println("The HUMANS that has been killed by the aliens and LOST the game are: "+humanlosers);
+		if (!alienwinners.isEmpty())
+			out.println("The aliens managed to avoid the escape of all the humans, so the ALIENS that WON are: "+alienwinners);
+		else 
+			out.println("The aliens have remained alone on the ship while the last human reached the lifeboat ship, so the ALIENS that LOST are: "+alienlosers);
+		out.println("--------");
+		out.println("THE END");
+		out.println("--------");
+	}
 	
+	@Override
 	public void print (String message){
 		out.println(message);
 	}
@@ -356,5 +377,5 @@ public class TextView extends View{
 	}
 
 
-	
+		
 }

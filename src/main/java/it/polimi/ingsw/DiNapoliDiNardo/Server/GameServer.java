@@ -29,6 +29,10 @@ public class GameServer {
 	boolean theLastHumanEscaped;
 	GameState gamestate;
 	int humanplayers = 0;
+	String humanwinners = "";
+	String humanlosers = "";
+	String alienwinners = "";
+	String alienlosers = "";
 	private static final int FINALTURN = 39;
 	
 	
@@ -81,31 +85,31 @@ public class GameServer {
 		    
 		    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
 		    	finished = true;
-		    //check for winning conditions, code still to make
 		}
 	
-		List<String> alienplayers = new ArrayList<String>();
-		List<String> humanplayers = new ArrayList<String>();
-		for (Map.Entry<String, Handler> entry : handlers.entrySet()){
-			if (gamestate.givemePlayerByName(entry.getKey()) instanceof AlienPlayer)
-				alienplayers.add(entry.getKey());
-			if (gamestate.givemePlayerByName(entry.getKey()) instanceof HumanPlayer)
-				humanplayers.add(entry.getKey());
-			
-		}
 		
 		if(gamestate.getTurnNumber() == FINALTURN){
 			notifyMessageToAll("---THE FINAL TURN HAS ENDED---");
 		}
-		//change with view method
 		else{
-			for (Handler h : handlers.values()){
-				if (theLastHumanEscaped)
-					h.notifyMessage("The last human on the ship managed to escape!");
-				else
-					h.notifyMessage("The last human on the shiphas been killed by the aliens!");
-			}
+			if (theLastHumanEscaped)
+				notifyMessageToAll("The last human on the ship managed to escape!");
+			else
+				notifyMessageToAll("The last human on the ship has been killed by the aliens!");
 		}
+		
+		fillStringsWithFinalResults();
+				
+		//notify to all players, even the ones removed from the game, the final results of the match
+		for (Handler h : handlers.values()){
+			boolean iWon = true;
+			if (gamestate.getLosers().contains(h.getName()))
+				iWon = false;
+			if (alienwinners.isEmpty() && gamestate.givemePlayerByName(h.getName()) instanceof AlienPlayer)
+				iWon = false;
+			h.showFinalResults(iWon, h.getName(), humanlosers, humanwinners, alienwinners, alienlosers);
+		}
+		
 			
 	
 	
@@ -403,7 +407,40 @@ public class GameServer {
 	}
 	
 	
-			
+	private void fillStringsWithFinalResults(){
+		String hwbuild = "";
+		String hlbuild = "";
+		String awbuild = "";
+		String albuild = "";
+		
+		for (String name : gamestate.getWinners())
+			hwbuild += name+", ";;
+		if (hwbuild.length()>2)	
+			humanwinners = hwbuild.substring(0, hwbuild.length()-2);
+		
+		for (String name : gamestate.getLosers())
+			hlbuild += name+", ";
+		if (hlbuild.length()>2)	
+			humanlosers = hlbuild.substring(0, hlbuild.length()-2);	
+		
+		if (theLastHumanEscaped){
+			for (String name : handlers.keySet())
+				if (gamestate.givemePlayerByName(name) instanceof AlienPlayer)
+					albuild += name+", ";
+			if (albuild.length()>2)
+				alienlosers = albuild.substring(0, albuild.length()-2);	
+		}
+		else{
+			for (String name : handlers.keySet())
+				if (gamestate.givemePlayerByName(name) instanceof AlienPlayer)
+					awbuild += name+", ";
+			if (awbuild.length()>2)
+				alienwinners = awbuild.substring(0, awbuild.length()-2);	
+		}
+	}
+		
+	
+	
 	private String positionToString (Player player){
 		String position = ""+(char)(player.getPosition().getCoordX()+64);
 		String number = ""+ player.getPosition().getCoordY();

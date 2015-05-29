@@ -73,6 +73,13 @@ public class CommandHandler {
 			String[] result = action.split(";");
 			view.showActualSituation(result[0], result[1], result[2], result[3]);
 		    }
+		if ("results".equals(object)){
+			String[] result = action.split(";");
+			if ("y".equals(result[5]))
+				view.showFinalResults(true, result[0], result[1], result[2], result[3], result[4]);
+			else 
+				view.showFinalResults(false, result[0], result[1], result[2], result[3], result[4]);
+		    }
 		if ("playeritems".equals(object)){
 			csi.getOut().println(view.askItemUse(action)); 
 			csi.getOut().flush();

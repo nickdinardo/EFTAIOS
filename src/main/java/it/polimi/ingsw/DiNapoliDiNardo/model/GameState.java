@@ -26,8 +26,8 @@ public class GameState {
 	LifeboatDeck lifeboatdeck;
 	int turnNumber = 0;
 	List< Player > inGamePlayers = new ArrayList< Player >();
-	List< Player > winners = new ArrayList< Player >();
-	List< Player > losers = new ArrayList< Player >();
+	List< String > winners = new ArrayList< String >();
+	List< String > losers = new ArrayList< String >();
 	
 	//constructor
 	public GameState(GameServer gs){
@@ -128,7 +128,7 @@ public class GameState {
 					if(killedPlayer instanceof HumanPlayer)
 						gameserver.decreaseHumansAndCheck(killedPlayer);
 					if (killedPlayer.isLosesIfKilledType())
-						losers.add(killedPlayer);
+						losers.add(killedPlayer.getName());
 					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
 					gameserver.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
@@ -160,7 +160,7 @@ public class GameState {
 				escaped = true;
 				player.setEscaped(true);
 				player.getPosition().unsetPlayer(player);
-				winners.add(player);
+				winners.add(player.getName());
 			}
 		}
 		return escaped;
@@ -221,6 +221,16 @@ public class GameState {
 
 	public void increaseTurnNumber() {
 		turnNumber++;
+	}
+
+
+	public List<String> getWinners() {
+		return winners;
+	}
+
+
+	public List<String> getLosers() {
+		return losers;
 	}
 
 

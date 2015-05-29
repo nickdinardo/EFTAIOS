@@ -39,5 +39,7 @@ public interface RemoteNotifier extends Remote, Handler {
 	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;
 	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) throws RemoteException;
+	@Override
+	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers) throws RemoteException;
 	
 }

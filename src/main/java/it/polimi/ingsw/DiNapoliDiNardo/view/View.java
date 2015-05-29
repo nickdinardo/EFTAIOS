@@ -33,4 +33,7 @@ public abstract class View {
 	public abstract void showActualSituation (String name, String position, String objects, String turn);
 	
 	public abstract void notifyEscape (boolean escaped, String name, String shipnumber);
-	}
+	
+	public abstract void showFinalResults(boolean iWon, String name, String humanlosers, String humanwinners, String alienwinners, String alienlosers);
+	
+}

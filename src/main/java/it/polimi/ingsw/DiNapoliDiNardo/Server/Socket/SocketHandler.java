@@ -139,6 +139,13 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=escapefailed&action="+name+shipnumber);
 	}
 	
+	@Override
+	public void showFinalResults(boolean iWon, String name, String humanlosers, String humanwinners, String alienwinners, String alienlosers) throws RemoteException {
+		if (iWon)
+			out.println("object=results&action="+name+";"+humanlosers+";"+humanwinners+";"+alienwinners+";"+alienlosers+";"+"y;");
+		else
+			out.println("object=results&action="+name+";"+humanlosers+";"+humanwinners+";"+alienwinners+";"+alienlosers+";"+"n;");
+	}
 	
 	@Override
 	public String getName() {
@@ -163,6 +170,8 @@ public class SocketHandler implements Handler, Runnable {
 		out.close();
 		socket.close();
 	}
+
+	
 
 
 }
