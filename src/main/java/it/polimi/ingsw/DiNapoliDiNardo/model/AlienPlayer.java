@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.LifeboatBox;
 
 
 
@@ -37,7 +38,8 @@ public class AlienPlayer extends Player {
 	
 	@Override
 	public boolean movement (Box destination, Box position){
-		
+		if (destination instanceof LifeboatBox)
+			return false;
 		if (humanfed){
 			if(isValidTripleMovement(destination, position)){
 				this.position.unsetPlayer(this);

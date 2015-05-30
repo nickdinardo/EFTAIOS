@@ -73,7 +73,7 @@ public abstract class Player {
 		for (Box box: oneStepBoxes){
 			aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(box);
 			List<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
-			if (twoStepBoxes.contains(destination))
+			if (twoStepBoxes.contains(destination) || oneStepBoxes.contains(destination))
 				return true;
 		}
 		return false;

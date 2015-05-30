@@ -237,8 +237,7 @@ public class GalileiMap {
 		map[5][11] = new AlienBox(12,6);
 		alienStartBox = map[5][11];
 		map[7][11] = new HumanBox(12,8);
-		//humanStartBox = map[7][11];
-		humanStartBox = map[11][1];
+		humanStartBox = map[7][11];
 		map[8][11] = new Box(12,9);
 		map[9][11] = new DangerousBox(12,10);
 		map[10][11] = new Box(12,11);
