@@ -59,10 +59,10 @@ public class GameServer {
 				
 		        if(gamestate.givemePlayerByName(playername).isAlive()){
 					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
-						askForAlienTurn(playername, entry.getValue());
+						askForAlienTurn(playername);
 						
 					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
-						askForHumanTurn(playername, entry.getValue());
+						askForHumanTurn(playername);
 				}
 		        
 				gamestate.removeInTurnBonus();
@@ -140,7 +140,7 @@ public class GameServer {
 	
 	
 	
-	private void askForHumanTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+	private void askForHumanTurn(String playername) throws ClassNotFoundException, IOException{
 		
 		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
@@ -184,7 +184,7 @@ public class GameServer {
 		
 	
 	
-	private void askForAlienTurn(String playername, String connection) throws ClassNotFoundException, IOException{
+	private void askForAlienTurn(String playername) throws ClassNotFoundException, IOException{
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
 		
