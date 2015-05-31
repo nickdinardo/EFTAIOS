@@ -16,7 +16,7 @@ public interface Handler {
 	public Coordinates askForMovement(boolean reask)  throws IOException, ClassNotFoundException;
 	public boolean askForAttack() throws ClassNotFoundException, IOException;
 	public String askForNoise() throws ClassNotFoundException, IOException;
-	public int askForItem(String objects) throws IOException;
+	public int askForItem(String objects, boolean fromDiscardCall) throws IOException;
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException;
 	public int askAlienForItemChange(String objects) throws IOException;
 	public int askHumanForItemChange(String objects) throws IOException;

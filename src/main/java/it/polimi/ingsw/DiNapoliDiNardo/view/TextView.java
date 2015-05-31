@@ -78,15 +78,19 @@ public class TextView extends View{
 	}
 	
 		
-	public int askItemUse(String objects){
+	public int askItemUse(String objects, boolean fromDiscardCall){
 		String[] items = objects.split(";");
-		out.println("Do you want to use an Item Card?");
-		out.println("Y: yes    N: no");
-		String input = in.nextLine();
 		char risp;
-		if (input.length()>0)
-			risp = input.charAt(0);
-		else risp = 'w';
+		if(!fromDiscardCall){
+			out.println("Do you want to use an Item Card?");
+			out.println("Y: yes    N: no");
+			String input = in.nextLine();
+			if (input.length()>0)
+				risp = input.charAt(0);
+			else risp = 'w';
+		}
+		else 
+			risp = 'y';
 		if (risp == 'Y' || risp == 'y'){
 			int answer;
 			do{
@@ -111,7 +115,7 @@ public class TextView extends View{
 		}
 		else if (risp != 'N' && risp != 'n'){
 			out.println("Please insert 'Y' or 'N'");
-			return askItemUse(objects);
+			return askItemUse(objects, false);
 		}
 		return 8;	
 	}

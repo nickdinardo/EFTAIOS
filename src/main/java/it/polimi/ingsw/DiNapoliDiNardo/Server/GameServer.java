@@ -150,7 +150,7 @@ public class GameServer {
 		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
 		
-			index = handlers.get(playername).askForItem(objects);
+			index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
@@ -175,7 +175,7 @@ public class GameServer {
 		
 		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
-			index = handlers.get(playername).askForItem(objects);
+			index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}

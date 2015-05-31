@@ -114,8 +114,11 @@ public class SocketHandler implements Handler, Runnable {
 	}
 	
 	@Override
-	public int askForItem(String objects) throws IOException{
-		out.println("object=playeritems&action="+objects);
+	public int askForItem(String objects, boolean fromDiscardCall) throws IOException{
+		if (fromDiscardCall)
+			out.println("object=playeritemsY&action="+objects);
+		else
+			out.println("object=playeritemsN&action="+objects);
 		int index = in.read()-48;
 		in.readLine();
 		return index;
@@ -127,7 +130,7 @@ public class SocketHandler implements Handler, Runnable {
 		int index = in.read()-48;
 		in.readLine();
 		if (index == 9)
-			index = askForItem(objects);
+			index = askForItem(objects, true);
 		return index;
 	}
 	

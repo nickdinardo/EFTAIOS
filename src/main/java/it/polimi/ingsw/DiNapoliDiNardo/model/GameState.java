@@ -17,7 +17,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GameState {

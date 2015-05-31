@@ -17,7 +17,7 @@ public abstract class View {
 	
 	public abstract String askForNoise();
 	
-	public abstract int askItemUse(String objects);
+	public abstract int askItemUse(String objects, boolean fromDiscardCall);
 			
 	public abstract String askForAttack();
 	

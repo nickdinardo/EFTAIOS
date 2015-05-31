@@ -89,8 +89,12 @@ public class CommandHandler {
 			else 
 				view.showFinalResults(false, result[0], result[1], result[2], result[3], result[4]);
 		    }
-		if ("playeritems".equals(object)){
-			csi.getOut().println(view.askItemUse(action)); 
+		if ("playeritemsY".equals(object)){
+			csi.getOut().println(view.askItemUse(action, true)); 
+			csi.getOut().flush();
+		}
+		if ("playeritemsN".equals(object)){
+			csi.getOut().println(view.askItemUse(action, false)); 
 			csi.getOut().flush();
 		}
 		if ("humanplayeritemsdiscard".equals(object)){

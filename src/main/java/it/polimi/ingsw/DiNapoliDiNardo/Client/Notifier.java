@@ -48,9 +48,9 @@ public class Notifier implements RemoteNotifier, Handler {
 	}
 	
 	@Override
-	public int askForItem(String objects) throws IOException{
+	public int askForItem(String objects, boolean fromDiscardCall) throws IOException{
 		
-		int index = view.askItemUse(objects);
+		int index = view.askItemUse(objects, fromDiscardCall);
 		return index;
 	}
 	
@@ -58,8 +58,8 @@ public class Notifier implements RemoteNotifier, Handler {
 	public int askHumanForItemChange(String objects) throws IOException{
 		
 		int index = view.askHumanItemDiscard(objects);
-		if (index == 7)
-			index = askForItem(objects);
+		if (index == 9)
+			index = askForItem(objects, true);
 		return index;
 	}
 	

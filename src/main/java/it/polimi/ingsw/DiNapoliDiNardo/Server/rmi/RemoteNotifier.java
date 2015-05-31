@@ -28,7 +28,7 @@ public interface RemoteNotifier extends Remote, Handler {
 	@Override
 	public String askForNoise() throws RemoteException;
 	@Override
-	public int askForItem(String objects) throws IOException;
+	public int askForItem(String objects, boolean fromDiscardCall) throws IOException;
 	@Override
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException;
 	@Override
