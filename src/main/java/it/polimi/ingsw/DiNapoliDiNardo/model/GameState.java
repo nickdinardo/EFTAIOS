@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Wall;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.GameServer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
@@ -16,6 +17,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameState {
@@ -81,12 +83,19 @@ public class GameState {
 	
 	
 	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, IOException{
-		Coordinates coordinates = gameserver.askForLights(player.getName());
-		Box lightfocus = this.galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];			
+		Box lightfocus;
+		boolean reask = false;
+		do{
+			Coordinates coordinates = gameserver.askForLights(player.getName(), reask);
+			reask = true;
+			lightfocus = this.galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];	
+		}while(lightfocus instanceof Wall);
+			
 		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
 		List<Box> toCheck = this.galilei.givemeAroundBoxes(lightfocus);
 		List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
 		enlighted.add(lightfocus);
+		
 		
 		for (Box box : enlighted){
 			List<Player> peoplehere = box.getPlayerHere();

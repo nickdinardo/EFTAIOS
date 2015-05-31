@@ -14,7 +14,7 @@ public class ItemDeck extends Deck{
 		for (i=0; i<3; i++){
 			deck.add(new SedativesCard());
 			}
-		for (i=0; i<2; i++){
+		for (i=0; i<200; i++){
 			deck.add(new LightsCard());
 			}
 		for (i=0; i<2; i++){

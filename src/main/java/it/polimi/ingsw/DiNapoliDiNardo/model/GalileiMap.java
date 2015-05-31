@@ -93,7 +93,7 @@ public class GalileiMap {
 		this.setMap(new Box[14][23]);
 		for (int i=0; i<14; i++){
 			for (int j=0; j<23; j++){
-				map[i][j] = new Wall(i+1,j+1);
+				map[i][j] = new Wall(j+1,i+1);
 			}
 		}
 		map[1][0] = new DangerousBox(1,2);

@@ -228,8 +228,13 @@ public class TextView extends View{
 	}
 	
 	
-	public Coordinates askForLights(){
-		out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
+	public Coordinates askForLights(boolean reask){
+		if(reask){
+			out.println("The sector you selected to enlight is not valid. Please select another box.");
+		}
+		else{
+			out.println("Which sector of the map do you want to enlight? Insert the coordinates of the box you want to illuminate");
+		}
 		return solveCoordInput();
 		
 	}

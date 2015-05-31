@@ -45,7 +45,11 @@ public class CommandHandler {
 				csi.getOutObj().writeObject(coord);
 			}
 			if("asklights".equals(action)){
-				Coordinates coord = view.askForLights();
+				Coordinates coord = view.askForLights(false);
+				csi.getOutObj().writeObject(coord);
+			}
+			if("reasklights".equals(action)){
+				Coordinates coord = view.askForLights(true);
 				csi.getOutObj().writeObject(coord);
 			}
 			if("asknoise".equals(action)){

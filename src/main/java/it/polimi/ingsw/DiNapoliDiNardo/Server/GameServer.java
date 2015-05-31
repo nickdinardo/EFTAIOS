@@ -245,9 +245,9 @@ public class GameServer {
 	
 	
 	
-	public Coordinates askForLights(String name) throws ClassNotFoundException, IOException{
+	public Coordinates askForLights(String name, boolean reask) throws ClassNotFoundException, IOException{
 		Coordinates coordinates;
-		coordinates = handlers.get(name).askForLights();
+		coordinates = handlers.get(name).askForLights(reask);
 		return coordinates;
 	}
 	

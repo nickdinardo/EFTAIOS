@@ -21,7 +21,7 @@ public abstract class View {
 			
 	public abstract String askForAttack();
 	
-	public abstract Coordinates askForLights();
+	public abstract Coordinates askForLights(boolean reask);
 	
 	public abstract void revealingLights(Box box);
 	

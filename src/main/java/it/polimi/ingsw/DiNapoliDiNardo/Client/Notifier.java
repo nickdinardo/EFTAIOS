@@ -35,9 +35,9 @@ public class Notifier implements RemoteNotifier, Handler {
 	}
 	
 	@Override
-	public Coordinates askForLights() throws IOException, ClassNotFoundException{
+	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException{
 		
-		Coordinates coord = view.askForLights();
+		Coordinates coord = view.askForLights(reask);
 		return (coord);
 	}
 	

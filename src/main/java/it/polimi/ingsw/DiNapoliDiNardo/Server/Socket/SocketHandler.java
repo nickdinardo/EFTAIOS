@@ -104,8 +104,11 @@ public class SocketHandler implements Handler, Runnable {
 	}
 	
 	@Override
-	public Coordinates askForLights() throws IOException, ClassNotFoundException{
-		out.println("object=player&action=asklights");
+	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException{
+		if(!reask)
+			out.println("object=player&action=asklights");
+		else
+			out.println("object=player&action=reasklights");
 		Coordinates coord = (Coordinates)inObj.readObject();
 		return coord;
 	}

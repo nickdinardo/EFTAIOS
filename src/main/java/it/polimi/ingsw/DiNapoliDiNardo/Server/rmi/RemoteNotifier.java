@@ -30,7 +30,7 @@ public interface RemoteNotifier extends Remote, Handler {
 	@Override
 	public int askForItem(String objects) throws IOException;
 	@Override
-	public Coordinates askForLights() throws IOException, ClassNotFoundException;
+	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException;
 	@Override
 	public int askAlienForItemChange(String objects) throws IOException;
 	@Override
