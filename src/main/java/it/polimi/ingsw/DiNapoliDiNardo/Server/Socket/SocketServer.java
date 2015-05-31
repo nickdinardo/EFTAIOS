@@ -5,8 +5,10 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -65,7 +67,20 @@ public class SocketServer extends Thread{
 	
 	public void askForNames() throws IOException{
 		for (SocketHandler sh : sockethandlers){
-			String name = sh.askName();
+			Set<String> namesSet = headserver.getPlayersconnected().keySet();
+			List<String> ingamenames = new ArrayList<String>();
+			for (String str : namesSet)
+				ingamenames.add(str);
+			
+			String name = sh.askName(ingamenames, false);
+			//if player input a name that already exists, update the names in game and ask again
+			while ("namenotvalid1765".equals(name)){
+				namesSet = headserver.getPlayersconnected().keySet();
+				ingamenames = new ArrayList<String>();
+				for (String str : namesSet)
+					ingamenames.add(str);
+				name = sh.askName(ingamenames, true);
+			}
 			headserver.putPlayerconnected(name,"Socket");
 			headserver.putSockethandlers(name, sh);
 			headserver.putInHandlers(name, sh);

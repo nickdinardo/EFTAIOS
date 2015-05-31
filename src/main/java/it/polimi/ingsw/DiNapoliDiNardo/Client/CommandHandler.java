@@ -25,7 +25,11 @@ public class CommandHandler {
 				
 		if("player".equals(object)){
 			if("askname".equals(action)){
-				csi.getOut().println(view.askName());
+				csi.getOut().println(view.askName(false));
+				csi.getOut().flush();
+				}
+			if("reaskname".equals(action)){
+				csi.getOut().println(view.askName(true));
 				csi.getOut().flush();
 				}
 			if("askattack".equals(action)){
@@ -34,6 +38,10 @@ public class CommandHandler {
 				}
 			if("askmovement".equals(action)){
 				Coordinates coord = view.askMovement(false);
+				csi.getOutObj().writeObject(coord);
+			}
+			if("reaskmovement".equals(action)){
+				Coordinates coord = view.askMovement(true);
 				csi.getOutObj().writeObject(coord);
 			}
 			if("asklights".equals(action)){
@@ -45,10 +53,7 @@ public class CommandHandler {
 				csi.getOut().println(noise);
 				csi.getOut().flush();
 			}
-			if("reaskmovement".equals(action)){
-				Coordinates coord = view.askMovement(true);
-				csi.getOutObj().writeObject(coord);
-			}
+			
 		}
 		if("print".equals(object)){
 			view.print(action);

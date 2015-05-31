@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.List;
+
 
 public class SocketHandler implements Handler, Runnable {
 	private Socket socket;
@@ -18,7 +20,7 @@ public class SocketHandler implements Handler, Runnable {
 	private BufferedReader in;
 	ObjectOutputStream outObj; 
     ObjectInputStream inObj;
-	private String name = "";
+	private String name = "undefined357";
 
 
 	public SocketHandler(Socket socket) {
@@ -44,9 +46,18 @@ public class SocketHandler implements Handler, Runnable {
 	}
 
 	
-	public String askName() throws IOException{
-		out.println("object=player&action=askname");
-		this.name = in.readLine();
+	public String askName(List<String> names, boolean reask) throws IOException{
+		if(!reask){
+			out.println("object=player&action=askname");
+			this.name = in.readLine();
+		}
+		else{
+			out.println("object=player&action=reaskname");
+			this.name = in.readLine();
+		}
+		if (names.contains(name) || "".equals(name)){
+			name = "namenotvalid1765";
+		}	
 		return name;
 	}
 	

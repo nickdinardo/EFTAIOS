@@ -5,7 +5,11 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 
 
+
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class RmiHandlerObject implements RemoteHandler {
 	Server headserver;
@@ -23,6 +27,14 @@ public class RmiHandlerObject implements RemoteHandler {
 	
 	public int getTotalPlayers(){
 		return headserver.getTotalPlayers();
+	}
+	
+	public List<String> getNamesInGame(){
+		Set<String> namesSet = headserver.getPlayersconnected().keySet();
+		List<String> ingamenames = new ArrayList<String>();
+		for (String str : namesSet)
+			ingamenames.add(str);
+		return ingamenames;
 	}
 	
 	public void addPlayer(String name) {

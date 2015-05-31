@@ -4,9 +4,11 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public interface RemoteHandler extends Remote {
 	
+	public List<String> getNamesInGame() throws RemoteException;
 	public int getTotalPlayers()  throws RemoteException;
 	public int getRMINumPlayers()  throws RemoteException;
 	public boolean isStarted() throws RemoteException;

@@ -14,9 +14,17 @@ public class TextView extends View{
 	boolean isFirstTurn = true;
 	private final static String invletter = "Please select one of the options writing the corresponding letter and nothing more";
 	
-	public String askName (){
-		out.println("Connected to the server game. What's your name?");
-		return in.nextLine();
+	
+	@Override
+	public String askName (boolean reask){
+		if(!reask){
+			out.println("Connected to the server game. What's your name?");
+			return in.nextLine();
+		}
+		else{
+			out.println("The name you chose is already taken for this game, or is empty. Please insert another name");
+			return in.nextLine();
+		}
 	}
 	
 	
@@ -87,12 +95,15 @@ public class TextView extends View{
 					int j = i+1;
 					out.println(j+"- "+items[i]);
 				}
+				
+				String inputN = in.nextLine();
 				try{
-					answer = in.nextInt();
-				}catch (InputMismatchException e){
-					answer=0;
+					answer = Integer.parseInt(inputN);
+				}catch (NumberFormatException e){
+				answer=0;
 				}
-				in.nextLine();
+						
+						
 				if (answer <=0 || answer>items.length)
 					out.println("Please write the number of the object you want to use and nothing more");
 			}while (answer <=0 || answer>items.length);
@@ -100,7 +111,7 @@ public class TextView extends View{
 		}
 		else if (risp != 'N' && risp != 'n'){
 			out.println("Please insert 'Y' or 'N'");
-			askItemUse(objects);
+			return askItemUse(objects);
 		}
 		return 8;	
 	}
@@ -127,12 +138,13 @@ public class TextView extends View{
 						int j = i+1;
 						out.println(j+"- "+items[i]);
 					}
+					String inputN = in.nextLine();
 					try{
-						answer = in.nextInt()+3;
-					}catch (InputMismatchException e){
-						answer=0;
+						answer = Integer.parseInt(inputN);
+					}catch (NumberFormatException e){
+					answer=0;
 					}
-					in.nextLine();
+					answer+=3;
 					if (answer <=3 || answer>items.length+3)
 						out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>items.length+3);
@@ -169,13 +181,14 @@ public class TextView extends View{
 						int j = i+1;
 						out.println(j+"- "+items[i]);
 					}
+					String inputN = in.nextLine();
 					try{
-						answer = in.nextInt()+3;
-					}catch (InputMismatchException e){
-						answer=0;
+						answer = Integer.parseInt(inputN);
+					}catch (NumberFormatException e){
+					answer=0;
 					}
 					
-					in.nextLine();
+					answer+=3;
 					if (answer <=3 || answer>items.length+3)
 						out.println("Please write the number of the object you want to discard and nothing more");
 				}while (answer <=3 || answer>items.length+3);

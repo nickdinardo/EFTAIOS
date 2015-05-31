@@ -7,6 +7,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
 
 
 
+
 import java.io.PrintStream;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -14,6 +15,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class ClientRMIInterface implements NetworkInterface {
 
@@ -58,7 +60,13 @@ public class ClientRMIInterface implements NetworkInterface {
 		if(!handler.isStarted()){
 			handler.increaseRMINumPlayers();
 			this.clientport = 3030+handler.getRMINumPlayers();
-			name = view.askName();
+			name = view.askName(false);
+			List<String> names = handler.getNamesInGame();
+			while (names.contains(name) || "".equals(name)){
+				names = handler.getNamesInGame();
+				name = view.askName(true);
+			}
+				
 			handler.addPlayer(name);
 		
 			

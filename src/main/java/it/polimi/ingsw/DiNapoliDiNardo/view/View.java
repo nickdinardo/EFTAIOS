@@ -11,7 +11,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 public abstract class View {
 
 	
-	public abstract String askName();
+	public abstract String askName(boolean reask);
 	
 	public abstract Coordinates askMovement(boolean reask);
 	
