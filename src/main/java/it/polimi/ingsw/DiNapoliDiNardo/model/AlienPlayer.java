@@ -71,7 +71,7 @@ public class AlienPlayer extends Player {
 		if(!position.isEmpty()){
 			playerInBox = position.getPlayerHere();
 			for(Player player : playerInBox ){
-				if (this.humanfed == false && player instanceof HumanPlayer)
+				if (!this.humanfed && player instanceof HumanPlayer)
 					this.setHumanfed(true);
 			}
 		}

@@ -7,6 +7,7 @@ public abstract class ItemCard extends Card{
 	private String name = "ItemCard";
 	private String useMessage = "";
 	
+	@Override
 	public String getName() {
 		return this.name;
 	}

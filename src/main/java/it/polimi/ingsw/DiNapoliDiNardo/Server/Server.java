@@ -99,7 +99,7 @@ public class Server {
 			int connectedplayers = totalplayers;
 			while (time<end){
 				time = System.currentTimeMillis();
-				toAvoidChurning += "avoided";
+				toAvoidChurning += "avoided2";
 				if (connectedplayers < totalplayers){
 					out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
 					break;
@@ -126,7 +126,7 @@ public class Server {
 			//waiting for RMI players who connected but still haven't register their names
 			String toAvoidChurning ="";
 			while(playersconnected.size()<totalplayers || notifiers.size()<RMIplayers){
-				toAvoidChurning += "avoided";
+				toAvoidChurning += "avoided3";
 				if (toAvoidChurning.length()>10000)
 					toAvoidChurning = "";
 			}

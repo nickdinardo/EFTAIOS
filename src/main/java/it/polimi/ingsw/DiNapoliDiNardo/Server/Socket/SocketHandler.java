@@ -89,8 +89,7 @@ public class SocketHandler implements Handler, Runnable {
 	@Override
 	public String askForNoise() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=asknoise");
-		String noise = in.readLine();
-		return noise;
+		return in.readLine();
 	}
 	
 	@Override

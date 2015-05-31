@@ -3,7 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 public class DangerousBox extends Box{
-	private boolean DrawingSectorCardHere = true;
+	private boolean drawingSectorCardHere = true;
 	
 	public DangerousBox(Coordinates coordinates) {
 		super(coordinates);
@@ -16,7 +16,7 @@ public class DangerousBox extends Box{
 	
 	@Override
 	public boolean isDrawingSectorCardHere() {
-		return DrawingSectorCardHere;
+		return drawingSectorCardHere;
 	}
 	
 }

@@ -25,7 +25,7 @@ public class SocketServer extends Thread{
 	private Server headserver;
 	private static final int MAXPLAYERS = 8;
 	
-	
+	@Override
 	public void run() {
 		try {
 			this.startListening();

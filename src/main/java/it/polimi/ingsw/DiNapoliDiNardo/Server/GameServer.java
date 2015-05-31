@@ -158,7 +158,7 @@ public class GameServer {
 		askForMovement(playername);
 		
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isSedated())
-			drawSectorCard(playername, connection, player);
+			drawSectorCard(playername, player);
 		
 		//check for possible escape if on escape-box
 		boolean escaped;
@@ -199,7 +199,7 @@ public class GameServer {
 			
 		}
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
-			drawSectorCard(playername, connection, player);
+			drawSectorCard(playername, player);
 	}
 	
 	
@@ -297,7 +297,7 @@ public class GameServer {
 	
 	
 	
-	private void drawSectorCard (String name, String connection, Player player) throws ClassNotFoundException, IOException{
+	private void drawSectorCard (String name, Player player) throws ClassNotFoundException, IOException{
 		
 		Card sectorcard = gamestate.getSectordeck().drawCard();
 		String position = positionToString(player);
@@ -316,13 +316,13 @@ public class GameServer {
 		
 		//call method to draw item cards if required by sector card
 		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem)
-			drawItemCard (name, connection, player);
+			drawItemCard (name, player);
 	}
 
 	
 	
 	
-	private void drawItemCard (String name, String connection, Player player) throws IOException, ClassNotFoundException{
+	private void drawItemCard (String name, Player player) throws IOException, ClassNotFoundException{
 		
 		//manage the personal decks of the players when a new item card is drawn	
 		ItemCard itemcard = (ItemCard)gamestate.getItemdeck().drawCard();

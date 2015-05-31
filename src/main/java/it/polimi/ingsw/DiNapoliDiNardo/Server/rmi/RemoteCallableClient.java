@@ -17,7 +17,7 @@ public class RemoteCallableClient implements CallableClient {
 	}
 	
 	
-	
+	@Override
 	public void setClientInServer(String name, int port) throws RemoteException {
 		Registry registry;
 		try {

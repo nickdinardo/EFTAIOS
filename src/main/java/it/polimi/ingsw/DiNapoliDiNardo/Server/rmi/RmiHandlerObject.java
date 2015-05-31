@@ -16,19 +16,22 @@ public class RmiHandlerObject implements RemoteHandler {
 	boolean finish = false;
 	String name = "";
 	
-	
+	@Override
 	public void increaseRMINumPlayers() throws RemoteException{
 		headserver.increaseRMIPlayers();
 	}
 	
+	@Override
 	public int getRMINumPlayers(){
 		return headserver.getRMIPlayers();
 	}
 	
+	@Override
 	public int getTotalPlayers(){
 		return headserver.getTotalPlayers();
 	}
 	
+	@Override
 	public List<String> getNamesInGame(){
 		Set<String> namesSet = headserver.getPlayersconnected().keySet();
 		List<String> ingamenames = new ArrayList<String>();
@@ -37,11 +40,13 @@ public class RmiHandlerObject implements RemoteHandler {
 		return ingamenames;
 	}
 	
+	@Override
 	public void addPlayer(String name) {
 		headserver.putPlayerconnected(name,"RMI");
 		
 	}
 	
+	@Override
 	public boolean isStarted(){
 		return headserver.isStarted();
 	}
@@ -51,11 +56,8 @@ public class RmiHandlerObject implements RemoteHandler {
 		this.headserver = server;
 	}
 	//getters and setters
+	@Override
 	public boolean isFinish() {
 		return finish;
 	}
-	public void setFinish(boolean finish) {
-		this.finish = finish;
-	}
-	
 }

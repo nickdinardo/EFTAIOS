@@ -3,7 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 public class LifeboatBox extends Box {
-	private boolean LifeBoatShipHere = true;
+	private boolean lifeBoatShipHere = true;
 	private int number;
 	
 	
@@ -20,11 +20,11 @@ public class LifeboatBox extends Box {
 	
 	@Override
 	public boolean isLifeBoatShipHere() {
-		return this.LifeBoatShipHere;
+		return this.lifeBoatShipHere;
 	}
 	@Override
 	public void setLifeBoatShipHere(boolean lifeboat) {
-		this.LifeBoatShipHere = lifeboat;
+		this.lifeBoatShipHere = lifeboat;
 	}
 	
 	public int getNumber() {

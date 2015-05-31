@@ -22,10 +22,12 @@ public class Notifier implements RemoteNotifier, Handler {
 	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		String answer = view.askForAttack();
+		boolean attacked;
 		if ("Y".equalsIgnoreCase(answer))
-			return true;
+			attacked = true;
 		else 
-			return false;
+			attacked = false;
+		return attacked;
 	}
 	
 	@Override
@@ -38,20 +40,17 @@ public class Notifier implements RemoteNotifier, Handler {
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException{
 		
 		Coordinates coord = view.askForLights(reask);
-		return (coord);
+		return coord;
 	}
 	
 	@Override	
 	public String askForNoise(){
-		
 		return view.askForNoise();
 	}
 	
 	@Override
 	public int askForItem(String objects, boolean fromDiscardCall) throws IOException{
-		
-		int index = view.askItemUse(objects, fromDiscardCall);
-		return index;
+		return view.askItemUse(objects, fromDiscardCall);
 	}
 	
 	@Override
@@ -65,9 +64,7 @@ public class Notifier implements RemoteNotifier, Handler {
 	
 	@Override
 	public int askAlienForItemChange(String objects) throws IOException{
-		
-		int index = view.askAlienItemDiscard(objects);
-		return index;
+		return view.askAlienItemDiscard(objects);
 	}
 	
 	@Override

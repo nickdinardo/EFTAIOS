@@ -11,7 +11,7 @@ public class TextView extends View{
 	Scanner in = new Scanner(System.in);
 	private PrintStream out = System.out;
 	boolean isFirstTurn = true;
-	private final static String invletter = "Please select one of the options writing the corresponding letter and nothing more";
+	private static final String INVLETTER = "Please select one of the options writing the corresponding letter and nothing more";
 	
 	
 	@Override
@@ -205,7 +205,7 @@ public class TextView extends View{
 				validanswer = true;
 				return 8;
 			}	
-			out.println(invletter);
+			out.println(INVLETTER);
 		}while(!validanswer);
 		return 18;
 	}
@@ -224,7 +224,7 @@ public class TextView extends View{
 				return ans;
 			if ("N".equalsIgnoreCase(ans))
 				return ans;	
-			out.println(invletter);
+			out.println(INVLETTER);
 		}while(!validanswer);
 		
 		return null;
