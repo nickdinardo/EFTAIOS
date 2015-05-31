@@ -338,7 +338,8 @@ public class GameServer {
 				index = handlers.get(name).askAlienForItemChange(objects);
 			if (index != 8){
 				gamestate.itemUsageManagement(name, index-1);
-				gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
+				if (itemdeck.size()<3)
+					gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
 			}
 			
 		}		

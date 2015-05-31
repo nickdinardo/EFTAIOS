@@ -20,6 +20,9 @@ public class ItemDeck extends Deck{
 		for (i=0; i<2; i++){
 			deck.add(new AdrenalineCard());
 			}
+		for (i=0; i<20; i++){
+			deck.add(new DefenseCard());
+			}
 		deck.add(new DefenseCard());
 		this.shuffleDeck();	
 		}
