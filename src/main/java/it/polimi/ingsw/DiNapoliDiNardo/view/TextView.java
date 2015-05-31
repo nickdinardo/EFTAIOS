@@ -4,7 +4,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 import java.io.PrintStream;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -27,7 +26,7 @@ public class TextView extends View{
 		}
 	}
 	
-	
+	@Override
 	public void showActualSituation (String name, String position, String objects, String turn){
 		String printposition = position;
 		if (position.length() == 2)
@@ -42,7 +41,7 @@ public class TextView extends View{
 	}
 	
 		
-	
+	@Override
 	public void showBeingAlien (String name){
 		if(isFirstTurn){
 			printGalileiMap();
@@ -54,7 +53,7 @@ public class TextView extends View{
 		out.println("All the miserable humans. Enjoy your meal.");
 	}
 	
-	
+	@Override
 	public void showBeingHuman (String name){
 		if(isFirstTurn){
 			printGalileiMap();
@@ -66,7 +65,7 @@ public class TextView extends View{
 		out.println("The mission depends on you. Your life too. Good luck.");
 	}
 	
-	
+	@Override
 	public Coordinates askMovement(boolean reask){
 		if(reask){
 			out.println("The movement you selected is not valid. Please select another box.");
@@ -77,7 +76,7 @@ public class TextView extends View{
 		
 	}
 	
-		
+	@Override	
 	public int askItemUse(String objects, boolean fromDiscardCall){
 		String[] items = objects.split(";");
 		char risp;
@@ -211,7 +210,7 @@ public class TextView extends View{
 		return 18;
 	}
 	
-	
+	@Override
 	public String askForAttack(){
 		out.println("Filthy alien, do you want to attack this position?");
 		out.println("Y: yes    N: no");
@@ -231,7 +230,7 @@ public class TextView extends View{
 		return null;
 	}
 	
-	
+	@Override
 	public Coordinates askForLights(boolean reask){
 		if(reask){
 			out.println("The sector you selected to enlight is not valid. Please select another box.");
@@ -243,6 +242,7 @@ public class TextView extends View{
 		
 	}
 	
+	@Override
 	public String askForNoise(){
 		out.println("In which sector of the map do you want to declare there's noise?");
 		Coordinates coordinates = solveCoordInput();
@@ -254,7 +254,7 @@ public class TextView extends View{
 		return noise;
 	}
 	
-	
+	@Override
 	public void revealingLights(Box box){
 		out.println("In the position "+(char)(box.getCoordX()+64)+box.getCoordY()+" there are the following players: ");
 		out.println(box.getPlayerHere().toString());

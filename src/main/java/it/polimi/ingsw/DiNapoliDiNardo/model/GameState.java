@@ -61,14 +61,12 @@ public class GameState {
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
 			gameserver.cardsMessages(name, item.getName(), item.getUseMessage());
-			
 			if (item instanceof LightsCard)
 				lightsManagement(player);
 			else if (item instanceof AttackCard)
 				attackManagement(player);
 			else 
 				item.doAction(player);
-			
 			if (!(item instanceof DefenseCard))
 				player.getPersonalDeck().remove(index);
 		
@@ -76,9 +74,9 @@ public class GameState {
 		else if (index > 2 && index < 6){
 			//remove the card user selected to discard passing index+10
 			Player player = givemePlayerByName(name);
-			ItemCard item = player.getPersonalDeck().get(index-3);
 			player.getPersonalDeck().remove(index-3);
 		}
+	
 	}	
 	
 	
@@ -162,9 +160,12 @@ public class GameState {
 	public boolean escapeManagement(HumanPlayer player){
 		
 		boolean escaped = false;
+		//check if the box is a lifeboat and a working one
 		boolean shipworks = player.getPosition().isLifeBoatShipHere();
 		if(shipworks){
+			//in any case, disable the lifeboat for following players
 			player.getPosition().setLifeBoatShipHere(false);
+			//then draw the red or green card and solve it
 			LifeboatCard card = (LifeboatCard)lifeboatdeck.drawCard();
 			if (card.isWorking()){
 				escaped = true;
