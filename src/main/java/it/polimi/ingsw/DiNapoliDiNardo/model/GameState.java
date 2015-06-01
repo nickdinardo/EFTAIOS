@@ -67,14 +67,17 @@ public class GameState {
 				attackManagement(player);
 			else 
 				item.doAction(player);
-			if (!(item instanceof DefenseCard))
-				player.getPersonalDeck().remove(index);
+			if (!(item instanceof DefenseCard)){
+				ItemCard used = player.getPersonalDeck().remove(index);
+				itemdeck.getDiscards().add(used);
+			}
 		
 		}
 		else if (index > 2 && index < 6){
 			//remove the card user selected to discard passing index+10
 			Player player = givemePlayerByName(name);
-			player.getPersonalDeck().remove(index-3);
+			ItemCard used = player.getPersonalDeck().remove(index-3);
+			itemdeck.getDiscards().add(used);
 		}
 	
 	}	

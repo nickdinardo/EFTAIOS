@@ -8,7 +8,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -36,83 +35,24 @@ public class GameServer {
 	private static final int FINALTURN = 39;
 	
 	
+	
 	public void rungame() throws IOException, ClassNotFoundException{
 		
-		
-		giveWelcome();
+		//initialize model main class and update players
 		this.gamestate = new GameState(this);
+		giveWelcome();
 		createPlayersInGame(playersInGame);
 		informPlayersOfTheirNature();
 		
-
+		//manage the normal turn while game isn't finished
 		while(!finished){
-			
-			gamestate.increaseTurnNumber();
-			showActualSituation ();
-			
-			//turn iteration
-			Iterator<Map.Entry<String, String>> it = playersInGame.entrySet().iterator();
-		    while (it.hasNext()) {
-		    
-		    	Map.Entry<String, String> entry = it.next();
-		        String playername = entry.getKey();
-				
-		        if(gamestate.givemePlayerByName(playername).isAlive()){
-					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
-						askForAlienTurn(playername);
-						
-					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
-						askForHumanTurn(playername);
-				}
-		        
-				gamestate.removeInTurnBonus();
-		    }	
-		
-		    //removing dead players iteration
-		    Iterator<Map.Entry<String, String>> remover = playersInGame.entrySet().iterator();
-		    while (remover.hasNext()) {
-		    	
-		    	Map.Entry<String, String> entry = remover.next();
-		        String playername = entry.getKey();
-		        Player maybedead = gamestate.givemePlayerByName(playername);
-		        		        	
-		        if(!maybedead.isAlive() || maybedead.isEscaped()){
-			       remover.remove();
-			       maybedead.getPosition().getPlayerHere().remove(maybedead);
-			    }
-		   
-		    }
-		    
+			iterateATurn();
+			removeDeadorEscapedPlayers();
 		    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
 		    	finished = true;
 		}
 	
-		
-		if(gamestate.getTurnNumber() == FINALTURN){
-			notifyMessageToAll("---THE FINAL TURN HAS ENDED---");
-		}
-		else{
-			if (theLastHumanEscaped)
-				notifyMessageToAll("The last human on the ship managed to escape!");
-			else
-				notifyMessageToAll("The last human on the ship has been killed by the aliens!");
-		}
-		
-		fillStringsWithFinalResults();
-				
-		//notify to all players, even the ones removed from the game, the final results of the match
-		for (Handler h : handlers.values()){
-			boolean iWon = true;
-			if (gamestate.getLosers().contains(h.getName()))
-				iWon = false;
-			if (alienwinners.isEmpty() && gamestate.givemePlayerByName(h.getName()) instanceof AlienPlayer)
-				iWon = false;
-			h.showFinalResults(iWon, h.getName(), humanlosers, humanwinners, alienwinners, alienlosers);
-		}
-		
-			
-	
-	
+		communicateFinalResults();
 	}	
 	
 	
@@ -270,7 +210,7 @@ public class GameServer {
 			String position = positionToString(gamestate.givemePlayerByName(playername));
 			notifyMessageToAll(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
-		if (!"DefenseCard".equals(cardname))	
+		if (!"DefenseCard".equals(cardname) && !"AttackCard".equals(cardname))	
 			notifyMessageToAll(playername+" has used one "+cardname);
 		
 		handlers.get(playername).notifyMessage(usemessage);
@@ -331,15 +271,20 @@ public class GameServer {
 		if (itemdeck.size()==3){
 			int index;
 			String objects = personalDeckListify(itemdeck);
-			
+			//if human ask discard giving the possibility of use immediately a owned card, without giving it if alien
 			if (player instanceof HumanPlayer)
 				index = handlers.get(name).askHumanForItemChange(objects);
 			else
 				index = handlers.get(name).askAlienForItemChange(objects);
+			//if player decided to discard or use one of his cards to make space for the new card
 			if (index != 8){
 				gamestate.itemUsageManagement(name, index-1);
 				if (itemdeck.size()<3)
 					gamestate.givemePlayerByName(name).getPersonalDeck().add(itemcard);
+			}
+			//discard the new card if the player doesn't want it
+			else{
+				gamestate.getItemdeck().getDiscards().add(itemcard);
 			}
 			
 		}		
@@ -397,7 +342,6 @@ public class GameServer {
 	
 	
 	
-	
 	private String personalDeckListify (List<ItemCard> itemdeck){
 	
 		//utility for other methods, put in a string all the item cards of a personal deck
@@ -406,6 +350,75 @@ public class GameServer {
 			objects += itemdeck.get(i).getName()+" ;";
 		return objects;
 	}
+	
+	
+	
+	private void iterateATurn() throws ClassNotFoundException, IOException{
+		gamestate.increaseTurnNumber();
+		showActualSituation ();
+		
+		//turn iteration
+		Iterator<Map.Entry<String, String>> it = playersInGame.entrySet().iterator();
+	    while (it.hasNext()) {
+	    
+	    	Map.Entry<String, String> entry = it.next();
+	        String playername = entry.getKey();
+			
+	        if(gamestate.givemePlayerByName(playername).isAlive()){
+				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
+					askForAlienTurn(playername);
+					
+				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
+					askForHumanTurn(playername);
+			}
+	        
+			gamestate.removeInTurnBonus();
+	    }	
+	}
+	
+	
+	
+	private void removeDeadorEscapedPlayers(){
+		//removing dead players iteration
+	    Iterator<Map.Entry<String, String>> remover = playersInGame.entrySet().iterator();
+	    while (remover.hasNext()) {
+	    	
+	    	Map.Entry<String, String> entry = remover.next();
+	        String playername = entry.getKey();
+	        Player maybedead = gamestate.givemePlayerByName(playername);
+	        		        	
+	        if(!maybedead.isAlive() || maybedead.isEscaped()){
+		       remover.remove();
+		       maybedead.getPosition().getPlayerHere().remove(maybedead);
+		    }
+	    }
+	}
+	
+	
+	
+	private void communicateFinalResults() throws RemoteException{
+
+		if(gamestate.getTurnNumber() == FINALTURN){
+			notifyMessageToAll("---THE FINAL TURN HAS ENDED---");
+		}
+		else{
+			if (theLastHumanEscaped)
+				notifyMessageToAll("The last human on the ship managed to escape!");
+			else
+				notifyMessageToAll("The last human on the ship has been killed by the aliens!");
+		}
+		fillStringsWithFinalResults();
+		//notify to all players, even the ones removed from the game, the final results of the match
+		for (Handler h : handlers.values()){
+			boolean iWon = true;
+			if (gamestate.getLosers().contains(h.getName()))
+				iWon = false;
+			if (alienwinners.isEmpty() && gamestate.givemePlayerByName(h.getName()) instanceof AlienPlayer)
+				iWon = false;
+			h.showFinalResults(iWon, h.getName(), humanlosers, humanwinners, alienwinners, alienlosers);
+		}
+	}
+	
 	
 	
 	private void fillStringsWithFinalResults(){

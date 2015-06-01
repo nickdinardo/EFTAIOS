@@ -1,5 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
 
+import java.util.Collections;
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 public class ItemDeck extends Deck{
@@ -23,8 +25,51 @@ public class ItemDeck extends Deck{
 		deck.add(new DefenseCard());
 		this.shuffleDeck();	
 		}
-			
+
+	
+	@Override
+	public Card drawCard(){
+		//same method than others deck but don't discard cards that players keep till they use them
+		if (deck.isEmpty()){
+			int discardSize=discards.size();
+			for (int i=0; i<discardSize; i++){
+				Card reshuffled = discards.get(0);
+				discards.remove(0);
+				deck.add(reshuffled);
+				}
+			Collections.shuffle(deck);
+		}
+		Card drawed = deck.get(0);
+		deck.remove(0);
+		return drawed;
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		//attacco 2
 		//teletr 2
