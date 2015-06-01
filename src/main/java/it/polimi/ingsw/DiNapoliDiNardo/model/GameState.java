@@ -136,10 +136,15 @@ public class GameState {
 				if (!hasDefense){
 					killedPlayer.kill();
 					killedPlayer.setKiller(player.getName());
-					if(killedPlayer instanceof HumanPlayer)
+					player.getPosition().unsetPlayer(killedPlayer);
+					if(killedPlayer.isLosesIfKilledType()){
 						gameserver.decreaseHumansAndCheck(killedPlayer);
-					if (killedPlayer.isLosesIfKilledType())
 						losers.add(killedPlayer.getName());
+					}
+					if(killedPlayer.isLosesIfKilledType() && player instanceof AlienPlayer){
+						AlienPlayer alien = (AlienPlayer)player;
+						alien.setHumanfed(true);
+					}
 					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
 					gameserver.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
@@ -153,8 +158,6 @@ public class GameState {
 			AlienPlayer alien = (AlienPlayer) player;
 			alien.setHasAttacked(true);
 		}
-		//to check
-		player.getPosition().setPlayer(player);
 		
 	}
 	

@@ -30,7 +30,8 @@ public abstract class Player {
 	public List<Player> attack(Box position){
 		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty())
-			playerInBox = position.getPlayerHere();
+			for (Player p : position.getPlayerHere())
+				playerInBox.add(p); 
 	
 		playerInBox.remove(this);
 		return playerInBox;

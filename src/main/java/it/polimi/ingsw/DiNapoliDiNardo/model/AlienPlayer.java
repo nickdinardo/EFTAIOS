@@ -1,6 +1,5 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
@@ -64,22 +63,6 @@ public class AlienPlayer extends Player {
 		}
 	}
 	
-	//alien attack method, with setHumanfed
-	@Override
-	public List<Player> attack(Box position){
-		List<Player> playerInBox = new ArrayList<Player>();
-		if(!position.isEmpty()){
-			playerInBox = position.getPlayerHere();
-			for(Player player : playerInBox ){
-				if (!this.humanfed && player instanceof HumanPlayer)
-					this.setHumanfed(true);
-			}
-		}
-		
-		playerInBox.remove(this);
-		return playerInBox;
-		
-	}
 	
 	
 	public boolean isHasAttacked() {
