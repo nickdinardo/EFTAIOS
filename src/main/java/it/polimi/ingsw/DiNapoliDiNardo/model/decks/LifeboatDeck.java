@@ -1,5 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.GreenLifeboatCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.RedLifeboatCard;
+
 
 public class LifeboatDeck extends Deck{
 	

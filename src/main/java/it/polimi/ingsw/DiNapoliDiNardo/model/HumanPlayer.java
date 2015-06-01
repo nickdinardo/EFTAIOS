@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 
 public class HumanPlayer extends Player{

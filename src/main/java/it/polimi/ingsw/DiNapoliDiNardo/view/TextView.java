@@ -1,7 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -252,12 +251,6 @@ public class TextView extends View{
 			number = "0"+ coordinates.getCoordY();
 		noise += number;
 		return noise;
-	}
-	
-	@Override
-	public void revealingLights(Box box){
-		out.println("In the position "+(char)(box.getCoordX()+64)+box.getCoordY()+" there are the following players: ");
-		out.println(box.getPlayerHere().toString());
 	}
 	
 	

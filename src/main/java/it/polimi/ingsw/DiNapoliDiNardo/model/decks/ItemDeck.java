@@ -1,8 +1,15 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.decks;
 
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AdrenalineCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.LightsCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SedativesCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.TeleportCard;
+
 import java.util.Collections;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
 
 public class ItemDeck extends Deck{
 	public ItemDeck(){

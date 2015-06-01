@@ -5,7 +5,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+
 
 
 public abstract class View {
@@ -22,8 +22,6 @@ public abstract class View {
 	public abstract String askForAttack();
 	
 	public abstract Coordinates askForLights(boolean reask);
-	
-	public abstract void revealingLights(Box box);
 	
 	public abstract void print (String message);
 	

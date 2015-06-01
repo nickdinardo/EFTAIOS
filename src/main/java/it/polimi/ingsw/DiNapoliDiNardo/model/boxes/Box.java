@@ -1,6 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
-import it.polimi.ingsw.DiNapoliDiNardo.model.*;
 
+
+
+import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;

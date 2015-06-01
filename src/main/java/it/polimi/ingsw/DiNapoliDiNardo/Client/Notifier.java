@@ -32,13 +32,11 @@ public class Notifier implements RemoteNotifier, Handler {
 	
 	@Override
 	public Coordinates askForMovement(boolean reask){
-		
 		return view.askMovement(reask);
 	}
 	
 	@Override
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException{
-		
 		Coordinates coord = view.askForLights(reask);
 		return coord;
 	}
@@ -55,7 +53,6 @@ public class Notifier implements RemoteNotifier, Handler {
 	
 	@Override
 	public int askHumanForItemChange(String objects) throws IOException{
-		
 		int index = view.askHumanItemDiscard(objects);
 		if (index == 9)
 			index = askForItem(objects, true);
@@ -69,40 +66,33 @@ public class Notifier implements RemoteNotifier, Handler {
 	
 	@Override
 	public void notifyMessage(String message)throws RemoteException {
-		
-		System.out.println(message);
-
+		view.print(message);
 	}
 
 	@Override
 	public void showBeingAlien (String name){
-		
 		view.showBeingAlien(name);
 	}
 	
 	@Override
 	public void showBeingHuman (String name){
-		
 		view.showBeingHuman(name);
 	}
 			
 	@Override
 	public void showActualSituation (String name, String position, String objects, String turn){
-		
 		view.showActualSituation(name, position, objects, turn);
 	}
 	
 	
 	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) throws RemoteException {
-		
 		view.notifyEscape(escaped, name, shipnumber);
 	}
 	
 	@Override
 	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers)
 			throws RemoteException {
-		
 		view.showFinalResults(iWon, name, humanlosers, humanwinners, alienwinners, alienlosers);
 	}
 
