@@ -6,7 +6,9 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SectorCard;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -87,6 +89,7 @@ public class GameServer {
 		int index;
 		
 		List<ItemCard> personaldeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
+		//ask for card use only if player has "usable" cards, not if he has the defense card
 		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
 		
@@ -112,7 +115,7 @@ public class GameServer {
 				
 		}
 		
-		
+		//ask for card use only if player has "usable" cards, not if he has the defense card
 		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects, false);
@@ -163,14 +166,15 @@ public class GameServer {
 		
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			Player player = gamestate.givemePlayerByName(entry.getKey());
+			//notify game messages only to in-game players (not dead, not escaped)
 			if (player.isAlive()){
-				if (player instanceof AlienPlayer)
-					handlers.get(entry.getKey()).notifyMessage(message);
-				else{
+				if (player instanceof HumanPlayer){
 					HumanPlayer human = (HumanPlayer) player;
 					if (!human.isEscaped())
 						handlers.get(entry.getKey()).notifyMessage(message);
 				}
+				else			
+					handlers.get(entry.getKey()).notifyMessage(message);
 			}
 		}
 	}
@@ -206,13 +210,14 @@ public class GameServer {
 	
 	public void cardsMessages(String playername, String cardname, String usemessage) throws ClassNotFoundException, IOException{
 		
+		//cards that require special treatment 
 		if ("AttackCard".equals(cardname)){
 			String position = positionToString(gamestate.givemePlayerByName(playername));
 			notifyMessageToAll(playername+" has ATTACKED position "+position+" using an Attack Card");
 		}
 		if (!"DefenseCard".equals(cardname) && !"AttackCard".equals(cardname))	
 			notifyMessageToAll(playername+" has used one "+cardname);
-		
+		//every other card, getting their "usemessage"
 		handlers.get(playername).notifyMessage(usemessage);
 	}
 	
@@ -221,6 +226,7 @@ public class GameServer {
 	
 	private void createPlayersInGame(Map<String, String> playersconnected) {
 		List<String> keys = new ArrayList<String>(playersconnected.keySet());
+		//randomly sort the players and then assign aliens and humans on turns starting from the aliens
 		Collections.shuffle(keys);
 		int i = 0;
 		for (String name : keys){
@@ -239,23 +245,23 @@ public class GameServer {
 	
 	private void drawSectorCard (String name, Player player) throws ClassNotFoundException, IOException{
 		
-		Card sectorcard = gamestate.getSectordeck().drawCard();
-		String position = positionToString(player);
-				
-		if (sectorcard instanceof SilenceCard){
-			notifyMessageToAll(name+" declares: SILENCE.");
-		}
-		if (sectorcard instanceof NoiseHereCard){
-			notifyMessageToAll(name+" declares: NOISE in sector "+position+".");
-		}
-		if (sectorcard instanceof NoiseAnywhereCard){
+		SectorCard sectorcard = (SectorCard)gamestate.getSectordeck().drawCard();
+		//cards that need the view to be called
+		if (sectorcard.requiresViewCall()){
 			String noiseIn = "";
 			noiseIn = handlers.get(name).askForNoise();
-			notifyMessageToAll(name+" declares: NOISE in sector "+noiseIn+".");
+			notifyMessageToAll(name+sectorcard.giveWalkOnMessage()+noiseIn);
 		}
-		
+		//any other card using superclass methods
+		else{
+			String position = positionToString(player);
+			if (sectorcard.revealsPosition())
+				notifyMessageToAll(name+sectorcard.giveWalkOnMessage()+position);
+			else
+				notifyMessageToAll(name+sectorcard.giveWalkOnMessage());
+		}
 		//call method to draw item cards if required by sector card
-		if (sectorcard instanceof NoiseAnywhereCardPlusItem || sectorcard instanceof NoiseHereCardPlusItem)
+		if (sectorcard.isWithItemType())
 			drawItemCard (name, player);
 	}
 

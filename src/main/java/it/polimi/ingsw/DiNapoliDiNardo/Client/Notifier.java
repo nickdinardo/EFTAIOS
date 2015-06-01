@@ -6,15 +6,15 @@ import java.rmi.RemoteException;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
-import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
+import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 
 
 
 public class Notifier implements RemoteNotifier, Handler {
-	private TextView view;
+	private View view;
 	private String name;
 	
-		public Notifier(String n, TextView v){
+		public Notifier(String n, View v){
 		this.view = v;
 		this.name = n;
 	}

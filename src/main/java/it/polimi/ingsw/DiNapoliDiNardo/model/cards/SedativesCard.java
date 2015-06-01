@@ -4,16 +4,14 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 
 
 public class SedativesCard extends ItemCard {
-	private String name = "SedativesCard";
-	private String useMessage = "-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-";
-	
+		
 	@Override
 	public String getName() {
-		return name;
+		return "SedativesCard";
 	}
 	@Override
 	public String getUseMessage(){
-		return useMessage;
+		return "-Injecting yourself the sedatives you calm down and control your body. You'll not make noise around this turn-";
 	}
 	@Override
 	public void doAction(HumanPlayer player){

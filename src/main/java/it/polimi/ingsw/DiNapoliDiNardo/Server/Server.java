@@ -94,6 +94,7 @@ public class Server {
 		out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
 		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 
 		while (totalplayers<MAXPLAYERS){
+			
 			long time= System.currentTimeMillis();
 			long end = time+WAITINGTIME;
 			int connectedplayers = totalplayers;

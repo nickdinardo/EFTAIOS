@@ -9,12 +9,13 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.view.*;
 
 public class CommandHandler {
-	//sistemare con singleton
-	private TextView view = new TextView();
+	
+	private View view;
 	private ClientSocketInterface csi;
 	
-	public CommandHandler(ClientSocketInterface csi){
+	public CommandHandler(ClientSocketInterface csi, View v){
 		this.csi = csi;
+		this.view = v;
 	}
 	
 	

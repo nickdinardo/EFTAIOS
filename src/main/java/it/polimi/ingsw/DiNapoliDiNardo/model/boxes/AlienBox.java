@@ -13,4 +13,9 @@ public class AlienBox extends Box {
 		super(x,y);
 	}
 	
+	@Override
+	public boolean isCanBeCrossedType(){
+		return false;
+	}
+	
 }

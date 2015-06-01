@@ -118,7 +118,7 @@ public class TextView extends View{
 		return 8;	
 	}
 	
-	
+	@Override
 	public int askAlienItemDiscard(String objects){
 		String[] items = objects.split(";");
 		out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
@@ -161,7 +161,7 @@ public class TextView extends View{
 		return 18;
 	}
 	
-	
+	@Override
 	public int askHumanItemDiscard(String objects){
 		String[] items = objects.split(";");
 		out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");

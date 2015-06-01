@@ -14,7 +14,7 @@ public class InitialWindow {
 		
 		
 		frame.setLayout(new BorderLayout());
-		JLabel background=new JLabel(new ImageIcon("C:\\Users\\679405\\Desktop\\EFTAIOS\\cover.png"));
+		JLabel background=new JLabel(new ImageIcon("externalresources\\cover.png"));
 		frame.add(background);
 		background.setLayout(new FlowLayout());
 		JLabel l1=new JLabel("Choose Connection: ");

@@ -2,8 +2,9 @@ package it.polimi.ingsw.DiNapoliDiNardo.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.*;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
+
 
 
 public abstract class Player {
@@ -41,11 +42,7 @@ public abstract class Player {
 	
 	public boolean isValidSingleMovement(Box destination, Box position){
 		
-		if (destination instanceof Wall) 
-			return false;
-		if (destination instanceof HumanBox) 
-			return false;
-		if (destination instanceof AlienBox) 
+		if (!destination.isCanBeCrossedType()) 
 			return false;
 		if (position.getCoordX()%2==0){//BASSA
 			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)

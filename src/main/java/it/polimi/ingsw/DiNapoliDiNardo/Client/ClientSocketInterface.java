@@ -1,5 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
+import it.polimi.ingsw.DiNapoliDiNardo.view.View;
+import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,12 +17,13 @@ import java.util.Map;
 public class ClientSocketInterface implements NetworkInterface {
 
 	private Socket s;
+	private View view;
 	private PrintWriter out;
 	private BufferedReader in; 
 	ObjectOutputStream outObj;
 	ObjectInputStream inObj;
 	boolean stop = false;
-	private CommandHandler comhan = new CommandHandler(this);
+	private CommandHandler comhan;
 	
 	public ClientSocketInterface() {
 		
@@ -60,21 +64,25 @@ public class ClientSocketInterface implements NetworkInterface {
 	
 	@Override
 	public void startInterface() {
+			
+		ViewFactory.getViewFactory();
+		view = ViewFactory.getView();
+		this.comhan = new CommandHandler(this, view);	
 		
-			String input;
-			try {
-				while((input = in.readLine()) != null && !stop){
-					String[] splitted = input.split("&");
-					Map<String, String> params = new HashMap<String, String>();
-					for(String str : splitted){
-						params.put(str.split("=")[0],str.split("=")[1]);
-					}
-					this.comhan.handleCommand(params);
-					
+		String input;
+		try {
+			while((input = in.readLine()) != null && !stop){
+				String[] splitted = input.split("&");
+				Map<String, String> params = new HashMap<String, String>();
+				for(String str : splitted){
+					params.put(str.split("=")[0],str.split("=")[1]);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+				this.comhan.handleCommand(params);
+					
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

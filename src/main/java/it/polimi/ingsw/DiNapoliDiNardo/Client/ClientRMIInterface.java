@@ -1,7 +1,9 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.*;
-import it.polimi.ingsw.DiNapoliDiNardo.view.TextView;
+import it.polimi.ingsw.DiNapoliDiNardo.view.View;
+import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
+
 
 
 
@@ -21,7 +23,7 @@ public class ClientRMIInterface implements NetworkInterface {
 
 	private RemoteHandler handler;
 	private PrintStream out = System.out;
-	private TextView view = new TextView();
+	private View view;
 	private String name = "";
 	Registry registry;
 	int clientport;
@@ -55,14 +57,19 @@ public class ClientRMIInterface implements NetworkInterface {
 	@Override
 	public void startInterface() throws RemoteException {
 		
+		ViewFactory.getViewFactory();
+		view = ViewFactory.getView();
+		
 		//check if the game as already started, to avoid to connect while 
 		//some rmi players keep the registry on without inputting their names
 		if(!handler.isStarted()){
 			handler.increaseRMINumPlayers();
 			this.clientport = 3030+handler.getRMINumPlayers();
 			name = view.askName(false);
+			
 			List<String> names = handler.getNamesInGame();
 			while (names.contains(name) || "".equals(name)){
+				
 				names = handler.getNamesInGame();
 				name = view.askName(true);
 			}
@@ -104,10 +111,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			out.println("The game you tried to connect has already started");
 		}
 		
-			
-		while(!handler.isFinish()){
 		
-			}
 	}
 	
 		

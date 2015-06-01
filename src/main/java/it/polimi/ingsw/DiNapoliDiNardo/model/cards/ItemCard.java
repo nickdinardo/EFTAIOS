@@ -4,18 +4,14 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 
 
 public abstract class ItemCard extends Card{
-	private String name = "ItemCard";
-	private String useMessage = "";
-	
+		
 	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	public String getUseMessage(){
-		return this.useMessage;
+	public String getName(){
+		return "ItemCard";
 	}
 	
+	public abstract String getUseMessage();
+		
 	public void doAction(HumanPlayer player){}
 	
 }

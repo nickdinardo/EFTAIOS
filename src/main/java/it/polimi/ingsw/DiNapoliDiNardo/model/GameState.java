@@ -61,12 +61,15 @@ public class GameState {
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
 			gameserver.cardsMessages(name, item.getName(), item.getUseMessage());
+			//cards that require special treatment
 			if (item instanceof LightsCard)
 				lightsManagement(player);
 			else if (item instanceof AttackCard)
 				attackManagement(player);
+			//all other type of cards, calling overrided superclass methods
 			else 
 				item.doAction(player);
+			//discard in the itemdeck the card used, unless is a DefenseCard
 			if (!(item instanceof DefenseCard)){
 				ItemCard used = player.getPersonalDeck().remove(index);
 				itemdeck.getDiscards().add(used);
@@ -150,6 +153,7 @@ public class GameState {
 				}
 				else{
 					killedPlayer.getPersonalDeck().remove(toRemoveDefCard);
+					itemdeck.getDiscards().add(toRemoveDefCard);
 					gameserver.notifyMessageToAll(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
 			    }
 			}
