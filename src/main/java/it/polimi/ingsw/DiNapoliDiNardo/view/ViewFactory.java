@@ -12,7 +12,9 @@ public class ViewFactory {
 	private static Scanner Scanner = null;
 	
 	//private constructor, singleton
-	private ViewFactory() {}
+	private ViewFactory() {
+		
+	}
 
 	public static ViewFactory getViewFactory() {
 	 	 return FACTORY;
@@ -24,7 +26,7 @@ public class ViewFactory {
 		Scanner = new Scanner(System.in);
 		userAnswer = Scanner.nextLine();
 		
-		if(userAnswer.equalsIgnoreCase("TEXT")){
+		if("TEXT".equalsIgnoreCase(userAnswer)){
 			return new TextView();
 		}else{		
 			return new TextView();

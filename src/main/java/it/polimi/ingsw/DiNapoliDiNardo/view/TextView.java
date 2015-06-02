@@ -89,28 +89,8 @@ public class TextView extends View{
 		}
 		else 
 			risp = 'y';
-		if (risp == 'Y' || risp == 'y'){
-			int answer;
-			do{
-				out.println("Select the number of the item you want to use:");
-				for (int i=0; i<items.length && i<3; i++){
-					int j = i+1;
-					out.println(j+"- "+items[i]);
-				}
-				
-				String inputN = in.nextLine();
-				try{
-					answer = Integer.parseInt(inputN);
-				}catch (NumberFormatException e){
-				answer=0;
-				}
-						
-						
-				if (answer <=0 || answer>items.length)
-					out.println("Please write the number of the object you want to use and nothing more");
-			}while (answer <=0 || answer>items.length);
-			return answer;
-		}
+		if (risp == 'Y' || risp == 'y')
+			return askWhichCard (items);
 		else if (risp != 'N' && risp != 'n'){
 			out.println("Please insert 'Y' or 'N'");
 			return askItemUse(objects, false);
@@ -132,25 +112,7 @@ public class TextView extends View{
 		do{
 			if (risp == 'D' || risp == 'd'){
 				validanswer = true;
-				int answer;
-				
-				do{
-					out.println("Select the number of the item you want to discard:");
-					for (int i=0; i<items.length && i<3; i++){
-						int j = i+1;
-						out.println(j+"- "+items[i]);
-					}
-					String inputN = in.nextLine();
-					try{
-						answer = Integer.parseInt(inputN);
-					}catch (NumberFormatException e){
-					answer=0;
-					}
-					answer+=3;
-					if (answer <=3 || answer>items.length+3)
-						out.println("Please write the number of the object you want to discard and nothing more");
-				}while (answer <=3 || answer>items.length+3);
-				return answer;
+				return askWhichCard(items)+3;				
 			}
 			if (risp == 'N' || risp == 'n'){
 				validanswer = true;
@@ -175,26 +137,7 @@ public class TextView extends View{
 		do{
 			if (risp == 'D' || risp == 'd'){
 				validanswer = true;
-				int answer;
-				
-				do{
-					out.println("Select the number of the item you want to discard:");
-					for (int i=0; i<items.length; i++){
-						int j = i+1;
-						out.println(j+"- "+items[i]);
-					}
-					String inputN = in.nextLine();
-					try{
-						answer = Integer.parseInt(inputN);
-					}catch (NumberFormatException e){
-					answer=0;
-					}
-					
-					answer+=3;
-					if (answer <=3 || answer>items.length+3)
-						out.println("Please write the number of the object you want to discard and nothing more");
-				}while (answer <=3 || answer>items.length+3);
-				return answer;
+				return askWhichCard(items)+3;				
 			}
 			if (risp == 'U' || risp == 'u'){
 				validanswer = true;
@@ -206,8 +149,33 @@ public class TextView extends View{
 			}	
 			out.println(INVLETTER);
 		}while(!validanswer);
-		return 18;
+		return 19;
 	}
+	
+	
+	
+	public int askWhichCard (String[] items){
+		int answer;
+		do{
+			out.println("Select the number of the item you want to discard:");
+			for (int i=0; i<items.length; i++){
+				int j = i+1;
+				out.println(j+"- "+items[i]);
+			}
+			String inputN = in.nextLine();
+			try{
+				answer = Integer.parseInt(inputN);
+			}catch (NumberFormatException e){
+			answer=0;
+			}
+			if (answer <=0 || answer>items.length)
+				out.println("Please write the number of the object you want to discard and nothing more");
+		}while (answer <=0 || answer>items.length);
+		return answer;
+	}
+	
+	
+	
 	
 	@Override
 	public String askForAttack(){
