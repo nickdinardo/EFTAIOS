@@ -20,7 +20,8 @@ import java.util.Map;
 
 
 
-public class Server {
+public class Server implements Runnable {
+	int gameId;
 	int RMIplayers = 0;
 	int totalplayers = 0;
 	Registry registry;
@@ -42,23 +43,32 @@ public class Server {
 	private static final int MAXPLAYERS = 8;
 	private static final int WAITINGTIME = 10000;
 	
-	
-	public static void main(String[] args) throws IOException, NotBoundException {
-		Server headserver = new Server();
-		headserver.openconnections();
-		
+	public Server(int id){
+		this.gameId = id;
 	}
 	
 	
+	
+	@Override
+	public void run() {
+		try {
+			this.openconnections();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	public void openconnections() throws IOException, NotBoundException{
-		
-		
-		
+			
 		//Starting RMI server and binding handler and remotecallableclient
 		try {           
-            stub = (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0); 
-            clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040);
-            registry = LocateRegistry.createRegistry(2020);            
+            stub = (RemoteHandler) UnicastRemoteObject.exportObject(handler, 0+gameId); 
+            clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040+gameId);
+            registry = LocateRegistry.createRegistry(2020+gameId);            
             registry.bind(name, stub);
             registry.bind(clientName, clientStub);
             out.println("Remote Objects bound");
@@ -68,7 +78,6 @@ public class Server {
             e.printStackTrace();
             registry = null;
         }
-		
 		
 		//Starting socket server
 		out.println("Starting the SocketServer...");
@@ -194,5 +203,8 @@ public class Server {
 	public void stopAcceptingOthersPlayers() throws IOException{
 		socketserver.stopAcceptingOthersPlayers();
 	}
+
+
+	
 	
 }

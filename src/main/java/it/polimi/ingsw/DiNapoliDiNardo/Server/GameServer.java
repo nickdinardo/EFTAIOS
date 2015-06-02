@@ -277,12 +277,12 @@ public class GameServer {
 		if (itemdeck.size()==3){
 			int index;
 			String objects = personalDeckListify(itemdeck);
-			//if human ask discard giving the possibility of use immediately a owned card, without giving it if alien
+			//if human, ask discard giving the possibility of use immediately a owned card, without giving it if alien
 			if (player instanceof HumanPlayer)
 				index = handlers.get(name).askHumanForItemChange(objects);
 			else
 				index = handlers.get(name).askAlienForItemChange(objects);
-			//if player decided to discard or use one of his cards to make space for the new card
+			//what follows only if player decided to discard or use one of his cards to make space for the new card
 			if (index != 8){
 				gamestate.itemUsageManagement(name, index-1);
 				if (itemdeck.size()<3)
@@ -366,19 +366,16 @@ public class GameServer {
 		//turn iteration
 		Iterator<Map.Entry<String, String>> it = playersInGame.entrySet().iterator();
 	    while (it.hasNext()) {
-	    
-	    	Map.Entry<String, String> entry = it.next();
+	       	Map.Entry<String, String> entry = it.next();
 	        String playername = entry.getKey();
-			
-	        if(gamestate.givemePlayerByName(playername).isAlive()){
+			if(gamestate.givemePlayerByName(playername).isAlive()){
 				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 					askForAlienTurn(playername);
 					
 				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 					askForHumanTurn(playername);
 			}
-	        
-			gamestate.removeInTurnBonus();
+	        gamestate.removeInTurnBonus();
 	    }	
 	}
 	

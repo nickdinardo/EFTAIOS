@@ -21,19 +21,22 @@ import java.util.List;
 
 public class ClientRMIInterface implements NetworkInterface {
 
+	private static final int MAXSERVERGAMES = 1000;
 	private RemoteHandler handler;
 	private PrintStream out = System.out;
 	private View view;
 	private String name = "";
 	Registry registry;
 	int clientport;
+	int gamesStarted = 1;
+	
 	
 	@Override
 	public boolean connect() {
 		//first thing get the handler client->server
 		String handlername = "Handler";
 		try {
-			registry = LocateRegistry.getRegistry(2020);
+			registry = LocateRegistry.getRegistry(2020+gamesStarted);
 		} catch (RemoteException e) {			
 			e.printStackTrace();
 			return false;
@@ -48,8 +51,17 @@ public class ClientRMIInterface implements NetworkInterface {
 			e.printStackTrace();
 			return false;
 		} catch (NotBoundException e) {
-			out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
-			return false;
+			out.println("Remote initializers not more avaible. Server is not accepting further players connections because game "+gamesStarted+" has already started.");
+			out.println("Trying to connect to following game...");
+			if (gamesStarted<MAXSERVERGAMES){
+				gamesStarted++;
+				//recursively call connect method looking on the following server ports
+				return connect();
+			}
+			else
+				out.println("Server is not accepting connection on any game, sorry. We hope to solve the issue in a little time.");
+				return false;
+			
 		}
 		return true;
 	}
@@ -64,7 +76,8 @@ public class ClientRMIInterface implements NetworkInterface {
 		//some rmi players keep the registry on without inputting their names
 		if(!handler.isStarted()){
 			handler.increaseRMINumPlayers();
-			this.clientport = 3030+handler.getRMINumPlayers();
+			//open the clientport skipping 8 ports for every game started (in case they are already in use in local for others games)
+			this.clientport = 3030+handler.getRMINumPlayers()+(8*gamesStarted);
 			name = view.askName(false);
 			
 			List<String> names = handler.getNamesInGame();
@@ -108,7 +121,8 @@ public class ClientRMIInterface implements NetworkInterface {
 			}
 		}	
 		else {
-			out.println("The game you tried to connect has already started");
+			out.println("The game you tried to connect has already started, but the following game still has to be initialized.");
+			out.println("Please retry connection in a little time.");
 		}
 		
 		
