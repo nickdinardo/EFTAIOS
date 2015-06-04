@@ -10,6 +10,8 @@ public interface Handler {
 	public void setName(String name) throws RemoteException;
 	public String getName() throws RemoteException;
 	
+	public void closeConnections() throws RemoteException;
+	public void startTimer (long turntime) throws RemoteException;
 	public void notifyMessage(String message) throws RemoteException;
 	public void showBeingHuman (String name)throws RemoteException;
 	public void showBeingAlien (String name)throws RemoteException;

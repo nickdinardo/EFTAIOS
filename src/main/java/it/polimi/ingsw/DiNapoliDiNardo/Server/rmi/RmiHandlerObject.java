@@ -1,6 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
+
 
 
 
@@ -13,6 +15,7 @@ import java.util.Set;
 
 public class RmiHandlerObject implements RemoteHandler {
 	Server headserver;
+	
 	boolean finish = false;
 	String name = "";
 	
@@ -44,6 +47,11 @@ public class RmiHandlerObject implements RemoteHandler {
 	public void addPlayer(String name) {
 		headserver.putPlayerconnected(name,"RMI");
 		
+	}
+	
+	@Override
+	public void manageDisconnection(String name) throws RemoteException {
+		headserver.getGameServer().manageDisconnection(name);
 	}
 	
 	@Override

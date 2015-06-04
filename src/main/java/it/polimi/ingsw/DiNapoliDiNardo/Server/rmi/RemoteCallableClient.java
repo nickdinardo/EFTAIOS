@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
 
+import it.polimi.ingsw.DiNapoliDiNardo.Client.CallableClient;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 import java.rmi.RemoteException;

@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 
@@ -42,6 +40,7 @@ public class GameServer {
 	String alienwinners = "";
 	String alienlosers = "";
 	private static final int FINALTURN = 39;
+	private static final int TURNTIME = 10*1000;
 	
 	
 	
@@ -163,8 +162,7 @@ public class GameServer {
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
 		
-		
-			askForMovement(playername);
+		askForMovement(playername);
 		
 		boolean attack = false;
 		attack = handlers.get(playername).askForAttack();
@@ -205,14 +203,14 @@ public class GameServer {
 			//notify game messages only to in-game players (not dead, not escaped)
 			if (player.isAlive() && !connectionsClosed.contains(entry.getKey())){
 				try{
-				if (player instanceof HumanPlayer){
-					HumanPlayer human = (HumanPlayer) player;
-					if (!human.isEscaped())
+					if (player instanceof HumanPlayer){
+						HumanPlayer human = (HumanPlayer) player;
+						if (!human.isEscaped())
+							handlers.get(entry.getKey()).notifyMessage(message);
+					}
+					else			
 						handlers.get(entry.getKey()).notifyMessage(message);
-				}
-				else			
-					handlers.get(entry.getKey()).notifyMessage(message);
-				}
+					}
 				catch (IOException e){
 					//this could help to identify closed connection in case player left not during his turn
 					connectionsClosed.add(entry.getKey());
@@ -227,7 +225,11 @@ public class GameServer {
 	public void notifyOfEscape (boolean escaped, Player player) throws RemoteException{
 		LifeboatBox ship = (LifeboatBox)player.getPosition();
 		for (Map.Entry<String, String> entry : playersInGame.entrySet())
-			handlers.get(entry.getKey()).notifyEscape(escaped, player.getName(), String.valueOf(ship.getNumber()));
+			try{
+				handlers.get(entry.getKey()).notifyEscape(escaped, player.getName(), String.valueOf(ship.getNumber()));
+			}catch (IOException e){
+				manageDisconnection(entry.getKey());
+			}
 	}
 	
 	
@@ -433,19 +435,20 @@ public class GameServer {
 	    	
 	       	Map.Entry<String, String> entry = it.next();
 	        String playername = entry.getKey();
-	        //Timer timer = new Timer();
-	    	//long turnTime = 1000*1000;
-	    	//timer.schedule(new DisconnectionHandler(this, entry.getKey()), turnTime);
+	        	        
 	    	try {
-			if(gamestate.givemePlayerByName(playername).isAlive() && !connectionsClosed.contains(playername)){
-				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
-					askForAlienTurn(playername);
-					
-				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
-					askForHumanTurn(playername);
+	    		if (!connectionsClosed.contains(playername))
+	    		handlers.get(playername).startTimer(TURNTIME);
+	    		
+				if(gamestate.givemePlayerByName(playername).isAlive() && !connectionsClosed.contains(playername)){
+								
+					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
+						askForAlienTurn(playername);
+						
+					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
+						askForHumanTurn(playername);
 			}
 	    	} catch (IOException e) {
-	    		System.out.println("Player disconnected");
 	    		manageDisconnection(entry.getKey());
 			}
 	        gamestate.removeInTurnBonus();
@@ -455,12 +458,22 @@ public class GameServer {
 	}
 	
 	
+	//DA TOGLIERE NON FUNZIONA COME PENSAVO
+	public void verifyRmiOff (String playername) throws RemoteException{
+		//if player is RMI and disconnected reaching his notifier will throw the exception
+		try {
+			handlers.get(playername).notifyMessage("Trying to reach");
+		} catch (RemoteException e) {
+			System.out.println("Turn time of "+playername+" has elapsed. Disconnecting him.");
+			manageDisconnection(playername);		
+		}
+	}
+	
 	
 	public void manageDisconnection(String playername) throws RemoteException{
 		connectionsClosed.add(playername);
 		notifyMessageToAll("Player "+playername+" has disconnected from the game and has been removed. His character will stand still till the end of the game");
 	}
-	
 	
 	
 	

@@ -1,11 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.*;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
-
-
-
 
 
 
@@ -97,9 +94,9 @@ public class ClientRMIInterface implements NetworkInterface {
 			String notName = "Notifier";			
 			try {
 			//Binding the notifier
-			    RemoteNotifier notifier = new Notifier(name, view);
-			    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);            
-			    myregistry = LocateRegistry.createRegistry(clientport);            
+			    myregistry = LocateRegistry.createRegistry(clientport);  
+			    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName, handler);
+			    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);    
 			    myregistry.bind(notName, stub);
 			    } catch (Exception exc) {
 			    	System.err.println("RMI exception:");

@@ -1,12 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
+import it.polimi.ingsw.DiNapoliDiNardo.Client.CallableClient;
+import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketServer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RmiHandlerObject;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableClient;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.CallableClient;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -37,6 +37,7 @@ public class Server implements Runnable {
 	RemoteHandler handler = new RmiHandlerObject(this);
 	CallableClient client = new RemoteCallableClient(this);
 	SocketServer socketserver = new SocketServer(this);
+	GameServer gameserver;
 	boolean finish = false;
 	boolean isStarted = false;
 	private static final int MINPLAYERS = 2;
@@ -158,7 +159,7 @@ public class Server implements Runnable {
 			}
 			
 			//then start the game
-			GameServer gameserver = new GameServer(totalplayers, playersconnected, handlers);
+			gameserver = new GameServer(totalplayers, playersconnected, handlers);
 			try {
 				gameserver.rungame();
 			} catch (ClassNotFoundException e) {
@@ -181,6 +182,9 @@ public class Server implements Runnable {
 	}
 	public int getTotalPlayers() {
 		return totalplayers;
+	}
+	public GameServer getGameServer() {
+		return gameserver;
 	}
 	public void increaseRMIPlayers() {
 		this.RMIplayers += 1;

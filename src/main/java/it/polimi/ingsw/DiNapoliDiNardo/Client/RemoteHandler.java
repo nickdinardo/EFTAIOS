@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
+package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 
 
@@ -16,5 +16,6 @@ public interface RemoteHandler extends Remote {
 	
 	public void increaseRMINumPlayers() throws RemoteException;
 	public void addPlayer(String name) throws RemoteException;
+	public void manageDisconnection(String name)throws RemoteException;
 	
 }
