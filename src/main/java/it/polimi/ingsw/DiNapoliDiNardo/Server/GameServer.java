@@ -17,6 +17,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+
 
 
 
@@ -24,8 +29,10 @@ import java.util.Map;
 
 public class GameServer {
 	int totalplayers;
+	List<String> connectionsClosed = new ArrayList<String>();
 	Map<String, String> playersInGame; 
 	Map<String, Handler> handlers;
+	boolean initError = false;
 	boolean finished;
 	boolean theLastHumanEscaped;
 	GameState gamestate;
@@ -40,21 +47,41 @@ public class GameServer {
 	
 	public void rungame() throws IOException, ClassNotFoundException{
 		
-		//initialize model main class and update players
-		this.gamestate = new GameState(this);
-		giveWelcome();
-		createPlayersInGame(playersInGame);
-		informPlayersOfTheirNature();
-		
-		//manage the normal turn while game isn't finished
-		while(!finished){
-			iterateATurn();
-			removeDeadorEscapedPlayers();
-		    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
-		    	finished = true;
+		//first thing check if troubles in initialization reduced the connections to less than two players
+		//if so, closes the game
+		if (playersInGame.size()<2){
+			for (Handler h : handlers.values()){
+				h.notifyMessage("Connection problems reduced the number of players under the minimum before the start.");
+				h.notifyMessage("This game has been closed, please retry connection again restarting the client.");
+			}
+			return;
 		}
-	
-		communicateFinalResults();
+		
+		try{
+			
+			//initialize model main class and update players
+			this.gamestate = new GameState(this);
+			giveWelcome();
+			if (initError)
+				return;
+			createPlayersInGame(playersInGame);
+			informPlayersOfTheirNature();
+			
+			//manage the normal turn while game isn't finished
+			while(!finished){
+				iterateATurn();
+				removeDeadorEscapedPlayers();
+			    if (gamestate.getTurnNumber() == FINALTURN || humanplayers == 0)	
+			    	finished = true;
+			}
+		
+			communicateFinalResults();
+		
+		}
+		catch (IOException e){
+			System.out.println("Apparently we lost connection with all the players. Closing game.");
+			return;
+		}
 	}	
 	
 	
@@ -75,7 +102,12 @@ public class GameServer {
 				objects += itemdeck.get(i).getName()+" ";		
 			if (objects.length()<2)
 				objects = "no";
-			handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects, String.valueOf(gamestate.getTurnNumber()));
+			try{
+				handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects, String.valueOf(gamestate.getTurnNumber()));
+			}
+			catch (IOException e){
+				manageDisconnection(entry.getKey());
+			}
 		}
 	}
 	
@@ -131,7 +163,9 @@ public class GameServer {
 		
 		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
 		
-		askForMovement(playername);
+		
+			askForMovement(playername);
+		
 		boolean attack = false;
 		attack = handlers.get(playername).askForAttack();
 		
@@ -143,6 +177,8 @@ public class GameServer {
 		}
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
 			drawSectorCard(playername, player);
+		
+		
 	}
 	
 	
@@ -167,7 +203,8 @@ public class GameServer {
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			Player player = gamestate.givemePlayerByName(entry.getKey());
 			//notify game messages only to in-game players (not dead, not escaped)
-			if (player.isAlive()){
+			if (player.isAlive() && !connectionsClosed.contains(entry.getKey())){
+				try{
 				if (player instanceof HumanPlayer){
 					HumanPlayer human = (HumanPlayer) player;
 					if (!human.isEscaped())
@@ -175,6 +212,12 @@ public class GameServer {
 				}
 				else			
 					handlers.get(entry.getKey()).notifyMessage(message);
+				}
+				catch (IOException e){
+					//this could help to identify closed connection in case player left not during his turn
+					connectionsClosed.add(entry.getKey());
+					manageDisconnection(entry.getKey());
+				}
 			}
 		}
 	}
@@ -199,10 +242,16 @@ public class GameServer {
 	
 	
 	public void showLights(String name, String lightposition, String playersinbox) throws ClassNotFoundException, IOException{
-		if ("".equals(playersinbox))
-			handlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
-		else
-			handlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
+		try{
+			if ("".equals(playersinbox))
+				handlers.get(name).notifyMessage("In the position "+lightposition+" there is no one.");
+			else
+				handlers.get(name).notifyMessage("In the position "+lightposition+" there are: "+playersinbox);	
+		}
+		catch (IOException e){
+			manageDisconnection(name);
+		}
+		
 	}
 	
 	
@@ -306,12 +355,15 @@ public class GameServer {
 	
 	
 	public void sayByeToLosers(String dead, String killer) throws RemoteException{
-
-		handlers.get(dead).notifyMessage("-----------------------------------------------");
-		handlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
-		handlers.get(dead).notifyMessage("Unfortunately, your game ends here");
-		handlers.get(dead).notifyMessage("-----------------------------------------------");
-		
+		try{
+			handlers.get(dead).notifyMessage("-----------------------------------------------");
+			handlers.get(dead).notifyMessage(dead+" you've been brutally killed by "+killer);
+			handlers.get(dead).notifyMessage("Unfortunately, your game ends here");
+			handlers.get(dead).notifyMessage("-----------------------------------------------");
+		}
+		catch (IOException e){
+			manageDisconnection(dead);
+		}
 		gamestate.getInGamePlayers().remove(dead);
 	}
 	
@@ -325,9 +377,16 @@ public class GameServer {
 		for (Map.Entry<String, String> entry : playersInGame.entrySet())
 			listofplayers += entry.getKey()+", ";
 		listofplayers = listofplayers.substring(0, listofplayers.length()-2);
-		for (Map.Entry<String, String> entry : playersInGame.entrySet())
-			handlers.get(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
-		
+		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
+			try{
+				handlers.get(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
+			}
+			catch (IOException e){
+				notifyMessageToAll("Players disconnected during the creation of the game. Game will be closed");
+				initError = true;
+				return;
+			}
+		}
 	}
 
 	
@@ -338,11 +397,15 @@ public class GameServer {
 		//inform players on the nature of their character
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			String playername = entry.getKey();
+			try{
 			if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 				handlers.get(entry.getKey()).showBeingAlien(entry.getKey());
 			else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 				handlers.get(entry.getKey()).showBeingHuman(entry.getKey());
-		
+			}
+			catch (IOException e){
+				manageDisconnection(entry.getKey());
+			}
 		}
 	}
 	
@@ -359,25 +422,45 @@ public class GameServer {
 	
 	
 	
-	private void iterateATurn() throws ClassNotFoundException, IOException{
+	private void iterateATurn() throws ClassNotFoundException, RemoteException{
 		gamestate.increaseTurnNumber();
 		showActualSituation ();
+		
 		
 		//turn iteration
 		Iterator<Map.Entry<String, String>> it = playersInGame.entrySet().iterator();
 	    while (it.hasNext()) {
+	    	
 	       	Map.Entry<String, String> entry = it.next();
 	        String playername = entry.getKey();
-			if(gamestate.givemePlayerByName(playername).isAlive()){
+	        //Timer timer = new Timer();
+	    	//long turnTime = 1000*1000;
+	    	//timer.schedule(new DisconnectionHandler(this, entry.getKey()), turnTime);
+	    	try {
+			if(gamestate.givemePlayerByName(playername).isAlive() && !connectionsClosed.contains(playername)){
 				if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 					askForAlienTurn(playername);
 					
 				else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 					askForHumanTurn(playername);
 			}
+	    	} catch (IOException e) {
+	    		System.out.println("Player disconnected");
+	    		manageDisconnection(entry.getKey());
+			}
 	        gamestate.removeInTurnBonus();
-	    }	
+	    }
+	    
+		
 	}
+	
+	
+	
+	public void manageDisconnection(String playername) throws RemoteException{
+		connectionsClosed.add(playername);
+		notifyMessageToAll("Player "+playername+" has disconnected from the game and has been removed. His character will stand still till the end of the game");
+	}
+	
 	
 	
 	
@@ -390,9 +473,10 @@ public class GameServer {
 	        String playername = entry.getKey();
 	        Player maybedead = gamestate.givemePlayerByName(playername);
 	        		        	
-	        if(!maybedead.isAlive() || maybedead.isEscaped()){
+	        if(!maybedead.isAlive() || maybedead.isEscaped() || connectionsClosed.contains(playername)){
 		       remover.remove();
-		       maybedead.getPosition().getPlayerHere().remove(maybedead);
+		       if (!maybedead.isAlive() || maybedead.isEscaped())
+		    	   maybedead.getPosition().getPlayerHere().remove(maybedead);
 		    }
 	    }
 	}
@@ -418,7 +502,8 @@ public class GameServer {
 				iWon = false;
 			if (alienwinners.isEmpty() && gamestate.givemePlayerByName(h.getName()) instanceof AlienPlayer)
 				iWon = false;
-			h.showFinalResults(iWon, h.getName(), humanlosers, humanwinners, alienwinners, alienlosers);
+			if(!connectionsClosed.contains(h.getName()))
+				h.showFinalResults(iWon, h.getName(), humanlosers, humanwinners, alienwinners, alienlosers);
 		}
 	}
 	

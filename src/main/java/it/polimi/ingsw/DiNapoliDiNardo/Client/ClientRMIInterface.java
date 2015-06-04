@@ -75,6 +75,7 @@ public class ClientRMIInterface implements NetworkInterface {
 		//check if the game as already started, to avoid to connect while 
 		//some rmi players keep the registry on without inputting their names
 		if(!handler.isStarted()){
+			
 			handler.increaseRMINumPlayers();
 			//open the clientport skipping 8 ports for every game started (in case they are already in use in local for others games)
 			this.clientport = 3030+handler.getRMINumPlayers()+(8*gamesStarted);
@@ -117,7 +118,8 @@ public class ClientRMIInterface implements NetworkInterface {
 				e.printStackTrace();
 					
 			} catch (NotBoundException e) {
-				e.printStackTrace();
+				out.println("Server has threw out your connection because you entered your name with too much delay."); 
+				out.println("Try to reconnect to another game, and please remember to insert your name in a reasonable time."); 
 			}
 		}	
 		else {

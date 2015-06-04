@@ -41,7 +41,8 @@ public class Server implements Runnable {
 	boolean isStarted = false;
 	private static final int MINPLAYERS = 2;
 	private static final int MAXPLAYERS = 8;
-	private static final int WAITINGTIME = 10000;
+	private static final int WAITINGTIME = 10*1000;
+	private static final int NAMECOMPLETIONTIME = 60*1000;
 	
 	public Server(int id){
 		this.gameId = id;
@@ -89,6 +90,7 @@ public class Server implements Runnable {
 		
 		socketserver.endListening();
 		
+		
 	}
 	
 	
@@ -133,19 +135,28 @@ public class Server implements Runnable {
 			//asking names and waiting them from socket players
 			socketserver.askForNames();
 			
-			//waiting for RMI players who connected but still haven't register their names
+			//waiting for RMI players who connected but still haven't register their names, for a limited amount of time
+			//if they don't do that, game will start without them
+			long time = System.currentTimeMillis();
+			long end = time + NAMECOMPLETIONTIME;
 			String toAvoidChurning ="";
+			
 			while(playersconnected.size()<totalplayers || notifiers.size()<RMIplayers){
 				toAvoidChurning += "avoided3";
 				if (toAvoidChurning.length()>10000)
 					toAvoidChurning = "";
+				time = System.currentTimeMillis();
+				if (time > end)
+					break;
 			}
+			
 			//when all players have registered their name we can unbind the remote objects 
 			//to avoid further rmi connections to this game
 			if(registry != null){
 				registry.unbind(name);
 				registry.unbind(clientName);
 			}
+			
 			//then start the game
 			GameServer gameserver = new GameServer(totalplayers, playersconnected, handlers);
 			try {
@@ -178,6 +189,10 @@ public class Server implements Runnable {
 	
 	public void increaseTotalPlayers() {
 		this.totalplayers += 1;
+	}
+	
+	public void decreaseTotalPlayers() {
+		this.totalplayers -= 1;
 	}
 
 	public Map<String, String> getPlayersconnected() {

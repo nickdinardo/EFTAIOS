@@ -72,7 +72,9 @@ public class SocketServer extends Thread{
 			for (String str : namesSet)
 				ingamenames.add(str);
 			
+			try{
 			String name = sh.askName(ingamenames, false);
+			
 			//if player input a name that already exists, update the names in game and ask again
 			while ("namenotvalid1765".equals(name)){
 				namesSet = headserver.getPlayersconnected().keySet();
@@ -85,6 +87,12 @@ public class SocketServer extends Thread{
 			headserver.putSockethandlers(name, sh);
 			headserver.putInHandlers(name, sh);
 			}
+			catch (IOException e){
+				//to check adding a list of closed connections before game starts to manage when game starts
+				headserver.decreaseTotalPlayers();
+				return;
+			}
+		}
 	}
 		
 
