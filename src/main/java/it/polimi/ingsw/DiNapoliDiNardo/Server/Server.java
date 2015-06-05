@@ -20,6 +20,7 @@ import java.util.Map;
 
 
 
+
 public class Server implements Runnable {
 	int gameId;
 	int RMIplayers = 0;
@@ -39,10 +40,11 @@ public class Server implements Runnable {
 	SocketServer socketserver = new SocketServer(this);
 	boolean finish = false;
 	boolean isStarted = false;
+	boolean nameCompletionElapsed = false;
 	private static final int MINPLAYERS = 2;
 	private static final int MAXPLAYERS = 8;
-	private static final int WAITINGTIME = 10*1000;
-	private static final int NAMECOMPLETIONTIME = 60*1000;
+	private static final int WAITINGTIME = 20*1000;
+	private static final int NAMECOMPLETIONTIME = 30*1000;
 	
 	public Server(int id){
 		this.gameId = id;
@@ -55,15 +57,17 @@ public class Server implements Runnable {
 		try {
 			this.openconnections();
 		} catch (IOException e) {
-			e.printStackTrace();
+			out.println("IOException");
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+			out.println("NotBoundException");
+		} catch (ClassNotFoundException e) {
+			out.println("ClassNotFoundException");
 		}
 	}
 	
 	
 	
-	public void openconnections() throws IOException, NotBoundException{
+	public void openconnections() throws IOException, NotBoundException, ClassNotFoundException{
 			
 		//Starting RMI server and binding handler and remotecallableclient
 		try {           
@@ -131,11 +135,11 @@ public class Server implements Runnable {
 	
 	
 	
-	public void startgame() throws IOException, NotBoundException{
+	public void startgame() throws IOException, NotBoundException, ClassNotFoundException{
 			//asking names and waiting them from socket players
 			socketserver.askForNames();
 			
-			//waiting for RMI players who connected but still haven't register their names, for a limited amount of time
+			//waiting for players who connected but still haven't register their names, for a limited amount of time
 			//if they don't do that, game will start without them
 			long time = System.currentTimeMillis();
 			long end = time + NAMECOMPLETIONTIME;
@@ -149,6 +153,7 @@ public class Server implements Runnable {
 				if (time > end)
 					break;
 			}
+			nameCompletionElapsed = true;
 			
 			//when all players have registered their name we can unbind the remote objects 
 			//to avoid further rmi connections to this game
@@ -158,12 +163,9 @@ public class Server implements Runnable {
 			}
 			
 			//then start the game
-			GameServer gameserver = new GameServer(gameId, totalplayers, playersconnected, handlers);
-			try {
-				gameserver.rungame();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			GameServer gameserver = new GameServer(gameId, playersconnected, handlers);
+			gameserver.rungame();
+			
 	}		
 		
 			
@@ -175,6 +177,9 @@ public class Server implements Runnable {
 	//getters and setters
 	public boolean isStarted() {
 		return isStarted;
+	}
+	public boolean isNameCompletionElapsed() {
+		return nameCompletionElapsed;
 	}
 	public int getRMIPlayers() {
 		return RMIplayers;

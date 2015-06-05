@@ -40,6 +40,8 @@ public class Notifier implements RemoteNotifier, Handler {
 			e.printStackTrace();
 		}
 		UnicastRemoteObject.unexportObject(this, true);
+		System.out.println("Disconnected from game due to inactivity over the maximum turn time.");
+		System.out.println("Please restart client if you want to play another game");
 		System.exit(0);
 	
 	}

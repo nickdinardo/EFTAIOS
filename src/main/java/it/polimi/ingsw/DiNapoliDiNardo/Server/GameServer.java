@@ -28,7 +28,6 @@ import java.util.Timer;
 
 public class GameServer {
 	int gameId;
-	int totalplayers;
 	List<String> connectionsClosed = new ArrayList<String>();
 	Map<String, String> playersInGame; 
 	Map<String, Handler> handlers;
@@ -43,7 +42,7 @@ public class GameServer {
 	String alienlosers = "";
 	private Timer turntimer;
 	private static final int FINALTURN = 39;
-	private static final int TURNTIME = 20*1000;
+	private static final int TURNTIME = 3*60*1000;
 	
 	
 	
@@ -594,10 +593,9 @@ public class GameServer {
 	}
 	
 	
-	public GameServer (int id, int t, Map<String, String> pc, Map<String, Handler> hand){
+	public GameServer (int id, Map<String, String> pc, Map<String, Handler> hand){
 		
 		this.gameId = id;
-		this.totalplayers = t;
 		this.playersInGame = pc;
 		this.handlers = hand;
 	}

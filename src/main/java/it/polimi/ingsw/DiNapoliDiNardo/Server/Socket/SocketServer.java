@@ -66,33 +66,52 @@ public class SocketServer extends Thread{
 	
 	
 	public void askForNames() throws IOException{
-		for (SocketHandler sh : sockethandlers){
-			Set<String> namesSet = headserver.getPlayersconnected().keySet();
-			List<String> ingamenames = new ArrayList<String>();
-			for (String str : namesSet)
-				ingamenames.add(str);
+		
+		Runnable task = new Runnable() {
 			
-			try{
-			String name = sh.askName(ingamenames, false);
-			
-			//if player input a name that already exists, update the names in game and ask again
-			while ("namenotvalid1765".equals(name)){
-				namesSet = headserver.getPlayersconnected().keySet();
-				ingamenames = new ArrayList<String>();
-				for (String str : namesSet)
-					ingamenames.add(str);
-				name = sh.askName(ingamenames, true);
+			@Override
+			public void run(){
+				
+				for (SocketHandler sh : sockethandlers){
+					Set<String> namesSet = headserver.getPlayersconnected().keySet();
+					List<String> ingamenames = new ArrayList<String>();
+					for (String str : namesSet)
+						ingamenames.add(str);
+					
+					try{
+						String name = sh.askName(ingamenames, false);
+						
+						//if player input a name that already exists, update the names in game and ask again
+						while ("namenotvalid1765".equals(name)){
+							namesSet = headserver.getPlayersconnected().keySet();
+							ingamenames = new ArrayList<String>();
+							for (String str : namesSet)
+								ingamenames.add(str);
+							name = sh.askName(ingamenames, true);
+						}
+						if(!headserver.isNameCompletionElapsed()){
+							headserver.putPlayerconnected(name,"Socket");
+							headserver.putSockethandlers(name, sh);
+							headserver.putInHandlers(name, sh);
+						}
+						else{
+							sh.notifyMessage("Server has threw out your connection because you entered your name with too much delay."); 
+							sh.notifyMessage("Try to reconnect to another game, and please remember to insert your name in a reasonable time.");
+							return;
+						}
+					}
+					catch (IOException e){
+						//if connection fall during initialization of the game, remove the "wait" for this player and removes him
+						headserver.decreaseTotalPlayers();
+						return;
+					}
+				}
+		
 			}
-			headserver.putPlayerconnected(name,"Socket");
-			headserver.putSockethandlers(name, sh);
-			headserver.putInHandlers(name, sh);
-			}
-			catch (IOException e){
-				//if connection fall during initialization of the game, remove the "wait" for this player and removes him
-				headserver.decreaseTotalPlayers();
-				return;
-			}
-		}
+		
+		};
+		new Thread(task, "ServiceThread").start(); 
+	
 	}
 		
 

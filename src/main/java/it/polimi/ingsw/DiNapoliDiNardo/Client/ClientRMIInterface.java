@@ -42,15 +42,17 @@ public class ClientRMIInterface implements NetworkInterface {
 			handler = (RemoteHandler) registry.lookup(handlername);
 			
 		} catch (AccessException e) {
+			out.println("AccessException");
 			return false;
 		} catch (RemoteException e) {
+			out.println("RemoteException");
 			return false;
 		} catch (NotBoundException e) {
 			out.println("Remote initializers not more avaible. Server is not accepting further players connections because game "+gamesStarted+" has already started.");
 			out.println("Trying to connect to following game...");
 			if (gamesStarted<MAXSERVERGAMES){
 				gamesStarted++;
-				//recursively call connect method looking on the following server ports
+				//recursively call connect method looking on the following server ports till a certain number of games
 				return connect();
 			}
 			else
@@ -72,48 +74,54 @@ public class ClientRMIInterface implements NetworkInterface {
 		if(!handler.isStarted()){
 			
 			handler.increaseRMINumPlayers();
-			//open the clientport skipping 8 ports for every game started (in case they are already in use in local for others games)
+			//open the client port skipping 8 ports for every game started (in case they are already in use in local for others games)
 			this.clientport = 3030+handler.getRMINumPlayers()+(8*gamesStarted);
-			name = view.askName(false);
 			
+			name = view.askName(false);
 			List<String> names = handler.getNamesInGame();
+			//if name is already taken for this game ask again to avoid confusion in the game
 			while (names.contains(name) || "".equals(name)){
-				
 				names = handler.getNamesInGame();
 				name = view.askName(true);
 			}
-				
-			handler.addPlayer(name);
-		
+			
+			if(!handler.isNameCompletionElapsed()){
+				handler.addPlayer(name);
 			
 			
-			//Starting RMI client registry
-			Registry myregistry = null;
-			String notName = "Notifier";			
-			try {
-			//Binding the notifier
-			    myregistry = LocateRegistry.createRegistry(clientport);  
-			    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName);
-			    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);    
-			    myregistry.bind(notName, stub);
-			    } catch (Exception exc) {
-			    	out.println("RMI exception while exporting object");
-			    	myregistry = null;
-			    	}
 				
-			//Register on server and set the notifier on the server
-			String clientName = "Client";
-			try {
-				((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
-			} catch (AccessException e) {
-				out.println("AccessException");
+				//Starting RMI client registry
+				Registry myregistry = null;
+				String notName = "Notifier";			
+				try {
+				//Binding the notifier
+				    myregistry = LocateRegistry.createRegistry(clientport);  
+				    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName);
+				    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);    
+				    myregistry.bind(notName, stub);
+				    } catch (Exception exc) {
+				    	out.println("RMI exception while exporting object");
+				    	myregistry = null;
+				    	}
 					
-			} catch (RemoteException e) {
-				out.println("RemoteException");
-					
-			} catch (NotBoundException e) {
+				//Register on server and set the notifier on the server
+				String clientName = "Client";
+				try {
+					((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
+				} catch (AccessException e) {
+					out.println("AccessException");
+						
+				} catch (RemoteException e) {
+					out.println("RemoteException");
+						
+				} catch (NotBoundException e) {
+					out.println("Server has threw out your connection because you entered your name with too much delay."); 
+					out.println("Try to reconnect to another game, and please remember to insert your name in a reasonable time."); 
+				}
+			}
+			else{
 				out.println("Server has threw out your connection because you entered your name with too much delay."); 
-				out.println("Try to reconnect to another game, and please remember to insert your name in a reasonable time."); 
+				out.println("Try to reconnect to another game, and please remember to insert your name in a reasonable time.");
 			}
 		}	
 		else {

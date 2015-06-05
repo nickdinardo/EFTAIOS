@@ -17,7 +17,9 @@ public class TextView extends View{
 	public String askName (boolean reask){
 		if(!reask){
 			out.println("Connected to the server game. What's your name?");
-			return in.nextLine();
+			String name = in.nextLine();
+			out.println("Please wait for other players initialization, game is loading...");
+			return name;
 		}
 		else{
 			out.println("The name you chose is already taken for this game, or is empty. Please insert another name");

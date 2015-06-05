@@ -54,6 +54,11 @@ public class RmiHandlerObject implements RemoteHandler {
 		return headserver.isStarted();
 	}
 	
+	@Override
+	public boolean isNameCompletionElapsed(){
+		return headserver.isNameCompletionElapsed();
+	}
+	
 	//constructor
 	public RmiHandlerObject(Server server){
 		this.headserver = server;
