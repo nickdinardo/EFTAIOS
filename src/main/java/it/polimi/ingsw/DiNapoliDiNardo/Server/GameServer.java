@@ -465,12 +465,6 @@ public class GameServer {
 		
 	}
 	
-	public void disconnectRmi (String playername) throws RemoteException {
-		
-			throw new RemoteException();
-		
-	}
-	
 	
 	public void manageDisconnection(String playername) throws RemoteException{
 		connectionsClosed.add(playername);
