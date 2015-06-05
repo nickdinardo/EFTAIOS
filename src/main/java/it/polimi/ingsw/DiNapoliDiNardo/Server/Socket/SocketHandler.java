@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 
+
 public class SocketHandler implements Handler, Runnable {
 	private Socket socket;
 	private PrintWriter out;
@@ -21,18 +22,10 @@ public class SocketHandler implements Handler, Runnable {
 	ObjectOutputStream outObj; 
     ObjectInputStream inObj;
 	private String name = "undefined357";
+	
 
-
-	public SocketHandler(Socket socket) {
-		super();
-		this.socket = socket;
-		
-	}
-
-	public Socket getSocket() {
-		return socket;
-	}
-
+	
+	
 	@Override
 	public void run() {
 		try{
@@ -45,6 +38,25 @@ public class SocketHandler implements Handler, Runnable {
 		}
 	}
 
+	
+	
+	@Override
+	public void closeConnections() {
+		
+		out.close();
+		try {
+			in.close();
+			outObj.close();
+			inObj.close();
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+		
 	
 	public String askName(List<String> names, boolean reask) throws IOException{
 		if(!reask){
@@ -163,6 +175,8 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=results&action="+name+";"+humanlosers+";"+humanwinners+";"+alienwinners+";"+alienlosers+";"+"n;");
 	}
 	
+	
+	//getters and setters
 	@Override
 	public String getName() {
 		return this.name;
@@ -174,20 +188,18 @@ public class SocketHandler implements Handler, Runnable {
 		this.name = name;
 	}
 	
-
-	public String getShName(){
-		return this.name;
+	public Socket getSocket() {
+		return socket;
 	}
+
 	
-	
-	public void close() throws IOException{
+	//constructor
+	public SocketHandler(Socket socket) {
+		super();
+		this.socket = socket;
 		
-		in.close();
-		out.close();
-		socket.close();
 	}
 
 	
-
 
 }

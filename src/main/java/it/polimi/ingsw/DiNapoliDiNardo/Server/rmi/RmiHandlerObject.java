@@ -50,11 +50,6 @@ public class RmiHandlerObject implements RemoteHandler {
 	}
 	
 	@Override
-	public void manageDisconnection(String name) throws RemoteException {
-		headserver.getGameServer().manageDisconnection(name);
-	}
-	
-	@Override
 	public boolean isStarted(){
 		return headserver.isStarted();
 	}

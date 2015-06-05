@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class ClientSocketInterface implements NetworkInterface {
 
+	private PrintStream console = System.out;
 	private Socket s;
 	private View view;
 	private PrintWriter out;
@@ -34,10 +36,10 @@ public class ClientSocketInterface implements NetworkInterface {
 		try {
 			s = new Socket("127.0.0.1", 8888);
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			console.println("At this remote address there's actually no game server.");
 			return false;
 		} catch (IOException e) {
-			System.out.println("Remote initializers not more avaible. Server is not accepting further players connections.");
+			console.println("Remote initializers not more avaible. Server is not accepting further players connections.");
 			return false;
 		}
 		
@@ -45,7 +47,6 @@ public class ClientSocketInterface implements NetworkInterface {
 			outObj = new ObjectOutputStream(s.getOutputStream());
 			out = new PrintWriter(s.getOutputStream(), true);
 		} catch (IOException e) {			
-			e.printStackTrace();
 			s.close();
 			return false;
 		}
@@ -53,7 +54,6 @@ public class ClientSocketInterface implements NetworkInterface {
 			inObj = new ObjectInputStream(s.getInputStream());
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		} catch (IOException e) {			
-			e.printStackTrace();
 			out.close();
 			s.close();
 			return false;
@@ -81,7 +81,8 @@ public class ClientSocketInterface implements NetworkInterface {
 					
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			console.println("Failed to reach server. You may have disconnected due to inactivity over the maximum turn time."); 
+			console.println("Please restart client if you want to play another game");
 		}
 	}
 	

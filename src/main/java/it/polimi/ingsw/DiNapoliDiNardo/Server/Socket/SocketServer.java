@@ -88,7 +88,7 @@ public class SocketServer extends Thread{
 			headserver.putInHandlers(name, sh);
 			}
 			catch (IOException e){
-				//to check adding a list of closed connections before game starts to manage when game starts
+				//if connection fall during initialization of the game, remove the "wait" for this player and removes him
 				headserver.decreaseTotalPlayers();
 				return;
 			}
@@ -105,7 +105,7 @@ public class SocketServer extends Thread{
 		if(listening){
 			listening = false;
 			for(SocketHandler sh : sockethandlers)
-				sh.close();			
+				sh.closeConnections();			
 			
 			serversocket.close();
 			status = "Closed.";

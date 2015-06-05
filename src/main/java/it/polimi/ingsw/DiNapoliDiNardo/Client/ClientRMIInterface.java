@@ -35,17 +35,15 @@ public class ClientRMIInterface implements NetworkInterface {
 		try {
 			registry = LocateRegistry.getRegistry(2020+gamesStarted);
 		} catch (RemoteException e) {			
-			e.printStackTrace();
+			out.println("Failed to reach RMI registry");
 			return false;
 		}
         try {
 			handler = (RemoteHandler) registry.lookup(handlername);
 			
 		} catch (AccessException e) {
-			e.printStackTrace();
 			return false;
 		} catch (RemoteException e) {
-			e.printStackTrace();
 			return false;
 		} catch (NotBoundException e) {
 			out.println("Remote initializers not more avaible. Server is not accepting further players connections because game "+gamesStarted+" has already started.");
@@ -95,12 +93,11 @@ public class ClientRMIInterface implements NetworkInterface {
 			try {
 			//Binding the notifier
 			    myregistry = LocateRegistry.createRegistry(clientport);  
-			    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName, handler);
+			    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName);
 			    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);    
 			    myregistry.bind(notName, stub);
 			    } catch (Exception exc) {
-			    	System.err.println("RMI exception:");
-			    	exc.printStackTrace();
+			    	out.println("RMI exception while exporting object");
 			    	myregistry = null;
 			    	}
 				
@@ -109,10 +106,10 @@ public class ClientRMIInterface implements NetworkInterface {
 			try {
 				((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
 			} catch (AccessException e) {
-				e.printStackTrace();
+				out.println("AccessException");
 					
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				out.println("RemoteException");
 					
 			} catch (NotBoundException e) {
 				out.println("Server has threw out your connection because you entered your name with too much delay."); 

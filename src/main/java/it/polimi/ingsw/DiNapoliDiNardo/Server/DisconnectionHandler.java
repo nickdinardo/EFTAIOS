@@ -1,24 +1,23 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.TimerTask;
 
 public class DisconnectionHandler extends TimerTask {
 	Handler handler;
-	String playername;
 	
-	public DisconnectionHandler(Handler hnd, String name){
+	
+	public DisconnectionHandler(Handler hnd){
 		this.handler = hnd;
-		this.playername = name;
 	}
 	
 		public void run(){
 			try {
 				handler.closeConnections();
 				
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IOException e) {
+				//exception of this handler is already managed in the main GameServer Thread
+				//so there's no need to manage the return exception in this Timer Thread, that will be closed immediately
 			}
 		}
     

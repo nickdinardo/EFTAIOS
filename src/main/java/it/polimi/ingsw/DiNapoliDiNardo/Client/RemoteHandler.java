@@ -16,6 +16,6 @@ public interface RemoteHandler extends Remote {
 	
 	public void increaseRMINumPlayers() throws RemoteException;
 	public void addPlayer(String name) throws RemoteException;
-	public void manageDisconnection(String name)throws RemoteException;
+	
 	
 }

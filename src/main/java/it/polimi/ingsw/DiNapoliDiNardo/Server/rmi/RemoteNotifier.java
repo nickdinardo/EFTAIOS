@@ -14,8 +14,6 @@ public interface RemoteNotifier extends Remote, Handler {
 	@Override
 	public void closeConnections() throws RemoteException;
 	@Override
-	public void startTimer (long turntime) throws RemoteException;
-	@Override
 	public void setName(String name) throws RemoteException;
 	@Override
 	public String getName() throws RemoteException;

@@ -8,7 +8,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Timer;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.DisconnectionHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
@@ -19,38 +18,30 @@ public class Notifier implements RemoteNotifier, Handler {
 	private View view;
 	private String name;
 	private String remoteName;
-	private RemoteHandler serverhandler;
 	Registry myregistry;
 	Timer turntimer;
 	
 	
-		public Notifier(String n, View v, Registry r, String rmn, RemoteHandler srvh){
+		public Notifier(String n, View v, Registry r, String rmn){
 		this.view = v;
 		this.name = n;
 		this.myregistry = r;
 		this.remoteName = rmn;
-		this.serverhandler = srvh;
 	}
 	
 		
-	@Override	
-	public void startTimer (long turntime){
-		this.turntimer = new Timer();
-		turntimer.schedule(new DisconnectionHandler(this, name) , turntime);
-	}
 	
-	//NON VA BENE, IL METODO NON RITORNA E NON SI PASSA AL TURNO SUCCESSIVO
 	@Override
 	public void closeConnections() throws RemoteException{
 		
-		System.out.println("Time elapsed");
 		try {
 			myregistry.unbind(remoteName);
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		}
 		UnicastRemoteObject.unexportObject(this, true);
-		serverhandler.manageDisconnection(name);
+		System.exit(0);
+	
 	}
 	
 	@Override

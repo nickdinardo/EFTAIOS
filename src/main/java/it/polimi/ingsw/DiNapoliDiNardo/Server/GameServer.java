@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 
 
@@ -26,6 +27,7 @@ import java.util.Map;
 
 
 public class GameServer {
+	int gameId;
 	int totalplayers;
 	List<String> connectionsClosed = new ArrayList<String>();
 	Map<String, String> playersInGame; 
@@ -39,8 +41,9 @@ public class GameServer {
 	String humanlosers = "";
 	String alienwinners = "";
 	String alienlosers = "";
+	private Timer turntimer;
 	private static final int FINALTURN = 39;
-	private static final int TURNTIME = 10*1000;
+	private static final int TURNTIME = 20*1000;
 	
 	
 	
@@ -78,7 +81,9 @@ public class GameServer {
 		
 		}
 		catch (IOException e){
-			System.out.println("Apparently we lost connection with all the players. Closing game.");
+			//if the exception reaches this try/catch level without have being managed before, it means all the players disconnected
+			System.out.println("Apparently we lost connection with all the players of game "+ gameId +".");
+			System.out.println("Closing game "+ gameId +".");
 			return;
 		}
 	}	
@@ -200,7 +205,7 @@ public class GameServer {
 		
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			Player player = gamestate.givemePlayerByName(entry.getKey());
-			//notify game messages only to in-game players (not dead, not escaped)
+			//notify game messages only to in-game players (not dead, not escaped, not removed due to connection problems)
 			if (player.isAlive() && !connectionsClosed.contains(entry.getKey())){
 				try{
 					if (player instanceof HumanPlayer){
@@ -268,6 +273,7 @@ public class GameServer {
 		}
 		if (!"DefenseCard".equals(cardname) && !"AttackCard".equals(cardname))	
 			notifyMessageToAll(playername+" has used one "+cardname);
+		
 		//every other card, getting their "usemessage"
 		handlers.get(playername).notifyMessage(usemessage);
 	}
@@ -276,6 +282,7 @@ public class GameServer {
 	
 	
 	private void createPlayersInGame(Map<String, String> playersconnected) {
+		
 		List<String> keys = new ArrayList<String>(playersconnected.keySet());
 		//randomly sort the players and then assign aliens and humans on turns starting from the aliens
 		Collections.shuffle(keys);
@@ -438,18 +445,20 @@ public class GameServer {
 	        	        
 	    	try {
 	    		if (!connectionsClosed.contains(playername))
-	    		handlers.get(playername).startTimer(TURNTIME);
+	    		
 	    		
 				if(gamestate.givemePlayerByName(playername).isAlive() && !connectionsClosed.contains(playername)){
-								
+					//ask player for turn activating and then stopping the timer of his max time
+					startTurnTimer(TURNTIME, handlers.get(playername));			
 					if(gamestate.givemePlayerByName(playername) instanceof AlienPlayer)
 						askForAlienTurn(playername);
 						
 					else if (gamestate.givemePlayerByName(playername) instanceof HumanPlayer)
 						askForHumanTurn(playername);
-			}
+					stopTurnTimer();
+				}
 	    	} catch (IOException e) {
-	    		manageDisconnection(entry.getKey());
+	    		manageDisconnection(playername);
 			}
 	        gamestate.removeInTurnBonus();
 	    }
@@ -457,16 +466,10 @@ public class GameServer {
 		
 	}
 	
-	
-	//DA TOGLIERE NON FUNZIONA COME PENSAVO
-	public void verifyRmiOff (String playername) throws RemoteException{
-		//if player is RMI and disconnected reaching his notifier will throw the exception
-		try {
-			handlers.get(playername).notifyMessage("Trying to reach");
-		} catch (RemoteException e) {
-			System.out.println("Turn time of "+playername+" has elapsed. Disconnecting him.");
-			manageDisconnection(playername);		
-		}
+	public void disconnectRmi (String playername) throws RemoteException {
+		
+			throw new RemoteException();
+		
 	}
 	
 	
@@ -579,9 +582,21 @@ public class GameServer {
 		
 	}
 	
+	public void startTurnTimer (long turntime, Handler handler){
+		this.turntimer = new Timer();
+		turntimer.schedule(new DisconnectionHandler(handler) , turntime);
+	}
 	
-	public GameServer (int t, Map<String, String> pc, Map<String, Handler> hand){
+	
+	public void stopTurnTimer(){
+		this.turntimer.cancel();	
+		this.turntimer.purge();	
+	}
+	
+	
+	public GameServer (int id, int t, Map<String, String> pc, Map<String, Handler> hand){
 		
+		this.gameId = id;
 		this.totalplayers = t;
 		this.playersInGame = pc;
 		this.handlers = hand;
