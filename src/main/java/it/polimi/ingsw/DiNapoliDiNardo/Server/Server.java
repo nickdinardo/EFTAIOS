@@ -10,7 +10,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.ClientRegisterer;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -54,20 +53,13 @@ public class Server implements Runnable {
 	
 	@Override
 	public void run() {
-		try {
-			this.openconnections();
-		} catch (IOException e) {
-			out.println("IOException");
-		} catch (NotBoundException e) {
-			out.println("NotBoundException");
-		} catch (ClassNotFoundException e) {
-			out.println("ClassNotFoundException");
-		}
+		this.openconnections();
+		
 	}
 	
 	
 	
-	public void openconnections() throws IOException, NotBoundException, ClassNotFoundException{
+	public void openconnections(){
 			
 		//Starting RMI server and binding handler and remotecallableclient
 		try {           
@@ -92,13 +84,17 @@ public class Server implements Runnable {
 		this.startgame();
 		
 		
-		socketserver.endListening();
+		try {
+			socketserver.endListening();
+		} catch (IOException e) {
+			out.println("Couldn't close socket server at the end of the game");
+		}
 		
 		
 	}
 	
 	
-	public void collectplayers() throws IOException, NotBoundException{		
+	public void collectplayers(){		
 		//Waiting here at least 2 players
 		String toAvoidChurning ="";
 		while (totalplayers<MINPLAYERS){
@@ -125,7 +121,11 @@ public class Server implements Runnable {
 				break;
 			}
 		}
-		this.stopAcceptingOthersPlayers();
+		try {
+			this.stopAcceptingOthersPlayers();
+		} catch (IOException e) {
+			out.println("Socket server has remained listening");
+		}
 		isStarted = true;
 		toAvoidChurning = "Starting game, waiting for all the players to input their names...";
 		out.println(toAvoidChurning);
@@ -135,7 +135,7 @@ public class Server implements Runnable {
 	
 	
 	
-	public void startgame() throws IOException, NotBoundException, ClassNotFoundException{
+	public void startgame() {
 			//asking names and waiting them from socket players
 			socketserver.askForNames();
 			
@@ -158,13 +158,23 @@ public class Server implements Runnable {
 			//when all players have registered their name we can unbind the remote objects 
 			//to avoid further rmi connections to this game
 			if(registry != null){
-				registry.unbind(name);
-				registry.unbind(clientName);
+				try {
+					registry.unbind(name);
+					registry.unbind(clientName);
+				} catch (Exception e) {
+					out.println("Error unbinding the remote objects callable server and clientregisterer: maybe are already unbound");
+				}
+				
 			}
 			
 			//then start the game
 			GameController gamecontroller = new GameController(gameId, playersconnected, handlers);
-			gamecontroller.rungame();
+			try {
+				gamecontroller.rungame();
+			} catch (Exception e) {
+				out.println("Unable to start the game controller");
+				return;
+			}
 			
 	}		
 		

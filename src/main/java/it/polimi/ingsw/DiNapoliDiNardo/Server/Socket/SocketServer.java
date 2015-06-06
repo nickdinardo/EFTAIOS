@@ -3,6 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class SocketServer extends Thread{
 	private String status; 
 	private List<SocketHandler> sockethandlers;
 	private Server headserver;
+	private PrintStream out = System.out;
 	private static final int MAXPLAYERS = 8;
 	
 	@Override
@@ -30,7 +32,7 @@ public class SocketServer extends Thread{
 		try {
 			this.startListening();
 		} catch (IOException e) {
-			e.printStackTrace();
+			out.println("Error while listening to new socket connections");
 		}
 	}
 	
@@ -44,28 +46,24 @@ public class SocketServer extends Thread{
 			listening = true;
 			
 			while(listening){
-				try{
-					while(headserver.getTotalPlayers()<MAXPLAYERS){
+				while(headserver.getTotalPlayers()<MAXPLAYERS){
 						
-						Socket s = serversocket.accept();
-						headserver.increaseTotalPlayers();
-						SocketHandler sockethandler = new SocketHandler(s);
-						sockethandlers.add(sockethandler);
-						executor.submit(sockethandler);
+					Socket s = serversocket.accept();
+					headserver.increaseTotalPlayers();
+					SocketHandler sockethandler = new SocketHandler(s);
+					sockethandlers.add(sockethandler);
+					executor.submit(sockethandler);
 						
 						
-					}
-					listening=false;
-					
-				} catch (IOException ex){ 
-				//ex.printStackTrace();
 				}
+				listening = false;
+					
 			}
 		}
 	}
 	
 	
-	public void askForNames() throws IOException{
+	public void askForNames(){
 		
 		Runnable task = new Runnable() {
 			

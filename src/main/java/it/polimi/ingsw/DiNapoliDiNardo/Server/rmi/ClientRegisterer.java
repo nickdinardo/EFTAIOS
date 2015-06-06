@@ -4,6 +4,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,20 +20,14 @@ public class ClientRegisterer implements RemoteClientRegisterer {
 	
 	
 	@Override
-	public void setClientInServer(String name, int port) throws RemoteException {
+	public void setClientInServer(String name, int port) throws RemoteException, NotBoundException {
 		Registry registry;
-		try {
-			//Locate the registry and get the remote RMIhandler, registering it on the server
-			registry = LocateRegistry.getRegistry(port);
-			RemoteRMIHandler rn = (RemoteRMIHandler)registry.lookup("Notifier");
+		//Locate the registry and get the remote RMIhandler, registering it on the server
+		registry = LocateRegistry.getRegistry(port);
+		RemoteRMIHandler rn = (RemoteRMIHandler)registry.lookup("Notifier");
 			
-			headserver.putNotifiers(name, rn);
-			headserver.putInHandlers(name, rn);
+		headserver.putNotifiers(name, rn);
+		headserver.putInHandlers(name, rn);
 			
-			
-		
-		} catch (Exception ex){
-			ex.printStackTrace();
-		}
 	}
 }	
