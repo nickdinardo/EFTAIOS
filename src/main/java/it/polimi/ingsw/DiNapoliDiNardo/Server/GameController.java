@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Timer;
 
 
-//vediamo se risolviamo sto cazzo di errore di Git
+//avrà fatto sto benedetto merge?
 public class GameController {
 	int gameId;
 	List<String> connectionsClosed = new ArrayList<String>();
