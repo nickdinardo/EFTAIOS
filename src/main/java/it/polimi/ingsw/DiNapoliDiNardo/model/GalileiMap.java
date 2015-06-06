@@ -4,29 +4,33 @@ import java.util.List;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.*;
 
-public class GalileiMap {
+public class GalileiMap extends Map{
 	private Box[][] map;
 	private Box humanStartBox;
 	private Box alienStartBox;
 	
-		
+	
+	@Override
 	public Box[][] getMap() {
 		return map;
 	}
 
+	@Override
 	public void setMap(Box[][] map) {
 		this.map = map;
 	}
 	
+	@Override
 	public Box getHumanStartBox() {
 		return humanStartBox;
 	}
 
+	@Override
 	public Box getAlienStartBox() {
 		return alienStartBox;
 	}
 	
-	
+	@Override
 	public List<Box> givemeAroundBoxes (Box center){
 		List<Box> aroundBoxes = new ArrayList<Box>();
 		//corners box, to be treated differently in order to avoid IndexOutofBorder

@@ -6,7 +6,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public interface RemoteHandler extends Remote {
+public interface RemoteCallableServer extends Remote {
 	
 	public List<String> getNamesInGame() throws RemoteException;
 	public int getTotalPlayers()  throws RemoteException;

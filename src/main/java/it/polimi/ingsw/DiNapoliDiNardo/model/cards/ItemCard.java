@@ -10,6 +10,10 @@ public abstract class ItemCard extends Card{
 		return "ItemCard";
 	}
 	
+	public boolean isActivable(){
+		return true;
+	}
+	
 	public abstract String getUseMessage();
 		
 	public void doAction(HumanPlayer player){}

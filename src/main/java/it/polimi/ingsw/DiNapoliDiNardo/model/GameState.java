@@ -1,8 +1,9 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.LifeboatBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Wall;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.GameServer;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.GameController;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.AttackCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.Card;
@@ -20,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
-	GameServer gameserver;
-	GalileiMap galilei;
+	GameController gamecontroller;
+	Map map;
 	SectorDeck sectordeck;
 	ItemDeck itemdeck;
 	LifeboatDeck lifeboatdeck;
@@ -31,22 +32,40 @@ public class GameState {
 	List< String > losers = new ArrayList< String >();
 	
 	//constructor
-	public GameState(GameServer gs){
-		this.galilei = new GalileiMap();
+	public GameState(GameController gs){
+		this.map = new GalileiMap();
 		this.sectordeck = new SectorDeck();
 		this.itemdeck = new ItemDeck();
 		this.lifeboatdeck = new LifeboatDeck();
-		this.gameserver = gs;
+		this.gamecontroller = gs;
 	}
 	
 		
 		
 	public boolean updatePlayerPosition (String name, Coordinates coord){
-		boolean acceptable;
+		
+		Box destination = this.map.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
 		Player player = givemePlayerByName(name);
-		Box destination = this.galilei.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
-		if(player.movement(destination, player.getPosition()))
+		if (destination instanceof LifeboatBox && player instanceof AlienPlayer)
+			return false;
+		
+		boolean acceptable;
+		
+		
+		List<Box> reachables = new ArrayList<Box>();
+		int range = player.getMoveRange();
+		if(player.isAdrenalized())
+			range++;
+		if(player.isHumanFed())
+			range++;
+		
+		reachables = map.reachableBoxes(player.getPosition(), range);
+		if(reachables.contains(destination)){
+			player.position.unsetPlayer(player);
+			player.position = destination;
+			player.position.setPlayer(player);
 			acceptable = true;
+		}
 		else
 			acceptable = false;
 		return acceptable;
@@ -60,7 +79,7 @@ public class GameState {
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
-			gameserver.cardsMessages(name, item.getName(), item.getUseMessage());
+			gamecontroller.cardsMessages(name, item.getName(), item.getUseMessage());
 			//cards that require special treatment
 			if (item instanceof LightsCard)
 				lightsManagement(player);
@@ -91,14 +110,14 @@ public class GameState {
 		Box lightfocus;
 		boolean reask = false;
 		do{
-			Coordinates coordinates = gameserver.askForLights(player.getName(), reask);
+			Coordinates coordinates = gamecontroller.askForLights(player.getName(), reask);
 			reask = true;
-			lightfocus = this.galilei.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];	
+			lightfocus = this.map.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];	
 		}while(lightfocus instanceof Wall);
 			
 		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
-		List<Box> toCheck = this.galilei.givemeAroundBoxes(lightfocus);
-		List<Box> enlighted = player.checkBoxes(toCheck, lightfocus);
+		List<Box> toCheck = this.map.givemeAroundBoxes(lightfocus);
+		List<Box> enlighted = this.map.checkOneStepBoxes(toCheck, lightfocus);
 		enlighted.add(lightfocus);
 		
 		
@@ -116,7 +135,7 @@ public class GameState {
 			if (number.length() == 1)
 				number = "0"+ box.getCoordY();
 			lightposition += number;
-			gameserver.showLights(player.getName(), lightposition, playersinbox);
+			gamecontroller.showLights(player.getName(), lightposition, playersinbox);
 		}
 	}
 	
@@ -141,20 +160,20 @@ public class GameState {
 					killedPlayer.setKiller(player.getName());
 					player.getPosition().unsetPlayer(killedPlayer);
 					if(killedPlayer.isLosesIfKilledType()){
-						gameserver.decreaseHumansAndCheck(killedPlayer);
+						gamecontroller.decreaseHumansAndCheck(killedPlayer);
 						losers.add(killedPlayer.getName());
 					}
 					if(killedPlayer.isLosesIfKilledType() && player instanceof AlienPlayer){
 						AlienPlayer alien = (AlienPlayer)player;
 						alien.setHumanfed(true);
 					}
-					gameserver.sayByeToLosers(killedPlayer.getName(), player.getName());
-					gameserver.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
+					gamecontroller.sayByeToLosers(killedPlayer.getName(), player.getName());
+					gamecontroller.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
 				else{
 					killedPlayer.getPersonalDeck().remove(toRemoveDefCard);
 					itemdeck.getDiscards().add(toRemoveDefCard);
-					gameserver.notifyMessageToAll(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
+					gamecontroller.notifyMessageToAll(killedPlayer.getName()+" saved himself from the attack activating his Defense Card!");
 			    }
 			}
 		} 
@@ -165,9 +184,9 @@ public class GameState {
 		
 	}
 	
+		
 	
-	
-	public boolean escapeManagement(HumanPlayer player){
+	public boolean escapeManagement(Player player){
 		
 		boolean escaped = false;
 		//check if the box is a lifeboat and a working one
@@ -224,8 +243,8 @@ public class GameState {
 	public LifeboatDeck getLifeboatdeck() {
 		return lifeboatdeck;
 	}
-	public GalileiMap getGalilei() {
-		return galilei;
+	public Map getMap() {
+		return map;
 	}
 
 	public List<Player> getInGamePlayers() {

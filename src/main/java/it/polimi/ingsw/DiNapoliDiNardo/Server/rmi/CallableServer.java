@@ -1,19 +1,14 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteHandler;
+import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteCallableServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
-
-
-
-
-
-
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RmiHandlerObject implements RemoteHandler {
+
+public class CallableServer implements RemoteCallableServer {
 	Server headserver;
 	
 	boolean finish = false;
@@ -60,7 +55,7 @@ public class RmiHandlerObject implements RemoteHandler {
 	}
 	
 	//constructor
-	public RmiHandlerObject(Server server){
+	public CallableServer(Server server){
 		this.headserver = server;
 	}
 	//getters and setters

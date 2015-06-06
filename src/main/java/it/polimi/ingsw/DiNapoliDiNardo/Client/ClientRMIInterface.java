@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class ClientRMIInterface implements NetworkInterface {
 
 	private static final int MAXSERVERGAMES = 1000;
-	private RemoteHandler handler;
+	private RemoteCallableServer serverhandler;
 	private PrintStream out = System.out;
 	private View view;
 	private String name = "";
@@ -39,7 +39,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			return false;
 		}
         try {
-			handler = (RemoteHandler) registry.lookup(handlername);
+			serverhandler = (RemoteCallableServer) registry.lookup(handlername);
 			
 		} catch (AccessException e) {
 			out.println("AccessException");
@@ -71,22 +71,22 @@ public class ClientRMIInterface implements NetworkInterface {
 		
 		//check if the game as already started, to avoid to connect while 
 		//some rmi players keep the registry on without inputting their names
-		if(!handler.isStarted()){
+		if(!serverhandler.isStarted()){
 			
-			handler.increaseRMINumPlayers();
+			serverhandler.increaseRMINumPlayers();
 			//open the client port skipping 8 ports for every game started (in case they are already in use in local for others games)
-			this.clientport = 3030+handler.getRMINumPlayers()+(8*gamesStarted);
+			this.clientport = 3030+serverhandler.getRMINumPlayers()+(8*gamesStarted);
 			
 			name = view.askName(false);
-			List<String> names = handler.getNamesInGame();
+			List<String> names = serverhandler.getNamesInGame();
 			//if name is already taken for this game ask again to avoid confusion in the game
 			while (names.contains(name) || "".equals(name)){
-				names = handler.getNamesInGame();
+				names = serverhandler.getNamesInGame();
 				name = view.askName(true);
 			}
 			
-			if(!handler.isNameCompletionElapsed()){
-				handler.addPlayer(name);
+			if(!serverhandler.isNameCompletionElapsed()){
+				serverhandler.addPlayer(name);
 			
 			
 				
@@ -96,8 +96,8 @@ public class ClientRMIInterface implements NetworkInterface {
 				try {
 				//Binding the notifier
 				    myregistry = LocateRegistry.createRegistry(clientport);  
-				    RemoteNotifier notifier = new Notifier(name, view, myregistry, notName);
-				    RemoteNotifier stub = (RemoteNotifier) UnicastRemoteObject.exportObject(notifier, 0);    
+				    RemoteRMIHandler notifier = new RMIHandler(name, view, myregistry, notName);
+				    RemoteRMIHandler stub = (RemoteRMIHandler) UnicastRemoteObject.exportObject(notifier, 0);    
 				    myregistry.bind(notName, stub);
 				    } catch (Exception exc) {
 				    	out.println("RMI exception while exporting object");

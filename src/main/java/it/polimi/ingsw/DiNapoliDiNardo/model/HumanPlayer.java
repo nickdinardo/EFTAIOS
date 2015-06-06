@@ -1,6 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model;
 
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+
 
 
 public class HumanPlayer extends Player{
@@ -9,10 +9,11 @@ public class HumanPlayer extends Player{
 	private boolean sedated = false;
 	private boolean escaped = false;
 	protected boolean losesIfKilledType = true;
+	private int moverange = 1;
 	
 	
 	//constructor
- 	public HumanPlayer(GalileiMap galilei, GameState gs, String name){
+ 	public HumanPlayer(Map galilei, GameState gs, String name){
 		this.gamestate = gs;
 		this.name = name;
 		this.setPosition(galilei.getHumanStartBox());
@@ -20,71 +21,57 @@ public class HumanPlayer extends Player{
 		
 	}
 	
-	@Override
-	public boolean movement (Box destination, Box position){
-		
-		
-		if (adrenalized){
-			if(isValidDoubleMovement(destination, position)){
-				this.position.unsetPlayer(this);
-				this.position = destination;
-				this.position.setPlayer(this);
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else {
-			if(isValidSingleMovement(destination, position)){
-				this.position.unsetPlayer(this);
-				this.position=destination;
-				this.position.setPlayer(this);
-				return true;	
-			}
-			else{
-				return false;
-			}
-		}
-	}
-		
+	
+	
 	@Override
 	public void teleport(){
 		this.position.unsetPlayer(this);
-		this.setPosition(gamestate.getGalilei().getHumanStartBox());
+		this.setPosition(gamestate.getMap().getHumanStartBox());
 		this.position.setPlayer(this);
 		
 	}
 	
 	
 	//getters and setters
+	
+	@Override
 	public boolean isAdrenalized() {
 		return adrenalized;
 	}
-
-	public void setAdrenalized(boolean adrenalized) {
-		this.adrenalized = adrenalized;
-	}
-
-	public boolean isSedated() {
-		return sedated;
-	}
-
-	public void setSedated(boolean sedated) {
-		this.sedated = sedated;
-	}
+	
 	@Override
 	public boolean isEscaped() {
 		return this.escaped;
 	}
-
-	public void setEscaped(boolean escaped) {
-		this.escaped = escaped;
+	
+	@Override
+	public boolean isSedated() {
+		return this.sedated;
 	}
 	
 	@Override
 	public boolean isLosesIfKilledType() {
 		return losesIfKilledType;
 	}
+	
+	@Override
+	public int getMoveRange() {
+		return this.moverange;
+	}
+	
+	public void setAdrenalized(boolean adrenalized) {
+		this.adrenalized = adrenalized;
+	}
+
+	public void setSedated(boolean sedated) {
+		this.sedated = sedated;
+	}
+	
+	@Override
+	public void setEscaped(boolean escaped) {
+		this.escaped = escaped;
+	}
+	
+	
 	
 }

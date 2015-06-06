@@ -57,7 +57,6 @@ public class Box {
 		return true;
 	}
 	
-	
 	public boolean isLifeBoatShipHere() {
 		return this.lifeBoatShipHere;
 	}

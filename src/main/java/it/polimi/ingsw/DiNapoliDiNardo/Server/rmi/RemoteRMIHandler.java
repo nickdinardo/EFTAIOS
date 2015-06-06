@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 
 
 
-public interface RemoteNotifier extends Remote, Handler {
+public interface RemoteRMIHandler extends Remote, Handler {
 	
 	@Override
 	public void closeConnections() throws RemoteException;

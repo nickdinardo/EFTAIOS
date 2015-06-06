@@ -11,4 +11,9 @@ public class DefenseCard extends ItemCard{
 		return "You can't use a Defense Card, it will activate by itself when you'll be attacked";
 	}
 	
+	@Override
+	public boolean isActivable(){
+		return false;
+	}
+	
 }

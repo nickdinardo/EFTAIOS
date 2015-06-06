@@ -9,12 +9,12 @@ import java.util.Timer;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteNotifier;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 
 
 
-public class Notifier implements RemoteNotifier, Handler {
+public class RMIHandler implements RemoteRMIHandler, Handler {
 	private View view;
 	private String name;
 	private String remoteName;
@@ -22,7 +22,7 @@ public class Notifier implements RemoteNotifier, Handler {
 	Timer turntimer;
 	
 	
-		public Notifier(String n, View v, Registry r, String rmn){
+		public RMIHandler(String n, View v, Registry r, String rmn){
 		this.view = v;
 		this.name = n;
 		this.myregistry = r;

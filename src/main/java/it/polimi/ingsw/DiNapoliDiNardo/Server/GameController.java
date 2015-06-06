@@ -6,7 +6,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
-import it.polimi.ingsw.DiNapoliDiNardo.model.cards.DefenseCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SectorCard;
 
@@ -21,12 +20,7 @@ import java.util.Timer;
 
 
 
-
-
-
-
-
-public class GameServer {
+public class GameController {
 	int gameId;
 	List<String> connectionsClosed = new ArrayList<String>();
 	Map<String, String> playersInGame; 
@@ -119,13 +113,12 @@ public class GameServer {
 	
 	private void askForHumanTurn(String playername) throws ClassNotFoundException, IOException{
 		
-		HumanPlayer player = (HumanPlayer)gamestate.givemePlayerByName(playername);
+		Player player = gamestate.givemePlayerByName(playername);
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		int index;
 		
-		List<ItemCard> personaldeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		//ask for card use only if player has "usable" cards, not if he has the defense card
-		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
+		if (hasUsableCards(itemdeck)){
 			String objects = personalDeckListify(itemdeck);
 		
 			index = handlers.get(playername).askForItem(objects, false);
@@ -150,21 +143,32 @@ public class GameServer {
 				
 		}
 		
-		//ask for card use only if player has "usable" cards, not if he has the defense card
-		if (!personaldeck.isEmpty() && !(personaldeck.size() == 1 && personaldeck.get(0) instanceof DefenseCard)){
+		if (hasUsableCards(itemdeck)){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
+		
 	}
 	
 		
+	private boolean hasUsableCards(List<ItemCard> itemdeck){
+		boolean hasUsables = false;
+		for (ItemCard ic : itemdeck){
+			if(ic.isActivable()){
+				hasUsables = true;
+				break;
+			}
+		}
+		return hasUsables;
+	}
+	
 	
 	
 	private void askForAlienTurn(String playername) throws ClassNotFoundException, IOException{
 		
-		AlienPlayer player = (AlienPlayer)gamestate.givemePlayerByName(playername);
+		Player player = gamestate.givemePlayerByName(playername);
 		
 		askForMovement(playername);
 		
@@ -177,6 +181,7 @@ public class GameServer {
 			gamestate.attackManagement(player);
 			
 		}
+		
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
 			drawSectorCard(playername, player);
 		
@@ -289,9 +294,9 @@ public class GameServer {
 		for (String name : keys){
 			i++;
 			if (i%2 == 1)
-				gamestate.getInGamePlayers().add(new AlienPlayer(gamestate.getGalilei(), gamestate, name));
+				gamestate.getInGamePlayers().add(new AlienPlayer(gamestate.getMap(), gamestate, name));
 			else{ 
-				gamestate.getInGamePlayers().add(new HumanPlayer(gamestate.getGalilei(), gamestate, name));
+				gamestate.getInGamePlayers().add(new HumanPlayer(gamestate.getMap(), gamestate, name));
 				humanplayers++;
 			}
 		}
@@ -587,7 +592,7 @@ public class GameServer {
 	}
 	
 	
-	public GameServer (int id, Map<String, String> pc, Map<String, Handler> hand){
+	public GameController (int id, Map<String, String> pc, Map<String, Handler> hand){
 		
 		this.gameId = id;
 		this.playersInGame = pc;

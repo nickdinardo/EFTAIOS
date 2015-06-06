@@ -22,9 +22,7 @@ public abstract class Player {
 		
 		
 	
-	public abstract boolean movement(Box destination, Box position);
-	
-	
+		
 	public void teleport(){}
 	
 	
@@ -40,57 +38,16 @@ public abstract class Player {
 	}
 	
 	
-	public boolean isValidSingleMovement(Box destination, Box position){
-		
-		if (!destination.isCanBeCrossedType()) 
-			return false;
-		if (position.getCoordX()%2==0){//BASSA
-			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
-				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == 0)
-					return true;
-			if (destination.getCoordX()-position.getCoordX() == 0)
-				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
-					return true;
-		}
-		else{//ALTA
-			if (destination.getCoordX()-position.getCoordX() == -1 || destination.getCoordX()-position.getCoordX() == 1)
-				if (destination.getCoordY()-position.getCoordY() == -1 || destination.getCoordY()-position.getCoordY() == 0)
-					return true;
-			if (destination.getCoordX()-position.getCoordX() == 0)
-				if (destination.getCoordY()-position.getCoordY() == 1 || destination.getCoordY()-position.getCoordY() == -1)
-					return true;
-		}
-		return false;
-	}
-			
-	
-	public boolean isValidDoubleMovement(Box destination, Box position){
-		
-		List<Box> aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(position);
-		List<Box> oneStepBoxes = checkBoxes(aroundBoxes, position);
-		for (Box box: oneStepBoxes){
-			aroundBoxes = gamestate.getGalilei().givemeAroundBoxes(box);
-			List<Box> twoStepBoxes = checkBoxes(aroundBoxes, box);
-			if (twoStepBoxes.contains(destination) || oneStepBoxes.contains(destination))
-				return true;
-		}
-		return false;
-	}
-	
-	
-	//check a group of boxes and return only the reachable from actual position with a single step
-	public List<Box> checkBoxes (List<Box> boxesToCheck, Box position){
-		List<Box> validBoxes = new ArrayList<Box>();
-		for (Box box: boxesToCheck){
-			if (isValidSingleMovement(box, position))
-					validBoxes.add(box);
-			}
-		return validBoxes;
-	}
-		
-	
 	
 	//getters and setters
+	public boolean isAdrenalized() {
+		return false;
+	}
+	
+	public boolean isHumanFed() {
+		return false;
+	}	
+	
 	public boolean isAlive() {
 		return isAlive;
 	}
@@ -99,8 +56,16 @@ public abstract class Player {
 		return this.escaped;
 	}
 	
+	public void setEscaped(boolean sedated) {
+		
+	}
+	
 	public boolean isLosesIfKilledType() {
 		return losesIfKilledType;
+	}
+	
+	public boolean isHasAttacked() {
+		return false;
 	}
 
 	
@@ -130,6 +95,16 @@ public abstract class Player {
 	
 	public String getName() {
 		return this.name;
+	}
+
+
+	public int getMoveRange() {
+		return 1;
+	}
+
+
+	public boolean isSedated() {
+		return false;
 	}
 	
 
