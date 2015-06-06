@@ -11,8 +11,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
 
 
 
-
-import java.io.IOException;
 import java.io.PrintStream;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -70,7 +68,7 @@ public class ClientRMIInterface implements NetworkInterface {
 	}
 
 	@Override
-	public void startInterface() throws IOException {
+	public void startInterface() throws RemoteException {
 		
 		ViewFactory.getViewFactory();
 		view = ViewFactory.getView();

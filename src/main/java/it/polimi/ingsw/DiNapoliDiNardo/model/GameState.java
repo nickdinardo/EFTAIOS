@@ -15,6 +15,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.decks.ItemDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.LifeboatDeck;
 import it.polimi.ingsw.DiNapoliDiNardo.model.decks.SectorDeck;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class GameState {
 		
 	
 	
-	public void itemUsageManagement(String name, int index) throws Exception{
+	public void itemUsageManagement(String name, int index) throws ClassNotFoundException, IOException{
 		
 		
 		if (index > -1 && index < 3){
@@ -105,7 +106,7 @@ public class GameState {
 	
 	
 	
-	public void lightsManagement(HumanPlayer player) throws Exception{
+	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, IOException{
 		Box lightfocus;
 		boolean reask = false;
 		do{
