@@ -14,11 +14,11 @@ public interface Handler {
 	public void notifyMessage(String message) throws RemoteException;
 	public void showBeingHuman (String name)throws RemoteException;
 	public void showBeingAlien (String name)throws RemoteException;
-	public Coordinates askForMovement(boolean reask)  throws IOException, ClassNotFoundException;
-	public boolean askForAttack() throws ClassNotFoundException, IOException;
-	public String askForNoise() throws ClassNotFoundException, IOException;
+	public Coordinates askForMovement(boolean reask)  throws Exception;
+	public boolean askForAttack() throws Exception;
+	public String askForNoise() throws Exception;
 	public int askForItem(String objects, boolean fromDiscardCall) throws IOException;
-	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException;
+	public Coordinates askForLights(boolean reask) throws Exception;
 	public int askAlienForItemChange(String objects) throws IOException;
 	public int askHumanForItemChange(String objects) throws IOException;
 	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;

@@ -71,7 +71,7 @@ public class Server implements Runnable {
             out.println("Remote Objects bound");
             
         } catch (Exception e) {
-            System.err.println("Error while loading remote objects");
+            out.println("Error while loading remote objects");
             registry = null;
             return;
         }

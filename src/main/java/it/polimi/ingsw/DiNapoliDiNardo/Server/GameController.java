@@ -10,6 +10,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.cards.ItemCard;
 import it.polimi.ingsw.DiNapoliDiNardo.model.cards.SectorCard;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.Map;
 import java.util.Timer;
 
 
-//avrà fatto sto benedetto merge?
+
 public class GameController {
 	int gameId;
 	List<String> connectionsClosed = new ArrayList<String>();
@@ -35,6 +36,7 @@ public class GameController {
 	String alienwinners = "";
 	String alienlosers = "";
 	private Timer turntimer;
+	private PrintStream out = System.out;
 	private static final int FINALTURN = 39;
 	private static final int TURNTIME = 3*60*1000;
 	
@@ -73,10 +75,10 @@ public class GameController {
 			communicateFinalResults();
 		
 		}
-		catch (IOException e){
+		catch (Exception e){
 			//if the exception reaches this try/catch level without have being managed before, it means all the players disconnected
-			System.out.println("Apparently we lost connection with all the players of game "+ gameId +".");
-			System.out.println("Closing game "+ gameId +".");
+			out.println("Apparently we lost connection with all the players of game "+ gameId +".");
+			out.println("Closing game "+ gameId +".");
 			return;
 		}
 	}	
@@ -111,7 +113,7 @@ public class GameController {
 	
 	
 	
-	private void askForHumanTurn(String playername) throws ClassNotFoundException, IOException{
+	private void askForHumanTurn(String playername) throws Exception{
 		
 		Player player = gamestate.givemePlayerByName(playername);
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
@@ -166,7 +168,7 @@ public class GameController {
 	
 	
 	
-	private void askForAlienTurn(String playername) throws ClassNotFoundException, IOException{
+	private void askForAlienTurn(String playername) throws Exception{
 		
 		Player player = gamestate.givemePlayerByName(playername);
 		
@@ -191,7 +193,7 @@ public class GameController {
 	
 	
 	
-	private void askForMovement(String playername) throws ClassNotFoundException, IOException{
+	private void askForMovement(String playername) throws Exception{
 		
 		Coordinates coordinates;
 		boolean validmove = false;
@@ -243,7 +245,7 @@ public class GameController {
 	
 	
 	
-	public Coordinates askForLights(String name, boolean reask) throws ClassNotFoundException, IOException{
+	public Coordinates askForLights(String name, boolean reask) throws Exception{
 		Coordinates coordinates;
 		coordinates = handlers.get(name).askForLights(reask);
 		return coordinates;
@@ -305,7 +307,7 @@ public class GameController {
 	
 	
 	
-	private void drawSectorCard (String name, Player player) throws ClassNotFoundException, IOException{
+	private void drawSectorCard (String name, Player player) throws Exception{
 		
 		SectorCard sectorcard = (SectorCard)gamestate.getSectordeck().drawCard();
 		//cards that need the view to be called
@@ -330,7 +332,7 @@ public class GameController {
 	
 	
 	
-	private void drawItemCard (String name, Player player) throws IOException, ClassNotFoundException{
+	private void drawItemCard (String name, Player player) throws Exception{
 		
 		//manage the personal decks of the players when a new item card is drawn	
 		ItemCard itemcard = (ItemCard)gamestate.getItemdeck().drawCard();
@@ -435,7 +437,7 @@ public class GameController {
 	
 	
 	
-	private void iterateATurn() throws ClassNotFoundException, RemoteException{
+	private void iterateATurn() throws Exception{
 		gamestate.increaseTurnNumber();
 		showActualSituation ();
 		
