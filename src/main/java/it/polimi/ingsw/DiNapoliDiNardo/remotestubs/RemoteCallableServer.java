@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
+package it.polimi.ingsw.DiNapoliDiNardo.remotestubs;
 
 
 

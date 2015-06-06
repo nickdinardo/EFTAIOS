@@ -10,6 +10,7 @@ import java.util.Timer;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 
 

@@ -1,12 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketServer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteClientRegisterer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.CallableServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.ClientRegisterer;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteCallableServer;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteClientRegisterer;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteRMIHandler;
 
 import java.io.IOException;
 import java.io.PrintStream;

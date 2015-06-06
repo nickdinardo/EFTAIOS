@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.Client;
+package it.polimi.ingsw.DiNapoliDiNardo.remotestubs;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;

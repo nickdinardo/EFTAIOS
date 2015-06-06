@@ -1,8 +1,9 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
 
-import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteClientRegisterer;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteRMIHandler;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

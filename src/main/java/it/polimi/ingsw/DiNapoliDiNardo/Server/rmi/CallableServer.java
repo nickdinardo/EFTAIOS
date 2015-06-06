@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
+import it.polimi.ingsw.DiNapoliDiNardo.remotestubs.RemoteCallableServer;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
