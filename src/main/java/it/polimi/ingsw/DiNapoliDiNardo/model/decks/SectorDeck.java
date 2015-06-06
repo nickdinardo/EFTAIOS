@@ -12,19 +12,19 @@ public class SectorDeck extends Deck{
 	public SectorDeck(){
 		int i;
 		for (i=0; i<5; i++){
-			deck.add(new SilenceCard());
+			coveredDeck.add(new SilenceCard());
 		}
 		for (i=0; i<6; i++){
-			deck.add(new NoiseHereCard());
+			coveredDeck.add(new NoiseHereCard());
 		}
 		for (i=0; i<6; i++){
-			deck.add(new NoiseAnywhereCard());
+			coveredDeck.add(new NoiseAnywhereCard());
 		}	
 		for (i=0; i<4; i++){
-			deck.add(new NoiseHereCardPlusItem());
+			coveredDeck.add(new NoiseHereCardPlusItem());
 		}	
 		for (i=0; i<4; i++){
-			deck.add(new NoiseAnywhereCardPlusItem());
+			coveredDeck.add(new NoiseAnywhereCardPlusItem());
 		}
 		this.shuffleDeck();	
 		}

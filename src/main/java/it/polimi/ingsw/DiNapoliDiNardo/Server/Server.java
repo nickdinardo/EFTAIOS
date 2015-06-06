@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class Server implements Runnable {
 	int gameId;
-	int RMIplayers = 0;
+	int rmiPlayers = 0;
 	int totalplayers = 0;
 	Registry registry;
 	String name = "Handler";
@@ -145,7 +145,7 @@ public class Server implements Runnable {
 			long end = time + NAMECOMPLETIONTIME;
 			String toAvoidChurning ="";
 			
-			while(playersconnected.size()<totalplayers || notifiers.size()<RMIplayers){
+			while(playersconnected.size()<totalplayers || notifiers.size()<rmiPlayers){
 				toAvoidChurning += "avoided3";
 				if (toAvoidChurning.length()>10000)
 					toAvoidChurning = "";
@@ -192,14 +192,14 @@ public class Server implements Runnable {
 		return nameCompletionElapsed;
 	}
 	public int getRMIPlayers() {
-		return RMIplayers;
+		return rmiPlayers;
 	}
 	public int getTotalPlayers() {
 		return totalplayers;
 	}
 	
 	public void increaseRMIPlayers() {
-		this.RMIplayers += 1;
+		this.rmiPlayers += 1;
 		this.totalplayers += 1;
 	}
 	

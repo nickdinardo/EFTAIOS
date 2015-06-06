@@ -17,14 +17,14 @@ public class Client {
 	}	
 	
 	public void select() throws IOException{
-		while(!this.read.equals("1")  && !this.read.equals("2")){
+		while(!"1".equals(this.read)  && !"2".equals(this.read)){
 			//System.out.println("Scegli che interfaccia di rete usare:");
 			//System.out.println("1 - Socket");
 			//System.out.println("2 - RMI");
 			//read = readLine("\n");
 			InitialWindow init = new InitialWindow();
 			this.read = init.connectionSelect();
-			if(!this.read.equals("1")  && !this.read.equals("2"))
+			if(!"1".equals(this.read)  && !"2".equals(this.read))
 				System.out.println("Comando non riconosciuto!");
 		}
 		

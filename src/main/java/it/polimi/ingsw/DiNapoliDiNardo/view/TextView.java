@@ -11,6 +11,7 @@ public class TextView extends View{
 	private PrintStream out = System.out;
 	boolean isFirstTurn = true;
 	private static final String INVLETTER = "Please select one of the options writing the corresponding letter and nothing more";
+	private static final String SHORTLINE = "--------";
 	
 	
 	@Override
@@ -38,7 +39,7 @@ public class TextView extends View{
 		if (!"no".equals(objects)){
 			out.println("In your item deck you have the following cards: "+objects);
 		}
-		out.println("--------");
+		out.println(SHORTLINE);
 	}
 	
 		
@@ -104,7 +105,7 @@ public class TextView extends View{
 	public int askAlienItemDiscard(String objects){
 		String[] items = objects.split(";");
 		out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
-		out.println("D: discard an item	N: no, I'll keep my actual items");
+		out.println("D: discard an item	 N: no, I'll keep my actual items");
 		String input = in.nextLine();
 		char risp;
 		if (input.length()>0)
@@ -240,12 +241,12 @@ public class TextView extends View{
 	
 	@Override
 	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers) {
-		out.println("--------");
+		out.println(SHORTLINE);
 		if (iWon)
 			out.println(name+ " YOU WON!!!");
 		else
 			out.println(name+ " YOU LOST!!!");
-		out.println("--------");
+		out.println(SHORTLINE);
 		if (!humanwinners.isEmpty())
 		out.println("The HUMANS that managed to escape and WON the game are: "+humanwinners);
 		if (!humanlosers.isEmpty())
@@ -254,9 +255,9 @@ public class TextView extends View{
 			out.println("The aliens managed to avoid the escape of all the humans, so the ALIENS that WON are: "+alienwinners);
 		else 
 			out.println("The aliens have remained alone on the ship while the last human reached the lifeboat ship, so the ALIENS that LOST are: "+alienlosers);
-		out.println("--------");
+		out.println(SHORTLINE);
 		out.println("THE END");
-		out.println("--------");
+		out.println(SHORTLINE);
 	}
 	
 	@Override

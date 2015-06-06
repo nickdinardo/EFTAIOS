@@ -450,8 +450,6 @@ public class GameController {
 	        String playername = entry.getKey();
 	        	        
 	    	try {
-	    		if (!connectionsClosed.contains(playername))
-	    		
 	    		
 				if(gamestate.givemePlayerByName(playername).isAlive() && !connectionsClosed.contains(playername)){
 					//ask player for turn activating and then stopping the timer of his max time
@@ -532,7 +530,7 @@ public class GameController {
 		String albuild = "";
 		
 		for (String name : gamestate.getWinners())
-			hwbuild += name+", ";;
+			hwbuild += name+", ";
 		if (hwbuild.length()>2)	
 			humanwinners = hwbuild.substring(0, hwbuild.length()-2);
 		

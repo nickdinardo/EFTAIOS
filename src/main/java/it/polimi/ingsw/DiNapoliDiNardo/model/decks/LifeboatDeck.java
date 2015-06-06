@@ -9,10 +9,10 @@ public class LifeboatDeck extends Deck{
 	public LifeboatDeck(){
 		int i;
 		for (i=0; i<3; i++){
-			deck.add(new RedLifeboatCard());
+			coveredDeck.add(new RedLifeboatCard());
 			}
 		for (i=0; i<3; i++){
-			deck.add(new GreenLifeboatCard());
+			coveredDeck.add(new GreenLifeboatCard());
 			}
 		this.shuffleDeck();	
 		}

@@ -23,7 +23,9 @@ public abstract class Player {
 		
 	
 		
-	public void teleport(){}
+	public void teleport(){
+		
+	}
 	
 	
 	public List<Player> attack(Box position){

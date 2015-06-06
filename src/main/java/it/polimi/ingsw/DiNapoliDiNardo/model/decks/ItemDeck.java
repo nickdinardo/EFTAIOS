@@ -15,21 +15,21 @@ public class ItemDeck extends Deck{
 	public ItemDeck(){
 		int i;
 		for (i=0; i<2; i++){
-			deck.add(new AttackCard());
+			coveredDeck.add(new AttackCard());
 			}
 		for (i=0; i<2; i++){
-			deck.add(new TeleportCard());
+			coveredDeck.add(new TeleportCard());
 			}
 		for (i=0; i<3; i++){
-			deck.add(new SedativesCard());
+			coveredDeck.add(new SedativesCard());
 			}
 		for (i=0; i<2; i++){
-			deck.add(new LightsCard());
+			coveredDeck.add(new LightsCard());
 			}
 		for (i=0; i<2; i++){
-			deck.add(new AdrenalineCard());
+			coveredDeck.add(new AdrenalineCard());
 			}
-		deck.add(new DefenseCard());
+		coveredDeck.add(new DefenseCard());
 		this.shuffleDeck();	
 		}
 
@@ -37,17 +37,17 @@ public class ItemDeck extends Deck{
 	@Override
 	public Card drawCard(){
 		//same method than others deck but don't discard cards that players keep till they use them
-		if (deck.isEmpty()){
+		if (coveredDeck.isEmpty()){
 			int discardSize=discards.size();
 			for (int i=0; i<discardSize; i++){
 				Card reshuffled = discards.get(0);
 				discards.remove(0);
-				deck.add(reshuffled);
+				coveredDeck.add(reshuffled);
 				}
-			Collections.shuffle(deck);
+			Collections.shuffle(coveredDeck);
 		}
-		Card drawed = deck.get(0);
-		deck.remove(0);
+		Card drawed = coveredDeck.get(0);
+		coveredDeck.remove(0);
 		return drawed;
 	}
 	
@@ -59,28 +59,3 @@ public class ItemDeck extends Deck{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		//attacco 2
-		//teletr 2
-		//sedatvi 3
-		//spolights 2
-		//difesa 1
-		//adrenalina 2

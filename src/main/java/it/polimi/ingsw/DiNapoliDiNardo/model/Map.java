@@ -6,17 +6,17 @@ import java.util.List;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 
 public abstract class Map {
-	private Box[][] map;
+	private Box[][] gameMap;
 	private Box humanStartBox;
 	private Box alienStartBox;
 	
 		
 	public Box[][] getMap() {
-		return map;
+		return gameMap;
 	}
 
 	public void setMap(Box[][] map) {
-		this.map = map;
+		this.gameMap = map;
 	}
 	
 	public Box getHumanStartBox() {

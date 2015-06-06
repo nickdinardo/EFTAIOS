@@ -19,6 +19,7 @@ public class SocketServer extends Thread{
 
 	private int port;
 	private String address;
+	private static final String LOCAL = "127.0.0.1";
 	private ServerSocket serversocket;
 	private boolean listening;
 	private String status; 
@@ -140,7 +141,7 @@ public class SocketServer extends Thread{
 	//Constructors, Getters and Setters
 	public SocketServer(Server head) {
 		port = 8888;
-		address = "127.0.0.1";
+		address = LOCAL;
 		listening = false;
 		status = "Created";
 		sockethandlers = new LinkedList<SocketHandler>();

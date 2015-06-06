@@ -19,6 +19,7 @@ public class ClientSocketInterface implements NetworkInterface {
 
 	private PrintStream console = System.out;
 	private Socket s;
+	private static final String LOCAL = "127.0.0.1";
 	private View view;
 	private PrintWriter out;
 	private BufferedReader in; 
@@ -34,7 +35,7 @@ public class ClientSocketInterface implements NetworkInterface {
 	@Override
 	public boolean connect() throws IOException {
 		try {
-			s = new Socket("127.0.0.1", 8888);
+			s = new Socket(LOCAL, 8888);
 		} catch (UnknownHostException e) {
 			console.println("At this remote address there's actually no game server.");
 			return false;

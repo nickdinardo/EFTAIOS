@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Deck {
 
-	protected List<Card> deck = new ArrayList<Card>();
+	protected List<Card> coveredDeck = new ArrayList<Card>();
 	protected List<Card> discards = new ArrayList<Card>();
 	
 	
 	public List<Card> getDeck() {
-		return deck;
+		return coveredDeck;
 	}
 	
 	public List<Card> getDiscards() {
@@ -21,25 +21,25 @@ public class Deck {
 	
 	
 	public void shuffleDeck(){
-		Collections.shuffle(deck);
+		Collections.shuffle(coveredDeck);
 	}
 	
 	public boolean isEmpty(){
-		return deck.isEmpty();
+		return coveredDeck.isEmpty();
 	}
 	
 	public Card drawCard(){
-		if (deck.isEmpty()){
+		if (coveredDeck.isEmpty()){
 			int discardSize=discards.size();
 			for (int i=0; i<discardSize; i++){
 				Card reshuffled = discards.get(0);
 				discards.remove(0);
-				deck.add(reshuffled);
+				coveredDeck.add(reshuffled);
 				}
-			Collections.shuffle(deck);
+			Collections.shuffle(coveredDeck);
 		}
-		Card drawed = deck.get(0);
-		deck.remove(0);
+		Card drawed = coveredDeck.get(0);
+		coveredDeck.remove(0);
 		discards.add(drawed);
 		return drawed;
 	}
