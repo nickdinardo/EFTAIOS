@@ -79,9 +79,9 @@ public class Server implements Runnable {
             out.println("Remote Objects bound");
             
         } catch (Exception e) {
-            System.err.println("ComputeEngine exception:");
-            e.printStackTrace();
+            System.err.println("Error while loading remote objects");
             registry = null;
+            return;
         }
 		
 		//Starting socket server
