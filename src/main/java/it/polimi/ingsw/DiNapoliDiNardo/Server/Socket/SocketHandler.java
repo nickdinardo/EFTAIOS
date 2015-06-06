@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
@@ -21,6 +22,7 @@ public class SocketHandler implements Handler, Runnable {
 	private BufferedReader in;
 	ObjectOutputStream outObj; 
     ObjectInputStream inObj;
+    private PrintStream console = System.out;
 	private String name = "undefined357";
 	
 
@@ -34,7 +36,8 @@ public class SocketHandler implements Handler, Runnable {
 			outObj = new ObjectOutputStream(socket.getOutputStream());
 		    inObj = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException ex){
-			ex.printStackTrace();
+			console.println("Error while initializing socket");
+			closeConnections();
 		}
 	}
 
@@ -50,7 +53,8 @@ public class SocketHandler implements Handler, Runnable {
 			inObj.close();
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			console.println("Error while closing socket");
+			return;
 		}
 		
 		
