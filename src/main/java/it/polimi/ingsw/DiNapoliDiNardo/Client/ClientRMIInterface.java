@@ -1,8 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteRMIHandler;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteClientRegisterer;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableServer;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 import it.polimi.ingsw.DiNapoliDiNardo.view.ViewFactory;
+
+
+
 
 
 
@@ -107,7 +111,7 @@ public class ClientRMIInterface implements NetworkInterface {
 				//Register on server and set the notifier on the server
 				String clientName = "Client";
 				try {
-					((CallableClient) registry.lookup(clientName)).setClientInServer(name, clientport);
+					((RemoteClientRegisterer) registry.lookup(clientName)).setClientInServer(name, clientport);
 				} catch (AccessException e) {
 					out.println("AccessException");
 						

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
+package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;

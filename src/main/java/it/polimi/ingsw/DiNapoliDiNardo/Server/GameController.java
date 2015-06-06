@@ -582,7 +582,7 @@ public class GameController {
 	
 	public void startTurnTimer (long turntime, Handler handler){
 		this.turntimer = new Timer();
-		turntimer.schedule(new DisconnectionHandler(handler) , turntime);
+		turntimer.schedule(new DisconnectionManager(handler) , turntime);
 	}
 	
 	

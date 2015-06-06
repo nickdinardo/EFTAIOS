@@ -1,12 +1,12 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
-import it.polimi.ingsw.DiNapoliDiNardo.Client.CallableClient;
-import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteCallableServer;
+import it.polimi.ingsw.DiNapoliDiNardo.Client.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Socket.SocketServer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteRMIHandler;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteClientRegisterer;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableServer;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.CallableServer;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteCallableClient;
+import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.ClientRegisterer;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -29,14 +29,14 @@ public class Server implements Runnable {
 	String name = "Handler";
 	RemoteCallableServer stub; 
 	String clientName = "Client";  
-    CallableClient clientStub;
+    RemoteClientRegisterer clientStub;
     private PrintStream out = System.out;
 	Map<String, String> playersconnected = new HashMap<String, String>();
 	Map<String, Handler> handlers = new HashMap<String, Handler>();
 	Map<String, RemoteRMIHandler> notifiers = new HashMap<String, RemoteRMIHandler>();
 	Map<String, SocketHandler> sockethandlers = new HashMap<String, SocketHandler>();
 	RemoteCallableServer handler = new CallableServer(this);
-	CallableClient client = new RemoteCallableClient(this);
+	RemoteClientRegisterer client = new ClientRegisterer(this);
 	SocketServer socketserver = new SocketServer(this);
 	boolean finish = false;
 	boolean isStarted = false;
@@ -72,7 +72,7 @@ public class Server implements Runnable {
 		//Starting RMI server and binding handler and remotecallableclient
 		try {           
             stub = (RemoteCallableServer) UnicastRemoteObject.exportObject(handler, 0+gameId); 
-            clientStub = (CallableClient) UnicastRemoteObject.exportObject(client, 4040+gameId);
+            clientStub = (RemoteClientRegisterer) UnicastRemoteObject.exportObject(client, 4040+gameId);
             registry = LocateRegistry.createRegistry(2020+gameId);            
             registry.bind(name, stub);
             registry.bind(clientName, clientStub);

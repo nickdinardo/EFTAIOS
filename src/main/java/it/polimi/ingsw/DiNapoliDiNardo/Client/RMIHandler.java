@@ -1,6 +1,7 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
@@ -9,7 +10,6 @@ import java.util.Timer;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Handler;
-import it.polimi.ingsw.DiNapoliDiNardo.Server.rmi.RemoteRMIHandler;
 import it.polimi.ingsw.DiNapoliDiNardo.view.View;
 
 
@@ -18,6 +18,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	private View view;
 	private String name;
 	private String remoteName;
+	private PrintStream out = System.out;
 	Registry myregistry;
 	Timer turntimer;
 	
@@ -37,11 +38,11 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		try {
 			myregistry.unbind(remoteName);
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+			out.println("Object is already unbound");
 		}
 		UnicastRemoteObject.unexportObject(this, true);
-		System.out.println("Disconnected from game due to inactivity over the maximum turn time.");
-		System.out.println("Please restart client if you want to play another game");
+		out.println("Disconnected from game due to inactivity over the maximum turn time.");
+		out.println("Please restart client if you want to play another game");
 		System.exit(0);
 	
 	}
@@ -64,8 +65,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	
 	@Override
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException{
-		Coordinates coord = view.askForLights(reask);
-		return coord;
+		return view.askForLights(reask);
 	}
 	
 	@Override	

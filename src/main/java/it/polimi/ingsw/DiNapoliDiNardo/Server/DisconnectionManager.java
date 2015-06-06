@@ -3,11 +3,11 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server;
 import java.io.IOException;
 import java.util.TimerTask;
 
-public class DisconnectionHandler extends TimerTask {
+public class DisconnectionManager extends TimerTask {
 	Handler handler;
 	
 	
-	public DisconnectionHandler(Handler hnd){
+	public DisconnectionManager(Handler hnd){
 		this.handler = hnd;
 	}
 	

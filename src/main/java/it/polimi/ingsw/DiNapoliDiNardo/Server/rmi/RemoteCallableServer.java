@@ -1,4 +1,4 @@
-package it.polimi.ingsw.DiNapoliDiNardo.Client;
+package it.polimi.ingsw.DiNapoliDiNardo.Server.rmi;
 
 
 
