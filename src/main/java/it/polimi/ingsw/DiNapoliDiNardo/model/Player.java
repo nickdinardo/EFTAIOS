@@ -81,6 +81,7 @@ public abstract class Player {
 	
 	public void setPosition(Box position) {
 		this.position = position;
+		position.setPlayer(this);
 	}
 	
 	public void kill(){
