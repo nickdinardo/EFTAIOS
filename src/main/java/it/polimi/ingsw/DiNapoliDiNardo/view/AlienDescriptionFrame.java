@@ -24,12 +24,12 @@ public class AlienDescriptionFrame {
 	public AlienDescriptionFrame(JFrame descriptionFrame, String name){
 		
 		frame = descriptionFrame;
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 		frame.setIconImage(icon.getImage());
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
-		JLabel background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\giuliaghigini-artwork5-eftaios.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\giuliaghigini-artwork5-eftaios.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.NORTH);
 		Font f1 = new Font("Arial", Font.BOLD, 18);

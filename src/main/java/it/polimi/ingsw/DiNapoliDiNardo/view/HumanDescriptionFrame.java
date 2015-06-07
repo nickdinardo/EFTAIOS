@@ -26,12 +26,12 @@ public class HumanDescriptionFrame {
 		
 		this.frame = descriptionFrame;
 		this.name = name;
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 		frame.setIconImage(icon.getImage());
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
-		JLabel background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\5d92d6be86fedb54c933f3c248f1ad22.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\5d92d6be86fedb54c933f3c248f1ad22.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.NORTH);
 		Font f1 = new Font("Arial", Font.BOLD, 18);

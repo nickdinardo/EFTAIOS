@@ -20,20 +20,20 @@ public class AlienDiscardFrame extends DiscardFrame{
 	public AlienDiscardFrame(List<String> objects){
 		
 		frame = new JFrame("Discard");
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 	    frame.setIconImage(icon.getImage());
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    frame.getContentPane().setBackground(Color.black);
 	    frame.setLayout(new BorderLayout());
 		Font f = new Font("Arial", Font.BOLD, 12);
-		JLabel background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\mqdefault.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\mqdefault.jpg"));
 		FlowLayout flowlayout = new FlowLayout();
 		flowlayout.setHgap(80);
 		flowlayout.setVgap(25);
 		background.setLayout(flowlayout);
 		ToolTipCard tips = new ToolTipCard();
 		JToolTip[] itemDescription = tips.setToolTip(objects);
-		card1 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + objects.get(0) + ".png"));
+		card1 = new JLabel(new ImageIcon("externalresources\\" + objects.get(0) + ".png"));
 		card1.setToolTipText(itemDescription[0].getTipText());
 		JLabel descCard1 = new JLabel(objects.get(0));
 		descCard1.setForeground(Color.green);
@@ -44,7 +44,7 @@ public class AlienDiscardFrame extends DiscardFrame{
 		panel1.add(card1, BorderLayout.NORTH);
 		panel1.add(descCard1, BorderLayout.SOUTH);
 		background.add(panel1);
-		card2 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + objects.get(1) + ".png"));
+		card2 = new JLabel(new ImageIcon("externalresources\\" + objects.get(1) + ".png"));
 		card2.setToolTipText(itemDescription[1].getTipText());
 		JLabel descCard2 = new JLabel(objects.get(1));
 		descCard2.setForeground(Color.green);
@@ -55,7 +55,7 @@ public class AlienDiscardFrame extends DiscardFrame{
 		panel2.add(card2, BorderLayout.NORTH);
 		panel2.add(descCard2, BorderLayout.SOUTH);
 		background.add(panel2);
-		card3 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + objects.get(2) + ".png"));
+		card3 = new JLabel(new ImageIcon("externalresources\\" + objects.get(2) + ".png"));
 		card3.setToolTipText(itemDescription[2].getTipText());
 		JLabel descCard3 = new JLabel(objects.get(2));
 		descCard3.setForeground(Color.green);

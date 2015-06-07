@@ -17,13 +17,13 @@ public class FinalResultFrame {
 	
 	public FinalResultFrame(boolean flag, String name){
 		frame = new JFrame("Final Result");
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 	    frame.setIconImage(icon.getImage());
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    frame.getContentPane().setBackground(Color.black);
 	    frame.setLayout(new FlowLayout());
 	    Font f = new Font("Arial", Font.BOLD, 20);
-		JLabel background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\mqdefault.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\mqdefault.jpg"));
 		background.setLayout(new BorderLayout());
 		frame.add(background);
 		if(flag){

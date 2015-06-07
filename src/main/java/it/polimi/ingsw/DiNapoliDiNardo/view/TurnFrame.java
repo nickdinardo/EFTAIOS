@@ -17,7 +17,6 @@ public abstract class TurnFrame {
 	protected JScrollBar jsb;
 	
 	public abstract TurnFrame update(String name, String position, String turn, List<String> objects);
-	//public abstract void callCardListeners(List<String> item);
 	public abstract List<JLabel> setCardHandler(List<String> objects);
 	
 	public void dispose(){

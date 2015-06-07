@@ -27,12 +27,12 @@ public class HumanTurnFrame extends TurnFrame{
 	public HumanTurnFrame(String name, String actualPosition, String turn, List<String> objects){
 		
 		frame = new JFrame("Galilei Map");
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 		frame.setIconImage(icon.getImage());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
 		frame.setLayout(new BorderLayout());
-		background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\galilei1.jpg"));
+		background = new JLabel(new ImageIcon("externalresources\\galilei1.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.SOUTH);
 		comunication = new JTextArea();
@@ -92,7 +92,7 @@ public class HumanTurnFrame extends TurnFrame{
 					break;
 				}
 				else{
-					card1 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(0) + ".png"));
+					card1 = new JLabel(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
 					card1.setToolTipText(itemDescription[0].getTipText());
 					JLabel descCard1 = new JLabel(item.get(0));
 					descCard1.setForeground(Color.green);
@@ -106,7 +106,7 @@ public class HumanTurnFrame extends TurnFrame{
 					break;
 				}
 			case 2:
-				card1 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(0) + ".png"));
+				card1 = new JLabel(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
 				card1.setToolTipText(itemDescription[0].getTipText());
 				JLabel descCard1 = new JLabel(item.get(0));
 				descCard1.setForeground(Color.green);
@@ -117,7 +117,7 @@ public class HumanTurnFrame extends TurnFrame{
 				panel1.add(card1, BorderLayout.NORTH);
 				panel1.add(descCard1, BorderLayout.SOUTH);
 				panel.add(panel1);
-				card2 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(1) + ".png"));
+				card2 = new JLabel(new ImageIcon("externalresources\\" + item.get(1) + ".png"));
 				card2.setToolTipText(itemDescription[1].getTipText());
 				JLabel descCard2 = new JLabel(item.get(1));
 				descCard2.setForeground(Color.green);
@@ -130,7 +130,7 @@ public class HumanTurnFrame extends TurnFrame{
 				panel.add(panel2);
 				break;
 			case 3:
-				card1 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(0) + ".png"));
+				card1 = new JLabel(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
 				card1.setToolTipText(itemDescription[0].getTipText());
 				descCard1 = new JLabel(item.get(0));
 				descCard1.setForeground(Color.green);
@@ -141,7 +141,7 @@ public class HumanTurnFrame extends TurnFrame{
 				panel1.add(card1, BorderLayout.NORTH);
 				panel1.add(descCard1, BorderLayout.SOUTH);
 				panel.add(panel1);
-				card2 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(1) + ".png"));
+				card2 = new JLabel(new ImageIcon("externalresources\\" + item.get(1) + ".png"));
 				card2.setToolTipText(itemDescription[1].getTipText());
 				descCard2 = new JLabel(item.get(1));
 				descCard2.setForeground(Color.green);
@@ -152,7 +152,7 @@ public class HumanTurnFrame extends TurnFrame{
 				panel2.add(card2, BorderLayout.NORTH);
 				panel2.add(descCard2, BorderLayout.SOUTH);
 				panel.add(panel2);
-				card3 = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\ItemCard\\" + item.get(2) + ".png"));
+				card3 = new JLabel(new ImageIcon("externalresources\\" + item.get(2) + ".png"));
 				card3.setToolTipText(itemDescription[2].getTipText());
 				JLabel descCard3 = new JLabel(item.get(2));
 				descCard3.setForeground(Color.green);

@@ -19,12 +19,12 @@ public class LightsFrame{
 
 	public LightsFrame(boolean flag){
 		this.frame = new JFrame("Lights");
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 	    frame.setIconImage(icon.getImage());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
 		frame.setLayout(new BorderLayout());
-		background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\galilei1.jpg"));
+		background = new JLabel(new ImageIcon("externalresources\\galilei1.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.SOUTH);
 		Font f = new Font("Arial", Font.BOLD, 18);

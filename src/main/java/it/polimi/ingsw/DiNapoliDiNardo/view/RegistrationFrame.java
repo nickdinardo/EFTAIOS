@@ -27,11 +27,11 @@ public class RegistrationFrame {
 	public RegistrationFrame(JFrame frameRegistration, boolean flag){
 		
 		frame = frameRegistration;
-		ImageIcon icon = new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\icon2.jpg");
+		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 		frame.setIconImage(icon.getImage());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		JLabel background = new JLabel(new ImageIcon("C:\\Users\\Beckham\\Nick\\Documenti\\Polimi\\E.F.T.A.I.O.S\\mqdefault.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\mqdefault.jpg"));
 		frame.add(background);
 		background.setLayout(new BorderLayout());
 		frame.getContentPane().setBackground(Color.black);
