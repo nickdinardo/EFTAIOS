@@ -58,7 +58,7 @@ public class GameController {
 			
 			//initialize model main class and update players
 			this.gamestate = new GameState(this);
-			giveWelcome();
+			
 			if (initError)
 				return;
 			createPlayersInGame(playersInGame);
@@ -431,9 +431,11 @@ public class GameController {
 	
 	
 	
-	private void iterateATurn() throws ClassNotFoundException, RemoteException{
+	private void iterateATurn() throws ClassNotFoundException, IOException{
 		gamestate.increaseTurnNumber();
 		showActualSituation ();
+		if (gamestate.getTurnNumber() == 1)
+				giveWelcome();
 		
 		
 		//turn iteration

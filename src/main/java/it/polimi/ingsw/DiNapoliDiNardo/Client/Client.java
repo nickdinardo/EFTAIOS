@@ -24,6 +24,7 @@ public class Client {
 			//read = readLine("\n");
 			InitialWindow init = new InitialWindow();
 			this.read = init.connectionSelect();
+			
 			if(!"1".equals(this.read)  && !"2".equals(this.read))
 				System.out.println("Comando non riconosciuto!");
 		}

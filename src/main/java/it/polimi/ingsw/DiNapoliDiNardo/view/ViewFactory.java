@@ -29,7 +29,7 @@ public class ViewFactory {
 		if("TEXT".equalsIgnoreCase(userAnswer)){
 			return new TextView();
 		}else{		
-			return new TextView();
+			return new SwingView();
 		}
 	}
 }

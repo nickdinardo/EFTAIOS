@@ -33,7 +33,8 @@ public class SocketServer extends Thread{
 		try {
 			this.startListening();
 		} catch (IOException e) {
-			out.println("Error while listening to new socket connections");
+			//if main server has closed this, it interrupts the thread
+			this.interrupt();
 		}
 	}
 	

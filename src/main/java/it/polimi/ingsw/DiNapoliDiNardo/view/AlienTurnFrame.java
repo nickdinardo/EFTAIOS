@@ -92,7 +92,7 @@ public class AlienTurnFrame extends TurnFrame {
 				break;
 			}
 			else{
-				JLabel card1 = new JLabel(new ImageIcon("externalresources\\" + item.get(1) + ".png"));
+				JLabel card1 = new JLabel(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
 				card1.setToolTipText(itemDescription[0].getTipText());
 				JLabel descCard1 = new JLabel(item.get(0));
 				descCard1.setForeground(Color.green);

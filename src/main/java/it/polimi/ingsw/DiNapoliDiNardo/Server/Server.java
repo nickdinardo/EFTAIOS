@@ -172,6 +172,7 @@ public class Server implements Runnable {
 			try {
 				gamecontroller.rungame();
 			} catch (Exception e) {
+				e.printStackTrace();
 				out.println("Unable to start the game controller");
 				return;
 			}

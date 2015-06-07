@@ -23,11 +23,19 @@ public class ButtonHandler{
 	
 	
 	private class NextButtonHandler implements ActionListener{
+		private int type = 0;
+		
+		public NextButtonHandler (int t){
+			this.type = t;
+		}
+		
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Next"){
 				//TODO update frame for next turn, maybe
-				setWaitAttack(true);
-				setWaitCoordinates(true);
+				if (type == 1)
+					setWaitCoordinates(true);
+				if (type == 2)
+					setWaitAttack(true);
 				setWaitItems(true);
 				
 			}
@@ -41,8 +49,8 @@ public class ButtonHandler{
 		
 	}
 	
-	public void startNextListen(JButton button){
-		ActionListener press = new NextButtonHandler();
+	public void startNextListen(JButton button, int type){
+		ActionListener press = new NextButtonHandler(type);
 		button.addActionListener(press);
 	}
 	

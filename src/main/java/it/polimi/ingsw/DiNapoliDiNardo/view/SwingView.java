@@ -7,12 +7,13 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class SwingView{
+public class SwingView extends View{
 	
 	private Information info;
 	private TurnFrame turnFrame;
 	private ButtonHandler button = new ButtonHandler();
 	private boolean coordinates = false;
+	private static final Coordinates WALLCOORD = new Coordinates (12,7);
 	
 	
 	public String askName(boolean reask){
@@ -53,6 +54,7 @@ public class SwingView{
 		}
 		else
 			info.addToItem(0, "");
+		
 		turnFrame.dispose();
 		turnFrame = turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
@@ -109,6 +111,7 @@ public class SwingView{
 	
 	public String askForAttack(){
 		button.startAttackListen(((AlienTurnFrame)turnFrame).getAttackButton());
+		button.startNextListen(turnFrame.getNextButton(), 2);
 		String str = "";
 		while(button.getWaitAttack() == false){
 			str += "avoided";
@@ -122,28 +125,34 @@ public class SwingView{
 	
 	public Coordinates askMovement(boolean reask){
 		if(reask)
-			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box.\n");
-		button.startNextListen(turnFrame.getNextButton());
+			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box");
+		button.startNextListen(turnFrame.getNextButton(), 1);
+		
 		if(coordinates == true){
 			coordinates = false;
 			return info.getMoveCoord();
-		}else{
-			BoxHandler boxClick = new BoxHandler();
+		}
+		else{
+			BoxHandler boxClick = new BoxHandler(button);
 			boxClick.startListen(turnFrame.getBackground());
+			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next");
+			
 			String str = "";
-			while (boxClick.getWait() == false && button.getWaitCoordinates() == false){
+			while (boxClick.getWait() == false || button.getWaitCoordinates() == false){
 				str += "avoided";
 				if(str.length() > 10000)
 					str = "";
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
-			return info.getMoveCoord();
+			if (info.getMoveCoord().getCoordX() != 0 && info.getMoveCoord().getCoordY() != 0)
+				return info.getMoveCoord();
+			else
+				return WALLCOORD;
 		}
 	}
 	
 	
 	public String askForNoise(){
-		turnFrame.appendToTextArea("You drew a NoiseAnywhere card");
 		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackground());

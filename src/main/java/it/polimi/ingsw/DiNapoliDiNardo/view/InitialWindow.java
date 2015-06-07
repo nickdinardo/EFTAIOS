@@ -47,6 +47,7 @@ public class InitialWindow {
 			churning += "avoided";
 			if (churning.length()>1000)
 				churning ="";
+			
 			if (selection.length()>0)
 				return selection;
 		}
