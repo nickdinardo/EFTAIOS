@@ -1,6 +1,10 @@
 package it.polimi.ingsw.DiNapoliDiNardo.model.boxes;
 
 public class Coordinates implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int coordX;
 	int coordY;
 	

@@ -212,16 +212,10 @@ public class GameController {
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 			Player player = gamestate.givemePlayerByName(entry.getKey());
 			//notify game messages only to in-game players (not dead, not escaped, not removed due to connection problems)
-			if (player.isAlive() && !connectionsClosed.contains(entry.getKey())){
+			if (player.isAlive() && !player.isEscaped() && !connectionsClosed.contains(entry.getKey())){
 				try{
-					if (player instanceof HumanPlayer){
-						HumanPlayer human = (HumanPlayer) player;
-						if (!human.isEscaped())
-							handlers.get(entry.getKey()).notifyMessage(message);
-					}
-					else			
-						handlers.get(entry.getKey()).notifyMessage(message);
-					}
+					handlers.get(entry.getKey()).notifyMessage(message);
+				}
 				catch (IOException e){
 					//this could help to identify closed connection in case player left not during his turn
 					connectionsClosed.add(entry.getKey());
@@ -469,6 +463,7 @@ public class GameController {
 	    
 		
 	}
+	
 	
 	
 	public void manageDisconnection(String playername) throws RemoteException{
