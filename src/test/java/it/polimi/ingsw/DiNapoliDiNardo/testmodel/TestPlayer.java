@@ -33,5 +33,9 @@ public class TestPlayer {
 		assertTrue(!human.isAlive());
 	}
 	
+	public void losesIfKilledType(){
+		assertTrue(human.isLosesIfKilledType());
+		assertTrue(!alien.isLosesIfKilledType());
+	}
 
 }
