@@ -58,5 +58,17 @@ public class TestAlienPlayer {
 	public void coorectMoveRange(){
 		assertEquals(alien.getMoveRange(), 2);
 	}
+	
+	@Test
+	public void humanFed(){
+		alien.setHumanfed(true);
+		assertTrue(alien.isHumanFed());
+	}
+	
+	@Test
+	public void hasAttacked(){
+		alien.setHasAttacked(true);
+		assertTrue(alien.isHasAttacked());
+	}
 
 }

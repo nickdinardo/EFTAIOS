@@ -69,6 +69,29 @@ public class TestHumanPlayer {
 		assertEquals(effectivevictims, victims);
 		
 	}
+	
+	@Test
+	public void coorectMoveRange(){
+		assertEquals(human.getMoveRange(), 1);
+	}
+	
+	@Test
+	public void isAdrenalized(){
+		human.setAdrenalized(true);
+		assertTrue(human.isAdrenalized());
+	}
+	
+	@Test
+	public void isSedated(){
+		human.setSedated(true);
+		assertTrue(human.isSedated());
+	}
+	
+	@Test
+	public void isEscaped(){
+		human.setEscaped(true);
+		assertTrue(human.isEscaped());
+	}
 
 
 
