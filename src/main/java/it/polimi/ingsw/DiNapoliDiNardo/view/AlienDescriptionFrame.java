@@ -29,7 +29,7 @@ public class AlienDescriptionFrame {
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
-		JLabel background = new JLabel(new ImageIcon("externalresources\\giuliaghigini-artwork5-eftaios.jpg"));
+		JLabel background = new JLabel(new ImageIcon("externalresources\\alieno3.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.NORTH);
 		Font f1 = new Font("Arial", Font.BOLD, 18);
@@ -86,6 +86,8 @@ public class AlienDescriptionFrame {
 			str += "avoided";
 			if(str.length() > 10000)
 				str = "";
+			int i = 0;
+			i++;
 		}
 	}
 	

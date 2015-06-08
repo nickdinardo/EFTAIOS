@@ -43,6 +43,7 @@ public class InitialWindow {
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 		
 		String churning="";
+		
 		while (selection.length() == 0){
 			churning += "avoided";
 			if (churning.length()>1000)

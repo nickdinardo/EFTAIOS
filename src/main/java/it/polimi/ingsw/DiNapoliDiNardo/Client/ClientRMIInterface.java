@@ -86,6 +86,7 @@ public class ClientRMIInterface implements NetworkInterface {
 			this.clientport = 3030+serverhandler.getRMINumPlayers()+(8*gamesStarted);
 			
 			name = view.askName(false);
+			
 			List<String> names = serverhandler.getNamesInGame();
 			//if name is already taken for this game ask again to avoid confusion in the game
 			while (names.contains(name) || "".equals(name)){
@@ -93,11 +94,11 @@ public class ClientRMIInterface implements NetworkInterface {
 				name = view.askName(true);
 			}
 			
+			
 			if(!serverhandler.isNameCompletionElapsed()){
-				serverhandler.addPlayer(name);
-			
-			
 				
+				serverhandler.addPlayer(name);
+							
 				//Starting RMI client registry
 				Registry myregistry = null;
 				String notName = "Notifier";			
@@ -116,6 +117,7 @@ public class ClientRMIInterface implements NetworkInterface {
 				String clientName = "Client";
 				try {
 					((RemoteClientRegisterer) registry.lookup(clientName)).setClientInServer(name, clientport);
+					out.println("Client handler settato nel server");
 				} catch (AccessException e) {
 					out.println("AccessException");
 						

@@ -43,7 +43,7 @@ public class Server implements Runnable {
 	private static final int MINPLAYERS = 2;
 	private static final int MAXPLAYERS = 8;
 	private static final int WAITINGTIME = 10*1000;
-	private static final int NAMECOMPLETIONTIME = 30*1000;
+	private static final int NAMECOMPLETIONTIME = 60*1000;
 	
 	public Server(int id){
 		this.gameId = id;
@@ -101,6 +101,7 @@ public class Server implements Runnable {
 			toAvoidChurning += "avoided";
 			if (toAvoidChurning.length()>10000)
 				toAvoidChurning = "";
+			
 		}
 		out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
 		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 

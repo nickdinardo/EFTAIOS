@@ -26,7 +26,7 @@ public abstract class TurnFrame {
 	public abstract void appendToTextArea(String string);
 	
 	
-	public JLabel getBackground(){
+	public JLabel getBackgroundImage(){
 		return this.background;
 	}
 	
@@ -35,11 +35,15 @@ public abstract class TurnFrame {
 	}
 	
 	public void setJsbValue(int value){
-		jsb.setValue(value);
+		if (jsb!=null)
+			jsb.setValue(value);
 	}
 	
 	public int getJsbMaximum(){
-		return jsb.getMaximum();
+		if (jsb!=null)
+			return jsb.getMaximum();
+		else 
+			return 0;
 	}
 
 

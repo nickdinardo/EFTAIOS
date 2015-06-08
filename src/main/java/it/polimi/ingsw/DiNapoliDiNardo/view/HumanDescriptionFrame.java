@@ -97,6 +97,8 @@ public class HumanDescriptionFrame {
 			str += "avoided";
 			if(str.length() > 10000)
 				str = "";
+			int i = 0;
+			i++;
 		}
 	}
 	

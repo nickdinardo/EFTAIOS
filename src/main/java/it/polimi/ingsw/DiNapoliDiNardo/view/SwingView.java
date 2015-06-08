@@ -26,7 +26,9 @@ public class SwingView extends View{
 
 	public void showBeingHuman(String name){
 		
+		System.out.println("sto per avviare showhuman");
 		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
+		System.out.println("ho avviato showhuman");
 		showHuman.getNext();
 		info = new Information(1);
 		info.setPlayerName(name); //TODO da controllare quando completo
@@ -36,11 +38,14 @@ public class SwingView extends View{
 	
 	public void showBeingAlien(String name){
 		
+		System.out.println("sto per avviare showalien");
 		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
+		System.out.println("ho avviato showalien");
 		showAlien.getNext();
 		info = new Information(2);
 		info.setPlayerName(name); //TODO da controllare quando completo
-		turnFrame = new AlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		//turnFrame = new AlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		turnFrame = new NewAlienFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
 	
 	
@@ -81,7 +86,7 @@ public class SwingView extends View{
 		CardHandler cardHandler = new CardHandler();
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
 		BoxHandler boxClick = new BoxHandler();
-		boxClick.startListen(turnFrame.getBackground());
+		boxClick.startListen(turnFrame.getBackgroundImage());
 		String str = "";
 		while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false  && button.getWaitItems() == false){
 			str += "avoided";
@@ -146,7 +151,7 @@ public class SwingView extends View{
 		}
 		else{
 			BoxHandler boxClick = new BoxHandler(button);
-			boxClick.startListen(turnFrame.getBackground());
+			boxClick.startListen(turnFrame.getBackgroundImage());
 			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next\n");
 			
 			String str = "";
@@ -168,7 +173,7 @@ public class SwingView extends View{
 	public String askForNoise(){
 		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?\n");
 		BoxHandler noiseClick = new BoxHandler();
-		noiseClick.startListen(turnFrame.getBackground());
+		noiseClick.startListen(turnFrame.getBackgroundImage());
 		String str = "";
 		while(noiseClick.getWait() == false){
 			str += "avoided";

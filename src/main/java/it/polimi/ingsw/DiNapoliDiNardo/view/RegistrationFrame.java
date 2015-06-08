@@ -70,14 +70,12 @@ public class RegistrationFrame {
 		frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 
 				(screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 ) );
 		frame.setVisible(true);
-		String str = "";
-		while(!waitForName){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
-		}
+		
+		
 	}
 	
+	
+		
 	private class AskNameHandler implements ActionListener {
 		
 		
@@ -88,7 +86,7 @@ public class RegistrationFrame {
 				JOptionPane.showMessageDialog(null, "Empty field");
 			waitForName = true;
 			System.out.println("ciao");
-			frame.dispose();
+			
 		}
 	}
 	
@@ -97,6 +95,13 @@ public class RegistrationFrame {
 	}
 	
 	public String getName(){
+		String str = "";
+		while(!waitForName){
+			str += "avoided";
+			if(str.length() > 10000)
+				str = "";
+		}
+		frame.dispose();
 		return this.name;
 	}
 	
