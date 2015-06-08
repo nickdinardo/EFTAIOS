@@ -19,7 +19,7 @@ public class TestDangerousBox {
 	
 	@Test
 	public void drawingSector(){
-		assertTrue(!gray.isCanBeCrossedType());
+		assertEquals(gray.isCanBeCrossedType(), true);
 	}
 
 }
