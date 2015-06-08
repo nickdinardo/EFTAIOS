@@ -32,26 +32,33 @@ public class ButtonHandler{
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Next"){
 				//TODO update frame for next turn, maybe
-				if (type == 1)
+				if (type == 1){
 					setWaitCoordinates(true);
-				if (type == 2)
+					setWaitItems(true);
+				}
+				if (type == 2){
+					setAnswer("N");
 					setWaitAttack(true);
-				setWaitItems(true);
+					
+				}
+				
 				
 			}
 		}
 
 	}
 	
-	public void startAttackListen(JButton button){
+	public ActionListener startAttackListen(JButton button){
 		ActionListener press  = new AttackButtonHandler();
 		button.addActionListener(press);
+		return press;
 		
 	}
-	
-	public void startNextListen(JButton button, int type){
+		
+	public ActionListener startNextListen(JButton button, int type){
 		ActionListener press = new NextButtonHandler(type);
 		button.addActionListener(press);
+		return press;
 	}
 	
 	public void setWaitAttack(boolean flag){

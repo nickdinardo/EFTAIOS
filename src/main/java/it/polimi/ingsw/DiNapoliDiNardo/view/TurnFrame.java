@@ -16,16 +16,15 @@ public abstract class TurnFrame {
 	protected JButton nextButton;
 	protected JScrollBar jsb;
 	
-	public abstract TurnFrame update(String name, String position, String turn, List<String> objects);
+	public abstract void update(String name, String position, String turn, List<String> objects);
 	public abstract List<JLabel> setCardHandler(List<String> objects);
 	
 	public void dispose(){
 		this.frame.dispose();
 	}
 	
-	public void appendToTextArea(String string){
-		comunication.append(string + "\n");
-	}
+	public abstract void appendToTextArea(String string);
+	
 	
 	public JLabel getBackground(){
 		return this.background;

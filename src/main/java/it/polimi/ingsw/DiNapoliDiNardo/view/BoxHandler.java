@@ -37,7 +37,7 @@ public class BoxHandler {
 			
 			Point click = event.getPoint();
 			setCoordinates(boxes.getMinimumDistance(click));
-			if (button!= null)
+			if (button != null)
 				button.setWaitCoordinates(false);
 			setWait(true);
 		

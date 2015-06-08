@@ -3,6 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -50,24 +51,28 @@ public class SwingView extends View{
 			info.setActualPosition(position.substring(0, 1) + "0" + position.substring(1, position.length()));
 		info.setTurn(turn);
 		if (!"no".equals(objects)){
-			info.setItem(Arrays.asList(objects.split(";")));
+			info.setItem(Arrays.asList(objects.split(" ")));
 		}
 		else
 			info.addToItem(0, "");
+		button.setWaitAttack(false);
+		button.setWaitCoordinates(false);
+		button.setWaitItems(false);
 		
-		turnFrame.dispose();
-		turnFrame = turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		
+		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
 	
 	
 	public int askItemUse(String objects, boolean discardCall){
+		turnFrame.appendToTextArea("If you want to use a card press on the corresponding image\n");
 		
 		if (!"no".equals(objects)){
 			if(discardCall){
 				print("Please, select the item you want to use to get free the slot");
-				info.setItem(Arrays.asList(objects.split(";")));
+				info.setItem(Arrays.asList(objects.split(" ")));
 			}else{
-				info.setItem(Arrays.asList(objects.split(";")));
+				info.setItem(Arrays.asList(objects.split(" ")));
 			}
 			
 		}
@@ -110,8 +115,12 @@ public class SwingView extends View{
 	}
 	
 	public String askForAttack(){
-		button.startAttackListen(((AlienTurnFrame)turnFrame).getAttackButton());
-		button.startNextListen(turnFrame.getNextButton(), 2);
+		
+		turnFrame.appendToTextArea("Filthy alien, do you want to attack this position?\n");
+		turnFrame.appendToTextArea("Press Attack if yes, Next if no\n");
+		button.setWaitAttack(false);
+		ActionListener attackB = button.startAttackListen(((AlienTurnFrame)turnFrame).getAttackButton());
+		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
 		String str = "";
 		while(button.getWaitAttack() == false){
 			str += "avoided";
@@ -119,23 +128,26 @@ public class SwingView extends View{
 				str = "";
 		}
 		info.setAttackAnswer(button.getAnswer());
-		System.out.println(info.getAttackAnswer());
+		AlienTurnFrame alienframe = (AlienTurnFrame)turnFrame;
+		alienframe.getAttackButton().removeActionListener(attackB);
+		alienframe.getNextButton().removeActionListener(nextB);
 		return info.getAttackAnswer();		
 	}
 	
 	public Coordinates askMovement(boolean reask){
 		if(reask)
-			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box");
-		button.startNextListen(turnFrame.getNextButton(), 1);
+			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box\n");
+		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
 		
 		if(coordinates == true){
 			coordinates = false;
+			
 			return info.getMoveCoord();
 		}
 		else{
 			BoxHandler boxClick = new BoxHandler(button);
 			boxClick.startListen(turnFrame.getBackground());
-			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next");
+			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next\n");
 			
 			String str = "";
 			while (boxClick.getWait() == false || button.getWaitCoordinates() == false){
@@ -144,6 +156,7 @@ public class SwingView extends View{
 					str = "";
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
+			turnFrame.getNextButton().removeActionListener(nextB);
 			if (info.getMoveCoord().getCoordX() != 0 && info.getMoveCoord().getCoordY() != 0)
 				return info.getMoveCoord();
 			else
@@ -153,7 +166,7 @@ public class SwingView extends View{
 	
 	
 	public String askForNoise(){
-		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?");
+		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?\n");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackground());
 		String str = "";
@@ -234,7 +247,7 @@ public class SwingView extends View{
 	}
 	
 	public void print (String message){
-		turnFrame.appendToTextArea(message);
+		turnFrame.appendToTextArea(message+"\n");
 		turnFrame.setJsbValue(turnFrame.getJsbMaximum());
 	}
 	

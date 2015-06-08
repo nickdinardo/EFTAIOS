@@ -44,27 +44,27 @@ public class ToolTipCard {
 		String sedativesCard = ": If you play this card you do not draw a Dangerous Sector Card this turn, even if you move into a Dangerous Sector.";
 		String teleportCard = " This card allows you to move directly to the Human Sector from any part of the ship. This is in addition to your normal movement which can happen before or after you use the item.";
 		String lightsCard = " When you play this card, name any Sector. Any players (including you) that are in the named Sector or any of the six adjacent Sectors must immediately announce their exact location Coordinates. This card affects both Humans and Aliens.";
-		if(object.equals("Attack Card")){
+		if(object.equals("AttackCard")){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(attackCard);
 			return tooltip;
 		}
-		if(object.equals("Defense Card")){
+		if(object.equals("DefenseCard")){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(defenseCard);
 			return tooltip;
 		}
-		if(object.equals("Adrenaline Card")){
+		if(object.equals("AdrenalineCard")){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(adrenalineCard);
 			return tooltip;
 		}
-		if(object.equals("Sedatives Card")){
+		if(object.equals("SedativesCard")){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(sedativesCard);
 			return tooltip;
 		}
-		if(object.equals("Teleport Card")){
+		if(object.equals("TeleportCard")){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(teleportCard);
 			return tooltip;

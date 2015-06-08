@@ -2,7 +2,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Information {
@@ -13,7 +13,7 @@ public class Information {
 	private static final String firstTurn = "1";
 	private String actualPosition;
 	private String turn;
-	private List<String> item = new ArrayList<String>();
+	private List<String> item = new LinkedList<String>();
 	private int selectedItem = 8;
 	private int itemToRemove;
 	private Coordinates moveCoord = new Coordinates();
@@ -64,6 +64,8 @@ public class Information {
 	}
 	
 	public void addToItem(int index, String object){
+		//problema su questo metodo, rimuovere il clear.
+		this.item.clear();
 		this.item.add(index, object);
 	}
 	
