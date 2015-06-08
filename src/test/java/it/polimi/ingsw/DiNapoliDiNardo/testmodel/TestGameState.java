@@ -9,13 +9,5 @@ import org.junit.Test;
 
 
 public class TestGameState {
-
-	private GameState testState;
-	private GameController controller = new GameController();
-	
-	@Before
-	public void setUp(){
-		testState = new GameState(controller);
-	}
 	
 }
