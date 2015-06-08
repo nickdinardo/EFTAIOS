@@ -4,13 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
 
 
 public class InitialWindow {
 	String selection = "";
 	JFrame frame = new JFrame("E.F.T.A.I.O.S.");
+	CountDownLatch latch = new CountDownLatch(1);
 	
-	public String connectionSelect(){
+	
+	public InitialWindow(){
 		
 		
 		frame.setLayout(new BorderLayout());
@@ -42,26 +45,23 @@ public class InitialWindow {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 		
-		String churning="";
 		
-		while (selection.length() == 0){
-			churning += "avoided";
-			if (churning.length()>1000)
-				churning ="";
-			
-			if (selection.length()>0)
-				return selection;
-		}
-		
-		return selection;
 	}
 	
 	
-	
+	public String getChoice(){
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			return "";
+		}
+		frame.dispose();
+		return selection;
+	}
 	
 
 	private class InitialWindowListener implements ActionListener{
-		@SuppressWarnings("deprecation")
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand()=="RMI")
@@ -69,7 +69,7 @@ public class InitialWindow {
 			if(e.getActionCommand()=="Sockets"){
 				selection = "1";
 			}
-			frame.hide();	
+			latch.countDown();
 			
 		}
 	}

@@ -18,16 +18,13 @@ public class Client {
 	
 	public void select() throws IOException{
 		while(!"1".equals(this.read)  && !"2".equals(this.read)){
-			String churn ="";
-			churn += "avoided";
-			if (churn.length()>1000)
-				churn = "";
-			//System.out.println("Scegli che interfaccia di rete usare:");
+			
+			System.out.println("Scegli che interfaccia di rete usare:");
 			//System.out.println("1 - Socket");
 			//System.out.println("2 - RMI");
 			//read = readLine("\n");
 			InitialWindow init = new InitialWindow();
-			this.read = init.connectionSelect();
+			this.read = init.getChoice();
 			
 			if(!"1".equals(this.read)  && !"2".equals(this.read))
 				System.out.println("Comando non riconosciuto!");

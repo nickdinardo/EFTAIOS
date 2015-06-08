@@ -96,11 +96,16 @@ public class Server implements Runnable {
 	
 	public void collectplayers(){		
 		//Waiting here at least 2 players
-		String toAvoidChurning ="";
+		
 		while (totalplayers<MINPLAYERS){
-			toAvoidChurning += "avoided";
-			if (toAvoidChurning.length()>10000)
-				toAvoidChurning = "";
+			
+			    Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			     
 			
 		}
 		out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
@@ -111,8 +116,15 @@ public class Server implements Runnable {
 			long end = time+WAITINGTIME;
 			int connectedplayers = totalplayers;
 			while (time<end){
+
+			    Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			     
 				time = System.currentTimeMillis();
-				toAvoidChurning += "avoided2";
 				if (connectedplayers < totalplayers){
 					out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
 					break;
@@ -128,8 +140,8 @@ public class Server implements Runnable {
 			out.println("Socket server has remained listening");
 		}
 		isStarted = true;
-		toAvoidChurning = "Starting game, waiting for all the players to input their names...";
-		out.println(toAvoidChurning);
+		out.println("Starting game, waiting for all the players to input their names...");
+		
 		
 	}
 			
@@ -144,12 +156,14 @@ public class Server implements Runnable {
 			//if they don't do that, game will start without them
 			long time = System.currentTimeMillis();
 			long end = time + NAMECOMPLETIONTIME;
-			String toAvoidChurning ="";
 			
 			while(playersconnected.size()<totalplayers || notifiers.size()<rmiPlayers){
-				toAvoidChurning += "avoided3";
-				if (toAvoidChurning.length()>10000)
-					toAvoidChurning = "";
+				Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				time = System.currentTimeMillis();
 				if (time > end)
 					break;

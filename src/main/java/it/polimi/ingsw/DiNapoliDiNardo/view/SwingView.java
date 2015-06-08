@@ -87,11 +87,13 @@ public class SwingView extends View{
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
 		BoxHandler boxClick = new BoxHandler();
 		boxClick.startListen(turnFrame.getBackgroundImage());
-		String str = "";
+		
 		while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false  && button.getWaitItems() == false){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		if (boxClick.getWait() == true){
 			coordinates = true;
@@ -108,11 +110,13 @@ public class SwingView extends View{
 		LightsFrame lightsframe = new LightsFrame(reask);
 		LightsHandler lightsHandler = new LightsHandler();
 		lightsHandler.startListen(lightsframe.getBackground());
-		String str = "";
+		
 		while(lightsHandler.getWait() == false){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		info.setLightsCoord(lightsHandler.getCoordinates());
 		lightsframe.getFrame().dispose();
@@ -126,11 +130,13 @@ public class SwingView extends View{
 		button.setWaitAttack(false);
 		ActionListener attackB = button.startAttackListen(((AlienTurnFrame)turnFrame).getAttackButton());
 		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
-		String str = "";
+		
 		while(button.getWaitAttack() == false){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		info.setAttackAnswer(button.getAnswer());
 		AlienTurnFrame alienframe = (AlienTurnFrame)turnFrame;
@@ -154,11 +160,13 @@ public class SwingView extends View{
 			boxClick.startListen(turnFrame.getBackgroundImage());
 			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next\n");
 			
-			String str = "";
+			
 			while (boxClick.getWait() == false || button.getWaitCoordinates() == false){
-				str += "avoided";
-				if(str.length() > 10000)
-					str = "";
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					//do nothing
+				}
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
 			turnFrame.getNextButton().removeActionListener(nextB);
@@ -174,11 +182,13 @@ public class SwingView extends View{
 		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?\n");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackgroundImage());
-		String str = "";
+		
 		while(noiseClick.getWait() == false){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		Coordinates coordinates = noiseClick.getCoordinates();
 		String noise = ""+(char)(coordinates.getCoordX()+64);

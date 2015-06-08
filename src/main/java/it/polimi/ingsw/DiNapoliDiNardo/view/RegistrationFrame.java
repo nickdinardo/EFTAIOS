@@ -8,9 +8,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.ImageIcon;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,7 +22,7 @@ public class RegistrationFrame {
 	
 	private JFrame frame;
 	private String name;
-	private boolean waitForName;
+	CountDownLatch latch = new CountDownLatch(1);
 	
 	public RegistrationFrame(JFrame frameRegistration, boolean flag){
 		
@@ -84,22 +84,17 @@ public class RegistrationFrame {
 			setName(event.getActionCommand());
 			if("".equals(name))
 				JOptionPane.showMessageDialog(null, "Empty field");
-			waitForName = true;
-			System.out.println("ciao");
-			
+			latch.countDown();
+						
 		}
 	}
 	
-	private void updateFrame(){
-		waitForName = false;
-	}
-	
+		
 	public String getName(){
-		String str = "";
-		while(!waitForName){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		frame.dispose();
 		return this.name;
