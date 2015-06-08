@@ -12,6 +12,7 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Map;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +59,12 @@ public class TestBox {
 	@Test
 	public void isLifeboatShipHere(){
 		Box nolifeboat = galilei.getMap()[3][0];
-		Box lifeboat = galilei.getMap()[1][1];
+		nolifeboat.setLifeBoatShipHere(false);
+		Coordinates coord = new Coordinates();
+		coord.setCoordX(galilei.getMap()[1][1].getCoordX());
+		coord.setCoordY(galilei.getMap()[1][1].getCoordX());
+		Box lifeboat = new Box(coord);
+		lifeboat.setLifeBoatShipHere(true);
 		
 		assertTrue(!nolifeboat.isLifeBoatShipHere());
 		assertFalse(nolifeboat.isLifeBoatShipHere());
@@ -66,5 +72,12 @@ public class TestBox {
 		assertFalse(!lifeboat.isLifeBoatShipHere());
 	}
 	
+	@Test
+	public void correctFields(){
+		Box box = galilei.getMap()[3][0];
+		assertTrue(box.isCanBeCrossedType());
+		assertTrue(!box.isDrawingSectorCardHere());
+		
+	}
 
 }
