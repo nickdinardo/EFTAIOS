@@ -76,32 +76,17 @@ public class TestHumanPlayer {
 	}
 	
 	@Test
-	public void isAdrenalized(){
+	public void correctGets(){
+		
 		human.setAdrenalized(true);
 		assertTrue(human.isAdrenalized());
-	}
-	
-	@Test
-	public void isSedated(){
 		human.setSedated(true);
 		assertTrue(human.isSedated());
-	}
-	
-	@Test
-	public void isEscaped(){
 		human.setEscaped(true);
 		assertTrue(human.isEscaped());
+		assertTrue(human.isLosesIfKilledType());
+		
 	}
-
-
-
-
-
-
-
-
-
-
 
 }
 
