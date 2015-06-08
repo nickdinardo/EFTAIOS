@@ -89,6 +89,7 @@ public class SwingView extends View{
 		boxClick.startListen(turnFrame.getBackgroundImage());
 		
 		while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false  && button.getWaitItems() == false){
+			Thread.currentThread();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -112,6 +113,7 @@ public class SwingView extends View{
 		lightsHandler.startListen(lightsframe.getBackground());
 		
 		while(lightsHandler.getWait() == false){
+			Thread.currentThread();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -132,6 +134,7 @@ public class SwingView extends View{
 		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
 		
 		while(button.getWaitAttack() == false){
+			Thread.currentThread();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -162,6 +165,7 @@ public class SwingView extends View{
 			
 			
 			while (boxClick.getWait() == false || button.getWaitCoordinates() == false){
+				Thread.currentThread();
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -184,6 +188,7 @@ public class SwingView extends View{
 		noiseClick.startListen(turnFrame.getBackgroundImage());
 		
 		while(noiseClick.getWait() == false){
+			Thread.currentThread();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -208,11 +213,14 @@ public class SwingView extends View{
 		cardHandler.setCards(frame.setCardHandler(info.getItem()));
 		cardHandler.startListenNoButton(frame.getButtonNo());
 		cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
-		String str = "";
+		
 		while(cardHandler.getWaitForItem() == false){
-			str += "avoided";
-			if(str.length() > 10000);
-				str = "";
+			Thread.currentThread();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		info.setItemToRemove(cardHandler.getIndexCard());
 		frame.getFrame().dispose();
@@ -225,11 +233,14 @@ public class SwingView extends View{
 		CardHandler cardHandler = new CardHandler();
 		cardHandler.setCards(frame.setCardHandler(info.getItem()));
 		cardHandler.startListenNoButton(frame.getButtonNo());
-		String str = "";
+		
 		while(cardHandler.getWaitForItem() == false){
-			str += "avoided";
-			if(str.length() > 10000);
-				str = "";
+			Thread.currentThread();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				//do nothing
+			}
 		}
 		info.setItemToRemove(cardHandler.getIndexCard());
 		frame.getFrame().dispose();

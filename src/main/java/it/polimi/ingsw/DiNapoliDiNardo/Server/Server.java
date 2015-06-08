@@ -109,6 +109,7 @@ public class Server implements Runnable {
 			
 		}
 		out.println("Reached minimum number of players to play. Waiting for further connections, or game will start in a little time...");
+		
 		//Setting a timeout for the game to start. Each time a new connection comes, timeout is extended. 
 		while (totalplayers<MAXPLAYERS){
 			
@@ -134,11 +135,13 @@ public class Server implements Runnable {
 				break;
 			}
 		}
+		
 		try {
 			this.stopAcceptingOthersPlayers();
 		} catch (IOException e) {
 			out.println("Socket server has remained listening");
 		}
+		
 		isStarted = true;
 		out.println("Starting game, waiting for all the players to input their names...");
 		
