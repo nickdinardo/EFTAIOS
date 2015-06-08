@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 public class AlienDescriptionFrame {
 
 	private JFrame frame;
-	private boolean waitNext = false;
+	CountDownLatch latch = new CountDownLatch(1);
 	
 	public AlienDescriptionFrame(JFrame descriptionFrame, String name){
 		
@@ -80,22 +81,20 @@ public class AlienDescriptionFrame {
 	}
 	
 	public void getNext(){
-		waitNext = false;
-		String str = "";
-		while(waitNext  == false){
-			str += "avoided";
-			if(str.length() > 10000)
-				str = "";
-			int i = 0;
-			i++;
+		
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			return;
 		}
+		
 	}
 	
 	private class ShowAlienHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Next"){
 				
-				waitNext = true;
+				latch.countDown();
 				frame.dispose();
 			}
 		}

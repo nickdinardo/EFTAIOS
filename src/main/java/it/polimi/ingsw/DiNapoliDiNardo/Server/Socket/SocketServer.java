@@ -3,7 +3,6 @@ package it.polimi.ingsw.DiNapoliDiNardo.Server.Socket;
 import it.polimi.ingsw.DiNapoliDiNardo.Server.Server;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class SocketServer extends Thread{
 	private String status; 
 	private List<SocketHandler> sockethandlers;
 	private Server headserver;
-	private PrintStream out = System.out;
 	private static final int MAXPLAYERS = 8;
 	
 	@Override

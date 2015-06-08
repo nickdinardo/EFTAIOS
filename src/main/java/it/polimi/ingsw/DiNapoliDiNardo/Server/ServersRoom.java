@@ -33,12 +33,17 @@ public class ServersRoom {
 			executorGames = Executors.newCachedThreadPool();
 			executorGames.submit(server);
 			
-			String dontchurn="";
+			
 			do{
-				dontchurn += "avoided";
-				if (dontchurn.length()>1000)
-					dontchurn = "";
-				gameStarted = server.isStarted();
+
+			    Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			    gameStarted = server.isStarted();
+			    
 			}while(!gameStarted);
 			
 			out.println("Game "+gameId+" has started, opening a new Server Thread");
