@@ -93,7 +93,7 @@ public class TestGalileiMap {
 		assertEquals(galilei.givemeAroundBoxes(sideBox3), around);
 		around.clear();
 		
-		for (int i=sideBox4.getCoordX()-1; i<=sideBox4.getCoordX(); i++)
+		for (int i=sideBox4.getCoordX(); i<=sideBox4.getCoordX() + 1; i++)
 			for (int j=sideBox4.getCoordY()-1; j<=sideBox4.getCoordY()+1; j++)
 				around.add(map[j-1][i-1]);
 		assertEquals(galilei.givemeAroundBoxes(sideBox4), around);
