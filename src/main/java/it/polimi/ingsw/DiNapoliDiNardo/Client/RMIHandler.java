@@ -112,7 +112,11 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		view.showActualSituation(name, position, objects, turn);
 	}
 	
-	
+	@Override
+	public void updateView(String position, String reachables, String objects) throws RemoteException {
+		view.update(position, reachables, objects);
+	}
+
 	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) throws RemoteException {
 		view.notifyEscape(escaped, name, shipnumber);
@@ -135,6 +139,9 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		this.name = name;
 	}
 
+
+
+	
 	
 	
 }

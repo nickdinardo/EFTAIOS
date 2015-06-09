@@ -1,9 +1,11 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public interface Handler {
 	
@@ -24,4 +26,5 @@ public interface Handler {
 	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;
 	public void notifyEscape (boolean escaped, String name, String shipnumber) throws RemoteException;
 	public void showFinalResults (boolean iWon, String name, String humanlosers, String humanwinners, String alienwinners, String alienlosers) throws RemoteException;
+	public void updateView(String position, String reachables, String objects) throws IOException;
 }

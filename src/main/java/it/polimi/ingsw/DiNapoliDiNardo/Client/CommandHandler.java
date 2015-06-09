@@ -83,6 +83,10 @@ public class CommandHandler {
 			String[] result = action.split(";");
 			view.showActualSituation(result[0], result[1], result[2], result[3]);
 		    }
+		if ("update".equals(object)){
+			String[] result = action.split(";");
+			view.update(result[0], result[1], result[2]);
+		    }
 		if ("results".equals(object)){
 			String[] result = action.split(";");
 			if ("y".equals(result[5]))

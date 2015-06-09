@@ -7,8 +7,11 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Box {
+public class Box implements java.io.Serializable{
 	
+	
+	
+	private static final long serialVersionUID = 1L;
 	private Coordinates coord = new Coordinates(0, 0);
 	private List<Player> playerHere = new ArrayList<Player>();
 	protected boolean lifeBoatShipHere = false;

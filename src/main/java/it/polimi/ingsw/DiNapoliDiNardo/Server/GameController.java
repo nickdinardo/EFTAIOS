@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Server;
 
+import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.LifeboatBox;
 import it.polimi.ingsw.DiNapoliDiNardo.model.AlienPlayer;
@@ -112,6 +113,27 @@ public class GameController {
 	
 	
 	
+	private void updateView (Player player) throws IOException{
+		
+		List<ItemCard> itemdeck = player.getPersonalDeck();
+		List<Box> reachables = gamestate.getMap().givemeAroundBoxes(player.getPosition());
+		String objects = "";
+		String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();
+		String reachStr = "";
+		for (Box b : reachables){
+			reachStr += ""+(char)(b.getCoordX()+64)+b.getCoordY();
+			reachStr += "!";
+		}
+		for (int i=0; i<itemdeck.size(); i++)
+			objects += itemdeck.get(i).getName()+" ";		
+		if (objects.length()<2)
+			objects = "no";
+		handlers.get(player.getName()).updateView(position, reachStr, objects);
+		
+		
+	}
+	
+	
 	
 	private void askForHumanTurn(String playername) throws ClassNotFoundException, IOException{
 		
@@ -127,11 +149,13 @@ public class GameController {
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
-		
+		updateView(player);
 		askForMovement(playername);
+		
 		
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isSedated())
 			drawSectorCard(playername, player);
+		updateView(player);
 		
 		//check for possible escape if on escape-box
 		boolean escaped;
@@ -144,14 +168,14 @@ public class GameController {
 			}
 				
 		}
-		/*
+		
 		if (hasUsableCards(itemdeck)){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
-		*/
+		updateView(player);
 	}
 	
 		
@@ -173,6 +197,7 @@ public class GameController {
 		Player player = gamestate.givemePlayerByName(playername);
 		
 		askForMovement(playername);
+		updateView(player);
 		
 		boolean attack = false;
 		attack = handlers.get(playername).askForAttack();
@@ -186,7 +211,7 @@ public class GameController {
 		
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
 			drawSectorCard(playername, player);
-		
+		updateView(player);
 		
 	}
 	

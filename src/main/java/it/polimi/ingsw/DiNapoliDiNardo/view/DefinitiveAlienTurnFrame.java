@@ -4,7 +4,6 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import java.awt.Color;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,18 +15,9 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
 	
     private JButton attackButton;
-    private JLabel map;
-	private JLabel nameLabel;
-	private JLabel turnLabel;
-	private JLabel timerLabel;
-	private JLabel positionLabel;
-	private JLabel jLabel3;
+    private JLabel jLabel3;
 	private JLabel alienImageLabel;
-    private JLabel card1;
-    private JLabel card2;
-    private JLabel card3;
     private JScrollPane jScrollPane1;
-    private JTextArea comunication;
     private static final Color aliencolor = Color.pink;
 	
     
@@ -65,7 +55,8 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 
         map.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\galileibella.jpg")); // NOI18N
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
+        map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        
         comunication.setEditable(false);
         comunication.setBackground(new java.awt.Color(138, 66, 130));
         comunication.setColumns(20);
@@ -75,11 +66,19 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
-        card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); // NOI18N
+        card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
         card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        alienImageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\alieno3.jpg")); // NOI18N
+        card2.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        
+        card3.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        alienImageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\alieno3.jpg")); 
 
         attackButton.setText("Attack");
         attackButton.setBackground(Color.black);
@@ -93,14 +92,6 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 
         nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
         
-        card3.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); 
-        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        card2.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); 
-        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,33 +180,8 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		frame.setVisible(true);  
     }   
 	
-	
-	
-	
-	
-	
-    @Override
-	public void update(String name, String position, String turn, List<String> objects) {
-		comunication.append(name + " you are now in the " + position + " position\n");
-		turnLabel.setText("Turn: " + turn); 
-		positionLabel.setText("Position: " + position);
-		List<String> item = objects;
-		if (item.size()>0)
-			if(!("".equals(item.get(0)))){
-				card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
-				//descCard1.setText(item.get(0));
-			}
-		if (item.size()>1){
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".png"));
-			//descCard2.setText(item.get(1));
-		}
-		if (item.size()>2){
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".png"));
-			//descCard3.setText(item.get(2));
-		}
-	}
-	
-    @Override
+		
+	@Override
 	public List<JLabel> setCardHandler(List<String> item){
 		return null;
 	}
@@ -224,15 +190,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		return attackButton;
 	}
 	
-	@Override
-	public JLabel getBackgroundImage(){
-		return this.map;
-	}
-	
-	@Override
-	public void appendToTextArea(String string){
-		comunication.append(string);
-	}
+		
 }
 
 

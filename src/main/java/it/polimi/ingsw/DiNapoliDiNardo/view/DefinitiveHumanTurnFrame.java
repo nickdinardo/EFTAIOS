@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,20 +15,12 @@ import javax.swing.text.DefaultCaret;
 public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
 	
-   
-    private JLabel map;
-	private JLabel nameLabel;
-	private JLabel turnLabel;
-	private JLabel timerLabel;
-	private JLabel positionLabel;
+	
 	private JLabel jLabel3;
-	private JLabel alienImageLabel;
-    private JLabel card1;
-    private JLabel card2;
-    private JLabel card3;
+	private JLabel humanImageLabel;
     private JScrollPane jScrollPane1;
-    private JTextArea comunication;
-    private static final Color humancolor = Color.blue;
+    
+    
 	
     
 	    
@@ -53,7 +44,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         card2 = new JLabel();
         card3 = new JLabel();
         jLabel3 = new JLabel();
-        alienImageLabel = new JLabel();
+        humanImageLabel = new JLabel();
         nextButton = new JButton();
         nameLabel = new JLabel();
         turnLabel = new JLabel();
@@ -65,7 +56,8 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 
         map.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\galileibella.jpg")); // NOI18N
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
+        map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        
         comunication.setEditable(false);
         comunication.setBackground(new java.awt.Color(88, 101, 146));
         comunication.setColumns(20);
@@ -75,11 +67,19 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
-        card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); // NOI18N
+        card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); // NOI18N
         card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        alienImageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\capitano.jpg")); // NOI18N
+        card2.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        card3.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        humanImageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\capitano.jpg")); // NOI18N
 
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);
@@ -88,14 +88,6 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 
         nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
        
-        card3.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); 
-        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        card2.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); 
-        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +106,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
                                 .addComponent(card3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(alienImageLabel)
+                                .addComponent(humanImageLabel)
                                 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -162,7 +154,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
                                     
                                     .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                
-                            .addComponent(alienImageLabel))
+                            .addComponent(humanImageLabel))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,32 +177,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
     }   
 	
 	
-	
-	
-	
-	
-    @Override
-	public void update(String name, String position, String turn, List<String> objects) {
-		comunication.append(name + " you are now in the " + position + " position\n");
-		turnLabel.setText("Turn: " + turn); 
-		positionLabel.setText("Position: " + position);
-		List<String> item = objects;
-		if (item.size()>0)
-			if(!("".equals(item.get(0)))){
-				card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".png"));
-				//descCard1.setText(item.get(0));
-			}
-		if (item.size()>1){
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".png"));
-			//descCard2.setText(item.get(1));
-		}
-		if (item.size()>2){
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".png"));
-			//descCard3.setText(item.get(2));
-		}
-	}
-	
-    @Override
+	@Override
     public List<JLabel> setCardHandler(List<String> item){
 		
 		List<JLabel> cards = new ArrayList<JLabel>();
@@ -234,15 +201,8 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
 	}
 	
-		
-	@Override
-	public JLabel getBackgroundImage(){
-		return this.map;
-	}
 	
-	public void appendToTextArea(String string){
-		comunication.append(string);
-	}
+	
 }
 
 

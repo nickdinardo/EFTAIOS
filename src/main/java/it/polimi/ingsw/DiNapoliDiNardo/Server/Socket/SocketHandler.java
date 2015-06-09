@@ -91,6 +91,11 @@ public class SocketHandler implements Handler, Runnable {
 	}
 	
 	@Override
+	public void updateView(String position, String reachables, String objects) throws IOException{
+		out.println("object=update&action="+position+";"+reachables+";"+objects+";");
+	}
+		
+	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{
 		out.println("object=player&action=askattack");
 		String answer = in.readLine();
@@ -203,6 +208,8 @@ public class SocketHandler implements Handler, Runnable {
 		this.socket = socket;
 		
 	}
+
+
 
 	
 

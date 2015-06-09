@@ -26,23 +26,20 @@ public class SwingView extends View{
 
 	public void showBeingHuman(String name){
 		
-		
 		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
 		showHuman.getNext();
 		info = new Information(1);
-		info.setPlayerName(name); //TODO da controllare quando completo
+		info.setPlayerName(name);
 		turnFrame = new DefinitiveHumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
 	
 	
 	public void showBeingAlien(String name){
 		
-		
 		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
 		showAlien.getNext();
 		info = new Information(2);
-		info.setPlayerName(name); //TODO da controllare quando completo
-		//turnFrame = new AlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		info.setPlayerName(name); 
 		turnFrame = new DefinitiveAlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem());
 	}
 	
@@ -53,17 +50,29 @@ public class SwingView extends View{
 		if (position.length() == 2)
 			info.setActualPosition(position.substring(0, 1) + "0" + position.substring(1, position.length()));
 		info.setTurn(turn);
+		button.setWaitAttack(false);
+		button.setWaitCoordinates(false);
+		button.setWaitItems(false);
 		if (!"no".equals(objects)){
 			info.setItem(Arrays.asList(objects.split(" ")));
 		}
 		else
 			info.addToItem(0, "");
-		button.setWaitAttack(false);
-		button.setWaitCoordinates(false);
-		button.setWaitItems(false);
-		
-		
-		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem(), true );
+	}
+	
+	@Override
+	public void update(String position, String reachables, String objects) {
+		info.setActualPosition(position);
+		if (position.length() == 2)
+			info.setActualPosition(position.substring(0, 1) + "0" + position.substring(1, position.length()));
+		if (!"no".equals(objects)){
+			info.setItem(Arrays.asList(objects.split(" ")));
+		}
+		else
+			info.addToItem(0, "");
+	
+		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem(), false );
 	}
 	
 	
