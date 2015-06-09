@@ -11,9 +11,6 @@ import it.polimi.ingsw.DiNapoliDiNardo.model.GameState;
 import it.polimi.ingsw.DiNapoliDiNardo.model.HumanPlayer;
 import it.polimi.ingsw.DiNapoliDiNardo.model.Player;
 
-
-import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Box;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +39,7 @@ public class TestHumanPlayer {
 		assertFalse(human.getPosition().isEmpty());
 	}
 
-	@Test
+	/*@Test
 	public void teleportTest(){
 		//first I move the player far from starting box
 		human.setPosition(new Box(3,7));
@@ -51,7 +48,7 @@ public class TestHumanPlayer {
 		assertEquals(human.getPosition().getCoordX(), 12);
 		assertEquals(human.getPosition().getCoordY(), 8);
 			
-	}
+	}*/
 
 	@Test
 	public void attackTest(){
