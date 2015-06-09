@@ -9,23 +9,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class NewAlienFrame extends TurnFrame{
 	                    
     
 	private static final Color aliencolor = Color.pink;
-	private javax.swing.JButton attackButton;
-    private javax.swing.JButton nextButton;
-    private javax.swing.JLabel card1;
-    private javax.swing.JLabel card2;
-    private javax.swing.JLabel card3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel header;
-    private javax.swing.JLabel turnLabel;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel positionLabel;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea comunication;
+	private JButton attackButton;
+    
+    private JLabel card1;
+    private JLabel card2;
+    private JLabel card3;
+    private JLabel jLabel4;
+    private JLabel header;
+    private JLabel turnLabel;
+    private JLabel nameLabel;
+    private JLabel positionLabel;
+    private JScrollPane jScrollPane1;
+    private JTextArea comunication;
    
     
 	    public NewAlienFrame(String name, String actualPosition, String turn, List<String> objects) {
