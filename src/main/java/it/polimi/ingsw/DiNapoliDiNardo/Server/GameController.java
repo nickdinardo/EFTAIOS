@@ -144,14 +144,14 @@ public class GameController {
 			}
 				
 		}
-		
+		/*
 		if (hasUsableCards(itemdeck)){
 			String objects = personalDeckListify(itemdeck);
 			index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
 		}
-		
+		*/
 	}
 	
 		

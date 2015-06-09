@@ -65,7 +65,7 @@ public class Information {
 	
 	public void addToItem(int index, String object){
 		//problema su questo metodo, rimuovere il clear.
-		this.item.clear();
+		item = new LinkedList<String>();
 		this.item.add(index, object);
 	}
 	

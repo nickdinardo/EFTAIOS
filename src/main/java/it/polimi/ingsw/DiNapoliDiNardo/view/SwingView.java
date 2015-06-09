@@ -26,9 +26,8 @@ public class SwingView extends View{
 
 	public void showBeingHuman(String name){
 		
-		System.out.println("sto per avviare showhuman");
+		
 		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
-		System.out.println("ho avviato showhuman");
 		showHuman.getNext();
 		info = new Information(1);
 		info.setPlayerName(name); //TODO da controllare quando completo
@@ -38,9 +37,8 @@ public class SwingView extends View{
 	
 	public void showBeingAlien(String name){
 		
-		System.out.println("sto per avviare showalien");
+		
 		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
-		System.out.println("ho avviato showalien");
 		showAlien.getNext();
 		info = new Information(2);
 		info.setPlayerName(name); //TODO da controllare quando completo
@@ -75,14 +73,15 @@ public class SwingView extends View{
 		if (!"no".equals(objects)){
 			if(discardCall){
 				print("Please, select the item you want to use to get free the slot");
-				info.setItem(Arrays.asList(objects.split(" ")));
+				info.setItem(Arrays.asList(objects.split(" ;")));
 			}else{
-				info.setItem(Arrays.asList(objects.split(" ")));
+				info.setItem(Arrays.asList(objects.split(" ;")));
 			}
 			
 		}
 		else
 			info.addToItem(0, "");
+		
 		CardHandler cardHandler = new CardHandler();
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
 		BoxHandler boxClick = new BoxHandler();

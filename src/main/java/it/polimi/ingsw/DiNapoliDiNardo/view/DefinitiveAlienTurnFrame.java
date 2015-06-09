@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
@@ -70,6 +71,8 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
         comunication.setColumns(20);
         comunication.setRows(5);
         comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        DefaultCaret caret = (DefaultCaret)comunication.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
         card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); // NOI18N
@@ -212,6 +215,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		}
 	}
 	
+    @Override
 	public List<JLabel> setCardHandler(List<String> item){
 		return null;
 	}
@@ -225,6 +229,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		return this.map;
 	}
 	
+	@Override
 	public void appendToTextArea(String string){
 		comunication.append(string);
 	}

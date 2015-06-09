@@ -2,6 +2,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
@@ -69,6 +71,8 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         comunication.setColumns(20);
         comunication.setRows(5);
         comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        DefaultCaret caret = (DefaultCaret)comunication.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
         card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\AdrenalineCard.JPG")); // NOI18N
@@ -206,8 +210,28 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 		}
 	}
 	
-	public List<JLabel> setCardHandler(List<String> item){
-		return null;
+    @Override
+    public List<JLabel> setCardHandler(List<String> item){
+		
+		List<JLabel> cards = new ArrayList<JLabel>();
+		switch(item.size()){
+			case 1:
+				if(item.get(0) != "")
+					cards.add(card1);
+					break;
+			case 2:
+				cards.add(card1);
+				cards.add(card2);
+				break;
+			case 3:
+				cards.add(card1);
+				cards.add(card2);
+				cards.add(card3);
+			
+		}
+		
+		return cards;
+	
 	}
 	
 		
