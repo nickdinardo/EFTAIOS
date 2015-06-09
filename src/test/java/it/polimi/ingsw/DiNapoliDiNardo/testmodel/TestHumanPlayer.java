@@ -39,17 +39,6 @@ public class TestHumanPlayer {
 		assertFalse(human.getPosition().isEmpty());
 	}
 
-	/*@Test
-	public void teleportTest(){
-		//first I move the player far from starting box
-		human.setPosition(new Box(3,7));
-		//then I telport him back
-		human.teleport();
-		assertEquals(human.getPosition().getCoordX(), 12);
-		assertEquals(human.getPosition().getCoordY(), 8);
-			
-	}*/
-
 	@Test
 	public void attackTest(){
 		
@@ -75,10 +64,10 @@ public class TestHumanPlayer {
 	@Test
 	public void correctGets(){
 		
-		human.setAdrenalized(true);
+		/*human.setAdrenalized(true);
 		assertTrue(human.isAdrenalized());
 		human.setSedated(true);
-		assertTrue(human.isSedated());
+		assertTrue(human.isSedated());*/
 		human.setEscaped(true);
 		assertTrue(human.isEscaped());
 		assertTrue(human.isLosesIfKilledType());
