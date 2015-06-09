@@ -26,26 +26,24 @@ public class SwingView extends View{
 
 	public void showBeingHuman(String name){
 		
-		System.out.println("sto per avviare showhuman");
+		
 		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
-		System.out.println("ho avviato showhuman");
 		showHuman.getNext();
 		info = new Information(1);
 		info.setPlayerName(name); //TODO da controllare quando completo
-		turnFrame = new HumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		turnFrame = new DefinitiveHumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
 	
 	
 	public void showBeingAlien(String name){
 		
-		System.out.println("sto per avviare showalien");
+		
 		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
-		System.out.println("ho avviato showalien");
 		showAlien.getNext();
 		info = new Information(2);
 		info.setPlayerName(name); //TODO da controllare quando completo
 		//turnFrame = new AlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
-		turnFrame = new NewAlienFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		turnFrame = new DefinitiveAlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem());
 	}
 	
 	
@@ -75,14 +73,15 @@ public class SwingView extends View{
 		if (!"no".equals(objects)){
 			if(discardCall){
 				print("Please, select the item you want to use to get free the slot");
-				info.setItem(Arrays.asList(objects.split(" ")));
+				info.setItem(Arrays.asList(objects.split(" ;")));
 			}else{
-				info.setItem(Arrays.asList(objects.split(" ")));
+				info.setItem(Arrays.asList(objects.split(" ;")));
 			}
 			
 		}
 		else
 			info.addToItem(0, "");
+		
 		CardHandler cardHandler = new CardHandler();
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
 		BoxHandler boxClick = new BoxHandler();
@@ -130,7 +129,7 @@ public class SwingView extends View{
 		turnFrame.appendToTextArea("Filthy alien, do you want to attack this position?\n");
 		turnFrame.appendToTextArea("Press Attack if yes, Next if no\n");
 		button.setWaitAttack(false);
-		ActionListener attackB = button.startAttackListen(((AlienTurnFrame)turnFrame).getAttackButton());
+		ActionListener attackB = button.startAttackListen(((DefinitiveAlienTurnFrame)turnFrame).getAttackButton());
 		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
 		
 		while(button.getWaitAttack() == false){
@@ -142,7 +141,7 @@ public class SwingView extends View{
 			}
 		}
 		info.setAttackAnswer(button.getAnswer());
-		AlienTurnFrame alienframe = (AlienTurnFrame)turnFrame;
+		DefinitiveAlienTurnFrame alienframe = (DefinitiveAlienTurnFrame)turnFrame;
 		alienframe.getAttackButton().removeActionListener(attackB);
 		alienframe.getNextButton().removeActionListener(nextB);
 		return info.getAttackAnswer();		
@@ -151,7 +150,7 @@ public class SwingView extends View{
 	public Coordinates askMovement(boolean reask){
 		if(reask)
 			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box\n");
-		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
+		//ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
 		
 		if(coordinates == true){
 			coordinates = false;
@@ -161,10 +160,10 @@ public class SwingView extends View{
 		else{
 			BoxHandler boxClick = new BoxHandler(button);
 			boxClick.startListen(turnFrame.getBackgroundImage());
-			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map and then next\n");
+			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map\n");
 			
-			
-			while (boxClick.getWait() == false || button.getWaitCoordinates() == false){
+			//|| button.getWaitCoordinates() == false
+			while (boxClick.getWait() == false ){
 				Thread.currentThread();
 				try {
 					Thread.sleep(100);
@@ -173,7 +172,7 @@ public class SwingView extends View{
 				}
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
-			turnFrame.getNextButton().removeActionListener(nextB);
+			//turnFrame.getNextButton().removeActionListener(nextB);
 			if (info.getMoveCoord().getCoordX() != 0 && info.getMoveCoord().getCoordY() != 0)
 				return info.getMoveCoord();
 			else
