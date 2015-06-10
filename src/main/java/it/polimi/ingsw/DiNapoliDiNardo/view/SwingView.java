@@ -4,6 +4,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class SwingView extends View{
 	private TurnFrame turnFrame;
 	private ButtonHandler button = new ButtonHandler();
 	private boolean coordinates = false;
+	private boolean hasMoved = false;
 	private static final Coordinates WALLCOORD = new Coordinates (12,7);
 	
 	
@@ -51,13 +53,14 @@ public class SwingView extends View{
 			info.setActualPosition(position.substring(0, 1) + "0" + position.substring(1, position.length()));
 		info.setTurn(turn);
 		button.setWaitAttack(false);
-		button.setWaitCoordinates(false);
+		//button.setWaitCoordinates(false);
 		button.setWaitItems(false);
 		if (!"no".equals(objects)){
 			info.setItem(Arrays.asList(objects.split(" ")));
 		}
 		else
 			info.addToItem(0, "");
+		hasMoved = false;
 		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem(), true );
 	}
 	
@@ -77,11 +80,10 @@ public class SwingView extends View{
 	
 	
 	public int askItemUse(String objects, boolean discardCall){
-		turnFrame.appendToTextArea("If you want to use a card press on the corresponding image\n");
 		
 		if (!"no".equals(objects)){
 			if(discardCall){
-				print("Please, select the item you want to use to get free the slot");
+				print("Please, select the item you want to use to get free the slot\n");
 				info.setItem(Arrays.asList(objects.split(" ;")));
 			}else{
 				info.setItem(Arrays.asList(objects.split(" ;")));
@@ -91,27 +93,51 @@ public class SwingView extends View{
 		else
 			info.addToItem(0, "");
 		
-		CardHandler cardHandler = new CardHandler();
+		CardHandler cardHandler = new CardHandler(turnFrame);
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
-		BoxHandler boxClick = new BoxHandler();
-		boxClick.startListen(turnFrame.getBackgroundImage());
-		
-		while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false  && button.getWaitItems() == false){
-			Thread.currentThread();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				//do nothing
+		if(!hasMoved){
+			turnFrame.appendToTextArea("Press a card to activate an object, or press the map to move\n");
+			BoxHandler boxClick = new BoxHandler();
+			MouseListener clickListen = boxClick.startListen(turnFrame.getBackgroundImage());
+			while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false){
+				Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					//do nothing
+				}
+			}
+			turnFrame.getBackgroundImage().removeMouseListener(clickListen);
+			if (boxClick.getWait() == true){
+				coordinates = true;
+				info.setMoveCoord(boxClick.getCoordinates());
+				cardHandler.removeListeners();
+				info.setSelectedItem(8);
+				return info.getSelectedItem();
+			}else{
+				info.setSelectedItem(cardHandler.getIndexCard());
+				cardHandler.removeListeners();
+				return info.getSelectedItem();
 			}
 		}
-		if (boxClick.getWait() == true){
-			coordinates = true;
-			info.setMoveCoord(boxClick.getCoordinates());
-			return info.getSelectedItem();
-		}else{
+		else{
+			turnFrame.appendToTextArea("Press a card to activate an object, or press Next button to pass the turn\n");
+			ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
+			while(cardHandler.getWaitForItem() == false && button.getWaitItems() == false){
+				Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					//do nothing
+				}
+			}
 			info.setSelectedItem(cardHandler.getIndexCard());
+			turnFrame.getNextButton().removeActionListener(nextB);
+			cardHandler.removeListeners();
 			return info.getSelectedItem();
 		}
+		
+		
 		
 	}
 	
@@ -163,7 +189,7 @@ public class SwingView extends View{
 		
 		if(coordinates == true){
 			coordinates = false;
-			
+			hasMoved = true;
 			return info.getMoveCoord();
 		}
 		else{
@@ -171,7 +197,7 @@ public class SwingView extends View{
 			boxClick.startListen(turnFrame.getBackgroundImage());
 			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map\n");
 			
-			//|| button.getWaitCoordinates() == false
+			
 			while (boxClick.getWait() == false ){
 				Thread.currentThread();
 				try {
@@ -181,6 +207,7 @@ public class SwingView extends View{
 				}
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
+			hasMoved = true;
 			//turnFrame.getNextButton().removeActionListener(nextB);
 			if (info.getMoveCoord().getCoordX() != 0 && info.getMoveCoord().getCoordY() != 0)
 				return info.getMoveCoord();
@@ -217,7 +244,7 @@ public class SwingView extends View{
 	
 	public int askHumanItemDiscard(String objects){
 		DiscardFrame frame = new HumanDiscardFrame(info.getItem());
-		CardHandler cardHandler = new CardHandler();
+		CardHandler cardHandler = new CardHandler(turnFrame);
 		cardHandler.setCards(frame.setCardHandler(info.getItem()));
 		cardHandler.startListenNoButton(frame.getButtonNo());
 		cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
@@ -238,7 +265,7 @@ public class SwingView extends View{
 	public int askAlienItemDiscard(String objects){
 		
 		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
-		CardHandler cardHandler = new CardHandler();
+		CardHandler cardHandler = new CardHandler(turnFrame);
 		cardHandler.setCards(frame.setCardHandler(info.getItem()));
 		cardHandler.startListenNoButton(frame.getButtonNo());
 		
@@ -282,7 +309,6 @@ public class SwingView extends View{
 	
 	public void print (String message){
 		turnFrame.appendToTextArea(message+"\n");
-		turnFrame.setJsbValue(turnFrame.getJsbMaximum());
 	}
 	
 }

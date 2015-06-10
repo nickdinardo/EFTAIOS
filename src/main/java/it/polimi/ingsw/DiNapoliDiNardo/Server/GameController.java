@@ -139,17 +139,20 @@ public class GameController {
 		
 		Player player = gamestate.givemePlayerByName(playername);
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
-		int index;
 		
 		//ask for card use only if player has "usable" cards, not if he has the defense card
+		int index = 0;
 		if (hasUsableCards(itemdeck)){
-			String objects = personalDeckListify(itemdeck);
-		
-			index = handlers.get(playername).askForItem(objects, false);
+			while(index != 8 && hasUsableCards(itemdeck)){
+				String objects = personalDeckListify(itemdeck);
+			
+				index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
+				updateView(player);
+			}
 		}
-		updateView(player);
+		
 		askForMovement(playername);
 		
 		
@@ -169,13 +172,19 @@ public class GameController {
 				
 		}
 		
+		//ask for card use only if player has "usable" cards, not if he has the defense card
+		index = 0;
 		if (hasUsableCards(itemdeck)){
-			String objects = personalDeckListify(itemdeck);
-			index = handlers.get(playername).askForItem(objects, false);
+			while(index != 8 && hasUsableCards(itemdeck)){
+				String objects = personalDeckListify(itemdeck);
+					
+				index = handlers.get(playername).askForItem(objects, false);
 				if (index != 8)
 					gamestate.itemUsageManagement(playername, index-1);
+				updateView(player);
+			}
 		}
-		updateView(player);
+				
 	}
 	
 		

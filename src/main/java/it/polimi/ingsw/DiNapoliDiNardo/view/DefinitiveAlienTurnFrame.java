@@ -90,7 +90,9 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		nextButton.setForeground(aliencolor);
 		nextButton.setFocusable(false);
 
-        nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
+		nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
+        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
+        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);

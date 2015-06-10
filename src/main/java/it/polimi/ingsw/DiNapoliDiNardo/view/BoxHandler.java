@@ -37,8 +37,6 @@ public class BoxHandler {
 			
 			Point click = event.getPoint();
 			setCoordinates(boxes.getMinimumDistance(click));
-			if (button != null)
-				button.setWaitCoordinates(false);
 			setWait(true);
 		
 		}
@@ -61,9 +59,10 @@ public class BoxHandler {
 
 	}	
 	
-	public void startListen(JLabel background){
+	public MouseListener startListen(JLabel background){
 		click = new ClickOnBox(button);
 		background.addMouseListener(click);
+		return click;
 	}
 	
 	public Coordinates getCoordinates(){

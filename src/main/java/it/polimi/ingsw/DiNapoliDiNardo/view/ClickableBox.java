@@ -331,9 +331,9 @@ public class ClickableBox {
 		centers[5][19] = new Point(634, 241);
 		centers[6][19] = new Point(634, 278);
 		centers[7][19] = new Point(634, 315);
-		centers[8][19] = new Point(634, 427);
+		centers[8][19] = wallPoint;
 		centers[9][19] = wallPoint;
-		centers[10][19] = wallPoint;
+		centers[10][19] = new Point(634, 427);
 		centers[11][19] = new Point(634, 464);
 		centers[12][19] = new Point(634, 501);
 		centers[13][19] = new Point(634, 538);

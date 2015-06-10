@@ -33,7 +33,6 @@ public class ButtonHandler{
 			if(event.getActionCommand() == "Next"){
 				//TODO update frame for next turn, maybe
 				if (type == 1){
-					setWaitCoordinates(true);
 					setWaitItems(true);
 				}
 				if (type == 2){
@@ -67,14 +66,6 @@ public class ButtonHandler{
 	
 	public boolean getWaitAttack(){
 		return this.waitAttack;
-	}
-	
-	public void setWaitCoordinates(boolean flag){
-		this.waitCoordinates = flag;
-	}
-	
-	public boolean getWaitCoordinates(){
-		return this.waitCoordinates;
 	}
 	
 	public void setWaitItems(boolean flag){

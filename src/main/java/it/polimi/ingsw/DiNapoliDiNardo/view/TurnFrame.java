@@ -24,6 +24,7 @@ public abstract class TurnFrame {
 	protected JLabel timerLabel;
 	protected JLabel positionLabel;
 	protected JLabel map;
+	List<String> item;
 	
 	
 	public void update(String name, String position, String turn, List<String> objects, boolean startTurn) {
@@ -31,20 +32,28 @@ public abstract class TurnFrame {
 			comunication.append(name + " you are now in the " + position + " position\n");
 		turnLabel.setText("Turn: " + turn); 
 		positionLabel.setText("Position: " + position);
-		List<String> item = objects;
-		if (item.size()>0)
+		item = objects;
+		if (item.size() == 1)
 			if(!("".equals(item.get(0)))){
 				card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
+				card2.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+				card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
 				//descCard1.setText(item.get(0));
 			}
 			else{
 				card1.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+				card2.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+				card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
 			}
-		if (item.size()>1){
+		if (item.size() == 2){
+			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
 			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
+			card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
 			//descCard2.setText(item.get(1));
 		}
-		if (item.size()>2){
+		if (item.size() == 3){
+			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
+			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
 			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
 			//descCard3.setText(item.get(2));
 		}
@@ -67,21 +76,41 @@ public abstract class TurnFrame {
 		return this.nextButton;
 	}
 	
-	public void setJsbValue(int value){
-		if (jsb!=null)
-			jsb.setValue(value);
-	}
-	
-	public int getJsbMaximum(){
-		if (jsb!=null)
-			return jsb.getMaximum();
-		else 
-			return 0;
-	}
 	
 	public JLabel getBackgroundImage(){
 		return this.map;
 	}
 	
+	public void enlightCard(int index){
+		if (index == 1 && (item.get(0) != ""))
+			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + "Inv.jpg"));
+		if (index == 2 && item.size()>1)
+			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + "Inv.jpg"));
+		if (index == 3 && item.size()>2)
+			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + "Inv.jpg"));
+	}
 
+	public void endarkCard(int index){
+		if (index == 1 && (item.get(0) != ""))
+			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
+		if (index == 2 && item.size()>1)
+			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
+		if (index == 3 && item.size()>2)
+			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
+	}
+	
+	public List<String> getItem(){
+		return item;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+

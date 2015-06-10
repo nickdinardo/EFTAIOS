@@ -24,7 +24,7 @@ public class LightsFrame{
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
 		frame.setLayout(new BorderLayout());
-		background = new JLabel(new ImageIcon("externalresources\\galilei1.jpg"));
+		background = new JLabel(new ImageIcon("externalresources\\galileibella.jpg"));
 		background.setLayout(new FlowLayout());
 		frame.add(background, BorderLayout.SOUTH);
 		Font f = new Font("Arial", Font.BOLD, 18);

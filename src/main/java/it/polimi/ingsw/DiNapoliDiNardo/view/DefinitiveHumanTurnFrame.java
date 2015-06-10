@@ -87,6 +87,8 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 		nextButton.setFocusable(false);
 
         nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
+        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
+        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
@@ -181,24 +183,10 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
     public List<JLabel> setCardHandler(List<String> item){
 		
 		List<JLabel> cards = new ArrayList<JLabel>();
-		switch(item.size()){
-			case 1:
-				if(item.get(0) != "")
-					cards.add(card1);
-					break;
-			case 2:
-				cards.add(card1);
-				cards.add(card2);
-				break;
-			case 3:
-				cards.add(card1);
-				cards.add(card2);
-				cards.add(card3);
-			
-		}
-		
+		cards.add(card1);
+		cards.add(card2);
+		cards.add(card3);
 		return cards;
-	
 	}
 	
 	

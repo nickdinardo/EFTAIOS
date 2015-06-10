@@ -160,7 +160,7 @@ public class TextView extends View{
 	public int askWhichCard (String[] items){
 		int answer;
 		do{
-			out.println("Select the number of the item you want to discard:");
+			out.println("Select the number of the item you want to select:");
 			for (int i=0; i<items.length; i++){
 				int j = i+1;
 				out.println(j+"- "+items[i]);
