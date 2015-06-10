@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.text.DefaultCaret;
+
 
 public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
@@ -21,15 +21,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
     }	
 
 	
-	private JLabel jLabel3;
-	private JLabel humanImageLabel;
-    private JScrollPane jScrollPane1;
-    
-    
-	
-    
-	   
-	                           
+	@Override	                           
 	protected void initComponents() {
 
 		frame = new JFrame("GalileiMap");
@@ -41,7 +33,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         card2 = new JLabel();
         card3 = new JLabel();
         jLabel3 = new JLabel();
-        humanImageLabel = new JLabel();
+        imageLabel = new JLabel();
         nextButton = new JButton();
         nameLabel = new JLabel();
         turnLabel = new JLabel();
@@ -49,45 +41,8 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         positionLabel = new JLabel();
        
 
-       
+        commonBuildUp("externalresources\\capitano.jpg", new Color(88, 101, 146), new Color (102, 129, 198));
 
-        map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); // NOI18N
-        map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        
-        comunication.setEditable(false);
-        comunication.setBackground(new java.awt.Color(88, 101, 146));
-        comunication.setColumns(20);
-        comunication.setRows(5);
-        comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        DefaultCaret caret = (DefaultCaret)comunication.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        jScrollPane1.setViewportView(comunication);
-
-        card1.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); // NOI18N
-        card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        card2.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
-        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        card3.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
-        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        humanImageLabel.setIcon(new javax.swing.ImageIcon("externalresources\\capitano.jpg")); // NOI18N
-
-        nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
-        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
-        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
-        
-        nextButton.setText("Next");
-        nextButton.setBackground(Color.black);
-		nextButton.setForeground(Color.LIGHT_GRAY);
-		nextButton.setFocusable(false);
-
-       
        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
@@ -107,7 +62,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
                                 .addComponent(card3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(humanImageLabel)
+                                .addComponent(imageLabel)
                                 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -155,7 +110,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
                                     
                                     .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                
-                            .addComponent(humanImageLabel))
+                            .addComponent(imageLabel))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,11 +126,9 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         frame.getContentPane().setBackground(Color.black);
         frame.pack();
         frame.setResizable(false);
-		//Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
-		//frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 
-		//		((screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 )) - 20 );
 		frame.setVisible(true);  
-    }   
+   
+	}   
 	
 	
 	@Override

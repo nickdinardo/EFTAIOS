@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.text.DefaultCaret;
+
 
 public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
@@ -19,9 +19,6 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
     }	
 
 	private JButton attackButton;
-    private JLabel jLabel3;
-	private JLabel alienImageLabel;
-    private JScrollPane jScrollPane1;
     private static final Color aliencolor = Color.pink;
 	
     
@@ -40,58 +37,22 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
         card2 = new JLabel();
         card3 = new JLabel();
         jLabel3 = new JLabel();
-        alienImageLabel = new JLabel();
+        imageLabel = new JLabel();
         nextButton = new JButton();
         attackButton = new JButton();
         nameLabel = new JLabel();
         turnLabel = new JLabel();
         timerLabel = new JLabel();
         positionLabel = new JLabel();
-       
-
-       
-
-        map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); // NOI18N
-        map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        
-        comunication.setEditable(false);
-        comunication.setBackground(new java.awt.Color(138, 66, 130));
-        comunication.setColumns(20);
-        comunication.setRows(5);
-        comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        DefaultCaret caret = (DefaultCaret)comunication.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        jScrollPane1.setViewportView(comunication);
-
-        card1.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
-        card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        card2.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
-        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        
-        card3.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
-        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        alienImageLabel.setIcon(new javax.swing.ImageIcon("externalresources\\alieno3.jpg")); 
-
+               
+             
+        commonBuildUp("externalresources\\alieno3.jpg", new Color(136, 66, 130),  aliencolor);
+           
         attackButton.setText("Attack");
         attackButton.setBackground(Color.black);
 		attackButton.setForeground(aliencolor);
 		attackButton.setFocusable(false);
-
-        nextButton.setText("Next");
-        nextButton.setBackground(Color.black);
-		nextButton.setForeground(aliencolor);
-		nextButton.setFocusable(false);
-
-		nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
-        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
-        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
-        
+		
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,7 +71,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
                                 .addComponent(card3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(alienImageLabel)
+                                .addComponent(imageLabel)
                                 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -158,7 +119,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
                                     .addComponent(attackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                
-                            .addComponent(alienImageLabel))
+                            .addComponent(imageLabel))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,9 +135,6 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
         frame.getContentPane().setBackground(Color.black);
         frame.pack();
         frame.setResizable(false);
-		//Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
-		//frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 
-		//		((screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 )) - 20 );
 		frame.setVisible(true);  
     }   
 	

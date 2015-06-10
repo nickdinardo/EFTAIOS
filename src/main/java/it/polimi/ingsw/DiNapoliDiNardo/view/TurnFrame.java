@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public abstract class TurnFrame {
 	
@@ -25,6 +28,11 @@ public abstract class TurnFrame {
 	protected JLabel timerLabel;
 	protected JLabel positionLabel;
 	protected JLabel map;
+	protected JLabel jLabel3;
+	protected JLabel imageLabel;
+    protected JScrollPane jScrollPane1;
+    
+    
 	List<String> item;
 	
 	
@@ -37,9 +45,45 @@ public abstract class TurnFrame {
 
 	
 	
-	//public void commonBuildUp()
+	public void commonBuildUp(String imagePath, Color commColor, Color nextColor){
+		
+        map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); 
+        map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        
+        comunication.setEditable(false);
+        comunication.setBackground(commColor);
+        comunication.setColumns(20);
+        comunication.setRows(5);
+        comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        DefaultCaret caret = (DefaultCaret)comunication.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        jScrollPane1.setViewportView(comunication);
+
+        card1.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png"));
+        card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        card2.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
+        card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        card3.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
+        card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        imageLabel.setIcon(new javax.swing.ImageIcon(imagePath)); 
+
+        nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
+        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
+        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
+        
+        nextButton.setText("Next");
+        nextButton.setBackground(Color.black);
+		nextButton.setForeground(nextColor);
+		nextButton.setFocusable(false);
 	
-	
+	}
 	
 	public void update(String name, String position, String turn, List<String> objects, boolean startTurn) {
 		if(startTurn)

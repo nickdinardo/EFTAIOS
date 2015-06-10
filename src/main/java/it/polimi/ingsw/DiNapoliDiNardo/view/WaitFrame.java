@@ -21,9 +21,10 @@ public class WaitFrame {
     }
 
     
+    
     private void initComponents() {
 
-    	frame = new JFrame("WaitFrame");
+    	frame = new JFrame("Please Wait");
     	frame.setUndecorated(true);
         header = new javax.swing.JLabel();
         waitingPhrase = new javax.swing.JLabel();
@@ -31,8 +32,8 @@ public class WaitFrame {
         
         header.setIcon(new javax.swing.ImageIcon("externalresources\\header 2.jpg"));
 
-        waitingPhrase.setFont(new java.awt.Font("Impact", 3, 18)); 
-        waitingPhrase.setForeground(new java.awt.Color(255, 255, 255));
+        waitingPhrase.setFont(new java.awt.Font("Impact", 0, 18)); 
+        waitingPhrase.setForeground(Color.lightGray);
         waitingPhrase.setText("Waiting the other players...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
@@ -47,11 +48,11 @@ public class WaitFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGap(224, 224, 224))))
+                        .addGap(304, 304, 304))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(waitingPhrase)
-                .addGap(180, 180, 180))
+                .addGap(208, 208, 208))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
