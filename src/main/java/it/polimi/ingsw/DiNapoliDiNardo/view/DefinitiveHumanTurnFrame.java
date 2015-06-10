@@ -41,7 +41,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         positionLabel = new JLabel();
        
 
-        commonBuildUp("externalresources\\capitano.jpg", new Color(88, 101, 146), new Color (102, 129, 198));
+        commonBuildUp("externalresources\\capitano.jpg", new Color(88, 101, 146));
 
        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());

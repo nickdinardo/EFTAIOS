@@ -19,10 +19,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
     }	
 
 	private JButton attackButton;
-    private static final Color aliencolor = Color.pink;
-	
-    
-	    
+      
 	
 	   
 	                           
@@ -46,11 +43,11 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
         positionLabel = new JLabel();
                
              
-        commonBuildUp("externalresources\\alieno3.jpg", new Color(136, 66, 130),  aliencolor);
+        commonBuildUp("externalresources\\alieno3.jpg", new Color(136, 66, 130));
            
         attackButton.setText("Attack");
         attackButton.setBackground(Color.black);
-		attackButton.setForeground(aliencolor);
+		attackButton.setForeground(new Color(136, 66, 130));
 		attackButton.setFocusable(false);
 		
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());

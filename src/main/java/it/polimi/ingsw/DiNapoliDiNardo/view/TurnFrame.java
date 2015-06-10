@@ -45,7 +45,7 @@ public abstract class TurnFrame {
 
 	
 	
-	public void commonBuildUp(String imagePath, Color commColor, Color nextColor){
+	public void commonBuildUp(String imagePath, Color commColor){
 		
         map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); 
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -80,7 +80,7 @@ public abstract class TurnFrame {
         
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);
-		nextButton.setForeground(nextColor);
+		nextButton.setForeground(commColor);
 		nextButton.setFocusable(false);
 	
 	}
