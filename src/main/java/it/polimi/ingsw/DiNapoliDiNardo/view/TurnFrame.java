@@ -28,6 +28,19 @@ public abstract class TurnFrame {
 	List<String> item;
 	
 	
+	public TurnFrame(String name, String actualPosition, String turn, List<String> objects) {
+		initComponents();
+		nameLabel.setText("   "+name);
+		turnLabel.setText("Turn: " + turn); 
+		positionLabel.setText("Position: " + actualPosition);
+	}
+
+	
+	
+	//public void commonBuildUp()
+	
+	
+	
 	public void update(String name, String position, String turn, List<String> objects, boolean startTurn) {
 		if(startTurn)
 			comunication.append(name + " you are now in the " + position + " position\n");
@@ -61,7 +74,9 @@ public abstract class TurnFrame {
 	}
 	
 	
-	public abstract List<JLabel> setCardHandler(List<String> objects);
+	protected abstract List<JLabel> setCardHandler(List<String> objects);
+	
+	protected abstract void initComponents();
 	
 	public void dispose(){
 		this.frame.dispose();

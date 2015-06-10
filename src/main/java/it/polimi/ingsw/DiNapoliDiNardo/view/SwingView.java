@@ -253,7 +253,7 @@ public class SwingView extends View{
 			return info.getMoveCoord();
 		}
 		else{
-			BoxHandler boxClick = new BoxHandler(button);
+			BoxHandler boxClick = new BoxHandler();
 			boxClick.startListen(turnFrame.getBackgroundImage());
 			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map\n");
 			

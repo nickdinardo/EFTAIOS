@@ -14,7 +14,11 @@ import javax.swing.text.DefaultCaret;
 public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
 	
-    private JButton attackButton;
+    public DefinitiveAlienTurnFrame(String name, String actualPosition, String turn, List<String> objects) {
+		super(name, actualPosition, turn, objects);
+    }	
+
+	private JButton attackButton;
     private JLabel jLabel3;
 	private JLabel alienImageLabel;
     private JScrollPane jScrollPane1;
@@ -22,16 +26,10 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
     
 	    
-	public DefinitiveAlienTurnFrame(String name, String actualPosition, String turn, List<String> objects) {
-		initComponents();
-		nameLabel.setText("   "+name);
-		turnLabel.setText("Turn: " + turn); 
-		positionLabel.setText("Position: " + actualPosition);
-	}
-
+	
 	   
 	                           
-	private void initComponents() {
+	protected void initComponents() {
 
 		frame = new JFrame("GalileiMap");
         map = new JLabel();

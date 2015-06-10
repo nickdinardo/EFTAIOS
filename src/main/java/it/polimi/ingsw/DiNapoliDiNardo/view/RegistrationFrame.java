@@ -78,7 +78,7 @@ public class RegistrationFrame {
 		
 	private class AskNameHandler implements ActionListener {
 		
-		
+		@Override
 		public void actionPerformed(ActionEvent event){
 			
 			setName(event.getActionCommand());

@@ -3,6 +3,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,9 +16,9 @@ public class LightsHandler {
 	private MouseListener position;
 	private Coordinates coordinates;
 	
-	private class LightsMovement implements MouseListener{
+	private class LightsMovement extends MouseAdapter{
 		
-	
+		@Override
 		public void mouseClicked(MouseEvent e) {
 
 			Point click = e.getPoint();
@@ -27,25 +28,6 @@ public class LightsHandler {
 		
 		}
 
-		public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		}
-
-		public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		}
-
-		public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		}
 	}
 	
 	public void startListen(JLabel background){

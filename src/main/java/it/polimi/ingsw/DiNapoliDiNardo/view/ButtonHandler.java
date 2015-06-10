@@ -8,11 +8,11 @@ import javax.swing.JButton;
 public class ButtonHandler{
 
 	private boolean waitAttack = false;
-	private boolean waitCoordinates = false;
 	private boolean waitItems = false;
 	private String answer = "N";
 	
 	private class AttackButtonHandler implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Attack"){
 				setAnswer("Y");
@@ -29,9 +29,10 @@ public class ButtonHandler{
 			this.type = t;
 		}
 		
+		@Override
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Next"){
-				//TODO update frame for next turn, maybe
+				
 				if (type == 1){
 					setWaitItems(true);
 				}
@@ -75,8 +76,6 @@ public class ButtonHandler{
 	public boolean getWaitItems(){
 		return this.waitItems;
 	}
-	
-	
 	
 	public void setAnswer(String string){
 		this.answer = string;

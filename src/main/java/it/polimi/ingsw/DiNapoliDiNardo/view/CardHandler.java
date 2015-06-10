@@ -29,26 +29,26 @@ public class CardHandler  {
 			public CardHandler1(TurnFrame tf){
 				this.turnframe = tf;
 			}
-			
+			@Override
 			public void mouseClicked(MouseEvent event) {
 				if (turnframe.getItem().get(0) != ""){
 					setIndexCard(1);
 					setWaitForItem(true);
 				}
 			}
-
+			@Override
 			public void mousePressed(MouseEvent e) {
 				turnframe.endarkCard(1);
 			}
-
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				turnframe.enlightCard(1);
 			}
-
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				turnframe.enlightCard(1);
 			}
-
+			@Override
 			public void mouseExited(MouseEvent e) {
 				turnframe.endarkCard(1);
 			}
@@ -61,26 +61,26 @@ public class CardHandler  {
 			public CardHandler2(TurnFrame tf){
 				this.turnframe = tf;
 			}
-			
+			@Override
 			public void mouseClicked(MouseEvent event) {
 				if (turnframe.getItem().size()>1){
 					setIndexCard(2);
 					setWaitForItem(true);
 				}
 			}
-
+			@Override
 			public void mousePressed(MouseEvent e) {
 				turnframe.endarkCard(2);
 			}
-
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				turnframe.enlightCard(2);
 			}
-
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				turnframe.enlightCard(2);
 			}
-
+			@Override
 			public void mouseExited(MouseEvent e) {
 				turnframe.endarkCard(2);
 			}
@@ -94,7 +94,7 @@ public class CardHandler  {
 				this.turnframe = tf;
 			}
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent event) {
 				if (turnframe.getItem().size()>2){
 					setIndexCard(3);
@@ -102,19 +102,19 @@ public class CardHandler  {
 				}
 			
 			}
-
+			@Override
 			public void mousePressed(MouseEvent e) {
 				turnframe.endarkCard(3);
 			}
-
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				turnframe.enlightCard(3);
 			}
-
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				turnframe.enlightCard(3);
 			}
-
+			@Override
 			public void mouseExited(MouseEvent e) {
 				turnframe.endarkCard(3);
 			}
@@ -122,6 +122,7 @@ public class CardHandler  {
 		}	
 		
 		private class UseButton implements ActionListener{
+			@Override
 			public void actionPerformed(ActionEvent event){
 				setIndexCard(15);
 				setWaitForItem(true);
@@ -129,6 +130,7 @@ public class CardHandler  {
 		}
 		
 		private class NoButton implements ActionListener{
+			@Override
 			public void actionPerformed(ActionEvent event){
 				setIndexCard(5);
 				setWaitForItem(true);

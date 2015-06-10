@@ -91,6 +91,7 @@ public class AlienDescriptionFrame {
 	}
 	
 	private class ShowAlienHandler implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent event){
 			if(event.getActionCommand() == "Next"){
 				
