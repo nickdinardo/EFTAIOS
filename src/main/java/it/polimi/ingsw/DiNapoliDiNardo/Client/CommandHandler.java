@@ -109,6 +109,9 @@ public class CommandHandler {
 		if ("alienplayeritemsdiscard".equals(object)){
 			csi.getOut().println(view.askAlienItemDiscard(action)); 
 			csi.getOut().flush();
+		}
+		if ("endturn".equals(object)){
+			view.signalEndOfTurn(); 
 		}	
 		
 		

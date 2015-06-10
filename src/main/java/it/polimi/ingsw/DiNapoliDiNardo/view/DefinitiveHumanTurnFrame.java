@@ -54,7 +54,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 
        
 
-        map.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\galileibella.jpg")); // NOI18N
+        map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); // NOI18N
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         
@@ -67,19 +67,19 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
-        card1.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); // NOI18N
+        card1.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); // NOI18N
         card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        card2.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card2.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
         card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        card3.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\BlankCard.png")); 
+        card3.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
         card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        humanImageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\capitano.jpg")); // NOI18N
+        humanImageLabel.setIcon(new javax.swing.ImageIcon("externalresources\\capitano.jpg")); // NOI18N
 
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);

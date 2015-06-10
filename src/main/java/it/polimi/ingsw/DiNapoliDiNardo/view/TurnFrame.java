@@ -1,5 +1,6 @@
 package it.polimi.ingsw.DiNapoliDiNardo.view;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -79,6 +80,10 @@ public abstract class TurnFrame {
 	
 	public JLabel getBackgroundImage(){
 		return this.map;
+	}
+	
+	public void setMapImage(BufferedImage dimg){
+		this.map.setIcon(new ImageIcon(dimg));
 	}
 	
 	public void enlightCard(int index){

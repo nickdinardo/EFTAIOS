@@ -265,6 +265,12 @@ public class TextView extends View{
 		out.println(message);
 	}
 	
+	@Override
+	public void signalEndOfTurn() {
+		out.println(SHORTLINE);
+		out.println("Please wait the other players...");
+		out.println(SHORTLINE);
+	}
 	
 	public void printGalileiMap(){
 		String textmap = "                                                                                                                           \n";
@@ -362,6 +368,7 @@ public class TextView extends View{
 		return new Coordinates(numberX, numberY);
 	}
 
+	
 
 		
 }

@@ -128,6 +128,10 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		view.showFinalResults(iWon, name, humanlosers, humanwinners, alienwinners, alienlosers);
 	}
 
+	@Override
+	public void signalEndOfTurn() throws RemoteException {
+		view.signalEndOfTurn();
+	}
 		
 	@Override
 	public String getName() {
@@ -138,6 +142,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 
 

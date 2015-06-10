@@ -2,18 +2,33 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 
 
+
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 
 public class ClickableBox {
 	
 	private static final int ROWS = 14;
 	private static final int COLUMNS = 23;
-	private static final double DISTANCE = 16.00;
+	private static final double DISTANCE = 18.50;
 	private Point[][] centers = new Point[ROWS][COLUMNS];
 	private Point wallPoint = new Point(50, 50);
+	//max vertical distance from center in hexagon 
+	private static final int dy = 18;
+	//max horizontal distance from center in hexagon 
+	private static final int dx = 20;
+	
+	
 	
 	//Initialize each center 
 	public ClickableBox(){
@@ -197,12 +212,12 @@ public class ClickableBox {
 		//Column L
 		centers[0][11] = new Point(378, 55);
 		centers[1][11] = new Point(378, 92);
-		centers[2][11] = new Point(378, 122);
+		centers[2][11] = new Point(378, 130);
 		centers[3][11] = new Point(378, 167);
 		centers[4][11] = new Point(378, 204);
-		centers[5][11] = wallPoint;
+		centers[5][11] = new Point(378, 242);
 		centers[6][11] = wallPoint;
-		centers[7][11] = wallPoint;
+		centers[7][11] = new Point(378, 316);
 		centers[8][11] = new Point(378, 352);
 		centers[9][11] = new Point(378, 390);
 		centers[10][11] = new Point(378, 426);
@@ -390,6 +405,8 @@ public class ClickableBox {
 		
 	}
 	
+	
+	
 	public Coordinates getMinimumDistance(Point clickedPoint){
 		
 		int x = 0, y = 0;
@@ -406,13 +423,125 @@ public class ClickableBox {
 					}
 				}
 			}
-			if(flag == true)
+			if(flag)
 				break;
 		}
-		Coordinates coord = new Coordinates(y, x);  //da controllare
+		if (x == 0)
+			x++;
+		if (y == 0)
+			y++;
+		Coordinates coord = new Coordinates(y, x); 
 		return coord;
 	}		
+
 	
-}
+	
+	public BufferedImage colorReachablesBoxes(BufferedImage image, Color color1, Color color2, Color colorPos1, String listofboxes, String position){
+		
+		//load and draw a new image 
+		BufferedImage dimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D gph = dimg.createGraphics();  
+	    gph.setComposite(AlphaComposite.Src);  
+	    gph.drawImage(image, null, 0, 0);  
+	    gph.dispose();  
+		
+		List<String> boxesInStringForm = Arrays.asList(listofboxes.split("!"));
+		List<Point> hexagonsCenters = new ArrayList<Point>();
+		Point actualPosition = new Point (0,0);
+		int indexI;
+		int indexJ;
+		
+		//transform the string containing the coordinates in actual Points (their centers)
+		for (String s : boxesInStringForm){
+			char letter = s.charAt(0);
+			s = s.substring(1);
+			//parse the ASCII code of the char and convert it to a number, starting from 'A'-->0
+			indexJ = ((int)letter)-65;
+			try	{
+				indexI = (Integer.parseInt(s))-1;
+				hexagonsCenters.add(centers[indexI][indexJ]);
+			}			
+			catch (NumberFormatException ex){
+				//skip adding this box if can't convert to int the string
+			}
+			
+		}
+		
+		char letter = position.charAt(0);
+		position = position.substring(1);
+		//parse the ASCII code of the char and convert it to a number, starting from 'A'-->0
+		indexJ = ((int)letter)-65;
+		try	{
+			indexI = (Integer.parseInt(position))-1;
+			actualPosition = centers[indexI][indexJ];
+		}			
+		catch (NumberFormatException ex){
+			//skip this box if can't convert to int the string
+		}
+		
+		//color the reachable boxes, differently if they are dangerous or not			
+		for (Point p : hexagonsCenters) {
+			//color hexagons changing his pixels color in the main image
+			int cx = (int)p.getX();
+			int cy = (int)p.getY();
+			//once set the x and y of the center, explore all the pixels that form the hex
+			for(int i = cy-dy; i < cy+dy; i++) {  
+				int addToX = (int) (Math.abs((i-cy))/Math.sqrt(3));
+				for(int j = cx-dx+addToX; j < cx+dx-addToX; j++) {  
+					int rgb = dimg.getRGB(j, i);
+					int r = (rgb >> 16) & 0xFF;
+					int g = (rgb >> 8) & 0xFF;
+					int b = (rgb >> 0) & 0xFF;
+		   
+					if(!(p.getX() == actualPosition.getX() && p.getY() == actualPosition.getY())){
+						//color Dangerous Boxes
+						if( r>73 && r<77 && g>73 && g<77 && b>73 && b<77) {  
+							Color newcolor = color1;
+							dimg.setRGB(j, i, newcolor.getRGB());  
+						} 
+						//color Normal Boxes
+						if( r>=0 && r<3 && g>=0 && g<3 && b>=0 && b<3) {  
+							Color newcolor2 = color2; //17 38 96
+							dimg.setRGB(j, i, newcolor2.getRGB());  
+	
+						}
+					}
+				}  
+			}  
+		}
+
+		//color actual position, differently if it's dangerous or not	
+		int cx = (int)actualPosition.getX();
+		int cy = (int)actualPosition.getY();
+		//once set the x and y of the center, explore all the pixels that form the hex
+		for(int i = cy-dy; i < cy+dy; i++) {  
+			int addToX = (int) (Math.abs((i-cy))/Math.sqrt(3));
+			for(int j = cx-dx+addToX; j < cx+dx-addToX; j++) {  
+				int rgb = dimg.getRGB(j, i);
+				int r = (rgb >> 16) & 0xFF;
+				int g = (rgb >> 8) & 0xFF;
+				int b = (rgb >> 0) & 0xFF;
+	   
+				Color newcolor = colorPos1;
+				
+				//color Dangerous Boxes
+				if( r>73 && r<77 && g>73 && g<77 && b>73 && b<77) {  
+					dimg.setRGB(j, i, newcolor.getRGB());  
+				} 
+				//color Normal Boxes
+				if( r>=0 && r<3 && g>=0 && g<3 && b>=0 && b<3) {  
+					dimg.setRGB(j, i, newcolor.getRGB());  
+
+				}
+			}  
+		}  
+		
+		
+		
+		return dimg;
+	}
+
+	
 	
 
+}

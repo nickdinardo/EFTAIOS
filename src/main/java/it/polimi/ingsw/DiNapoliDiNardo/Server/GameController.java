@@ -116,7 +116,7 @@ public class GameController {
 	private void updateView (Player player) throws IOException{
 		
 		List<ItemCard> itemdeck = player.getPersonalDeck();
-		List<Box> reachables = gamestate.getMap().givemeAroundBoxes(player.getPosition());
+		List<Box> reachables = gamestate.getMap().reachableBoxes(player.getPosition(), player.getMoveRange());
 		String objects = "";
 		String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();
 		String reachStr = "";
@@ -140,6 +140,7 @@ public class GameController {
 		Player player = gamestate.givemePlayerByName(playername);
 		List<ItemCard> itemdeck = gamestate.givemePlayerByName(playername).getPersonalDeck();
 		
+		updateView(player);
 		//ask for card use only if player has "usable" cards, not if he has the defense card
 		int index = 0;
 		if (hasUsableCards(itemdeck)){
@@ -184,7 +185,7 @@ public class GameController {
 				updateView(player);
 			}
 		}
-				
+		handlers.get(playername).signalEndOfTurn();		
 	}
 	
 		
@@ -205,6 +206,7 @@ public class GameController {
 		
 		Player player = gamestate.givemePlayerByName(playername);
 		
+		updateView(player);
 		askForMovement(playername);
 		updateView(player);
 		
@@ -221,6 +223,7 @@ public class GameController {
 		if (player.getPosition().isDrawingSectorCardHere() && !player.isHasAttacked())
 			drawSectorCard(playername, player);
 		updateView(player);
+		handlers.get(playername).signalEndOfTurn();		
 		
 	}
 	

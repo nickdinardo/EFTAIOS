@@ -3,29 +3,39 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 import it.polimi.ingsw.DiNapoliDiNardo.model.boxes.Coordinates;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class SwingView extends View{
 	
 	private Information info;
 	private TurnFrame turnFrame;
+	private WaitFrame waitFrame;
 	private ButtonHandler button = new ButtonHandler();
+	private ClickableBox boxUtility = new ClickableBox();
 	private boolean coordinates = false;
 	private boolean hasMoved = false;
+	private boolean removedWaitFrame = true;
 	private static final Coordinates WALLCOORD = new Coordinates (12,7);
 	
 	
+	
+	@Override
 	public String askName(boolean reask){
 				
 		RegistrationFrame registration = new RegistrationFrame(new JFrame("Registration to the match"), reask);
 		return registration.getName();
 	}
 
-
+	@Override
 	public void showBeingHuman(String name){
 		
 		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
@@ -35,7 +45,7 @@ public class SwingView extends View{
 		turnFrame = new DefinitiveHumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
 	}
 	
-	
+	@Override
 	public void showBeingAlien(String name){
 		
 		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
@@ -45,7 +55,7 @@ public class SwingView extends View{
 		turnFrame = new DefinitiveAlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem());
 	}
 	
-	
+	@Override
 	public void showActualSituation (String name, String position, String objects, String turn){
 		info.setPlayerName(name);
 		info.setActualPosition(position);
@@ -76,11 +86,40 @@ public class SwingView extends View{
 			info.addToItem(0, "");
 	
 		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem(), false );
+		
+		BufferedImage image = null;
+		BufferedImage enlightedMap = null;
+		try {
+		    image = ImageIO.read(new File("externalresources\\galileiDefinitiva.png"));
+		    Color color1 = new Color(0,0,0);
+		    Color color2 = new Color(0,0,0);
+		    Color colorPos1 = new Color(0,0,0);
+		    if (turnFrame instanceof DefinitiveHumanTurnFrame){
+		    	color1 = new Color(40,62,119);
+		    	color2 = new Color(16,30,69);
+		    	colorPos1 = new Color (102, 129, 198); 
+		    }
+		    if (turnFrame instanceof DefinitiveAlienTurnFrame){
+		    	color1 = new Color(89,43,80);
+		    	color2 = new Color(56,27,50);
+		    	colorPos1 = new Color (168, 81, 151);
+		    }
+			enlightedMap = boxUtility.colorReachablesBoxes(image, color1, color2, colorPos1, reachables, info.getActualPosition());
+			turnFrame.setMapImage(enlightedMap);
+		} catch (IOException e) {
+			//it won't simply charge any image
+		}
+		
 	}
 	
-	
+	@Override
 	public int askItemUse(String objects, boolean discardCall){
 		
+		if (!removedWaitFrame){
+			waitFrame.dispose();
+			removedWaitFrame = true;
+		}
+		//set the current items in the "information" class
 		if (!"no".equals(objects)){
 			if(discardCall){
 				print("Please, select the item you want to use to get free the slot\n");
@@ -95,10 +134,14 @@ public class SwingView extends View{
 		
 		CardHandler cardHandler = new CardHandler(turnFrame);
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
+		
+		//first item usage phase, before movement
 		if(!hasMoved){
 			turnFrame.appendToTextArea("Press a card to activate an object, or press the map to move\n");
 			BoxHandler boxClick = new BoxHandler();
 			MouseListener clickListen = boxClick.startListen(turnFrame.getBackgroundImage());
+			
+			//wait while player click the map or a card
 			while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false){
 				Thread.currentThread();
 				try {
@@ -108,21 +151,28 @@ public class SwingView extends View{
 				}
 			}
 			turnFrame.getBackgroundImage().removeMouseListener(clickListen);
+			
+			//this if player clicked on the map deciding not to use any object
 			if (boxClick.getWait() == true){
 				coordinates = true;
 				info.setMoveCoord(boxClick.getCoordinates());
 				cardHandler.removeListeners();
 				info.setSelectedItem(8);
 				return info.getSelectedItem();
+			//this if player clicked a card
 			}else{
 				info.setSelectedItem(cardHandler.getIndexCard());
 				cardHandler.removeListeners();
 				return info.getSelectedItem();
 			}
 		}
+		
+		//second item usage phase, after movement
 		else{
 			turnFrame.appendToTextArea("Press a card to activate an object, or press Next button to pass the turn\n");
 			ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
+			
+			//wait while player click next to pass the turn or a card
 			while(cardHandler.getWaitForItem() == false && button.getWaitItems() == false){
 				Thread.currentThread();
 				try {
@@ -131,6 +181,8 @@ public class SwingView extends View{
 					//do nothing
 				}
 			}
+			
+			//if player clicked a card index will different from 8 (don't use), otherwise still 8
 			info.setSelectedItem(cardHandler.getIndexCard());
 			turnFrame.getNextButton().removeActionListener(nextB);
 			cardHandler.removeListeners();
@@ -141,6 +193,7 @@ public class SwingView extends View{
 		
 	}
 	
+	@Override
 	public Coordinates askForLights(boolean reask){
 		LightsFrame lightsframe = new LightsFrame(reask);
 		LightsHandler lightsHandler = new LightsHandler();
@@ -159,6 +212,7 @@ public class SwingView extends View{
 		return info.getLightsCoord();
 	}
 	
+	@Override
 	public String askForAttack(){
 		
 		turnFrame.appendToTextArea("Filthy alien, do you want to attack this position?\n");
@@ -182,11 +236,17 @@ public class SwingView extends View{
 		return info.getAttackAnswer();		
 	}
 	
+	@Override
 	public Coordinates askMovement(boolean reask){
+		
+		if (!removedWaitFrame){
+			waitFrame.dispose();
+			removedWaitFrame = true;
+		}
+		
 		if(reask)
 			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box\n");
-		//ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
-		
+				
 		if(coordinates == true){
 			coordinates = false;
 			hasMoved = true;
@@ -208,7 +268,6 @@ public class SwingView extends View{
 			}
 			info.setMoveCoord(boxClick.getCoordinates());
 			hasMoved = true;
-			//turnFrame.getNextButton().removeActionListener(nextB);
 			if (info.getMoveCoord().getCoordX() != 0 && info.getMoveCoord().getCoordY() != 0)
 				return info.getMoveCoord();
 			else
@@ -216,32 +275,36 @@ public class SwingView extends View{
 		}
 	}
 	
-	
+	@Override
 	public String askForNoise(){
 		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?\n");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackgroundImage());
 		
-		while(noiseClick.getWait() == false){
-			Thread.currentThread();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				//do nothing
+		Coordinates coords;
+		do{
+			while(noiseClick.getWait() == false){
+				Thread.currentThread();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					//do nothing
+				}
 			}
-		}
-		Coordinates coordinates = noiseClick.getCoordinates();
-		String noise = ""+(char)(coordinates.getCoordX()+64);
-		String number = ""+ coordinates.getCoordY();
+			coords = noiseClick.getCoordinates();
+			if((coords.getCoordX() == 1) && (coords.getCoordY() == 1))
+				noiseClick.setWait(false);
+		}while ((coords.getCoordX() == 1) && (coords.getCoordY() == 1));
+		
+		String noise = ""+(char)(coords.getCoordX()+64);
+		String number = ""+ coords.getCoordY();
 		if (number.length() == 1)
-			number = "0"+ coordinates.getCoordY();
+			number = "0"+ coords.getCoordY();
 		noise += number;
 		return noise;
 	}
 	
-	
-	
-	
+	@Override	
 	public int askHumanItemDiscard(String objects){
 		DiscardFrame frame = new HumanDiscardFrame(info.getItem());
 		CardHandler cardHandler = new CardHandler(turnFrame);
@@ -262,6 +325,7 @@ public class SwingView extends View{
 		return info.getItemToRemove() + 3;
 	}
 	
+	@Override
 	public int askAlienItemDiscard(String objects){
 		
 		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
@@ -282,6 +346,7 @@ public class SwingView extends View{
 		return info.getItemToRemove() + 3;
 	}
 	
+	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) {
 		print(name + " has REACHED THE LIFEBOAT SHIP " + shipnumber + " .....");
 		if(escaped){
@@ -294,7 +359,13 @@ public class SwingView extends View{
 		}
 	}
 	
+	@Override
 	public void showFinalResults(boolean iWon, String name, String humanlosers,	String humanwinners, String alienwinners, String alienlosers){
+		if (!removedWaitFrame){
+			waitFrame.dispose();
+			removedWaitFrame = true;
+		}
+		
 		FinalResultFrame frame = new FinalResultFrame(iWon, name);
 		if (!humanwinners.isEmpty())
 			print("The HUMANS that managed to escape and WON the game are: " + humanwinners);
@@ -307,8 +378,15 @@ public class SwingView extends View{
 		print("THE END");
 	}
 	
+	@Override
 	public void print (String message){
 		turnFrame.appendToTextArea(message+"\n");
+	}
+
+	@Override
+	public void signalEndOfTurn() {
+		removedWaitFrame = false;
+		waitFrame = new WaitFrame();
 	}
 	
 }

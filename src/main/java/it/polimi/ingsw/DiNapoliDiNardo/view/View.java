@@ -41,5 +41,7 @@ public abstract class View {
 	public void update(String position, String reachables, String objects) {
 		
 	}
+
+	public abstract void  signalEndOfTurn();
 	
 }

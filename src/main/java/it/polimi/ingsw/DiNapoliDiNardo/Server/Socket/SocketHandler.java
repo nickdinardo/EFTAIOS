@@ -184,6 +184,12 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=results&action="+name+";"+humanlosers+";"+humanwinners+";"+alienwinners+";"+alienlosers+";"+"n;");
 	}
 	
+	@Override
+	public void signalEndOfTurn() throws RemoteException {
+		out.println("object=endturn&action=endturn");
+	}
+
+
 	
 	//getters and setters
 	@Override
