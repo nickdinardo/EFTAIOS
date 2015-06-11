@@ -61,6 +61,7 @@ public class TestItemDeck {
 		assertTrue(deckItems.isEmpty());
 		Card card1 = deckItems.drawCard();
 		discard.remove(card1);
+		assertTrue(deckItems.getDeck().containsAll(discard));
 		Card card2 = deck.drawCard();
 		if(card2 instanceof AttackCard){
 			assertEquals(card2.getName(), "AttackCard");
@@ -80,9 +81,8 @@ public class TestItemDeck {
 		if(card2 instanceof TeleportCard){
 			assertEquals(card2.getName(), "TeleportCard");
 		}
-		assertTrue(deckItems.getDeck().containsAll(discard));
-		assertEquals(deck.getDiscards().size(), 0);
 		
+		assertEquals(deck.getDiscards().size(), 0);
 	}
 
 }
