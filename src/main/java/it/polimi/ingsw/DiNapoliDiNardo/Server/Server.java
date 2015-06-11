@@ -103,7 +103,7 @@ public class Server implements Runnable {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//do nothing
 				}
 			     
 			
@@ -122,7 +122,7 @@ public class Server implements Runnable {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//do nothing
 				}
 			     
 				time = System.currentTimeMillis();
@@ -165,7 +165,7 @@ public class Server implements Runnable {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//do nothing
 				}
 				time = System.currentTimeMillis();
 				if (time > end)
@@ -187,13 +187,13 @@ public class Server implements Runnable {
 			
 			//then start the game
 			GameController gamecontroller = new GameController(gameId, playersconnected, handlers);
-			try {
-				gamecontroller.rungame();
-			} catch (Exception e) {
-				e.printStackTrace();
-				out.println("Unable to start the game controller");
-				return;
-			}
+			
+				try {
+					gamecontroller.rungame();
+				} catch (ClassNotFoundException | IOException e) {
+					out.println("Problems with the game controller");
+				}
+			
 			
 	}		
 		

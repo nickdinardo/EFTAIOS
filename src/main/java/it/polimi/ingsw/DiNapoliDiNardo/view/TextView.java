@@ -103,34 +103,22 @@ public class TextView extends View{
 	
 	@Override
 	public int askAlienItemDiscard(String objects){
-		String[] items = objects.split(";");
-		out.println("You drew an item card but your three card slots are full. Do you want to discard a card you have to free one slot for the new card?");
-		out.println("D: discard an item	 N: no, I'll keep my actual items");
-		String input = in.nextLine();
-		char risp;
-		if (input.length()>0)
-			risp = input.charAt(0);
-		else risp = 'w';
-		boolean validanswer = false;
-		do{
-			if (risp == 'D' || risp == 'd'){
-				validanswer = true;
-				return askWhichCard(items)+3;				
-			}
-			if (risp == 'N' || risp == 'n'){
-				validanswer = true;
-				return 8;
-			}	
-			out.println();
-		}while(!validanswer);
-		return 18;
+		return discardManager (objects, false);
 	}
 	
 	@Override
 	public int askHumanItemDiscard(String objects){
+		return discardManager (objects, true);
+	}
+	
+	
+	public int discardManager (String objects, boolean withUse){
 		String[] items = objects.split(";");
-		out.println("You drew an item card but your three card slots are full. Do you want to discard or use a card you have to free one slot for the new card?");
-		out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
+		out.println("You drew an item card but your three card slots are full. Do you want to free one slot for the new card?");
+		if(withUse)
+			out.println("U: use an item    D: discard an item	N: no, I'll keep my actual items");
+		else
+			out.println("D: discard an item	 N: no, I'll keep my actual items");
 		String input = in.nextLine();
 		char risp;
 		if (input.length()>0)
@@ -142,9 +130,11 @@ public class TextView extends View{
 				validanswer = true;
 				return askWhichCard(items)+3;				
 			}
-			if (risp == 'U' || risp == 'u'){
-				validanswer = true;
-				return 9;
+			if(withUse){
+				if (risp == 'U' || risp == 'u'){
+					validanswer = true;
+					return 9;
+				}
 			}
 			if (risp == 'N' || risp == 'n'){
 				validanswer = true;
@@ -154,7 +144,6 @@ public class TextView extends View{
 		}while(!validanswer);
 		return 19;
 	}
-	
 	
 	
 	public int askWhichCard (String[] items){
@@ -172,7 +161,7 @@ public class TextView extends View{
 			answer=0;
 			}
 			if (answer <=0 || answer>items.length)
-				out.println("Please write the number of the object you want to discard and nothing more");
+				out.println("Please write the number of the object you want to select and nothing more");
 		}while (answer <=0 || answer>items.length);
 		return answer;
 	}

@@ -20,7 +20,7 @@ public class SectorDeck extends Deck{
 		for (i=0; i<6; i++){
 			coveredDeck.add(new NoiseAnywhereCard());
 		}	
-		for (i=0; i<4; i++){
+		for (i=0; i<4000; i++){
 			coveredDeck.add(new NoiseHereCardPlusItem());
 		}	
 		for (i=0; i<4; i++){

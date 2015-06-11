@@ -304,34 +304,27 @@ public class SwingView extends View{
 		return noise;
 	}
 	
+	
 	@Override	
 	public int askHumanItemDiscard(String objects){
-		DiscardFrame frame = new HumanDiscardFrame(info.getItem());
-		CardHandler cardHandler = new CardHandler(turnFrame);
-		cardHandler.setCards(frame.setCardHandler(info.getItem()));
-		cardHandler.startListenNoButton(frame.getButtonNo());
-		cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
-		
-		while(cardHandler.getWaitForItem() == false){
-			Thread.currentThread();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				//do nothing
-			}
-		}
-		info.setItemToRemove(cardHandler.getIndexCard());
-		frame.getFrame().dispose();
-		return info.getItemToRemove() + 3;
+		return discardFrameManager(true);
 	}
+	
 	
 	@Override
 	public int askAlienItemDiscard(String objects){
-		
+		return discardFrameManager(false);
+	}
+	
+	
+	public int discardFrameManager(boolean withUse){
+
 		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
 		CardHandler cardHandler = new CardHandler(turnFrame);
 		cardHandler.setCards(frame.setCardHandler(info.getItem()));
 		cardHandler.startListenNoButton(frame.getButtonNo());
+		if (withUse)
+			cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
 		
 		while(cardHandler.getWaitForItem() == false){
 			Thread.currentThread();
@@ -346,6 +339,7 @@ public class SwingView extends View{
 		return info.getItemToRemove() + 3;
 	}
 	
+		
 	@Override
 	public void notifyEscape(boolean escaped, String name, String shipnumber) {
 		print(name + " has REACHED THE LIFEBOAT SHIP " + shipnumber + " .....");

@@ -493,7 +493,7 @@ public class ClickableBox {
 					int g = (rgb >> 8) & 0xFF;
 					int b = (rgb >> 0) & 0xFF;
 		   
-					if(!(p.getX() == actualPosition.getX() && p.getY() == actualPosition.getY())){
+					if(!((int)p.getX() == (int)actualPosition.getX() && (int)p.getY() == (int)actualPosition.getY())){
 						//color Dangerous Boxes
 						if( r>73 && r<77 && g>73 && g<77 && b>73 && b<77) {  
 							Color newcolor = color1;
