@@ -4,44 +4,23 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
 
 
 public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
 
     
-	public DefinitiveHumanTurnFrame(String name, String actualPosition, String turn, List<String> objects) {
-		super(name, actualPosition, turn, objects);
+	public DefinitiveHumanTurnFrame(String name, String actualPosition, String turn) {
+		super(name, actualPosition, turn);
     }	
 
 	
 	@Override	                           
 	protected void initComponents() {
 
-		frame = new JFrame("GalileiMap");
-        map = new JLabel();
-        jScrollPane1 = new JScrollPane();
-        comunication = new JTextArea();
-        
-        card1 = new JLabel();
-        card2 = new JLabel();
-        card3 = new JLabel();
-        jLabel3 = new JLabel();
-        imageLabel = new JLabel();
-        nextButton = new JButton();
-        nameLabel = new JLabel();
-        turnLabel = new JLabel();
-        timerLabel = new JLabel();
-        positionLabel = new JLabel();
-       
-
-        commonBuildUp("externalresources\\capitano.jpg", new Color(88, 101, 146));
+		commonBuildUp("externalresources\\capitano.jpg", new Color(88, 101, 146));
 
        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());

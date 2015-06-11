@@ -5,44 +5,26 @@ import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
 
 
 public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
+	private JButton attackButton;
+    
 	
-    public DefinitiveAlienTurnFrame(String name, String actualPosition, String turn, List<String> objects) {
-		super(name, actualPosition, turn, objects);
+    public DefinitiveAlienTurnFrame(String name, String actualPosition, String turn) {
+		super(name, actualPosition, turn);
     }	
 
-	private JButton attackButton;
-      
+	
 	
 	   
-	                           
+	@Override                        
 	protected void initComponents() {
-
-		frame = new JFrame("GalileiMap");
-        map = new JLabel();
-        jScrollPane1 = new JScrollPane();
-        comunication = new JTextArea();
-        
-        card1 = new JLabel();
-        card2 = new JLabel();
-        card3 = new JLabel();
-        jLabel3 = new JLabel();
-        imageLabel = new JLabel();
-        nextButton = new JButton();
-        attackButton = new JButton();
-        nameLabel = new JLabel();
-        turnLabel = new JLabel();
-        timerLabel = new JLabel();
-        positionLabel = new JLabel();
-               
-             
+		  
+        attackButton = new JButton();     
         commonBuildUp("externalresources\\alieno3.jpg", new Color(136, 66, 130));
            
         attackButton.setText("Attack");

@@ -42,7 +42,7 @@ public class SwingView extends View{
 		showHuman.getNext();
 		info = new Information(1);
 		info.setPlayerName(name);
-		turnFrame = new DefinitiveHumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem() );
+		turnFrame = new DefinitiveHumanTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn());
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class SwingView extends View{
 		showAlien.getNext();
 		info = new Information(2);
 		info.setPlayerName(name); 
-		turnFrame = new DefinitiveAlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem());
+		turnFrame = new DefinitiveAlienTurnFrame(info.getPlayerName(), info.getActualPosition(), info.getTurn());
 	}
 	
 	@Override

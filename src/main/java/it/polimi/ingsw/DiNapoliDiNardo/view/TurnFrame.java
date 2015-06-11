@@ -31,12 +31,11 @@ public abstract class TurnFrame {
 	protected JLabel jLabel3;
 	protected JLabel imageLabel;
     protected JScrollPane jScrollPane1;
-    
-    
-	List<String> item;
+    protected String defaultFont = "Impact";   
+	protected List<String> item;
 	
 	
-	public TurnFrame(String name, String actualPosition, String turn, List<String> objects) {
+	public TurnFrame(String name, String actualPosition, String turn) {
 		initComponents();
 		nameLabel.setText("   "+name);
 		turnLabel.setText("Turn: " + turn); 
@@ -47,6 +46,22 @@ public abstract class TurnFrame {
 	
 	public void commonBuildUp(String imagePath, Color commColor){
 		
+		frame = new JFrame("GalileiMap");
+        map = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        comunication = new JTextArea();
+        
+        card1 = new JLabel();
+        card2 = new JLabel();
+        card3 = new JLabel();
+        jLabel3 = new JLabel();
+        imageLabel = new JLabel();
+        nextButton = new JButton();
+        nameLabel = new JLabel();
+        turnLabel = new JLabel();
+        timerLabel = new JLabel();
+        positionLabel = new JLabel();
+       		
         map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); 
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
@@ -74,9 +89,9 @@ public abstract class TurnFrame {
 
         imageLabel.setIcon(new javax.swing.ImageIcon(imagePath)); 
 
-        nameLabel.setFont(new java.awt.Font("Impact", 0, 36)); 
-        turnLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
-        positionLabel.setFont(new java.awt.Font("Impact", 0, 16)); 
+        nameLabel.setFont(new java.awt.Font(defaultFont, 0, 36)); 
+        turnLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
+        positionLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
         
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);
