@@ -54,10 +54,13 @@ public class TestItemDeck {
 	public void workTest(){
 		Deck deckItems = new SectorDeck();
 		Deck deck = new ItemDeck();
-		assertTrue(!deckItems.isEmpty());
+		
+		while(deckItems.getDeck().size() > 0){
+			discard.add(deckItems.drawCard());
+		}
+		assertTrue(deckItems.isEmpty());
 		Card card1 = deckItems.drawCard();
-		discard.add(card1);
-		assertTrue(!deckItems.getDeck().contains(card1));
+		discard.remove(card1);
 		Card card2 = deck.drawCard();
 		if(card2 instanceof AttackCard){
 			assertEquals(card2.getName(), "AttackCard");
@@ -77,7 +80,7 @@ public class TestItemDeck {
 		if(card2 instanceof TeleportCard){
 			assertEquals(card2.getName(), "TeleportCard");
 		}
-		assertTrue(deckItems.getDiscards().containsAll(discard));
+		assertTrue(deckItems.getDeck().containsAll(discard));
 		assertEquals(deck.getDiscards().size(), 0);
 		
 	}
