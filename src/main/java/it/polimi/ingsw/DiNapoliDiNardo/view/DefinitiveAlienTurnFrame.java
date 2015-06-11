@@ -121,8 +121,7 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		
 	@Override
 	public List<JLabel> setCardHandler(List<String> item){
-		List<JLabel> empty = new ArrayList<JLabel>();
-		return empty;
+		return new ArrayList<JLabel>();
 	}
 	
 	public JButton getAttackButton(){

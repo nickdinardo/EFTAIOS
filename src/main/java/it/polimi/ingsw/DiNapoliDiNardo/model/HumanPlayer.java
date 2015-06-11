@@ -56,6 +56,8 @@ public class HumanPlayer extends Player{
 	
 	@Override
 	public int getMoveRange() {
+		if (isAdrenalized())
+			return this.moverange + 1 ;
 		return this.moverange;
 	}
 	

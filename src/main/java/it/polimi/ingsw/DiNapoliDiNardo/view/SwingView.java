@@ -38,7 +38,7 @@ public class SwingView extends View{
 	@Override
 	public void showBeingHuman(String name){
 		
-		HumanDescriptionFrame showHuman = new HumanDescriptionFrame(new JFrame("Description"), name);
+		YouAreHumanFrame showHuman = new YouAreHumanFrame(new JFrame("Welcome to the Ship"));
 		showHuman.getNext();
 		info = new Information(1);
 		info.setPlayerName(name);
@@ -48,7 +48,7 @@ public class SwingView extends View{
 	@Override
 	public void showBeingAlien(String name){
 		
-		AlienDescriptionFrame showAlien = new AlienDescriptionFrame(new JFrame("Description"), name);
+		YouAreAlienFrame showAlien = new YouAreAlienFrame(new JFrame("Welcome to the Ship"));
 		showAlien.getNext();
 		info = new Information(2);
 		info.setPlayerName(name); 

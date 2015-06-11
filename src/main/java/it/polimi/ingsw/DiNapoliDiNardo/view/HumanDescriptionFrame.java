@@ -81,8 +81,7 @@ public class HumanDescriptionFrame {
 		frame.add(panel, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setSize(500, 500);
-		frame.setResizable(false);
-		frame.setVisible(true);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
 		frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 
 				(screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 ) );

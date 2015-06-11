@@ -54,10 +54,7 @@ public class GameState {
 		
 		List<Box> reachables = new ArrayList<Box>();
 		int range = player.getMoveRange();
-		if(player.isAdrenalized())
-			range++;
-		if(player.isHumanFed())
-			range++;
+		
 		
 		reachables = map.reachableBoxes(player.getPosition(), range);
 		if(reachables.contains(destination)){

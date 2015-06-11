@@ -29,6 +29,8 @@ public class AlienPlayer extends Player {
 	
 	@Override
 	public int getMoveRange() {
+		if (isHumanFed())
+			return this.moverange + 1;
 		return this.moverange;
 	}
 	
