@@ -2,6 +2,7 @@ package it.polimi.ingsw.DiNapoliDiNardo.view;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -120,7 +121,8 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		
 	@Override
 	public List<JLabel> setCardHandler(List<String> item){
-		return null;
+		List<JLabel> empty = new ArrayList<JLabel>();
+		return empty;
 	}
 	
 	public JButton getAttackButton(){

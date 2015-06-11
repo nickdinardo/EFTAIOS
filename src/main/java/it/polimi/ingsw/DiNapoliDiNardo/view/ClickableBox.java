@@ -24,9 +24,9 @@ public class ClickableBox {
 	private Point[][] centers = new Point[ROWS][COLUMNS];
 	private Point wallPoint = new Point(50, 50);
 	//max vertical distance from center in hexagon 
-	private static final int dy = 18;
+	private static final int DY = 18;
 	//max horizontal distance from center in hexagon 
-	private static final int dx = 20;
+	private static final int DX = 20;
 	
 	
 	
@@ -413,14 +413,11 @@ public class ClickableBox {
 		boolean flag = false;
 		for(int i = 0; i < ROWS; i++){
 			for(int j = 0; j < COLUMNS; j++){
-				if(centers[i][j] != wallPoint){
-					//System.out.println(centers[i][j].distance(clickedPoint));
-					if(centers[i][j].distance(clickedPoint) <= DISTANCE){
-						x = i + 1;
-						y = j + 1;
-						flag = true;
-						break;
-					}
+				if(centers[i][j] != wallPoint && centers[i][j].distance(clickedPoint) <= DISTANCE){
+					x = i + 1;
+					y = j + 1;
+					flag = true;
+					break;
 				}
 			}
 			if(flag)
@@ -430,8 +427,7 @@ public class ClickableBox {
 			x++;
 		if (y == 0)
 			y++;
-		Coordinates coord = new Coordinates(y, x); 
-		return coord;
+		return new Coordinates(y, x); 
 	}		
 
 	
@@ -485,9 +481,9 @@ public class ClickableBox {
 			int cx = (int)p.getX();
 			int cy = (int)p.getY();
 			//once set the x and y of the center, explore all the pixels that form the hex
-			for(int i = cy-dy; i < cy+dy; i++) {  
-				int addToX = (int) (Math.abs((i-cy))/Math.sqrt(3));
-				for(int j = cx-dx+addToX; j < cx+dx-addToX; j++) {  
+			for(int i = cy-DY; i < cy+DY; i++) {  
+				int addToX = (int) (Math.abs(i-cy)/Math.sqrt(3));
+				for(int j = cx-DX+addToX; j < cx+DX-addToX; j++) {  
 					int rgb = dimg.getRGB(j, i);
 					int r = (rgb >> 16) & 0xFF;
 					int g = (rgb >> 8) & 0xFF;
@@ -500,7 +496,7 @@ public class ClickableBox {
 							dimg.setRGB(j, i, newcolor.getRGB());  
 						} 
 						//color Normal Boxes
-						if( r>=0 && r<3 && g>=0 && g<3 && b>=0 && b<3) {  
+						if( r<3 && g<3 && b<3) {  
 							Color newcolor2 = color2; //17 38 96
 							dimg.setRGB(j, i, newcolor2.getRGB());  
 	
@@ -514,9 +510,9 @@ public class ClickableBox {
 		int cx = (int)actualPosition.getX();
 		int cy = (int)actualPosition.getY();
 		//once set the x and y of the center, explore all the pixels that form the hex
-		for(int i = cy-dy; i < cy+dy; i++) {  
-			int addToX = (int) (Math.abs((i-cy))/Math.sqrt(3));
-			for(int j = cx-dx+addToX; j < cx+dx-addToX; j++) {  
+		for(int i = cy-DY; i < cy+DY; i++) {  
+			int addToX = (int) (Math.abs(i-cy)/Math.sqrt(3));
+			for(int j = cx-DX+addToX; j < cx+DX-addToX; j++) {  
 				int rgb = dimg.getRGB(j, i);
 				int r = (rgb >> 16) & 0xFF;
 				int g = (rgb >> 8) & 0xFF;
@@ -529,7 +525,7 @@ public class ClickableBox {
 					dimg.setRGB(j, i, newcolor.getRGB());  
 				} 
 				//color Normal Boxes
-				if( r>=0 && r<3 && g>=0 && g<3 && b>=0 && b<3) {  
+				if( r<3 && g<3 && b<3) {  
 					dimg.setRGB(j, i, newcolor.getRGB());  
 
 				}

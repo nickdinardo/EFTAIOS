@@ -96,7 +96,7 @@ public class HumanDiscardFrame extends DiscardFrame {
 		frame.setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
 		frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 
-				((screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 )) );
+				(screenSize.height / 2 ) - ( frame.getHeight ( ) / 2 ));
 		frame.setVisible(true);
 	}
 	

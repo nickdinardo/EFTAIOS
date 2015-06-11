@@ -94,7 +94,7 @@ public class RegistrationFrame {
 		try {
 			latch.await();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//do nothing
 		}
 		frame.dispose();
 		return this.name;

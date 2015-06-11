@@ -8,8 +8,8 @@ import java.util.List;
 public class Information {
 	
 	private String playerName;
-	private static final String alienStartPosition = "L06";
-	private static final String humanStartPosition = "L08";
+	private static final String ALIENSTARTPOSITION = "L06";
+	private static final String HUMANSTARTPOSITION = "L08";
 	private static final String firstTurn = "1";
 	private String actualPosition;
 	private String turn;
@@ -25,9 +25,9 @@ public class Information {
 		this.turn = firstTurn;
 		this.item.add("");
 		if(kindOfPlayer == 1)  //Human palyer
-			this.actualPosition = humanStartPosition;
+			this.actualPosition = HUMANSTARTPOSITION;
 		else     //Alien palyer
-			this.actualPosition = alienStartPosition;
+			this.actualPosition = ALIENSTARTPOSITION;
 	}
 	
 	//Setters and getters

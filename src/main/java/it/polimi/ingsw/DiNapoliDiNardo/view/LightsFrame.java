@@ -21,10 +21,10 @@ public class LightsFrame{
 		this.frame = new JFrame("Lights");
 		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 	    frame.setIconImage(icon.getImage());
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
+		frame.setUndecorated(true);
 		frame.setLayout(new BorderLayout());
-		background = new JLabel(new ImageIcon("externalresources\\galileibella.jpg"));
+		background = new JLabel(new ImageIcon("externalresources\\galileiDefinitiva.jpg"));
 		background.setLayout(new FlowLayout());
 		background.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
 		frame.add(background, BorderLayout.SOUTH);
@@ -47,7 +47,7 @@ public class LightsFrame{
 		}
 		frame.add(panel, BorderLayout.NORTH);
 		frame.pack();
-		frame.setSize(740, 620);
+		frame.setSize(796, 630);
 		frame.setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
 		frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 

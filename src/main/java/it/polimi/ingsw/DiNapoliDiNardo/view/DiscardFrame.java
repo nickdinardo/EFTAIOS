@@ -15,7 +15,7 @@ public class DiscardFrame {
 	protected JLabel card3;
 	protected JButton button;
 	
-	public List<JLabel> setCardHandler(List<String> item){
+	public List<JLabel> setCardHandler(){
 		List<JLabel> cards = new ArrayList<JLabel>();
 		cards.add(card1);
 		cards.add(card2);

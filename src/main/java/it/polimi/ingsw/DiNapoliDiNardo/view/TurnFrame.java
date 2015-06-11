@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JToolTip;
 import javax.swing.text.DefaultCaret;
 
 public abstract class TurnFrame {
@@ -33,6 +34,8 @@ public abstract class TurnFrame {
     protected JScrollPane jScrollPane1;
     protected String defaultFont = "Impact";   
 	protected List<String> item;
+	protected ToolTipCard tips = new ToolTipCard();
+	
 	
 	
 	public TurnFrame(String name, String actualPosition, String turn) {
@@ -68,6 +71,7 @@ public abstract class TurnFrame {
         
         comunication.setEditable(false);
         comunication.setBackground(commColor);
+        comunication.setForeground(Color.black);
         comunication.setColumns(20);
         comunication.setRows(5);
         comunication.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -92,6 +96,7 @@ public abstract class TurnFrame {
         nameLabel.setFont(new java.awt.Font(defaultFont, 0, 36)); 
         turnLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
         positionLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
+       
         
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);
@@ -106,12 +111,13 @@ public abstract class TurnFrame {
 		turnLabel.setText("Turn: " + turn); 
 		positionLabel.setText("Position: " + position);
 		item = objects;
+		JToolTip[] itemDescription = tips.setToolTip(item);
 		if (item.size() == 1)
 			if(!("".equals(item.get(0)))){
 				card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
 				card2.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
 				card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
-				//descCard1.setText(item.get(0));
+				card1.setToolTipText(itemDescription[0].getTipText());
 			}
 			else{
 				card1.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
@@ -122,13 +128,16 @@ public abstract class TurnFrame {
 			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
 			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
 			card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
-			//descCard2.setText(item.get(1));
+			card1.setToolTipText(itemDescription[0].getTipText());
+			card2.setToolTipText(itemDescription[1].getTipText());
 		}
 		if (item.size() == 3){
 			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
 			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
 			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
-			//descCard3.setText(item.get(2));
+			card1.setToolTipText(itemDescription[0].getTipText());
+			card2.setToolTipText(itemDescription[1].getTipText());
+			card3.setToolTipText(itemDescription[2].getTipText());
 		}
 	}
 	

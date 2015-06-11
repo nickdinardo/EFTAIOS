@@ -130,11 +130,9 @@ public class TextView extends View{
 				validanswer = true;
 				return askWhichCard(items)+3;				
 			}
-			if(withUse){
-				if (risp == 'U' || risp == 'u'){
-					validanswer = true;
-					return 9;
-				}
+			if(withUse &&(risp == 'U' || risp == 'u')){
+				validanswer = true;
+				return 9;
 			}
 			if (risp == 'N' || risp == 'n'){
 				validanswer = true;

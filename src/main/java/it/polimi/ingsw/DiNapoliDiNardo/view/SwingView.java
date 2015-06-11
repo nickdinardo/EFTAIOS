@@ -21,7 +21,7 @@ public class SwingView extends View{
 	private WaitFrame waitFrame;
 	private ButtonHandler button = new ButtonHandler();
 	private ClickableBox boxUtility = new ClickableBox();
-	private boolean coordinates = false;
+	private boolean inputCoordinates = false;
 	private boolean hasMoved = false;
 	private boolean removedWaitFrame = true;
 	private static final Coordinates WALLCOORD = new Coordinates (12,7);
@@ -57,13 +57,13 @@ public class SwingView extends View{
 	
 	@Override
 	public void showActualSituation (String name, String position, String objects, String turn){
+		turnFrame.appendToTextArea("--------------------------------------------------\n");
 		info.setPlayerName(name);
 		info.setActualPosition(position);
 		if (position.length() == 2)
 			info.setActualPosition(position.substring(0, 1) + "0" + position.substring(1, position.length()));
 		info.setTurn(turn);
 		button.setWaitAttack(false);
-		//button.setWaitCoordinates(false);
 		button.setWaitItems(false);
 		if (!"no".equals(objects)){
 			info.setItem(Arrays.asList(objects.split(" ")));
@@ -142,7 +142,7 @@ public class SwingView extends View{
 			MouseListener clickListen = boxClick.startListen(turnFrame.getBackgroundImage());
 			
 			//wait while player click the map or a card
-			while(boxClick.getWait() == false && cardHandler.getWaitForItem() == false){
+			while(!boxClick.getWait() && !cardHandler.getWaitForItem()){
 				Thread.currentThread();
 				try {
 					Thread.sleep(100);
@@ -153,8 +153,8 @@ public class SwingView extends View{
 			turnFrame.getBackgroundImage().removeMouseListener(clickListen);
 			
 			//this if player clicked on the map deciding not to use any object
-			if (boxClick.getWait() == true){
-				coordinates = true;
+			if (boxClick.getWait()){
+				inputCoordinates = true;
 				info.setMoveCoord(boxClick.getCoordinates());
 				cardHandler.removeListeners();
 				info.setSelectedItem(8);
@@ -173,7 +173,7 @@ public class SwingView extends View{
 			ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
 			
 			//wait while player click next to pass the turn or a card
-			while(cardHandler.getWaitForItem() == false && button.getWaitItems() == false){
+			while(!cardHandler.getWaitForItem() && !button.getWaitItems()){
 				Thread.currentThread();
 				try {
 					Thread.sleep(100);
@@ -199,7 +199,7 @@ public class SwingView extends View{
 		LightsHandler lightsHandler = new LightsHandler();
 		lightsHandler.startListen(lightsframe.getBackground());
 		
-		while(lightsHandler.getWait() == false){
+		while(!lightsHandler.getWait()){
 			Thread.currentThread();
 			try {
 				Thread.sleep(100);
@@ -221,7 +221,7 @@ public class SwingView extends View{
 		ActionListener attackB = button.startAttackListen(((DefinitiveAlienTurnFrame)turnFrame).getAttackButton());
 		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
 		
-		while(button.getWaitAttack() == false){
+		while(!button.getWaitAttack()){
 			Thread.currentThread();
 			try {
 				Thread.sleep(100);
@@ -247,8 +247,8 @@ public class SwingView extends View{
 		if(reask)
 			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box\n");
 				
-		if(coordinates == true){
-			coordinates = false;
+		if(inputCoordinates){
+			inputCoordinates = false;
 			hasMoved = true;
 			return info.getMoveCoord();
 		}
@@ -283,7 +283,7 @@ public class SwingView extends View{
 		
 		Coordinates coords;
 		do{
-			while(noiseClick.getWait() == false){
+			while(!noiseClick.getWait()){
 				Thread.currentThread();
 				try {
 					Thread.sleep(100);
@@ -321,12 +321,12 @@ public class SwingView extends View{
 
 		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
 		CardHandler cardHandler = new CardHandler(turnFrame);
-		cardHandler.setCards(frame.setCardHandler(info.getItem()));
+		cardHandler.setCards(frame.setCardHandler());
 		cardHandler.startListenNoButton(frame.getButtonNo());
 		if (withUse)
 			cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
 		
-		while(cardHandler.getWaitForItem() == false){
+		while(!cardHandler.getWaitForItem()){
 			Thread.currentThread();
 			try {
 				Thread.sleep(100);
