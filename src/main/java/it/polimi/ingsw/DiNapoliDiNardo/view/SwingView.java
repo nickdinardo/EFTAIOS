@@ -132,7 +132,7 @@ public class SwingView extends View{
 		else
 			info.addToItem(0, "");
 		
-		CardHandler cardHandler = new CardHandler(turnFrame);
+		CardHandler cardHandler = new CardHandler(turnFrame, null);
 		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
 		
 		//first item usage phase, before movement
@@ -307,26 +307,27 @@ public class SwingView extends View{
 	
 	@Override	
 	public int askHumanItemDiscard(String objects){
-		return discardFrameManager(true);
+		DiscardFrame frame = new HumanDiscardFrame(info.getItem());
+		return discardFrameManager(true, frame);
 	}
 	
 	
 	@Override
 	public int askAlienItemDiscard(String objects){
-		return discardFrameManager(false);
+		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
+		return discardFrameManager(false, frame);
 	}
 	
 	
-	public int discardFrameManager(boolean withUse){
-
-		DiscardFrame frame = new AlienDiscardFrame(info.getItem());
-		CardHandler cardHandler = new CardHandler(turnFrame);
+	public int discardFrameManager(boolean withUse, DiscardFrame frame){
+		CardHandler cardHandler = new CardHandler(turnFrame, frame);
 		cardHandler.setCards(frame.setCardHandler());
 		cardHandler.startListenNoButton(frame.getButtonNo());
 		if (withUse)
 			cardHandler.startListenUseButton(((HumanDiscardFrame)frame).getUseButton());
 		
 		while(!cardHandler.getWaitForItem()){
+		
 			Thread.currentThread();
 			try {
 				Thread.sleep(100);
@@ -337,6 +338,8 @@ public class SwingView extends View{
 		info.setItemToRemove(cardHandler.getIndexCard());
 		frame.getFrame().dispose();
 		return info.getItemToRemove() + 3;
+		
+		
 	}
 	
 		

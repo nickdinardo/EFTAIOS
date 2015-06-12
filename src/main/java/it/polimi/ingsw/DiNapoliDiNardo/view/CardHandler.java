@@ -18,16 +18,20 @@ public class CardHandler  {
 		private MouseListener clickableCard2;
 		private MouseListener clickableCard3;
 		private TurnFrame turnframe;
+		private DiscardFrame discardframe;
 		
-		public CardHandler(TurnFrame tf){
+		public CardHandler(TurnFrame tf, DiscardFrame df){
 			this.turnframe = tf;
+			this.discardframe = df;
 		}
 		
 		private class CardHandler1 implements MouseListener {
 			private TurnFrame turnframe;
+			private DiscardFrame discardframe;
 			
-			public CardHandler1(TurnFrame tf){
+			public CardHandler1(TurnFrame tf, DiscardFrame df){
 				this.turnframe = tf;
+				this.discardframe = df;
 			}
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -38,28 +42,42 @@ public class CardHandler  {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				turnframe.endarkCard(1);
+				if (discardframe == null)
+					turnframe.endarkCard(1);
+				else
+					discardframe.endarkCard(1);
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				turnframe.enlightCard(1);
+				if (discardframe == null)
+					turnframe.enlightCard(1);
+				else
+					discardframe.enlightCard(1);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				turnframe.enlightCard(1);
+				if (discardframe == null)
+					turnframe.enlightCard(1);
+				else
+					discardframe.enlightCard(1);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				turnframe.endarkCard(1);
+				if (discardframe == null)
+					turnframe.endarkCard(1);
+				else
+					discardframe.endarkCard(1);
 			}
 
 		}	
 		
 		private class CardHandler2 implements MouseListener {
 			private TurnFrame turnframe;
+			private DiscardFrame discardframe;
 			
-			public CardHandler2(TurnFrame tf){
+			public CardHandler2(TurnFrame tf, DiscardFrame df){
 				this.turnframe = tf;
+				this.discardframe = df;
 			}
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -70,28 +88,42 @@ public class CardHandler  {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				turnframe.endarkCard(2);
+				if (discardframe == null)
+					turnframe.endarkCard(2);
+				else
+					discardframe.endarkCard(2);
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				turnframe.enlightCard(2);
+				if (discardframe == null)
+					turnframe.enlightCard(2);
+				else
+					discardframe.enlightCard(2);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				turnframe.enlightCard(2);
+				if (discardframe == null)
+					turnframe.enlightCard(2);
+				else
+					discardframe.enlightCard(2);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				turnframe.endarkCard(2);
+				if (discardframe == null)
+					turnframe.endarkCard(2);
+				else
+					discardframe.endarkCard(2);
 			}
 
 		}	
 		
 		private class CardHandler3 implements MouseListener {
 			private TurnFrame turnframe;
+			private DiscardFrame discardframe;
 			
-			public CardHandler3(TurnFrame tf){
+			public CardHandler3(TurnFrame tf, DiscardFrame df){
 				this.turnframe = tf;
+				this.discardframe = df;
 			}
 			
 			@Override
@@ -104,19 +136,31 @@ public class CardHandler  {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				turnframe.endarkCard(3);
+				if (discardframe == null)
+					turnframe.endarkCard(3);
+				else
+					discardframe.endarkCard(3);
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				turnframe.enlightCard(3);
+				if (discardframe == null)
+					turnframe.enlightCard(3);
+				else
+					discardframe.enlightCard(3);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				turnframe.enlightCard(3);
+				if (discardframe == null)
+					turnframe.enlightCard(3);
+				else
+					discardframe.enlightCard(3);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				turnframe.endarkCard(3);
+				if (discardframe == null)
+					turnframe.endarkCard(3);
+				else
+					discardframe.endarkCard(3);
 			}
 
 		}	
@@ -124,7 +168,7 @@ public class CardHandler  {
 		private class UseButton implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent event){
-				setIndexCard(15);
+				setIndexCard(6);
 				setWaitForItem(true);
 			}
 		}
@@ -161,11 +205,11 @@ public class CardHandler  {
 	
 	public void startListenCard(){
 	
-		clickableCard1 = new CardHandler1(turnframe);
+		clickableCard1 = new CardHandler1(turnframe, discardframe);
 		cards.get(0).addMouseListener(clickableCard1);
-		clickableCard2 = new CardHandler2(turnframe);
+		clickableCard2 = new CardHandler2(turnframe, discardframe);
 		cards.get(1).addMouseListener(clickableCard2);
-		clickableCard3 = new CardHandler3(turnframe);
+		clickableCard3 = new CardHandler3(turnframe, discardframe);
 		cards.get(2).addMouseListener(clickableCard3);
 		
 	}

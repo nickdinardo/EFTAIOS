@@ -93,7 +93,7 @@ public class GameState {
 		
 		}
 		else if (index > 2 && index < 6){
-			//remove the card user selected to discard passing index+10
+			//remove the card user selected to discard passing index+3
 			Player player = givemePlayerByName(name);
 			ItemCard used = player.getPersonalDeck().remove(index-3);
 			itemdeck.getDiscards().add(used);

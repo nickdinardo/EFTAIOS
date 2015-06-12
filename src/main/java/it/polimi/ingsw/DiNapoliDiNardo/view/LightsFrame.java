@@ -24,11 +24,11 @@ public class LightsFrame{
 		frame.getContentPane().setBackground(Color.black);
 		frame.setUndecorated(true);
 		frame.setLayout(new BorderLayout());
-		background = new JLabel(new ImageIcon("externalresources\\galileiDefinitiva.jpg"));
+		background = new JLabel(new ImageIcon("externalresources\\galileiDefinitiva.png"));
 		background.setLayout(new FlowLayout());
 		background.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
 		frame.add(background, BorderLayout.SOUTH);
-		Font f = new Font("Impact", Font.BOLD, 18);
+		Font f = new Font("Impact", 0, 24);
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		panel.setBackground(Color.black);
