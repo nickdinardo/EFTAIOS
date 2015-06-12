@@ -31,7 +31,7 @@ public class SwingView extends View{
 	@Override
 	public String askName(boolean reask){
 				
-		RegistrationFrame registration = new RegistrationFrame(new JFrame("Registration to the match"), reask);
+		RegistrationFrame registration = new RegistrationFrame(reask);
 		return registration.getName();
 	}
 
@@ -122,7 +122,7 @@ public class SwingView extends View{
 		//set the current items in the "information" class
 		if (!"no".equals(objects)){
 			if(discardCall){
-				print("Please, select the item you want to use to get free the slot\n");
+				print("Please, select the item you want to use to get free the slot");
 				info.setItem(Arrays.asList(objects.split(" ;")));
 			}else{
 				info.setItem(Arrays.asList(objects.split(" ;")));

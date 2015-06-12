@@ -1,9 +1,8 @@
 package it.polimi.ingsw.DiNapoliDiNardo.Client;
 
-import it.polimi.ingsw.DiNapoliDiNardo.view.InitialWindow;
-
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 
@@ -19,8 +18,9 @@ public class Client {
 		while(!"1".equals(this.read)  && !"2".equals(this.read)){
 			
 			System.out.println("Please choose the network interface:");
-			InitialWindow init = new InitialWindow();
-			this.read = init.getChoice();
+			System.out.println("1 - Socket");
+			System.out.println("2 - RMI");
+			read = readLine("\n");
 			
 			if(!"1".equals(this.read)  && !"2".equals(this.read))
 				System.out.println("Invalid Command!");
@@ -32,5 +32,21 @@ public class Client {
 			ni.startInterface();
 		}
 	}	
-		
+	
+	private static String readLine(String format, Object... args) throws IOException {
+	    if (System.console() != null) {
+	        return System.console().readLine(format, args);
+	    }
+	    System.out.print(String.format(format, args));
+	    
+	    BufferedReader br = null;
+	    InputStreamReader isr = null;
+	    String read = null;
+	    
+	    isr = new InputStreamReader(System.in);
+	    br = new BufferedReader(isr);
+	    read = br.readLine();
+	    
+	    return read;
+	}
 }
