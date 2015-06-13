@@ -3,7 +3,6 @@ package it.polimi.ingsw.dinapolidinardo.model.deck;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.dinapolidinardo.model.cards.AdrenalineCard;
@@ -13,9 +12,8 @@ import it.polimi.ingsw.dinapolidinardo.model.cards.DefenseCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.LightsCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.SedativesCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.TeleportCard;
-import it.polimi.ingsw.dinapolidinardo.model.decks.Deck;
 import it.polimi.ingsw.dinapolidinardo.model.decks.ItemDeck;
-import it.polimi.ingsw.dinapolidinardo.model.decks.SectorDeck;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,46 +21,29 @@ import org.junit.Test;
 
 public class TestItemDeck {
 
-	private List<Card> itemDeck;
-	private List<Card> discard;
+	ItemDeck deckItems = new ItemDeck();
+	List<Card> discard = deckItems.getDiscards();
 	
 	@Before
 	public void setUp(){
-		
-		itemDeck = new ArrayList<Card>();
-		int i;
-		for (i=0; i<2; i++){
-			itemDeck.add(new AttackCard());
-			}
-		for (i=0; i<2; i++){
-			itemDeck.add(new TeleportCard());
-			}
-		for (i=0; i<3; i++){
-			itemDeck.add(new SedativesCard());
-			}
-		for (i=0; i<2; i++){
-			itemDeck.add(new LightsCard());
-			}
-		for (i=0; i<2; i++){
-			itemDeck.add(new AdrenalineCard());
-			}
-		itemDeck.add(new DefenseCard());
-		discard = new ArrayList<>();
+		deckItems = new ItemDeck();
+		discard = deckItems.getDiscards();
 	}
 	
 	@Test
 	public void workTest(){
-		Deck deckItems = new SectorDeck();
-		Deck deck = new ItemDeck();
+		
+		
 		
 		while(deckItems.getDeck().size() > 0){
+			//have to discard manually because item deck doesn't discard cards drawn
 			discard.add(deckItems.drawCard());
 		}
 		assertTrue(deckItems.isEmpty());
 		Card card1 = deckItems.drawCard();
 		discard.remove(card1);
 		assertTrue(deckItems.getDeck().containsAll(discard));
-		Card card2 = deck.drawCard();
+		Card card2 = deckItems.drawCard();
 		if(card2 instanceof AttackCard){
 			assertEquals(card2.getName(), "AttackCard");
 		}	
@@ -82,7 +63,7 @@ public class TestItemDeck {
 			assertEquals(card2.getName(), "TeleportCard");
 		}
 		
-		assertEquals(deck.getDiscards().size(), 0);
+		assertEquals(deckItems.getDiscards().size(), 0);
 	}
 
 }

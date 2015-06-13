@@ -64,10 +64,10 @@ public class TestHumanPlayer {
 	@Test
 	public void correctGets(){
 		
-		/*human.setAdrenalized(true);
+		human.setAdrenalized(true);
 		assertTrue(human.isAdrenalized());
 		human.setSedated(true);
-		assertTrue(human.isSedated());*/
+		assertTrue(human.isSedated());
 		human.setEscaped(true);
 		assertTrue(human.isEscaped());
 		assertTrue(human.isLosesIfKilledType());

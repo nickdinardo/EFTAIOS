@@ -44,7 +44,14 @@ public class GameState {
 		
 	public boolean updatePlayerPosition (String name, Coordinates coord){
 		
-		Box destination = this.map.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
+		Box destination;
+		try{
+			destination = this.map.getMap()[coord.getCoordY()-1][coord.getCoordX()-1];
+		}
+		catch (IndexOutOfBoundsException e){
+			//if outside the map, return invalid movement
+			return false;
+		}
 		Player player = givemePlayerByName(name);
 		if (destination instanceof LifeboatBox && player instanceof AlienPlayer)
 			return false;
@@ -76,7 +83,6 @@ public class GameState {
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
-			gamecontroller.cardsMessages(name, item.getName(), item.getUseMessage());
 			//cards that require special treatment
 			if (item instanceof LightsCard)
 				lightsManagement(player);
@@ -90,6 +96,7 @@ public class GameState {
 				ItemCard used = player.getPersonalDeck().remove(index);
 				itemdeck.getDiscards().add(used);
 			}
+			gamecontroller.cardsMessages(name, item.getName(), item.getUseMessage());
 		
 		}
 		else if (index > 2 && index < 6){
@@ -267,6 +274,9 @@ public class GameState {
 		turnNumber++;
 	}
 
+	public GameController getGameController(){
+		return this.gamecontroller;
+	}
 
 	public List<String> getWinners() {
 		return winners;

@@ -48,7 +48,7 @@ public class RegistrationFrame {
 	        ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 			frame.setIconImage(icon.getImage());
 
-	        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\679405\\workspace\\DiNapoliDiNardo\\externalresources\\cover.png")); // NOI18N
+	        imageLabel.setIcon(new javax.swing.ImageIcon("externalresources\\cover.png")); 
 
 	        submitButton.setText("Submit Name");
 	        submitButton.setBackground(Color.black);

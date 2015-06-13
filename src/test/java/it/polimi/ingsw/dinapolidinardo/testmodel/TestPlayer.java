@@ -25,7 +25,7 @@ public class TestPlayer {
 	
 	
 	@Test
-	public void kill(){
+	public void killTest(){
 		assertTrue(human.isAlive());
 		human.kill();
 		human.setKiller(alien.getName());
@@ -34,7 +34,7 @@ public class TestPlayer {
 	}
 	
 	@Test
-	public void losesIfKilledType(){
+	public void losesIfKilledTypeTest(){
 		assertTrue(human.isLosesIfKilledType());
 		assertTrue(!alien.isLosesIfKilledType());
 	}

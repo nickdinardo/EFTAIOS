@@ -18,7 +18,7 @@ public class TestDangerousBox {
 	}
 	
 	@Test
-	public void drawingSector(){
+	public void drawingSectorTest(){
 		assertEquals(gray.isDrawingSectorCardHere(), true);
 	}
 

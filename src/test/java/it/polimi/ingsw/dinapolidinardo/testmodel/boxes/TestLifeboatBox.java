@@ -23,14 +23,14 @@ public class TestLifeboatBox {
 	}
 	
 	@Test
-	public void correctNumber(){
+	public void correctNumberTest(){
 		
 		assertEquals(lifeboat1.getNumber(), 1);
 		assertEquals(lifeboat2.getNumber(), 4);
 	}
 	
 	@Test
-	public void lifeboatHere(){
+	public void lifeboatHereTest(){
 		lifeboat1.setLifeBoatShipHere(true);
 		assertEquals(lifeboat1.isLifeBoatShipHere(), true);
 	}

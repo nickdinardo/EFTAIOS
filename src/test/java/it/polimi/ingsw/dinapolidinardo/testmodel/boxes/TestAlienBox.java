@@ -18,7 +18,7 @@ public class TestAlienBox {
 	}
 	
 	@Test
-	public void work(){
+	public void workTest(){
 		assertTrue(!alienBox.isCanBeCrossedType());
 	}
 

@@ -18,7 +18,7 @@ public class TestWallBox {
 	}
 	
 	@Test
-	public void work(){
+	public void workTest(){
 		assertTrue(!wall.isCanBeCrossedType());
 	}
 

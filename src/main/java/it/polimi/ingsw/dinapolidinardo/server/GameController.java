@@ -24,7 +24,7 @@ import java.util.Timer;
 
 public class GameController {
 	int gameId;
-	List<String> connectionsClosed = new ArrayList<String>();
+	List<String> connectionsClosed;
 	Map<String, String> playersInGame; 
 	Map<String, Handler> handlers;
 	boolean initError = false;
@@ -48,6 +48,9 @@ public class GameController {
 		this.gameId = id;
 		this.playersInGame = pc;
 		this.handlers = hand;
+		//initialize model main class and update players
+		setGameState(new GameState(this));
+		connectionsClosed = new ArrayList<String>();
 	}
 	
 	
@@ -65,9 +68,6 @@ public class GameController {
 		}
 		
 		try{
-			
-			//initialize model main class and update players
-			this.gamestate = new GameState(this);
 			
 			if (initError)
 				return;
@@ -621,6 +621,12 @@ public class GameController {
 		
 	}
 	
+	public void setGameState(GameState gamestate) {
+		this.gamestate = gamestate;
+	}
+
+
+
 	public void startTurnTimer (long turntime, Handler handler){
 		this.turntimer = new Timer();
 		turntimer.schedule(new DisconnectionManager(handler) , turntime);

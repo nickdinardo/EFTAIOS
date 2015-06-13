@@ -57,6 +57,8 @@ public abstract class TurnFrame {
 	public void commonBuildUp(String imagePath, Color commColor){
 		
 		frame = new JFrame("GalileiMap");
+		ImageIcon icon = new ImageIcon(PATH + "icon2.jpg");
+		frame.setIconImage(icon.getImage());
         map = new JLabel();
         jScrollPane1 = new JScrollPane();
         comunication = new JTextArea();

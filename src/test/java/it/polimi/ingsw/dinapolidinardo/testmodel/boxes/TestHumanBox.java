@@ -18,7 +18,7 @@ private HumanBox humanBox;
 	}
 	
 	@Test
-	public void work(){
+	public void workTest(){
 		assertTrue(!humanBox.isCanBeCrossedType());
 	}
 }

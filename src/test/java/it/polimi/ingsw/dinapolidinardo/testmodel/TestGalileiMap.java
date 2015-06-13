@@ -23,19 +23,19 @@ public class TestGalileiMap {
 	}
 	
 	@Test
-	public void correctStartHumanPosition(){
+	public void correctStartHumanPositionTest(){
 		assertEquals(galilei.getHumanStartBox().getCoordX(), 12);
 		assertEquals(galilei.getHumanStartBox().getCoordY(), 8);
 	}
 	
 	@Test
-	public void correctAlienStartPosition(){
+	public void correctAlienStartPositionTest(){
 		assertEquals(galilei.getAlienStartBox().getCoordX(), 12);
 		assertEquals(galilei.getAlienStartBox().getCoordY(), 6);
 	}
 	
 	@Test
-	public void aroundBoxes(){
+	public void aroundBoxesTest(){
 		List<Box> around = new ArrayList<Box>();
 		Box cornerBox1 = new Box(1, 1);
 		Box cornerBox2 = new Box(1, 14);

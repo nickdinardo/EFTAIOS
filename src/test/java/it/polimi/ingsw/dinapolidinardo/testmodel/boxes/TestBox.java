@@ -30,13 +30,13 @@ public class TestBox {
 	}
 	
 	@Test
-	public void correctCoordinates(){
+	public void correctCoordinatesTest(){
 		assertEquals(box.getCoordX(), 10);
 		assertEquals(box.getCoordY(), 10);
 	}
 	
 	@Test
-	public void getPlayerHere(){
+	public void getPlayerHereTest(){
 		Player human = new HumanPlayer(galilei, teststate, "humantest");
 		Player alien = new AlienPlayer(galilei, teststate, "alientest");
 		List<Player> playerInBox = new ArrayList<Player>();
@@ -57,7 +57,7 @@ public class TestBox {
 	}
 	
 	@Test
-	public void isLifeboatShipHere(){
+	public void isLifeboatShipHereTest(){
 		Box nolifeboat = galilei.getMap()[3][0];
 		nolifeboat.setLifeBoatShipHere(false);
 		Coordinates coord = new Coordinates();
@@ -73,7 +73,7 @@ public class TestBox {
 	}
 	
 	@Test
-	public void correctFields(){
+	public void correctFieldsTest(){
 		Box box = galilei.getMap()[3][0];
 		assertTrue(box.isCanBeCrossedType());
 		assertTrue(!box.isDrawingSectorCardHere());
