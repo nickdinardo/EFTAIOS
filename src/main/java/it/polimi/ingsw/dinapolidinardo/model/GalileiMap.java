@@ -10,89 +10,6 @@ public class GalileiMap extends Map{
 	private Box alienStartBox;
 	
 	
-	@Override
-	public Box[][] getMap() {
-		return map;
-	}
-
-	@Override
-	public void setMap(Box[][] map) {
-		this.map = map;
-	}
-	
-	@Override
-	public Box getHumanStartBox() {
-		return humanStartBox;
-	}
-
-	@Override
-	public Box getAlienStartBox() {
-		return alienStartBox;
-	}
-	
-	@Override
-	public List<Box> givemeAroundBoxes (Box center){
-		List<Box> aroundBoxes = new ArrayList<Box>();
-		//corners box, to be treated differently in order to avoid IndexOutofBorder
-		if (center.getCoordX()==1 && center.getCoordY()==1){
-			aroundBoxes.add(map[1][0]);
-			aroundBoxes.add(map[0][1]);
-			aroundBoxes.add(map[1][1]);
-			return aroundBoxes;
-		}
-		if (center.getCoordX()==1 && center.getCoordY()==14){
-			aroundBoxes.add(map[12][0]);
-			aroundBoxes.add(map[12][1]);
-			aroundBoxes.add(map[13][1]);
-			return aroundBoxes;
-		}
-		if (center.getCoordX()==23 && center.getCoordY()==1){
-			aroundBoxes.add(map[0][21]);
-			aroundBoxes.add(map[1][21]);
-			aroundBoxes.add(map[1][22]);
-			return aroundBoxes;
-		}
-		if (center.getCoordX()==23 && center.getCoordY()==14){
-			aroundBoxes.add(map[12][21]);
-			aroundBoxes.add(map[13][21]);
-			aroundBoxes.add(map[12][22]);
-			return aroundBoxes;
-		}
-		//side boxes
-		if (center.getCoordX()==1){
-			for (int i=center.getCoordX(); i<=center.getCoordX()+1; i++)
-				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
-					aroundBoxes.add(map[j-1][i-1]);
-			return aroundBoxes;
-		}
-		if (center.getCoordY()==14){
-			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
-				for (int j=center.getCoordY()-1; j<=center.getCoordY(); j++)
-					aroundBoxes.add(map[j-1][i-1]);
-			return aroundBoxes;
-		}
-		if (center.getCoordY()==1){
-			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
-				for (int j=center.getCoordY(); j<=center.getCoordY()+1; j++)
-					aroundBoxes.add(map[j-1][i-1]);
-			return aroundBoxes;
-			
-		}
-		if (center.getCoordX()==23){
-			for (int i=center.getCoordX()-1; i<=center.getCoordX(); i++)
-				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
-					aroundBoxes.add(map[j-1][i-1]);
-			return aroundBoxes;		
-		}
-		
-		for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
-			for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
-				aroundBoxes.add(map[j-1][i-1]);
-		return aroundBoxes;		
-		
-	}
-	
-	
 	public GalileiMap(){
 		this.setMap(new Box[14][23]);
 		for (int i=0; i<14; i++){
@@ -394,6 +311,92 @@ public class GalileiMap extends Map{
 		map[13][22] = new DangerousBox(23, 14);
 			
 	}
+	
+	
+	
+	@Override
+	public Box[][] getMap() {
+		return map;
+	}
+
+	@Override
+	public void setMap(Box[][] map) {
+		this.map = map;
+	}
+	
+	@Override
+	public Box getHumanStartBox() {
+		return humanStartBox;
+	}
+
+	@Override
+	public Box getAlienStartBox() {
+		return alienStartBox;
+	}
+	
+	@Override
+	public List<Box> givemeAroundBoxes (Box center){
+		List<Box> aroundBoxes = new ArrayList<Box>();
+		//corners box, to be treated differently in order to avoid IndexOutofBorder
+		if (center.getCoordX()==1 && center.getCoordY()==1){
+			aroundBoxes.add(map[1][0]);
+			aroundBoxes.add(map[0][1]);
+			aroundBoxes.add(map[1][1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==1 && center.getCoordY()==14){
+			aroundBoxes.add(map[12][0]);
+			aroundBoxes.add(map[12][1]);
+			aroundBoxes.add(map[13][1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==23 && center.getCoordY()==1){
+			aroundBoxes.add(map[0][21]);
+			aroundBoxes.add(map[1][21]);
+			aroundBoxes.add(map[1][22]);
+			return aroundBoxes;
+		}
+		if (center.getCoordX()==23 && center.getCoordY()==14){
+			aroundBoxes.add(map[12][21]);
+			aroundBoxes.add(map[13][21]);
+			aroundBoxes.add(map[12][22]);
+			return aroundBoxes;
+		}
+		//side boxes
+		if (center.getCoordX()==1){
+			for (int i=center.getCoordX(); i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordY()==14){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY(); j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+		}
+		if (center.getCoordY()==1){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+				for (int j=center.getCoordY(); j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;
+			
+		}
+		if (center.getCoordX()==23){
+			for (int i=center.getCoordX()-1; i<=center.getCoordX(); i++)
+				for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+					aroundBoxes.add(map[j-1][i-1]);
+			return aroundBoxes;		
+		}
+		
+		for (int i=center.getCoordX()-1; i<=center.getCoordX()+1; i++)
+			for (int j=center.getCoordY()-1; j<=center.getCoordY()+1; j++)
+				aroundBoxes.add(map[j-1][i-1]);
+		return aroundBoxes;		
+		
+	}
+	
+	
 	
 }	
 	

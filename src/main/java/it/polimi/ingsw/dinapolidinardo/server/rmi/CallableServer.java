@@ -15,6 +15,12 @@ public class CallableServer implements RemoteCallableServer {
 	boolean finish = false;
 	String name = "";
 	
+	
+	public CallableServer(Server server){
+		this.headserver = server;
+	}
+		
+		
 	@Override
 	public void increaseRMINumPlayers() throws RemoteException{
 		headserver.increaseRMIPlayers();
@@ -55,11 +61,6 @@ public class CallableServer implements RemoteCallableServer {
 		return headserver.isNameCompletionElapsed();
 	}
 	
-	//constructor
-	public CallableServer(Server server){
-		this.headserver = server;
-	}
-	//getters and setters
 	@Override
 	public boolean isFinish() {
 		return finish;

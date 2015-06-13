@@ -32,12 +32,12 @@ public class ToolTipCard {
 	}
 	
 	public JToolTip specifiedTip(String object){
-		String attackCard = " This card allows you to attack, using the same rules as the Aliens.";
-		String defenseCard = " This card will activate immediately when an Alien attacks you.\n You won't be affected by the attack.";
+		String attackCard = "This card allows you to attack, using the same rules as the Aliens.";
+		String defenseCard = "This card will activate immediately when an Alien attacks you.\n You won't be affected by the attack.";
 		String adrenalineCard = "This card allows you to move two Sectors this turn.";
-		String sedativesCard = ": If you play this card you do not draw a Dangerous Sector Card this turn, even if you move into a Dangerous Sector.";
-		String teleportCard = " This card allows you to move directly to the Human Sector from any part of the ship.\n This is in addition to your normal movement which can happen before or after you use the item.";
-		String lightsCard = " When you play this card, name any Sector.\n The position of any players (including you) that are in the named Sector or any of the six adjacent Sectors will be revealed\n. This card affects both Humans and Aliens.";
+		String sedativesCard = "If you play this card you do not draw a Dangerous Sector Card this turn, even if you move into a Dangerous Sector.";
+		String teleportCard = "This card allows you to move directly to the Human Sector from any part of the ship.\n This is in addition to your normal movement which can happen before or after you use the item.";
+		String lightsCard = "When you play this card, name any Sector.\n The position of any players (including you) that are in the named Sector or any of the six adjacent Sectors will be revealed\n. This card affects both Humans and Aliens.";
 		if("AttackCard".equals(object)){
 			JToolTip tooltip = new JToolTip();
 			tooltip.setTipText(attackCard);

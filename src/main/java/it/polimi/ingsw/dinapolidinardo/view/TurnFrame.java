@@ -35,6 +35,10 @@ public abstract class TurnFrame {
     protected String defaultFont = "Impact";   
 	protected List<String> item;
 	protected ToolTipCard tips = new ToolTipCard();
+	protected static final String PATH = "externalresources\\";
+	protected static final String BLANKCARDPATH = "externalresources\\BlankCard.png";
+	protected static final String NEGATIVE = "Inv.jpg";
+	protected static final String FORMAT = ".jpg";
 	
 	
 	
@@ -68,7 +72,7 @@ public abstract class TurnFrame {
         timerLabel = new JLabel();
         positionLabel = new JLabel();
        		
-        map.setIcon(new javax.swing.ImageIcon("externalresources\\galileiDefinitiva.png")); 
+        map.setIcon(new javax.swing.ImageIcon(PATH + "galileiDefinitiva.png")); 
         map.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         map.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         
@@ -82,15 +86,15 @@ public abstract class TurnFrame {
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jScrollPane1.setViewportView(comunication);
 
-        card1.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png"));
+        card1.setIcon(new javax.swing.ImageIcon(BLANKCARDPATH));
         card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        card2.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
+        card2.setIcon(new javax.swing.ImageIcon(BLANKCARDPATH)); 
         card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        card3.setIcon(new javax.swing.ImageIcon("externalresources\\BlankCard.png")); 
+        card3.setIcon(new javax.swing.ImageIcon(BLANKCARDPATH)); 
         card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         card3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -119,27 +123,27 @@ public abstract class TurnFrame {
 		JToolTip[] itemDescription = tips.setToolTip(item);
 		if (item.size() == 1)
 			if(!("".equals(item.get(0)))){
-				card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
-				card2.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
-				card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+				card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
+				card2.setIcon(new ImageIcon(BLANKCARDPATH));
+				card3.setIcon(new ImageIcon(BLANKCARDPATH));
 				card1.setToolTipText(itemDescription[0].getTipText());
 			}
 			else{
-				card1.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
-				card2.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
-				card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+				card1.setIcon(new ImageIcon(BLANKCARDPATH));
+				card2.setIcon(new ImageIcon(BLANKCARDPATH));
+				card3.setIcon(new ImageIcon(BLANKCARDPATH));
 			}
 		if (item.size() == 2){
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
-			card3.setIcon(new ImageIcon("externalresources\\BlankCard.png"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
+			card3.setIcon(new ImageIcon(BLANKCARDPATH));
 			card1.setToolTipText(itemDescription[0].getTipText());
 			card2.setToolTipText(itemDescription[1].getTipText());
 		}
 		if (item.size() == 3){
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
 			card1.setToolTipText(itemDescription[0].getTipText());
 			card2.setToolTipText(itemDescription[1].getTipText());
 			card3.setToolTipText(itemDescription[2].getTipText());
@@ -176,20 +180,20 @@ public abstract class TurnFrame {
 	
 	public void enlightCard(int index){
 		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + "Inv.jpg"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + NEGATIVE));
 		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + "Inv.jpg"));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + NEGATIVE));
 		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + "Inv.jpg"));
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + NEGATIVE));
 	}
 
 	public void endarkCard(int index){
 		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
 		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
 		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
 	}
 	
 	public List<String> getItem(){

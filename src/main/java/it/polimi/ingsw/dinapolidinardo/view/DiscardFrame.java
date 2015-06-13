@@ -21,6 +21,9 @@ public abstract class DiscardFrame {
 	protected JFrame frame;
 	protected JButton button;
 	protected List<String> item;
+	protected static final String PATH = "externalresources\\";
+	protected static final String NEGATIVE = "Inv.jpg";
+	protected static final String FORMAT = ".jpg";
 	
 	protected ToolTipCard tips = new ToolTipCard();
  
@@ -45,23 +48,23 @@ public abstract class DiscardFrame {
         item = objects;
         
         card1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card1.setIcon(new ImageIcon("externalresources\\" + objects.get(0) + ".jpg"));
+        card1.setIcon(new ImageIcon(PATH + objects.get(0) + FORMAT));
 		card1.setToolTipText(itemDescription[0].getTipText());
         
         card2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card2.setIcon(new ImageIcon("externalresources\\" + objects.get(1) + ".jpg"));
+        card2.setIcon(new ImageIcon(PATH + objects.get(1) + FORMAT));
 		card2.setToolTipText(itemDescription[1].getTipText());
 		
        
         card3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        card3.setIcon(new ImageIcon("externalresources\\" + objects.get(2) + ".jpg"));
+        card3.setIcon(new ImageIcon(PATH + objects.get(2) + FORMAT));
 		card3.setToolTipText(itemDescription[2].getTipText());
 		
         textLabel.setFont(new java.awt.Font("Impact", 0, 24)); 
         textLabel.setForeground(new java.awt.Color(204, 204, 204));
         textLabel.setText("Which card do you want to discard?");
 
-        header.setIcon(new javax.swing.ImageIcon("externalresources\\header 2.jpg")); 
+        header.setIcon(new javax.swing.ImageIcon(PATH +"header 2.jpg")); 
 
         
     }
@@ -80,20 +83,20 @@ public abstract class DiscardFrame {
     
     public void enlightCard(int index){
 		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + "Inv.jpg"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + NEGATIVE));
 		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + "Inv.jpg"));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + NEGATIVE));
 		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + "Inv.jpg"));
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + NEGATIVE));
 	}
 
 	public void endarkCard(int index){
 		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon("externalresources\\" + item.get(0) + ".jpg"));
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
 		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon("externalresources\\" + item.get(1) + ".jpg"));
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
 		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon("externalresources\\" + item.get(2) + ".jpg"));
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
 	}
 	    
 	public JFrame getFrame(){

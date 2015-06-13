@@ -199,13 +199,13 @@ public class GameState {
 				player.getPosition().unsetPlayer(player);
 				winners.add(player.getName());
 			}
-			//this branch is needed when all the green lifeboat cards has been drawn:
-			//all the other human players that can't escape are considered dead (from game rules)
-			if (winners.size() == 3){
-				for (Player p : inGamePlayers)
-					if (p.isLosesIfKilledType())
-						p.kill();
-			}
+		}
+		//this branch is needed when all the green lifeboat cards has been drawn:
+		//all the other human players that can't escape are considered dead (from game rules)
+		if (winners.size() == 3){
+			for (Player p : inGamePlayers)
+				if (p.isLosesIfKilledType())
+					p.kill();
 		}
 		return escaped;
 	}

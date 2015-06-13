@@ -258,7 +258,7 @@ public class SwingView extends View{
 			turnFrame.appendToTextArea("--> Where do you want to move? Click on the box in the map <--\n");
 			
 			
-			while (boxClick.getWait() == false ){
+			while (!boxClick.getWait()){
 				Thread.currentThread();
 				try {
 					Thread.sleep(100);

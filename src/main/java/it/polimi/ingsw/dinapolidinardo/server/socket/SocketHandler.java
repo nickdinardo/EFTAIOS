@@ -26,6 +26,12 @@ public class SocketHandler implements Handler, Runnable {
 	private String name = "undefined357";
 	
 
+	//constructor
+	public SocketHandler(Socket socket) {
+		super();
+		this.socket = socket;
+		
+	}
 	
 	
 	@Override
@@ -119,8 +125,7 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=player&action=askmovement");
 		else
 			out.println("object=player&action=reaskmovement");
-		Coordinates coord = (Coordinates)inObj.readObject();
-		return coord;
+		return (Coordinates)inObj.readObject();
 	}
 	
 	@Override
@@ -129,8 +134,7 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=player&action=asklights");
 		else
 			out.println("object=player&action=reasklights");
-		Coordinates coord = (Coordinates)inObj.readObject();
-		return coord;
+		return (Coordinates)inObj.readObject();
 	}
 	
 	@Override
@@ -207,16 +211,6 @@ public class SocketHandler implements Handler, Runnable {
 		return socket;
 	}
 
-	
-	//constructor
-	public SocketHandler(Socket socket) {
-		super();
-		this.socket = socket;
 		
-	}
-
-
-
-	
 
 }

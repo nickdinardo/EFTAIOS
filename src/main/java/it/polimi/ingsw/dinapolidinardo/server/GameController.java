@@ -43,6 +43,15 @@ public class GameController {
 	
 	
 	
+	public GameController (int id, Map<String, String> pc, Map<String, Handler> hand){
+		
+		this.gameId = id;
+		this.playersInGame = pc;
+		this.handlers = hand;
+	}
+	
+	
+	
 	public void rungame() throws IOException, ClassNotFoundException{
 		
 		//first thing check if troubles in initialization reduced the connections to less than two players
@@ -86,9 +95,7 @@ public class GameController {
 	
 	
 	
-	
-	
-	
+		
 	private void showActualSituation () throws RemoteException{
 		
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
@@ -625,12 +632,5 @@ public class GameController {
 		this.turntimer.purge();	
 	}
 	
-	
-	public GameController (int id, Map<String, String> pc, Map<String, Handler> hand){
 		
-		this.gameId = id;
-		this.playersInGame = pc;
-		this.handlers = hand;
-	}
-
 }

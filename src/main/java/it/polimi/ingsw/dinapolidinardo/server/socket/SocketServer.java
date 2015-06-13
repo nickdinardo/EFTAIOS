@@ -26,6 +26,29 @@ public class SocketServer extends Thread{
 	private Server headserver;
 	private static final int MAXPLAYERS = 8;
 	
+	
+	
+	public SocketServer(Server head) {
+		port = 8888;
+		address = LOCAL;
+		listening = false;
+		status = "Created";
+		sockethandlers = new LinkedList<SocketHandler>();
+		headserver = head;
+	}
+	
+	public SocketServer(int port, String address, Server head) {
+		super();
+		this.port = port;
+		this.address = address;
+		listening = false;
+		status = "Created";
+		sockethandlers = new LinkedList<SocketHandler>();
+		headserver = head;
+	}
+	
+	
+	
 	@Override
 	public void run() {
 		try {
@@ -113,9 +136,7 @@ public class SocketServer extends Thread{
 	}
 		
 
-	
-	
-	
+		
 	
 	//close connections
 	public void endListening() throws IOException{
@@ -129,6 +150,7 @@ public class SocketServer extends Thread{
 		}
 	}
 	
+	
 	//stop accepting connections but keeps alive current handlers
 	public void stopAcceptingOthersPlayers() throws IOException{
 		if(listening){
@@ -137,26 +159,8 @@ public class SocketServer extends Thread{
 			}
 	}	
 	
-	//Constructors, Getters and Setters
-	public SocketServer(Server head) {
-		port = 8888;
-		address = LOCAL;
-		listening = false;
-		status = "Created";
-		sockethandlers = new LinkedList<SocketHandler>();
-		headserver = head;
-	}
 	
-	public SocketServer(int port, String address, Server head) {
-		super();
-		this.port = port;
-		this.address = address;
-		listening = false;
-		status = "Created";
-		sockethandlers = new LinkedList<SocketHandler>();
-		headserver = head;
-	}
-	
+	//Getters and Setters
 	public String getStatus() {
 		return status;
 	}
