@@ -22,7 +22,7 @@ public class TestLifeboat {
 	@Test
 	public void workTest(){
 		assertTrue(((GreenLifeboatCard)green).isWorking());
-		assertTrue(red.isWorking());
+		assertTrue(!red.isWorking());
 	}
 	
 	
