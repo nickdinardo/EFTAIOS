@@ -63,6 +63,7 @@ public class TestAlienPlayer {
 	public void humanFed(){
 		alien.setHumanfed(true);
 		assertTrue(alien.isHumanFed());
+		assertEquals(alien.getMoveRange(), 3);
 	}
 	
 	@Test

@@ -47,7 +47,7 @@ public class LightsFrame{
 		}
 		frame.add(panel, BorderLayout.NORTH);
 		frame.pack();
-		frame.setSize(796, 630);
+		frame.setSize(759, 630);
 		frame.setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit ( ).getScreenSize ( );
 		frame.setLocation ( ( screenSize.width / 2 ) - ( frame.getWidth ( ) / 2 ), 

@@ -12,9 +12,15 @@ import javax.swing.JLabel;
 public class LightsHandler {
 
 	private boolean wait = false;
-	private ClickableBox boxes = new ClickableBox();
+	private ClickableBox boxes; 
 	private MouseListener position;
 	private Coordinates coordinates;
+	
+	
+	public LightsHandler (ClickableBox cb){
+		this.boxes = cb;
+	}
+	
 	
 	private class LightsMovement extends MouseAdapter{
 		

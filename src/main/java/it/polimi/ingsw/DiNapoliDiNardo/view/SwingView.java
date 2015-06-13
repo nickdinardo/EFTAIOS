@@ -196,7 +196,7 @@ public class SwingView extends View{
 	@Override
 	public Coordinates askForLights(boolean reask){
 		LightsFrame lightsframe = new LightsFrame(reask);
-		LightsHandler lightsHandler = new LightsHandler();
+		LightsHandler lightsHandler = new LightsHandler(boxUtility);
 		lightsHandler.startListen(lightsframe.getBackground());
 		
 		while(!lightsHandler.getWait()){
@@ -363,15 +363,15 @@ public class SwingView extends View{
 			removedWaitFrame = true;
 		}
 		
-		FinalResultFrame frame = new FinalResultFrame(iWon, name);
+		FinalResultFrame frame = new FinalResultFrame(iWon);
 		if (!humanwinners.isEmpty())
-			print("The HUMANS that managed to escape and WON the game are: " + humanwinners);
+			frame.getTextArea().append("HUMANS that managed to escape and WON:\n" +humanwinners+"\n");
 		if (!humanlosers.isEmpty())
-			print("The HUMANS that has been killed by the aliens and LOST the game are: " + humanlosers);
+			frame.getTextArea().append("HUMANS that has been killed and LOST:\n" +humanlosers+"\n");
 		if (!alienwinners.isEmpty())
-			print("The aliens managed to avoid the escape of all the humans, so the ALIENS that WON are: " + alienwinners);
+			frame.getTextArea().append("The ALIENS that WON the game: \n" +alienwinners+"\n");
 		else 
-			print("The aliens have remained alone on the ship while the last human reached the lifeboat ship, so the ALIENS that LOST are: " + alienlosers);
+			frame.getTextArea().append("The ALIENS that LOST the game: \n" +alienlosers+"\n");
 		print("THE END");
 	}
 	
@@ -382,8 +382,10 @@ public class SwingView extends View{
 
 	@Override
 	public void signalEndOfTurn() {
-		removedWaitFrame = false;
-		waitFrame = new WaitFrame();
+		if (Integer.valueOf(info.getTurn()) != 39){
+			removedWaitFrame = false;
+			waitFrame = new WaitFrame();
+		}
 	}
 	
 }

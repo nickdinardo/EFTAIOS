@@ -40,7 +40,10 @@ public abstract class TurnFrame {
 	
 	public TurnFrame(String name, String actualPosition, String turn) {
 		initComponents();
-		nameLabel.setText("   "+name);
+		if (name.length()<12)
+			nameLabel.setText("   "+name);
+		else
+			nameLabel.setText("   "+name.substring(0, 9)+"...");
 		turnLabel.setText("Turn: " + turn); 
 		positionLabel.setText("Position: " + actualPosition);
 	}
@@ -96,7 +99,9 @@ public abstract class TurnFrame {
         nameLabel.setFont(new java.awt.Font(defaultFont, 0, 36)); 
         turnLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
         positionLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
-       
+        nameLabel.setForeground(new Color (140,140,140));
+        turnLabel.setForeground(new Color (120,120,120));
+        positionLabel.setForeground(new Color (120,120,120));
         
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);

@@ -13,6 +13,7 @@ public class AlienDiscardFrame extends DiscardFrame{
 		super(objects);
 	}
 	
+	@Override
 	public void initComponents(List<String> objects){
 		
 		commonBuildUp(objects, new Color(136, 66, 130));

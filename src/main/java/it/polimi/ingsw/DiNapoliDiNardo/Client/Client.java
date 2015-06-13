@@ -3,10 +3,12 @@ package it.polimi.ingsw.DiNapoliDiNardo.Client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 
 
 public class Client {
+	private PrintStream out = System.out;
 	String read = "";
 	
 	public static void main(String[] args) throws IOException {
@@ -17,13 +19,13 @@ public class Client {
 	public void select() throws IOException{
 		while(!"1".equals(this.read)  && !"2".equals(this.read)){
 			
-			System.out.println("Please choose the network interface:");
-			System.out.println("1 - Socket");
-			System.out.println("2 - RMI");
+			out.println("Please choose the network interface:");
+			out.println("1 - Socket");
+			out.println("2 - RMI");
 			read = readLine("\n");
 			
 			if(!"1".equals(this.read)  && !"2".equals(this.read))
-				System.out.println("Invalid Command!");
+				out.println("Invalid Command!");
 		}
 		
 		NetworkInterface ni = NetworkInterfaceFactory.getInterface(this.read);
