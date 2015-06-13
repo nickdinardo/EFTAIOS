@@ -6,9 +6,9 @@ import java.util.List;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Box;
 
 public abstract class Map {
-	private Box[][] gameMap;
-	private Box humanStartBox;
-	private Box alienStartBox;
+	protected Box[][] gameMap;
+	protected Box humanStartBox;
+	protected Box alienStartBox;
 	
 		
 	public Box[][] getMap() {

@@ -59,6 +59,8 @@ public class TestHumanPlayer {
 	@Test
 	public void coorectMoveRange(){
 		assertEquals(human.getMoveRange(), 1);
+		human.setAdrenalized(true);
+		assertEquals(human.getMoveRange(), 2);
 	}
 	
 	@Test
