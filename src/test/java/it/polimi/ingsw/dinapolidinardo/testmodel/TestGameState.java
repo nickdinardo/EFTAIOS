@@ -110,6 +110,11 @@ public class TestGameState {
 		assertTrue(gamestate.updatePlayerPosition("testhuman1", new Coordinates(12,9)));
 		//but can't in 12,11
 		assertTrue(!gamestate.updatePlayerPosition("testhuman1", new Coordinates(12,11)));
+		//check double alien move
+		assertTrue(gamestate.updatePlayerPosition("testalien1", new Coordinates(13,5)));
+		//check triple alien move
+		alien1.setHumanfed(true);
+		assertTrue(gamestate.updatePlayerPosition("testalien1", new Coordinates(14,4)));
 		//set alien close to lifeboat and check he can't end his movement in the lifeboat
 		alien1.setPosition(gamestate.getMap().getMap()[2][1]);
 		assertTrue(!gamestate.updatePlayerPosition("testalien1", new Coordinates(2,2)));
