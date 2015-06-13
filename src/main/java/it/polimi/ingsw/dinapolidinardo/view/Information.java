@@ -10,7 +10,7 @@ public class Information {
 	private String playerName;
 	private static final String ALIENSTARTPOSITION = "L06";
 	private static final String HUMANSTARTPOSITION = "L08";
-	private static final String firstTurn = "1";
+	private static final String FIRSTTURN = "1";
 	private String actualPosition;
 	private String turn;
 	private List<String> item = new LinkedList<String>();
@@ -22,11 +22,11 @@ public class Information {
 	
 	
 	public Information(int kindOfPlayer){
-		this.turn = firstTurn;
+		this.turn = FIRSTTURN;
 		this.item.add("");
-		if(kindOfPlayer == 1)  //Human palyer
+		if(kindOfPlayer == 1)  //Human player
 			this.actualPosition = HUMANSTARTPOSITION;
-		else     //Alien palyer
+		else     //Alien player
 			this.actualPosition = ALIENSTARTPOSITION;
 	}
 	
@@ -64,7 +64,6 @@ public class Information {
 	}
 	
 	public void addToItem(int index, String object){
-		//problema su questo metodo, rimuovere il clear.
 		item = new LinkedList<String>();
 		this.item.add(index, object);
 	}

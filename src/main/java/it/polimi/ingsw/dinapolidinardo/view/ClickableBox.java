@@ -464,11 +464,11 @@ public class ClickableBox {
 		}
 		
 		char letter = position.charAt(0);
-		position = position.substring(1);
+		String secondPart = position.substring(1);
 		//parse the ASCII code of the char and convert it to a number, starting from 'A'-->0
 		indexJ = ((int)letter)-65;
 		try	{
-			indexI = (Integer.parseInt(position))-1;
+			indexI = (Integer.parseInt(secondPart))-1;
 			actualPosition = centers[indexI][indexJ];
 		}			
 		catch (NumberFormatException ex){

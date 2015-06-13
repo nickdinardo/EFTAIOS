@@ -1,4 +1,4 @@
-package it.polimi.ingsw.dinapolidinardo.server.Socket;
+package it.polimi.ingsw.dinapolidinardo.server.socket;
 
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 import it.polimi.ingsw.dinapolidinardo.server.Handler;
