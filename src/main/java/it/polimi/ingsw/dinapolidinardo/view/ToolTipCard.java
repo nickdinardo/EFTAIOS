@@ -9,21 +9,16 @@ public class ToolTipCard {
 	public JToolTip[] setToolTip(List<String> objects){
 		switch(objects.size()){
 		case 1:
-			if(objects.get(0) == ""){
+			if(objects.get(0) == "")
 				return new JToolTip[0];
-			}
-			else{
-				JToolTip[] tips = new JToolTip[1];
-				tips[0] = specifiedTip(objects.get(0));
-				return tips;
-			}
-		case 2:
-			
-			JToolTip[] tips = new JToolTip[2];
+			JToolTip[] tips = new JToolTip[1];
 			tips[0] = specifiedTip(objects.get(0));
-			tips[1] = specifiedTip(objects.get(1));
 			return tips;
-			
+		case 2:			
+			JToolTip[] tipz = new JToolTip[2];
+			tipz[0] = specifiedTip(objects.get(0));
+			tipz[1] = specifiedTip(objects.get(1));
+			return tipz;
 		case 3:
 			JToolTip[] tip = new JToolTip[3];
 			tip[0] = specifiedTip(objects.get(0));

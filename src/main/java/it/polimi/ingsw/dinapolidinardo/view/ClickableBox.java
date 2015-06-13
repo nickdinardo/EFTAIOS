@@ -491,7 +491,7 @@ public class ClickableBox {
 		   
 					if(!((int)p.getX() == (int)actualPosition.getX() && (int)p.getY() == (int)actualPosition.getY())){
 						//color Dangerous Boxes
-						if( r>73 && r<77 && g>73 && g<77 && b>73 && b<77) {  
+						if(Math.abs(r-75)<3 && Math.abs(g-75)<3 && Math.abs(b-75)<3) {  
 							Color newcolor = color1;
 							dimg.setRGB(j, i, newcolor.getRGB());  
 						} 
@@ -521,7 +521,7 @@ public class ClickableBox {
 				Color newcolor = colorPos1;
 				
 				//color Dangerous Boxes
-				if( r>73 && r<77 && g>73 && g<77 && b>73 && b<77) {  
+				if(Math.abs(r-75)<3 && Math.abs(g-75)<3 && Math.abs(b-75)<3){  
 					dimg.setRGB(j, i, newcolor.getRGB());  
 				} 
 				//color Normal Boxes

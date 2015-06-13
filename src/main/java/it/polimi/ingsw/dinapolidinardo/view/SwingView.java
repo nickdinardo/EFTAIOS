@@ -122,7 +122,7 @@ public class SwingView extends View{
 		//set the current items in the "information" class
 		if (!"no".equals(objects)){
 			if(discardCall){
-				print("Please, select the item you want to use to get free the slot");
+				print("--> Please, select the item you want to use to get free the slot <--");
 				info.setItem(Arrays.asList(objects.split(" ;")));
 			}else{
 				info.setItem(Arrays.asList(objects.split(" ;")));
@@ -137,7 +137,7 @@ public class SwingView extends View{
 		
 		//first item usage phase, before movement
 		if(!hasMoved){
-			turnFrame.appendToTextArea("Press a card to activate an object, or press the map to move\n");
+			turnFrame.appendToTextArea("--> Press a card to activate an object, or press the map to move <--\n");
 			BoxHandler boxClick = new BoxHandler();
 			MouseListener clickListen = boxClick.startListen(turnFrame.getBackgroundImage());
 			
@@ -169,7 +169,7 @@ public class SwingView extends View{
 		
 		//second item usage phase, after movement
 		else{
-			turnFrame.appendToTextArea("Press a card to activate an object, or press Next button to pass the turn\n");
+			turnFrame.appendToTextArea("--> Press a card to activate an object, or press Next button to pass the turn <--\n");
 			ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 1);
 			
 			//wait while player click next to pass the turn or a card
@@ -215,8 +215,8 @@ public class SwingView extends View{
 	@Override
 	public String askForAttack(){
 		
-		turnFrame.appendToTextArea("Filthy alien, do you want to attack this position?\n");
-		turnFrame.appendToTextArea("Press Attack if yes, Next if no\n");
+		turnFrame.appendToTextArea("--> Filthy alien, do you want to attack this position? <--\n");
+		turnFrame.appendToTextArea("--> Press Attack if yes, Next if no <--\n");
 		button.setWaitAttack(false);
 		ActionListener attackB = button.startAttackListen(((DefinitiveAlienTurnFrame)turnFrame).getAttackButton());
 		ActionListener nextB = button.startNextListen(turnFrame.getNextButton(), 2);
@@ -245,7 +245,7 @@ public class SwingView extends View{
 		}
 		
 		if(reask)
-			turnFrame.appendToTextArea("The movement you selected is not valid. Please select another box\n");
+			turnFrame.appendToTextArea("--> The movement you selected is not valid. Please select another box <--\n");
 				
 		if(inputCoordinates){
 			inputCoordinates = false;
@@ -255,7 +255,7 @@ public class SwingView extends View{
 		else{
 			BoxHandler boxClick = new BoxHandler();
 			boxClick.startListen(turnFrame.getBackgroundImage());
-			turnFrame.appendToTextArea("Where do you want to move? Click on the box in the map\n");
+			turnFrame.appendToTextArea("--> Where do you want to move? Click on the box in the map <--\n");
 			
 			
 			while (boxClick.getWait() == false ){
@@ -277,7 +277,7 @@ public class SwingView extends View{
 	
 	@Override
 	public String askForNoise(){
-		turnFrame.appendToTextArea("In which sector of the map do you want to declare there's noise?\n");
+		turnFrame.appendToTextArea("--> In which sector of the map do you want to declare there's noise? <--\n");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackgroundImage());
 		
@@ -348,10 +348,10 @@ public class SwingView extends View{
 		print(name + " has REACHED THE LIFEBOAT SHIP " + shipnumber + " .....");
 		if(escaped){
 			print("The lifeboat ship " + shipnumber + " is incredibly still working!!!");
-			print(name + " is now safe and far from here. The lifeboat ship " + shipnumber + " won't be accessible anymore");
+			print(name + " IS NOW SAFE AND FAR FROM HERE! The lifeboat ship " + shipnumber + " won't be accessible anymore");
 		}
 		else{
-			print("The lifeboat ship " + shipnumber + " does not answer to commands! " + name + " still couldn't escape!");
+			print("The lifeboat ship " + shipnumber + " does not answer to commands! " + name + " COULDN'T ESCAPE!");
 			print("You'd better remember lifeboat " + shipnumber + " is not working...");
 		}
 	}
