@@ -25,145 +25,97 @@ public class CardHandler  {
 			this.discardframe = df;
 		}
 		
-		private class CardHandler1 implements MouseListener {
+		
+		private abstract class CardHandlerArch implements MouseListener {
 			private TurnFrame turnframe;
 			private DiscardFrame discardframe;
-			
-			public CardHandler1(TurnFrame tf, DiscardFrame df){
+						
+			public CardHandlerArch(TurnFrame tf, DiscardFrame df){
 				this.turnframe = tf;
 				this.discardframe = df;
 			}
+			
 			@Override
 			public void mouseClicked(MouseEvent event) {
 				if (turnframe.getItem().get(0) != ""){
-					setIndexCard(1);
+					setIndexCard(getIndex());
 					setWaitForItem(true);
 				}
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (discardframe == null)
-					turnframe.endarkCard(1);
+					turnframe.endarkCard(getIndex());
 				else
-					discardframe.endarkCard(1);
+					discardframe.endarkCard(getIndex());
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (discardframe == null)
-					turnframe.enlightCard(1);
+					turnframe.enlightCard(getIndex());
 				else
-					discardframe.enlightCard(1);
+					discardframe.enlightCard(getIndex());
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				if (discardframe == null)
-					turnframe.enlightCard(1);
+					turnframe.enlightCard(getIndex());
 				else
-					discardframe.enlightCard(1);
+					discardframe.enlightCard(getIndex());
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (discardframe == null)
-					turnframe.endarkCard(1);
+					turnframe.endarkCard(getIndex());
 				else
-					discardframe.endarkCard(1);
+					discardframe.endarkCard(getIndex());
+			}
+
+			public abstract int getIndex();
+			
+		}	
+		
+		
+		private class CardHandler1 extends CardHandlerArch implements MouseListener {
+					
+			public CardHandler1(TurnFrame tf, DiscardFrame df){
+				super (tf, df);
+			}
+			
+			@Override
+			public int getIndex() {
+				return 1;
 			}
 
 		}	
 		
-		private class CardHandler2 implements MouseListener {
-			private TurnFrame turnframe;
-			private DiscardFrame discardframe;
+		
+		private class CardHandler2 extends CardHandlerArch implements MouseListener {
 			
 			public CardHandler2(TurnFrame tf, DiscardFrame df){
-				this.turnframe = tf;
-				this.discardframe = df;
+				super (tf, df);
 			}
+			
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				if (turnframe.getItem().size()>1){
-					setIndexCard(2);
-					setWaitForItem(true);
-				}
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.endarkCard(2);
-				else
-					discardframe.endarkCard(2);
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.enlightCard(2);
-				else
-					discardframe.enlightCard(2);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.enlightCard(2);
-				else
-					discardframe.enlightCard(2);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.endarkCard(2);
-				else
-					discardframe.endarkCard(2);
+			public int getIndex() {
+				return 2;
 			}
 
 		}	
 		
-		private class CardHandler3 implements MouseListener {
-			private TurnFrame turnframe;
-			private DiscardFrame discardframe;
+		private class CardHandler3 extends CardHandlerArch implements MouseListener {
 			
 			public CardHandler3(TurnFrame tf, DiscardFrame df){
-				this.turnframe = tf;
-				this.discardframe = df;
+				super (tf, df);
 			}
 			
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				if (turnframe.getItem().size()>2){
-					setIndexCard(3);
-					setWaitForItem(true);
-				}
-			
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.endarkCard(3);
-				else
-					discardframe.endarkCard(3);
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.enlightCard(3);
-				else
-					discardframe.enlightCard(3);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.enlightCard(3);
-				else
-					discardframe.enlightCard(3);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				if (discardframe == null)
-					turnframe.endarkCard(3);
-				else
-					discardframe.endarkCard(3);
+			public int getIndex() {
+				return 3;
 			}
 
 		}	
+		
 		
 		private class UseButton implements ActionListener{
 			@Override
