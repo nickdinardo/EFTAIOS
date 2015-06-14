@@ -27,15 +27,15 @@ import java.util.List;
  *  It dialogs with the Game Controller and manages all the model changes and update, including players and map modifications 
  */
 public class GameState {
-	GameController gamecontroller;
-	Map map;
-	SectorDeck sectordeck;
-	ItemDeck itemdeck;
-	LifeboatDeck lifeboatdeck;
-	int turnNumber = 0;
-	List< Player > inGamePlayers = new ArrayList< Player >();
-	List< String > winners = new ArrayList< String >();
-	List< String > losers = new ArrayList< String >();
+	private GameController gamecontroller;
+	private Map map;
+	private SectorDeck sectordeck;
+	private ItemDeck itemdeck;
+	private LifeboatDeck lifeboatdeck;
+	private int turnNumber = 0;
+	private List< Player > inGamePlayers = new ArrayList< Player >();
+	private List< String > winners = new ArrayList< String >();
+	private List< String > losers = new ArrayList< String >();
 	
 	/**
 	 * Constructor, initialize the map and the decks of the game
@@ -185,10 +185,8 @@ public class GameState {
 	 * Manage the model modifications that follow an attack, checking for defense cards, 
 	 * assigning the attack bonus to aliens, and setting to "dead" the killed players
 	 * 
-	 * @param name name of the player
-	 * @param index index in the personal deck of the selected card 
-	 * @throws ClassNotFoundException 
-	 * @throws IOException
+	 * @param player attacking player
+	 * @throws RemoteException
 	 */
 	public void attackManagement(Player player) throws RemoteException{
 		List<Player> killed = player.attack(player.getPosition());

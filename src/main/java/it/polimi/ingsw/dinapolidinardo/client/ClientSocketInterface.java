@@ -28,9 +28,9 @@ public class ClientSocketInterface implements NetworkInterface {
 	private View view;
 	private PrintWriter out;
 	private BufferedReader in; 
-	ObjectOutputStream outObj;
-	ObjectInputStream inObj;
-	boolean stop = false;
+	private ObjectOutputStream outObj;
+	private ObjectInputStream inObj;
+	private boolean stop = false;
 	private CommandHandler comhan;
 	
 	public ClientSocketInterface() {

@@ -11,8 +11,8 @@ public class Coordinates implements java.io.Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
-	int coordX;
-	int coordY;
+	private int coordX;
+	private int coordY;
 	
 	/**
 	 * Default constructor

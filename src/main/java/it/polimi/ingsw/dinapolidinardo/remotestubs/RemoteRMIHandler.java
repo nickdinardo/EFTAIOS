@@ -8,13 +8,15 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 
-
+/**
+ * Remote interface for the RMIHandler
+ * 
+ * @see it.polimi.ingsw.dinapolidinardo.client.RMIHandler
+ */
 public interface RemoteRMIHandler extends Remote, Handler {
 	
 	@Override
 	public void closeConnections() throws RemoteException;
-	@Override
-	public void setName(String name) throws RemoteException;
 	@Override
 	public String getName() throws RemoteException;
 	@Override

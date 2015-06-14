@@ -202,11 +202,7 @@ public class SocketHandler implements Handler, Runnable {
 		
 	}
 
-	@Override
-	public void setName(String name) throws RemoteException {
-		this.name = name;
-	}
-	
+		
 	public Socket getSocket() {
 		return socket;
 	}

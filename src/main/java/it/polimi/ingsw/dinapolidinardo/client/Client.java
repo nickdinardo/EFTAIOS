@@ -13,7 +13,7 @@ import java.io.PrintStream;
  */
 public class Client {
 	private PrintStream out = System.out;
-	String read = "";
+	private String read = "";
 	
 	public static void main(String[] args) throws IOException {
 		Client client = new Client();

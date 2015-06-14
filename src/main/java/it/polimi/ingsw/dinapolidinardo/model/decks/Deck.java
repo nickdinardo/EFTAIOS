@@ -25,6 +25,8 @@ public class Deck {
 	public Card drawCard(){
 		if (coveredDeck.isEmpty()){
 			int discardSize=discards.size();
+			//for each card in the discard pile, removes it from there
+			//and adds it to the deck
 			for (int i=0; i<discardSize; i++){
 				Card reshuffled = discards.get(0);
 				discards.remove(0);
@@ -32,6 +34,8 @@ public class Deck {
 				}
 			Collections.shuffle(coveredDeck);
 		}
+		//remove from the deck the card drawn and add it 
+		//to the discard pile
 		Card drawn = coveredDeck.get(0);
 		coveredDeck.remove(0);
 		discards.add(drawn);

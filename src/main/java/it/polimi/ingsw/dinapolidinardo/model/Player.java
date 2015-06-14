@@ -19,7 +19,7 @@ public abstract class Player {
 	protected boolean isAlive = true;
 	protected boolean savedWithDefenseCard = false;
 	protected boolean losesIfKilledType = false;
-	private boolean escaped = false;
+	protected boolean escaped = false;
 	protected String myKiller ="";
 	protected List< ItemCard > personalDeck = new ArrayList< ItemCard >();
 		

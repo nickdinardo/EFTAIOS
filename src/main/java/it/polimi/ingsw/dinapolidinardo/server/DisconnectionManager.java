@@ -3,14 +3,26 @@ package it.polimi.ingsw.dinapolidinardo.server;
 import java.io.IOException;
 import java.util.TimerTask;
 
+
+/**
+ * Class scheduled by the turntimer of Game Controller, an object
+ * is constructed when the timer elapses, and closes the connections
+ * with the unanswering client
+ */
 public class DisconnectionManager extends TimerTask {
-	Handler handler;
+	private Handler handler;
 	
-	
+	/**
+	 * @param hnd the handler of the user whose time elapsed
+	 */
 	public DisconnectionManager(Handler hnd){
 		this.handler = hnd;
 	}
 	
+	
+		/**
+		 * Closes the connections with client
+		 */
 		@Override
 		public void run(){
 			try {

@@ -6,7 +6,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Timer;
 
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 import it.polimi.ingsw.dinapolidinardo.remotestubs.RemoteRMIHandler;
@@ -23,8 +22,8 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	private String name;
 	private String remoteName;
 	private PrintStream out = System.out;
-	Registry myregistry;
-	Timer turntimer;
+	private Registry myregistry;
+	
 	
 		/**
 		 * 
@@ -156,14 +155,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		return name;
 	}
 	
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-
-
+	
 	
 	
 	

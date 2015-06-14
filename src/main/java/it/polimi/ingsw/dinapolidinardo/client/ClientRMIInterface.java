@@ -28,9 +28,9 @@ public class ClientRMIInterface implements NetworkInterface {
 	private PrintStream out = System.out;
 	private View view;
 	private String name = "";
-	Registry registry;
-	int clientport;
-	int gamesStarted = 1;
+	private Registry registry;
+	private int clientport;
+	private int gamesStarted = 1;
 	
 	/**
 	 *  Explores all the server ports looking for an available remote registry.
