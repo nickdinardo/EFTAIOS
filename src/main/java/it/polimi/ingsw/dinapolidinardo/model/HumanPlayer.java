@@ -2,7 +2,10 @@ package it.polimi.ingsw.dinapolidinardo.model;
 
 
 
-
+/**
+ * Class that represent a human player in the game, providing all the information 
+ * needed by Game State and Game Controller
+ */
 public class HumanPlayer extends Player{
 
 	private boolean adrenalized = false;
@@ -12,7 +15,13 @@ public class HumanPlayer extends Player{
 	private int moverange = 1;
 	
 	
-	//constructor
+	/**
+	 * Constructor, set the player in the appropriate game state
+	 * 
+	 * @param galilei the map where the game is played
+	 * @param gs the game state that manages this player's game
+	 * @param name the name of the player
+	 */
  	public HumanPlayer(Map galilei, GameState gs, String name){
 		this.gamestate = gs;
 		this.name = name;
@@ -22,7 +31,10 @@ public class HumanPlayer extends Player{
 	}
 	
 	
-	
+	/**
+	 * Removes this player from his actual position of the map and put him 
+	 * in the Human Start Position, depending on the map specification
+	 */
 	@Override
 	public void teleport(){
 		this.position.unsetPlayer(this);
@@ -32,7 +44,7 @@ public class HumanPlayer extends Player{
 	}
 	
 	
-	//getters and setters
+	//getters and setters of the human properties
 	
 	@Override
 	public boolean isAdrenalized() {

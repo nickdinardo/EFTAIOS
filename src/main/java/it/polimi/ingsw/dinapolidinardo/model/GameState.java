@@ -20,6 +20,12 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+/**
+ *  The GameState class is the key class of the "model" of the application, designed accordingly to the MVC pattern.
+ *  It dialogs with the Game Controller and manages all the model changes and update, including players and map modifications 
+ */
 public class GameState {
 	GameController gamecontroller;
 	Map map;
@@ -31,7 +37,11 @@ public class GameState {
 	List< String > winners = new ArrayList< String >();
 	List< String > losers = new ArrayList< String >();
 	
-	//constructor
+	/**
+	 * Constructor, initialize the map and the decks of the game
+	 * 
+	 * @param gs reference to the game controller, that manages the connections
+	 */
 	public GameState(GameController gs){
 		this.map = new GalileiMap();
 		this.sectordeck = new SectorDeck();
@@ -41,7 +51,13 @@ public class GameState {
 	}
 	
 		
-		
+	/**
+	 * Change the position of a given player, chosen by his name
+	 * 	
+	 * @param name the player's moving name
+	 * @param coord the selected destination coordinates
+	 * @return true if the coordinates are reachables, false otherwise
+	 */
 	public boolean updatePlayerPosition (String name, Coordinates coord){
 		
 		Box destination;
@@ -53,16 +69,18 @@ public class GameState {
 			return false;
 		}
 		Player player = givemePlayerByName(name);
+		
+		//if an alien player wants to move in a lifeboat, return that he can't
 		if (destination instanceof LifeboatBox && player instanceof AlienPlayer)
 			return false;
 		
 		boolean acceptable;
-		
-		
+				
 		List<Box> reachables = new ArrayList<Box>();
 		int range = player.getMoveRange();
 		
-		
+		//receives from map the list of the reachable boxes and check 
+		//if the selected coordinates represent one of those boxes
 		reachables = map.reachableBoxes(player.getPosition(), range);
 		if(reachables.contains(destination)){
 			player.position.unsetPlayer(player);
@@ -76,7 +94,14 @@ public class GameState {
 	}
 		
 	
-	
+	/**
+	 * Manage the players personal deck modifications, using or discarding the selected cards
+	 * 
+	 * @param name name of the player
+	 * @param index index in the personal deck of the selected card 
+	 * @throws ClassNotFoundException 
+	 * @throws IOException
+	 */
 	public void itemUsageManagement(String name, int index) throws ClassNotFoundException, IOException{
 		
 		
@@ -91,7 +116,8 @@ public class GameState {
 			//all other type of cards, calling overrided superclass methods
 			else 
 				item.doAction(player);
-			//discard in the itemdeck the card used, unless is a DefenseCard
+			//discard in the itemdeck discard pile the card used, 
+			//unless is a DefenseCard (that can't be used directly)
 			if (!(item instanceof DefenseCard)){
 				ItemCard used = player.getPersonalDeck().remove(index);
 				itemdeck.getDiscards().add(used);
@@ -103,28 +129,39 @@ public class GameState {
 			//remove the card user selected to discard passing index+3
 			Player player = givemePlayerByName(name);
 			ItemCard used = player.getPersonalDeck().remove(index-3);
+			//add the card to the discard pile of the itemdeck
 			itemdeck.getDiscards().add(used);
 		}
 	
 	}	
 	
 	
-	
+	/**
+	 * Recover all the model information needed to show a player all the players inside
+	 * the positions enlighted by his LightsCard selection
+	 * 
+	 * @param player the player that uses the LightsCard
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void lightsManagement(HumanPlayer player) throws ClassNotFoundException, IOException{
 		Box lightfocus;
 		boolean reask = false;
+		
+		//repeatedly ask user inputs until they're valid coordinates for the lights
 		do{
 			Coordinates coordinates = gamecontroller.askForLights(player.getName(), reask);
 			reask = true;
 			lightfocus = this.map.getMap()[coordinates.getCoordY()-1][coordinates.getCoordX()-1];	
 		}while(lightfocus instanceof Wall);
 			
-		//ask for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
+		//ask the map for the boxes around the lightfocus that can be reached with a single step (adiacent ones, without walls etc.)
 		List<Box> toCheck = this.map.givemeAroundBoxes(lightfocus);
 		List<Box> enlighted = this.map.checkOneStepBoxes(toCheck, lightfocus);
 		enlighted.add(lightfocus);
 		
-		
+		//create strings with the name of the players inside for each enlighted box
+		//and passes them to game controller to be shown
 		for (Box box : enlighted){
 			List<Player> peoplehere = box.getPlayerHere();
 			String playersinbox = "";
@@ -144,11 +181,21 @@ public class GameState {
 	}
 	
 	
-	
+	/**
+	 * Manage the model modifications that follow an attack, checking for defense cards, 
+	 * assigning the attack bonus to aliens, and setting to "dead" the killed players
+	 * 
+	 * @param name name of the player
+	 * @param index index in the personal deck of the selected card 
+	 * @throws ClassNotFoundException 
+	 * @throws IOException
+	 */
 	public void attackManagement(Player player) throws RemoteException{
 		List<Player> killed = player.attack(player.getPosition());
 		if(!killed.isEmpty()){
 			for(Player killedPlayer : killed){
+				
+				//for every player involved check if can be saved by a Defense Card
 				boolean hasDefense = false;
 				Card toRemoveDefCard = null;
 				if (killedPlayer instanceof HumanPlayer){
@@ -159,6 +206,9 @@ public class GameState {
 						}
 					}
 				}
+				
+				//if hasn't Defense Cards, manage his in-game "death", 
+				//and notify it to all the players
 				if (!hasDefense){
 					killedPlayer.kill();
 					killedPlayer.setKiller(player.getName());
@@ -174,6 +224,9 @@ public class GameState {
 					gamecontroller.sayByeToLosers(killedPlayer.getName(), player.getName());
 					gamecontroller.notifyMessageToAll(killedPlayer.getName()+" has been KILLED by "+player.getName()+" and has left the game");
 				}
+				
+				//otherwise remove the card and notify to everybody 
+				//he saved himself from the attack
 				else{
 					killedPlayer.getPersonalDeck().remove(toRemoveDefCard);
 					itemdeck.getDiscards().add(toRemoveDefCard);
@@ -181,6 +234,9 @@ public class GameState {
 			    }
 			}
 		} 
+		
+		//this set is required to avoid alien players draw sector cards after the attack:
+		//following the rules, they can't
 		if (player instanceof AlienPlayer){
 			AlienPlayer alien = (AlienPlayer) player;
 			alien.setHasAttacked(true);
@@ -189,7 +245,13 @@ public class GameState {
 	}
 	
 		
-	
+	/**
+	 * Check if a player reached a Lifeboat ship, uses the Lifeboat Cards
+	 * and manage his eventual escape and the closure of the used Lifeboat ship
+	 * 
+	 * @param player the player that reached the position
+	 * @return true if player managed to escape, false otherwise
+	 */
 	public boolean escapeManagement(Player player){
 		
 		boolean escaped = false;
@@ -207,6 +269,7 @@ public class GameState {
 				winners.add(player.getName());
 			}
 		}
+		
 		//this branch is needed when all the green lifeboat cards has been drawn:
 		//all the other human players that can't escape are considered dead (from game rules)
 		if (winners.size() == 3){
@@ -218,7 +281,10 @@ public class GameState {
 	}
 	
 	
-	
+	/**
+	 * Method called by Game Controller at the end of every turn to remove
+	 * from model data all the bonuses that lasts only one turn
+	 */
 	public void removeInTurnBonus (){
 		for (Player player: this.inGamePlayers){
 			if(player instanceof HumanPlayer){
@@ -232,7 +298,12 @@ public class GameState {
 	
 	
 	
-	//give reference of player object looking for the name you ask
+	/**
+	 * Method that returns the instance of a player connected to a username
+	 * 
+	 * @param lookforname the name of the user and player
+	 * @return the chosen player object
+	 */
 	public Player givemePlayerByName (String lookforname) {
 		for (Player player: inGamePlayers){
 			if (player.getName().equals(lookforname)){
@@ -244,7 +315,8 @@ public class GameState {
 		
 	
 
-	//Getters and setters
+	//getters and setters
+		
 	public SectorDeck getSectordeck() {
 		return sectordeck;
 	}

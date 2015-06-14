@@ -8,17 +8,34 @@ import java.util.Map;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 import it.polimi.ingsw.dinapolidinardo.view.*;
 
+
+/**
+ * Class that receives a map of commands from the socket interface and communicate with the view 
+ * asking the needed inputs for every request
+ */
 public class CommandHandler {
 	
 	private View view;
 	private ClientSocketInterface csi;
 	
+	/**
+	 * Constructor, receives the instance of the socket interface and of the view since communicates with both. 
+	 *
+	 *@param csi The ClientSocketInterface instance
+	 *@param v The View instance
+	 */
 	public CommandHandler(ClientSocketInterface csi, View v){
 		this.csi = csi;
 		this.view = v;
 	}
 	
-	
+	/**
+	 * handle the request from the socket interface addressing it to the correct view method
+	 * 
+	 * @param param the map composed of two fields where the two "keys" are "object" and "action". 
+	 * 	Depending on the values of these two entries calls different view methods
+	 * @throws IOException on streams errors
+	 */
 	public void handleCommand(Map<String, String> param) throws IOException{
 		String object = param.get("object");
 		String action = param.get("action");
@@ -80,19 +97,19 @@ public class CommandHandler {
 			view.notifyEscape(false, name, shipnumber);
 		}
 		if ("situation".equals(object)){
-			String[] result = action.split(";");
-			view.showActualSituation(result[0], result[1], result[2], result[3]);
+			String[] parts = action.split(";");
+			view.showActualSituation(parts[0], parts[1], parts[2], parts[3]);
 		    }
 		if ("update".equals(object)){
-			String[] result = action.split(";");
-			view.update(result[0], result[1], result[2]);
+			String[] parts = action.split(";");
+			view.update(parts[0], parts[1], parts[2]);
 		    }
 		if ("results".equals(object)){
-			String[] result = action.split(";");
-			if ("y".equals(result[5]))
-				view.showFinalResults(true, result[0], result[1], result[2], result[3], result[4]);
+			String[] parts = action.split(";");
+			if ("y".equals(parts[5]))
+				view.showFinalResults(true, parts[0], parts[1], parts[2], parts[3], parts[4]);
 			else 
-				view.showFinalResults(false, result[0], result[1], result[2], result[3], result[4]);
+				view.showFinalResults(false, parts[0], parts[1], parts[2], parts[3], parts[4]);
 		    }
 		if ("playeritemsY".equals(object)){
 			csi.getOut().println(view.askItemUse(action, true)); 

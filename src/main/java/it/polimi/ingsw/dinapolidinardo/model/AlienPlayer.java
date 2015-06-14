@@ -1,7 +1,10 @@
 package it.polimi.ingsw.dinapolidinardo.model;
 
 
-
+/**
+ * Class that represent an alien player in the game, providing all the information 
+ * needed by Game State and Game Controller
+ */
 public class AlienPlayer extends Player {
 	
 	private boolean humanfed = false;
@@ -10,17 +13,23 @@ public class AlienPlayer extends Player {
 	
 	
 
-	//constructor
-	 	public AlienPlayer(Map galilei, GameState gs, String name){
-			this.gamestate = gs;
-			this.name = name;
-			this.setPosition(galilei.getAlienStartBox());
-			position.setPlayer(this);
-			
-		}
-	
-	
-	
+	/**
+	 * Constructor, set the player in the appropriate game state
+	 * 
+	 * @param galilei the map where the game is played
+	 * @param gs the game state that manages this player's game
+	 * @param name the name of the player
+	 */
+ 	public AlienPlayer(Map galilei, GameState gs, String name){
+		this.gamestate = gs;
+		this.name = name;
+		this.setPosition(galilei.getAlienStartBox());
+		position.setPlayer(this);
+		
+	}
+
+
+	//getters and setters of the alien properties
 	
 	@Override
 	public boolean isHumanFed() {

@@ -6,7 +6,10 @@ import it.polimi.ingsw.dinapolidinardo.model.boxes.*;
 
 public class GalileiMap extends Map{
 	
-	
+	/**
+	 * Constructor, it initializes the matrix representation respecting the design
+	 * of the GalileiMap 
+	 */
 	public GalileiMap(){
 		this.setMap(new Box[14][23]);
 		for (int i=0; i<14; i++){
@@ -310,7 +313,13 @@ public class GalileiMap extends Map{
 	}
 	
 		
-	
+	/**
+	 * Provides all the matrix neighbors with a particular attention for side and corner boxes,
+	 * in order to avoid out of bound indexes
+	 * 
+	 * @param center the Box for which we need the neighbors 
+	 * @return the list of the selected Box neighbors in the matrix representation
+	 */
 	@Override
 	public List<Box> givemeAroundBoxes (Box center){
 		List<Box> aroundBoxes = new ArrayList<Box>();

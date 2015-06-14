@@ -1,15 +1,5 @@
 package it.polimi.ingsw.dinapolidinardo.client;
 
-
-
-
-
-
-
-
-
-
-
 import it.polimi.ingsw.dinapolidinardo.remotestubs.RemoteCallableServer;
 import it.polimi.ingsw.dinapolidinardo.remotestubs.RemoteClientRegisterer;
 import it.polimi.ingsw.dinapolidinardo.remotestubs.RemoteRMIHandler;
@@ -25,6 +15,12 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+/**
+ *  RMI version of the connection interface 
+ *  <p>
+ *  Gets a remotely callable instance of the server, and provides to the game server
+ *	a remotely callable instance of the client
+ */
 public class ClientRMIInterface implements NetworkInterface {
 
 	private static final int MAXSERVERGAMES = 1000;
@@ -36,7 +32,13 @@ public class ClientRMIInterface implements NetworkInterface {
 	int clientport;
 	int gamesStarted = 1;
 	
-	
+	/**
+	 *  Explores all the server ports looking for an available remote registry.
+	 *  Discharge from that server registry the remote server handler that the client will use
+	 *  to register himself and his remote object in the starting game
+	 *  
+	 *  @return true if connection has been successful on any port, false otherwise
+	 */
 	@Override
 	public boolean connect() {
 		//first thing get the handler client->server
@@ -72,6 +74,15 @@ public class ClientRMIInterface implements NetworkInterface {
 		return true;
 	}
 
+	
+	/**
+	 * Get a view instance via ViewFactory and then starts an own RMI registry.
+	 * With the previously discharged server handler lead the server 
+	 * to discharge the instance of the remote client handler that server will use during the game to call the 
+	 * needed methods.
+	 * 
+	 * @see ViewFactory
+	 */
 	@Override
 	public void startInterface() throws RemoteException {
 		
@@ -79,7 +90,7 @@ public class ClientRMIInterface implements NetworkInterface {
 		view = ViewFactory.getView();
 		
 		//check if the game as already started, to avoid to connect while 
-		//some rmi players keep the registry on without inputting their names
+		//some rmi players keep the registry open without inputting their names
 		if(!serverhandler.isStarted()){
 			
 			serverhandler.increaseRMINumPlayers();
@@ -95,7 +106,8 @@ public class ClientRMIInterface implements NetworkInterface {
 				name = view.askName(true);
 			}
 			
-			
+			//check if the time to input the name has elapsed and thus the game has started 
+			//without this client instance. If not, register on the starting game his name
 			if(!serverhandler.isNameCompletionElapsed()){
 				
 				serverhandler.addPlayer(name);
@@ -103,11 +115,12 @@ public class ClientRMIInterface implements NetworkInterface {
 				//Starting RMI client registry
 				Registry myregistry = null;
 				String notName = "Notifier";			
+				
 				try {
 				//Binding the notifier
 				    myregistry = LocateRegistry.createRegistry(clientport);  
-				    RemoteRMIHandler notifier = new RMIHandler(name, view, myregistry, notName);
-				    RemoteRMIHandler stub = (RemoteRMIHandler) UnicastRemoteObject.exportObject(notifier, 0);    
+				    RemoteRMIHandler clienthandler = new RMIHandler(name, view, myregistry, notName);
+				    RemoteRMIHandler stub = (RemoteRMIHandler) UnicastRemoteObject.exportObject(clienthandler, 0);    
 				    myregistry.bind(notName, stub);
 				    } catch (Exception exc) {
 				    	out.println("RMI exception while exporting object");
@@ -143,7 +156,11 @@ public class ClientRMIInterface implements NetworkInterface {
 		
 	}
 	
-		
+
+	/**
+	 * Implements the NetworkInterface method close witouth actually doing nothing.
+	 * (method only required for socket connections)
+	 */ 	
 	@Override
 	public boolean close() {
 		return true;

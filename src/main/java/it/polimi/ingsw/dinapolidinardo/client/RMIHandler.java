@@ -14,7 +14,10 @@ import it.polimi.ingsw.dinapolidinardo.server.Handler;
 import it.polimi.ingsw.dinapolidinardo.view.View;
 
 
-
+/**
+ * Handler reachable by server via remote stub that provides to server methods to call the view 
+ * in the various phases of the game
+ */
 public class RMIHandler implements RemoteRMIHandler, Handler {
 	private View view;
 	private String name;
@@ -23,7 +26,13 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	Registry myregistry;
 	Timer turntimer;
 	
-	
+		/**
+		 * 
+		 * @param n the name of the user associated to this handler
+		 * @param v the instance of the associated view
+		 * @param r the registry where the remote stub of this object resides 
+		 * @param rmn the remote string associated with this object
+		 */
 		public RMIHandler(String n, View v, Registry r, String rmn){
 		this.view = v;
 		this.name = n;
@@ -32,7 +41,11 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	}
 	
 		
-	
+	/**
+	 * activated by the disconnection manager, close this handler, unexport all the remote objects,
+	 * and unbound the remote registry on the client side. Usually called when user doesn't respond 
+	 * over the maximum waiting time, to allow the other players to keep playing.
+	 */
 	@Override
 	public void closeConnections() throws RemoteException{
 		
@@ -47,6 +60,11 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 		System.exit(0);
 	
 	}
+	
+	
+	//all the following are methods the call the view to ask user different inputs 
+	//for different phases of the game (movement, lights, attack, etc...)
+	
 	
 	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException{

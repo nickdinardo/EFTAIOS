@@ -6,7 +6,10 @@ import it.polimi.ingsw.dinapolidinardo.model.boxes.Box;
 import it.polimi.ingsw.dinapolidinardo.model.cards.ItemCard;
 
 
-
+/**
+ * Abstract class that represent a player in the game, providing all the information 
+ * needed by Game State and Game Controller
+ */
 public abstract class Player {
 	
 	
@@ -22,12 +25,22 @@ public abstract class Player {
 		
 		
 	
-		
+	/**
+	 * Method to implement in the subclasses that can use the teleport in game	
+	 * 
+	 * @see HumanPlayer
+	 */
 	public void teleport(){
 		
 	}
 	
-	
+	/**
+	 * When a player attack, gets all the other players that are in the same box
+	 * and passes them to the game state for the resolution of the attack
+	 * 
+	 * @param position the box where the attacking player is
+	 * @return the list of players affected by the attack
+	 */
 	public List<Player> attack(Box position){
 		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty())
@@ -39,9 +52,9 @@ public abstract class Player {
 		
 	}
 	
-	
-	
+		
 	//getters and setters
+	
 	public boolean isAdrenalized() {
 		return false;
 	}

@@ -15,6 +15,11 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  Socket version of the connection interface 
+ *  <p>
+ *  Create two channels for the socket output and two for input, respectively for Strings and Objects
+ */
 public class ClientSocketInterface implements NetworkInterface {
 
 	private PrintStream console = System.out;
@@ -32,6 +37,13 @@ public class ClientSocketInterface implements NetworkInterface {
 		
 	} 
 	
+	
+	/**
+	 *  Initialize the four socket streams
+	 *  
+	 *  @return true if initialization has been successful, false otherwise
+	 *  @throws IOException if can't manage to close the socket when the streams initialization failed
+	 */
 	@Override
 	public boolean connect() throws IOException {
 		try {
@@ -63,6 +75,13 @@ public class ClientSocketInterface implements NetworkInterface {
 	}
 
 	
+	/**
+	 * Get a view instance via ViewFactory and initialize a Command Handler to where redirect all the stream inputs 
+	 * after having codified them.
+	 * 
+	 * @see ViewFactory
+	 * @see CommandHandler
+	 */
 	@Override
 	public void startInterface() {
 			
@@ -73,6 +92,8 @@ public class ClientSocketInterface implements NetworkInterface {
 		String input;
 		try {
 			while((input = in.readLine()) != null && !stop){
+				//split the String in four parts linked two-two in a HashMap passed
+				//to the Command Handler
 				String[] splitted = input.split("&");
 				Map<String, String> params = new HashMap<String, String>();
 				for(String str : splitted){
@@ -88,6 +109,7 @@ public class ClientSocketInterface implements NetworkInterface {
 	}
 	
 	
+	//getters
 	public PrintWriter getOut() {
 		return out;
 	}
@@ -105,11 +127,16 @@ public class ClientSocketInterface implements NetworkInterface {
 	}
 
 	
+	/**
+	 * Closes all socket streams
+	 */
 	@Override
 	public boolean close() {
 		try{
 			in.close();
 			out.close();
+			inObj.close();
+			outObj.close();
 			s.close();
 			return true;
 		} catch(IOException ex){

@@ -162,20 +162,20 @@ public class ClickableBox {
 		centers[13][7] = new Point(251, 539);
 		
 		//Column I
-		centers[0][8] = new Point(280, 37);
-		centers[1][8] = new Point(280, 74);
-		centers[2][8] = new Point(280, 111);
-		centers[3][8] = new Point(280, 148);
-		centers[4][8] = new Point(280, 186);
+		centers[0][8] = new Point(282, 37);
+		centers[1][8] = new Point(282, 74);
+		centers[2][8] = new Point(282, 111);
+		centers[3][8] = new Point(282, 148);
+		centers[4][8] = new Point(282, 186);
 		centers[5][8] = wallPoint;
-		centers[6][8] = new Point(280, 260);
-		centers[7][8] = new Point(280, 296);
-		centers[8][8] = new Point(280, 334);
-		centers[9][8] = new Point(280, 370);
-		centers[10][8] = new Point(280, 408);
+		centers[6][8] = new Point(282, 260);
+		centers[7][8] = new Point(282, 296);
+		centers[8][8] = new Point(282, 334);
+		centers[9][8] = new Point(282, 370);
+		centers[10][8] = new Point(282, 408);
 		centers[11][8] = wallPoint;
-		centers[12][8] = new Point(280, 482);
-		centers[13][8] = new Point(280, 520);
+		centers[12][8] = new Point(282, 482);
+		centers[13][8] = new Point(282, 520);
 		
 		//Column J
 		centers[0][9] = new Point(313, 55);
@@ -306,7 +306,7 @@ public class ClickableBox {
 		centers[13][16] = new Point(538, 520);
 		
 		//Column R
-		centers[0][17] = new Point(571, 58);
+		centers[0][17] = new Point(571, 55);
 		centers[1][17] = new Point(571, 92);
 		centers[2][17] = new Point(571, 130);
 		centers[3][17] = new Point(571, 167);
@@ -354,7 +354,7 @@ public class ClickableBox {
 		centers[13][19] = new Point(634, 538);
 		
 		//Column U
-		centers[0][20] = new Point(666, 41);
+		centers[0][20] = new Point(666, 37);
 		centers[1][20] = new Point(666, 74);
 		centers[2][20] = new Point(666, 111);
 		centers[3][20] = new Point(666, 148);
@@ -370,7 +370,7 @@ public class ClickableBox {
 		centers[13][20] = new Point(666, 520);
 		
 		//Column V
-		centers[0][21] = new Point(699, 58);
+		centers[0][21] = new Point(699, 55);
 		centers[1][21] = new Point(699, 92);
 		centers[2][21] = new Point(699, 129);
 		centers[3][21] = new Point(699, 167);

@@ -6,7 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 
-
+/**
+ *  Main class on the client side of the game, allows to select the type of connection 
+ *  between RMI and Socket
+ *  
+ */
 public class Client {
 	private PrintStream out = System.out;
 	String read = "";
@@ -16,6 +20,10 @@ public class Client {
 		client.select();
 	}	
 	
+	/**
+	 *  Select Socket or RMI connection via console input, and starts the interface.
+	 *  Uses the "factory" pattern to get the selected instance
+	 */
 	public void select() throws IOException{
 		while(!"1".equals(this.read)  && !"2".equals(this.read)){
 			
@@ -35,6 +43,9 @@ public class Client {
 		}
 	}	
 	
+	/**
+	 *  @return a line read from the console
+	 */
 	private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {
 	        return System.console().readLine(format, args);
