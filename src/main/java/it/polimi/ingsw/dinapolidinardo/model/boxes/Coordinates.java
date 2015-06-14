@@ -1,5 +1,11 @@
 package it.polimi.ingsw.dinapolidinardo.model.boxes;
 
+
+/**
+ * Basic and serializable object that represent 
+ * an horizontal and a vertical coordinate
+ * 
+ */
 public class Coordinates implements java.io.Serializable {
 	
 	
@@ -8,13 +14,25 @@ public class Coordinates implements java.io.Serializable {
 	int coordX;
 	int coordY;
 	
+	/**
+	 * Default constructor
+	 */
 	public Coordinates (){
 	}
 	
+	/**
+	 * Constructor 
+	 * 
+	 * @param x horizontal coordinate
+	 * @param y vertical coordinate
+	 */
 	public Coordinates (int x, int y){
 		this.setCoordX(x);
 		this.setCoordY(y);
 	}
+	
+	
+	//getters and setters
 	
 	public int getCoordX(){
 		return this.coordX;

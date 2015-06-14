@@ -35,7 +35,7 @@ public class TestHumanPlayer {
 	
 	@Test
 	public void setPositionTest(){
-		assertTrue(human.getPosition().getPlayerHere().contains(human));
+		assertTrue(human.getPosition().getPlayersHere().contains(human));
 		assertFalse(human.getPosition().isEmpty());
 	}
 

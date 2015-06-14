@@ -4,6 +4,9 @@ import java.util.List;
 
 import it.polimi.ingsw.dinapolidinardo.model.boxes.*;
 
+/**
+ * Specific Map Class that provides the implementation of the Galilei Map
+ */
 public class GalileiMap extends Map{
 	
 	/**

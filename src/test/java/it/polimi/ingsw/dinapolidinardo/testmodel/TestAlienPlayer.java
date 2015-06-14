@@ -33,7 +33,7 @@ public class TestAlienPlayer {
 	
 	@Test
 	public void setPositionTest(){
-		assertTrue(alien.getPosition().getPlayerHere().contains(alien));
+		assertTrue(alien.getPosition().getPlayersHere().contains(alien));
 		assertFalse(alien.getPosition().isEmpty());
 	}
 	

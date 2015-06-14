@@ -531,7 +531,7 @@ public class GameController {
 	        if(!maybedead.isAlive() || maybedead.isEscaped() || connectionsClosed.contains(playername)){
 		       remover.remove();
 		       if (!maybedead.isAlive() || maybedead.isEscaped())
-		    	   maybedead.getPosition().getPlayerHere().remove(maybedead);
+		    	   maybedead.getPosition().getPlayersHere().remove(maybedead);
 		    }
 	    }
 	}

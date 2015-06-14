@@ -44,7 +44,7 @@ public abstract class Player {
 	public List<Player> attack(Box position){
 		List<Player> playerInBox = new ArrayList<Player>();
 		if(!position.isEmpty())
-			for (Player p : position.getPlayerHere())
+			for (Player p : position.getPlayersHere())
 				playerInBox.add(p); 
 	
 		playerInBox.remove(this);
@@ -59,12 +59,16 @@ public abstract class Player {
 		return false;
 	}
 	
-	public boolean isHumanFed() {
+	public boolean isSedated() {
 		return false;
-	}	
+	}
 	
 	public boolean isAlive() {
 		return isAlive;
+	}
+	
+	public void kill(){
+		this.isAlive = false;
 	}
 	
 	public boolean isEscaped() {
@@ -79,11 +83,6 @@ public abstract class Player {
 		return losesIfKilledType;
 	}
 	
-	public boolean isHasAttacked() {
-		return false;
-	}
-
-	
 	public List<ItemCard> getPersonalDeck() {
 		return personalDeck;
 	}
@@ -95,10 +94,6 @@ public abstract class Player {
 	public void setPosition(Box position) {
 		this.position = position;
 		position.setPlayer(this);
-	}
-	
-	public void kill(){
-		this.isAlive = false;
 	}
 	
 	public void setKiller(String killer){
@@ -118,12 +113,15 @@ public abstract class Player {
 		return 1;
 	}
 
-
-	public boolean isSedated() {
+	public boolean isHumanFed() {
+		return false;
+	}	
+	
+	public boolean isHasAttacked() {
 		return false;
 	}
 	
-
+	
 }
 		
 	

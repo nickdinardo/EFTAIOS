@@ -163,7 +163,7 @@ public class GameState {
 		//create strings with the name of the players inside for each enlighted box
 		//and passes them to game controller to be shown
 		for (Box box : enlighted){
-			List<Player> peoplehere = box.getPlayerHere();
+			List<Player> peoplehere = box.getPlayersHere();
 			String playersinbox = "";
 			for (int i=0; i<peoplehere.size(); i++){
 				playersinbox += peoplehere.get(i).getName();

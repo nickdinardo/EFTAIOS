@@ -1,5 +1,9 @@
 package it.polimi.ingsw.dinapolidinardo.model.cards;
 
+
+/**
+ * Representation of the Lights Item Card
+ */
 public class LightsCard extends ItemCard{
 	
 	@Override

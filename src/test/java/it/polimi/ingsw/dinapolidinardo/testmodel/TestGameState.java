@@ -192,7 +192,7 @@ public class TestGameState {
 		assertTrue(alien1.isHumanFed());
 		assertEquals(alien1.getMoveRange(), 3);
 		//check if dead player has been removed from position
-		assertTrue(!alien1.getPosition().getPlayerHere().contains("testhuman1"));
+		assertTrue(!alien1.getPosition().getPlayersHere().contains("testhuman1"));
 		
 	}
 	
@@ -213,7 +213,7 @@ public class TestGameState {
 		assertTrue(!alien1.isHumanFed());
 		assertEquals(alien1.getMoveRange(), 2);
 		//check if dead player has been removed from position
-		assertTrue(!alien1.getPosition().getPlayerHere().contains("testalien2"));
+		assertTrue(!alien1.getPosition().getPlayersHere().contains("testalien2"));
 		
 	}
 	
@@ -231,7 +231,7 @@ public class TestGameState {
 		assertTrue(alien1.isAlive());
 		assertTrue(!alien1.isHumanFed());
 		assertEquals(alien1.getMoveRange(), 2);
-		assertEquals(alien1.getPosition().getPlayerHere().size(), 1);
+		assertEquals(alien1.getPosition().getPlayersHere().size(), 1);
 	}
 	
 	@Test
@@ -257,8 +257,8 @@ public class TestGameState {
 		//check empty personal deck of player who used defense card
 		assertTrue(human2.getPersonalDeck().isEmpty());
 		//check if both remained in the position after the attack
-		assertTrue(gamestate.getMap().getMap()[6][6].getPlayerHere().contains(human1));
-		assertTrue(gamestate.getMap().getMap()[6][6].getPlayerHere().contains(human2));
+		assertTrue(gamestate.getMap().getMap()[6][6].getPlayersHere().contains(human1));
+		assertTrue(gamestate.getMap().getMap()[6][6].getPlayersHere().contains(human2));
 	}
 	
 	@Test

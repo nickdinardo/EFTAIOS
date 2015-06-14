@@ -2,6 +2,9 @@ package it.polimi.ingsw.dinapolidinardo.model.cards;
 
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 
+/**
+ * Representation of the Adrenaline Item Card
+ */
 public class AdrenalineCard extends ItemCard{
 	
 	@Override

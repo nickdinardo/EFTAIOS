@@ -2,6 +2,9 @@ package it.polimi.ingsw.dinapolidinardo.model.cards;
 
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 
+/**
+ * Representation of the Teleport Item Card
+ */
 public class TeleportCard extends ItemCard{
 		
 	@Override

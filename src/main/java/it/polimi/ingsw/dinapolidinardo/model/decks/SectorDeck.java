@@ -7,8 +7,14 @@ import it.polimi.ingsw.dinapolidinardo.model.cards.NoiseHereCardPlusItem;
 import it.polimi.ingsw.dinapolidinardo.model.cards.SilenceCard;
 
 
+/**
+ * Class that represent the Sector Deck of the game
+ */
 public class SectorDeck extends Deck{
 
+	/**
+	 * Constructor that initialize the deck filling it with the specified amount of any card
+	 */
 	public SectorDeck(){
 		int i;
 		for (i=0; i<5; i++){

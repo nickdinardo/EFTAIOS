@@ -2,7 +2,9 @@ package it.polimi.ingsw.dinapolidinardo.model.cards;
 
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 
-
+/**
+ * Representation of the Sedatives Item Card
+ */
 public class SedativesCard extends ItemCard {
 		
 	@Override

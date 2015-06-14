@@ -1,5 +1,9 @@
 package it.polimi.ingsw.dinapolidinardo.model.cards;
 
+
+/**
+ * Representation of the Attack Item Card
+ */
 public class AttackCard extends ItemCard{
 				
 	@Override

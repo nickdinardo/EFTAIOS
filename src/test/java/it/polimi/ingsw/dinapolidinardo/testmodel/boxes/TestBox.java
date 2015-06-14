@@ -45,15 +45,15 @@ public class TestBox {
 		playerInBox.add(alien);
 		box.setPlayer(human);
 		box.setPlayer(alien);
-		assertEquals(box.getPlayerHere(), playerInBox);
+		assertEquals(box.getPlayersHere(), playerInBox);
 		
 		playerInBox.remove(human);
 		box.unsetPlayer(human);
-		assertEquals(box.getPlayerHere(), playerInBox);
+		assertEquals(box.getPlayersHere(), playerInBox);
 		
 		playerInBox.clear();
 		box.unsetPlayer(alien);
-		assertEquals(box.getPlayerHere(), playerInBox);
+		assertEquals(box.getPlayersHere(), playerInBox);
 	}
 	
 	@Test

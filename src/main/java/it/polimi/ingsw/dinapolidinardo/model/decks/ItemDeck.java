@@ -11,7 +11,14 @@ import it.polimi.ingsw.dinapolidinardo.model.cards.TeleportCard;
 import java.util.Collections;
 
 
+/**
+ * Class that represent the Item Deck of the game
+ */
 public class ItemDeck extends Deck{
+	
+	/**
+	 * Constructor that initialize the deck filling it with the specified amount of any card
+	 */
 	public ItemDeck(){
 		int i;
 		for (i=0; i<2; i++){
@@ -33,7 +40,14 @@ public class ItemDeck extends Deck{
 		this.shuffleDeck();	
 		}
 
-	
+	/**
+	 * Remove the top card from the deck, WITHOUT adding it to the discard pile
+	 * (cards drawn here end up in the personal decks of the players). 
+	 * <p>
+	 * If there are no cards in the deck, gets all the cards in the discards pile, 
+	 * adds them to the deck, shuffles the deck, and finally draws the first card
+	 * @return the card drawn
+	 */
 	@Override
 	public Card drawCard(){
 		//same method than others deck but don't discard cards that players keep till they use them
