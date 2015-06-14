@@ -6,9 +6,7 @@ import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 public abstract class ItemCard extends Card{
 		
 	@Override
-	public String getName(){
-		return "ItemCard";
-	}
+	public abstract String getName();
 	
 	public boolean isActivable(){
 		return true;
