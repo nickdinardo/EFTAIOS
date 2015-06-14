@@ -74,7 +74,7 @@
   <class id="8" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates" project="DiNapoliDiNardo" 
     file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/Coordinates.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1004" y="1768"/>    
+    <position height="-1" width="-1" x="983" y="1748"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -1059,10 +1059,10 @@
   <association id="126">    
     <end type="SOURCE" refId="63" navigable="false">      
       <attribute id="127" name="lightsCoord">        
-        <position height="18" width="62" x="1160" y="1852"/>      
+        <position height="18" width="62" x="1139" y="1832"/>      
       </attribute>      
       <multiplicity id="128" minimum="0" maximum="1">        
-        <position height="16" width="23" x="1094" y="1892"/>      
+        <position height="16" width="23" x="1073" y="1872"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
@@ -1590,10 +1590,10 @@
   <association id="294">    
     <end type="SOURCE" refId="63" navigable="false">      
       <attribute id="295" name="moveCoord">        
-        <position height="18" width="63" x="1123" y="1876"/>      
+        <position height="18" width="63" x="1102" y="1856"/>      
       </attribute>      
       <multiplicity id="296" minimum="0" maximum="1">        
-        <position height="16" width="23" x="1124" y="1892"/>      
+        <position height="16" width="23" x="1103" y="1872"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
@@ -1708,6 +1708,7 @@
   </nesting>  
   <association id="329">    
     <bendpoint x="130" y="774"/>    
+    <bendpoint x="133" y="1740"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="330" name="coord"/>      
       <multiplicity id="331" minimum="0" maximum="1"/>    
