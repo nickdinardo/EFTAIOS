@@ -33,6 +33,7 @@ public class SwingView extends View{
 	private boolean inputCoordinates = false;
 	private boolean hasMoved = false;
 	private boolean removedWaitFrame = true;
+	private boolean timerStarted = false;
 	private static final Coordinates WALLCOORD = new Coordinates (12,7);
 	
 	
@@ -95,6 +96,11 @@ public class SwingView extends View{
 			info.addToItem(0, "");
 	
 		turnFrame.update(info.getPlayerName(), info.getActualPosition(), info.getTurn(), info.getItem(), false );
+		
+		if(!timerStarted){
+			turnFrame.startTimer();
+			timerStarted = true;
+		}
 		
 		BufferedImage image = null;
 		BufferedImage enlightedMap = null;
@@ -378,6 +384,8 @@ public class SwingView extends View{
 			waitFrame.dispose();
 			removedWaitFrame = true;
 		}
+		if (timerStarted)
+			turnFrame.stopTimer();
 		
 		FinalResultFrame frame = new FinalResultFrame(iWon);
 		if (!humanwinners.isEmpty())
@@ -403,6 +411,8 @@ public class SwingView extends View{
 
 	@Override
 	public void signalEndOfTurn() {
+		turnFrame.stopTimer();
+		timerStarted = false;
 		if (Integer.valueOf(info.getTurn()) != 39){
 			removedWaitFrame = false;
 			waitFrame = new WaitFrame();

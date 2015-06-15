@@ -2,7 +2,10 @@ package it.polimi.ingsw.dinapolidinardo.view;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,10 +42,15 @@ public abstract class TurnFrame {
     protected String defaultFont = "Impact";   
 	protected List<String> item;
 	protected ToolTipCard tips = new ToolTipCard();
+	protected NumberFormat format;
 	protected static final String PATH = "externalresources\\";
 	protected static final String BLANKCARDPATH = "externalresources\\BlankCard.png";
 	protected static final String NEGATIVE = "Inv.jpg";
 	protected static final String FORMAT = ".jpg";
+	protected Timer timer = new Timer();
+	protected static final int TURNTIME = 3*60*1000;
+	protected static final int MIN = 3;
+	protected int remainingtime = 3*60*1000;
 	
 	
 	/**
@@ -122,9 +130,11 @@ public abstract class TurnFrame {
         nameLabel.setFont(new java.awt.Font(defaultFont, 0, 36)); 
         turnLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
         positionLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
+        timerLabel.setFont(new java.awt.Font(defaultFont, 0, 18)); 
         nameLabel.setForeground(new Color (140,140,140));
         turnLabel.setForeground(new Color (120,120,120));
         positionLabel.setForeground(new Color (120,120,120));
+        timerLabel.setForeground(new Color (120,120,120));
         
         nextButton.setText("Next");
         nextButton.setBackground(Color.black);
@@ -247,10 +257,32 @@ public abstract class TurnFrame {
 			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
 	}
 	
-	
-	
+		
 	
 	//getters and setters
+	
+	
+	public void startTimer(){
+		
+		timer = new Timer();
+		format = NumberFormat.getNumberInstance();
+	    format.setMinimumIntegerDigits(2);
+		timer.scheduleAtFixedRate(new TimerTask(){
+		public void run() {
+			if (remainingtime < 0) 
+				return;
+			int minutes = (int)(remainingtime/60000);
+		    int seconds = (int)((remainingtime-(minutes*60000))/1000);
+		    timerLabel.setText("Remaining time: " + format.format(minutes) + ":" + format.format(seconds));	
+		    remainingtime-=1000;
+		        }
+		    }, 0, 1000);
+	}
+	
+	public void stopTimer(){
+		timer.cancel();
+		remainingtime = TURNTIME;
+	}
 	
 	public List<String> getItem(){
 		return item;
