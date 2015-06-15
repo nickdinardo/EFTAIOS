@@ -7,7 +7,10 @@ import java.util.List;
 import javax.swing.JLabel;
 
 
-
+/**
+ * Class that manages the creation and usage of the Main game Frame,
+ * in the Human Player version
+ */
 public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
 
@@ -111,7 +114,7 @@ public class DefinitiveHumanTurnFrame extends TurnFrame{
 	
 	
 	@Override
-    public List<JLabel> setCardHandler(List<String> item){
+    public List<JLabel> setCardHandler(){
 		
 		List<JLabel> cards = new ArrayList<JLabel>();
 		cards.add(card1);

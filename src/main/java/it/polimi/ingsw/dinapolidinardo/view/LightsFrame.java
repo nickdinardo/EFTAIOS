@@ -12,12 +12,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+/**
+ * Class that manages the initialization and display of the Frame 
+ * with the Sector selection in the LightsCard use
+ * 
+ * @see it.polimi.ingsw.dinapolidinardo.model.cards.LightsCard
+ */
 public class LightsFrame{
 	
 	private JFrame frame;
 	private JLabel background;
 
+	
+	/**
+	 * Constructor, also initialize and display all the components
+	 * 
+	 * @param flag signals if it's the first time asking a sector or not
+	 */
 	public LightsFrame(boolean flag){
+		
 		this.frame = new JFrame("Lights");
 		ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
 	    frame.setIconImage(icon.getImage());
@@ -55,6 +69,10 @@ public class LightsFrame{
 		frame.setVisible(true);
 		
 		}
+	
+	
+	
+	// getters and setters
 	
 	public JLabel getBackground(){
 		return this.background;

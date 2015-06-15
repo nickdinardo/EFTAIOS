@@ -9,7 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 
-
+/**
+ * Class that manages the creation and usage of the Main game Frame,
+ * in the Human Player version
+ */
 public class DefinitiveAlienTurnFrame extends TurnFrame{
 	
 	private JButton attackButton;
@@ -118,9 +121,12 @@ public class DefinitiveAlienTurnFrame extends TurnFrame{
 		frame.setVisible(true);  
     }   
 	
-		
+	/**
+	 * Return an empty List of Label since no listener has to be activated on cards
+	 * because Aliens can't use cards	
+	 */
 	@Override
-	public List<JLabel> setCardHandler(List<String> item){
+	public List<JLabel> setCardHandler(){
 		return new ArrayList<JLabel>();
 	}
 	

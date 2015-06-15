@@ -8,8 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-
-
+/**
+ * Class that manages the initialization and display of the Frame 
+ * that signals it's not user's turn 
+ */
 public class WaitFrame {
 	private JFrame frame;
 	private JLabel header;
@@ -21,7 +23,9 @@ public class WaitFrame {
     }
 
     
-    
+    /**
+     * Initializes and displays components
+     */
     private void initComponents() {
 
     	frame = new JFrame("Please Wait");
@@ -75,6 +79,9 @@ public class WaitFrame {
     }
 
 
+    /**
+     * Closes this frame
+     */
 	public void dispose() {
 		frame.dispose();
 	}

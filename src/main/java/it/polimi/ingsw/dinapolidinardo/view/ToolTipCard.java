@@ -4,8 +4,16 @@ import java.util.List;
 
 import javax.swing.JToolTip;
 
+
+
 public class ToolTipCard {
 
+	/**
+	 * Sets tool tips depending on the number of item cards owned
+	 * 
+	 * @param objects list with the name of all the cards owned
+	 * @return an array of the correct tool tips
+	 */
 	public JToolTip[] setToolTip(List<String> objects){
 		switch(objects.size()){
 		case 1:
@@ -31,6 +39,13 @@ public class ToolTipCard {
 		}
 	}
 	
+	/**
+	 * Initializes a text message that will be displayed when mouse stops 
+	 * on a card image, depending on the card selected
+	 * 
+	 * @param object the name of the card where the mouse stops
+	 * @return the tool tip text
+	 */
 	public JToolTip specifiedTip(String object){
 		String attackCard = "This card allows you to attack, using the same rules as the Aliens.";
 		String defenseCard = "This card will activate immediately when an Alien attacks you.\n You won't be affected by the attack.";

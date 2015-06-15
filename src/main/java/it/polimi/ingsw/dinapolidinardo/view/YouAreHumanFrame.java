@@ -9,7 +9,9 @@ public class YouAreHumanFrame extends YouAreFrame{
 	
 	
 	
-    
+	/**
+     * Constructor, sets the parameter that make the "human theme" in the superclass components
+     */
     public YouAreHumanFrame (JFrame descriptionFrame){
     	frame = descriptionFrame;
     	Color color = new Color(120, 136, 182);

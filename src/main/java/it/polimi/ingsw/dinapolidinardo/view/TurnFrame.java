@@ -14,6 +14,10 @@ import javax.swing.JTextArea;
 import javax.swing.JToolTip;
 import javax.swing.text.DefaultCaret;
 
+
+/**
+ * Class that manages the creation and usage of the Main game Frame 
+ */
 public abstract class TurnFrame {
 	
 	protected JFrame frame;
@@ -41,7 +45,13 @@ public abstract class TurnFrame {
 	protected static final String FORMAT = ".jpg";
 	
 	
-	
+	/**
+	 * Constructor, it initialize the Frame with the start game informations
+	 * 
+	 * @param name player's name
+	 * @param actualPosition player's actual position
+	 * @param turn game's current turn
+	 */
 	public TurnFrame(String name, String actualPosition, String turn) {
 		initComponents();
 		if (name.length()<12)
@@ -53,7 +63,14 @@ public abstract class TurnFrame {
 	}
 
 	
-	
+	 /**
+     * Initializes all the components of the Frame, differentiating them on the 
+     * base of the parameters received to grant a different visualization for alien
+     * and human players
+     * 
+     * @param imagePath the path of the image representing a human or an alien
+     * @param color	the color used for buttons and text area
+     */
 	public void commonBuildUp(String imagePath, Color commColor){
 		
 		frame = new JFrame("GalileiMap");
@@ -116,6 +133,15 @@ public abstract class TurnFrame {
 	
 	}
 	
+	/**
+	 * Update the view with to respond to in-game changes 
+	 * 
+	 * @param name player's name
+	 * @param position player's actual position
+	 * @param turn game's current turn
+	 * @param objects a String list with the names of the currently owned items
+	 * @param startTurn signals if the update has been received at the beginning of the turn or not
+	 */
 	public void update(String name, String position, String turn, List<String> objects, boolean startTurn) {
 		if(startTurn)
 			comunication.append(name + " you are now in the " + position + " position\n");
@@ -153,19 +179,82 @@ public abstract class TurnFrame {
 	}
 	
 	
-	protected abstract List<JLabel> setCardHandler(List<String> objects);
+	/**
+	 * Obtains the labels on which the card image are
+	 * 
+	 * @return the list of JLabel representing card images
+	 */
+	protected abstract List<JLabel> setCardHandler();
 	
+	
+	/**
+     * Builds the frame calling the build method and then sets
+     * a different Layout for each subclass of DiscardFrame
+     */
 	protected abstract void initComponents();
 	
+	
+	/**
+	 * Closes this frame
+	 */
 	public void dispose(){
 		this.frame.dispose();
 	}
 	
 	
+	/**
+	 * Append a message to the main text communication area of the Frame
+	 * 
+	 * @param string the message to append
+	 */
 	public void appendToTextArea(String string){
 		comunication.append(string);
 	}
 	
+	
+    /**
+     * Substitutes the image of a card with his negative.
+     * <p>
+     * Method is called by the MouseListeners on the label, granting the effect 
+     * of "enlight" the card anytime mouse passes or does a particular action on this label
+     * 
+     * @param index the index of which card image has to be enlighted
+     */
+	public void enlightCard(int index){
+		if (index == 1 && (item.get(0) != ""))
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + NEGATIVE));
+		if (index == 2 && item.size()>1)
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + NEGATIVE));
+		if (index == 3 && item.size()>2)
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + NEGATIVE));
+	}
+
+	
+	/**
+     * Substitutes the negative image of a card with his original.
+     * <p>
+     * Method is called by the MouseListeners on the label, granting the effect 
+     * of "endark" the card anytime mouse goes away or does a particular action on this label
+     * 
+     * @param index the index of which card image has to be enlighted
+     */
+	public void endarkCard(int index){
+		if (index == 1 && (item.get(0) != ""))
+			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
+		if (index == 2 && item.size()>1)
+			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
+		if (index == 3 && item.size()>2)
+			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
+	}
+	
+	
+	
+	
+	//getters and setters
+	
+	public List<String> getItem(){
+		return item;
+	}
 	
 	public JButton getNextButton(){
 		return this.nextButton;
@@ -179,29 +268,6 @@ public abstract class TurnFrame {
 	public void setMapImage(BufferedImage dimg){
 		this.map.setIcon(new ImageIcon(dimg));
 	}
-	
-	public void enlightCard(int index){
-		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon(PATH + item.get(0) + NEGATIVE));
-		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon(PATH + item.get(1) + NEGATIVE));
-		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon(PATH + item.get(2) + NEGATIVE));
-	}
-
-	public void endarkCard(int index){
-		if (index == 1 && (item.get(0) != ""))
-			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
-		if (index == 2 && item.size()>1)
-			card2.setIcon(new ImageIcon(PATH + item.get(1) + FORMAT));
-		if (index == 3 && item.size()>2)
-			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
-	}
-	
-	public List<String> getItem(){
-		return item;
-	}
-	
 	
 	
 	

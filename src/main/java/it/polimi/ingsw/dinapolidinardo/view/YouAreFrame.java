@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+
+/**
+ * Class that manages the initialization and display of the Frame 
+ * that shows if user control an Alien or a Human player,
+ */
 public class YouAreFrame {
 
 	protected JLabel imageLabel;
@@ -24,6 +29,17 @@ public class YouAreFrame {
     protected JButton button;
     protected CountDownLatch latch = new CountDownLatch(1);
     
+    
+    /**
+     * Initializes all the components of the Frame, differentiating them on the 
+     * base of the parameters received to grant a different visualization for alien
+     * and human players
+     * 
+     * @param image the image that shows an human or an alien
+     * @param color the theme color of various part of the frame
+     * @param text the text description of the character
+     * @param being "alien" or "human" title of the frame
+     */
     protected void initComponents(String image, Color color, String text, String being) {
 
     	scrollpane = new JScrollPane();
@@ -101,6 +117,10 @@ public class YouAreFrame {
 		button.addActionListener(handler);
     }  
     
+    
+    /**
+     * Waits for user input on the "Start!" button
+     */
     public void getNext(){
 
 		try {
@@ -110,6 +130,11 @@ public class YouAreFrame {
 		}
 	}
 	
+    
+    /**
+     * Listener that unblocks the getNext() method waiting for
+     * the "Start!" button to be pressed, then closes the frame
+     */
 	protected class ShowCharacterHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event){

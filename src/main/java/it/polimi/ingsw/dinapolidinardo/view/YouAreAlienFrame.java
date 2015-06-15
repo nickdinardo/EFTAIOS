@@ -6,7 +6,9 @@ import javax.swing.JFrame;
 
 public class YouAreAlienFrame extends YouAreFrame{
 			
-	    
+	    /**
+	     * Constructor, sets the parameter that make the "alien theme" in the superclass components
+	     */
 	    public YouAreAlienFrame (JFrame descriptionFrame){
 	    	frame = descriptionFrame;
 	    	Color color = new Color(136, 66, 130);

@@ -43,7 +43,7 @@ public abstract class DiscardFrame {
     
     
     /**
-     * Initializes all the components of the Frame, differentiating it on the 
+     * Initializes all the components of the Frame, differentiating them on the 
      * base of the parameters received to grant a different visualization for alien
      * and human players
      * 
@@ -103,7 +103,7 @@ public abstract class DiscardFrame {
     
     
     /**
-     * Builds the frame calling the InitComponents method and then setting
+     * Builds the frame calling the build method and then setting
      * a different Layout for each subclass of DiscardFrame
      * 
      * @param objects the items owned by the player coded as String

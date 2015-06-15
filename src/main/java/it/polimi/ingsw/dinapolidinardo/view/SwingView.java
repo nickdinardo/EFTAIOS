@@ -133,7 +133,7 @@ public class SwingView extends View{
 			info.addToItem(0, "");
 		
 		CardHandler cardHandler = new CardHandler(turnFrame, null);
-		cardHandler.setCards(turnFrame.setCardHandler(info.getItem()));
+		cardHandler.setCards(turnFrame.setCardHandler());
 		
 		//first item usage phase, before movement
 		if(!hasMoved){

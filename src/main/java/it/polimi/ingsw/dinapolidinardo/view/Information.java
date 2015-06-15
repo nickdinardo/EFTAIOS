@@ -5,6 +5,11 @@ import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Utility class that stores all the model information needed by the View 
+ * in the various phases of the game
+ */
 public class Information {
 	
 	private String playerName;
@@ -21,6 +26,10 @@ public class Information {
 	private String attackAnswer;
 	
 	
+	/**
+	 * Constructor
+	 * @param kindOfPlayer 1 if a Human Player, 2 if an Alien Player
+	 */
 	public Information(int kindOfPlayer){
 		this.turn = FIRSTTURN;
 		this.item.add("");
@@ -30,7 +39,10 @@ public class Information {
 			this.actualPosition = ALIENSTARTPOSITION;
 	}
 	
+	
+	
 	//Setters and getters
+	
 	public void setPlayerName(String name){
 		this.playerName = name;
 	}

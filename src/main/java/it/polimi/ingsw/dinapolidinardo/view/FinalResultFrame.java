@@ -13,7 +13,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
-
+/**
+ * Class that manages the initialization and display of the Frame 
+ * with the final results of the game
+ */
 public class FinalResultFrame {
 
 	private JFrame frame;
@@ -25,13 +28,18 @@ public class FinalResultFrame {
 
 	private boolean victory;
     
-    
+    /**
+     * Constructor
+     * @param win signals if user has won the game or not
+     */
     public FinalResultFrame (boolean win){
     	this.victory = win;
     	initComponents();
     }
     
-		    
+	/**
+	 * Initialize and display all the Frame components	    
+	 */
     protected void initComponents() {
 
     	frame = new JFrame("Final Result");

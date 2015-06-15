@@ -14,8 +14,8 @@ import javax.swing.JLabel;
  * Class that manages the clicks on the map image to select 
  * the single hexagon of the map that has been pressed.
  * <p>
- * It stores the coordinates ofn the clicked map box in a variable
- * that can be accessed by a getter to obtain them
+ * It stores the coordinates of the clicked map box in a variable
+ * that can be accessed by a getter to be obtained
  */
 public class BoxHandler {
 	
