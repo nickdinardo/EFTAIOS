@@ -1,4 +1,4 @@
-package it.polimi.ingsw.dinapolidinardo.model.deck;
+package it.polimi.ingsw.dinapolidinardo.testmodel.decks;
 
 
 import static org.junit.Assert.*;

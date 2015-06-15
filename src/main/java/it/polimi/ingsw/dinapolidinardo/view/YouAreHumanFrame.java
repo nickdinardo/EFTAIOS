@@ -5,12 +5,18 @@ import java.awt.Color;
 import javax.swing.JFrame;
 
 
+/**
+ * Class that manages the initialization and display of the Frame 
+ * that shows to user that controls a Human player,
+ */
 public class YouAreHumanFrame extends YouAreFrame{
 	
 	
 	
 	/**
      * Constructor, sets the parameter that make the "human theme" in the superclass components
+     * 
+     * @param descriptionFrame the previously initialized main frame
      */
     public YouAreHumanFrame (JFrame descriptionFrame){
     	frame = descriptionFrame;

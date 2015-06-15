@@ -112,7 +112,8 @@ public class GameController {
 	
 	/**
 	 * Via handler ask user to input the coordinates of the sector he wants to enlight
-	 * 
+	 *
+	 * @param name user's name
 	 * @param reask signals if game controller is reasking the input because not valid 
 	 * @return A Coordinate object with the selected coordinates
 	 * @throws ClassNotFoundException

@@ -6,6 +6,13 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 
+/**
+ * Class that manages and control the Text User Interface
+ * <p>
+ * Creates different text lines to describe the game flow
+ * and analyze and manage the user inputs in response 
+ * to the different game calls
+ */
 public class TextView extends View{
 	Scanner in = new Scanner(System.in);
 	private PrintStream out = System.out;
@@ -112,6 +119,14 @@ public class TextView extends View{
 	}
 	
 	
+	/**
+	 * Manages the user selection about which item card discard
+	 * via text input
+	 * 
+	 * @param objects the currently owned item cards coded as a String
+	 * @param withUse if the player is human, signals that a "use now" button listener must be added
+	 * @return the index of the item card chosen
+	 */
 	public int discardManager (String objects, boolean withUse){
 		String[] items = objects.split(";");
 		out.println("You drew an item card but your three card slots are full. Do you want to free one slot for the new card?");
@@ -144,6 +159,12 @@ public class TextView extends View{
 	}
 	
 	
+	/**
+	 * Analyzes the user input about which item card wants to select
+	 * 
+	 * @param items a String array with all the owned objects
+	 * @return the index of the selected item card
+	 */
 	public int askWhichCard (String[] items){
 		int answer;
 		do{
@@ -163,9 +184,6 @@ public class TextView extends View{
 		}while (answer <=0 || answer>items.length);
 		return answer;
 	}
-	
-	
-	
 	
 	@Override
 	public String askForAttack(){
@@ -259,6 +277,10 @@ public class TextView extends View{
 		out.println(SHORTLINE);
 	}
 	
+	
+	/**
+	 * Prints on console an ASCII design representing the Galilei Map
+	 */
 	public void printGalileiMap(){
 		String textmap = "                                                                                                                           \n";
 		textmap += "   _____________________________________________________________________________________________________________________\n";
@@ -326,6 +348,12 @@ public class TextView extends View{
 	}
 	
 	
+	/**
+	 * Converts user String input of coordinates in the corresponding Coordinates object
+	 * 
+	 * @return a Coordinates object correctly initialized
+	 * @see it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates
+	 */
 	public Coordinates solveCoordInput (){
 		int numberX = 0;
 		int numberY = 0;

@@ -5,7 +5,10 @@ import java.util.List;
 import javax.swing.JToolTip;
 
 
-
+/**
+ * Class that manages the pop up tool tips that appear when user stops the mouse
+ * on an item card image in various GUI frames
+ */
 public class ToolTipCard {
 
 	/**

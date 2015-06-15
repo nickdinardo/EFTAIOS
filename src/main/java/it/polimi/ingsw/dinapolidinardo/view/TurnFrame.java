@@ -69,7 +69,7 @@ public abstract class TurnFrame {
      * and human players
      * 
      * @param imagePath the path of the image representing a human or an alien
-     * @param color	the color used for buttons and text area
+     * @param commColor	the color used for buttons and text area
      */
 	public void commonBuildUp(String imagePath, Color commColor){
 		

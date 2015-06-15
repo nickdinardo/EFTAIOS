@@ -4,10 +4,17 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
+
+/**
+ * Class that manages the initialization and display of the Frame 
+ * that shows to user that controls an Alien player,
+ */
 public class YouAreAlienFrame extends YouAreFrame{
 			
 	    /**
 	     * Constructor, sets the parameter that make the "alien theme" in the superclass components
+	     * 
+	     * @param descriptionFrame the previously initialized main frame
 	     */
 	    public YouAreAlienFrame (JFrame descriptionFrame){
 	    	frame = descriptionFrame;

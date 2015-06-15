@@ -1,6 +1,5 @@
 package it.polimi.ingsw.dinapolidinardo.view;
 
-
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 
 import java.awt.Color;
@@ -14,6 +13,14 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
+/**
+ * Class that manages and control the Graphical User Interface
+ * <p>
+ * Creates and control the various game frames and analyze and manage 
+ * the user inputs in response to the different game calls
+ *
+ */
 public class SwingView extends View{
 	
 	private Information info;
@@ -318,7 +325,14 @@ public class SwingView extends View{
 		return discardFrameManager(false, frame);
 	}
 	
-	
+	/**
+	 * Manages the user selection about which item card discard via 
+	 * Listeners on the Mouse click
+	 * 
+	 * @param withUse if the player is human, signals that a "use now" button listener must be added
+	 * @param frame the main Discard Frame
+	 * @return the index of the item card chosen
+	 */
 	public int discardFrameManager(boolean withUse, DiscardFrame frame){
 		CardHandler cardHandler = new CardHandler(turnFrame, frame);
 		cardHandler.setCards(frame.setCardHandler());

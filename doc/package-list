@@ -3,7 +3,6 @@ it.polimi.ingsw.dinapolidinardo.client
 it.polimi.ingsw.dinapolidinardo.model
 it.polimi.ingsw.dinapolidinardo.model.boxes
 it.polimi.ingsw.dinapolidinardo.model.cards
-it.polimi.ingsw.dinapolidinardo.model.deck
 it.polimi.ingsw.dinapolidinardo.model.decks
 it.polimi.ingsw.dinapolidinardo.remotestubs
 it.polimi.ingsw.dinapolidinardo.server
@@ -12,4 +11,5 @@ it.polimi.ingsw.dinapolidinardo.server.socket
 it.polimi.ingsw.dinapolidinardo.testmodel
 it.polimi.ingsw.dinapolidinardo.testmodel.boxes
 it.polimi.ingsw.dinapolidinardo.testmodel.cards
+it.polimi.ingsw.dinapolidinardo.testmodel.decks
 it.polimi.ingsw.dinapolidinardo.view

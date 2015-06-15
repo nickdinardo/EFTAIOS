@@ -12,8 +12,8 @@ import java.rmi.RemoteException;
  * Game Controller can call these methods transparently without worrying
  * if is communicating with a RMI or Socket handler
  * 
- * @see it.polimi.ingsw.dinapolidinardo.client.RMIhandler
- * @see it.polimi.ingsw.dinapolidinardo.server.SocketHandler
+ * @see it.polimi.ingsw.dinapolidinardo.client.RMIHandler
+ * @see it.polimi.ingsw.dinapolidinardo.server.socket.SocketHandler
  */
 public interface Handler {
 	
@@ -22,12 +22,14 @@ public interface Handler {
 	 * @throws RemoteException
 	 */
 	public String getName() throws RemoteException;
+	
 	/**
 	 * Closes all the connections with specified user
 	 * 
 	 * @throws RemoteException
 	 */
 	public void closeConnections() throws RemoteException;
+	
 	/**
 	 * Send message to be displayed by user View
 	 * 
@@ -35,22 +37,25 @@ public interface Handler {
 	 * @throws RemoteException
 	 */
 	public void notifyMessage(String message) throws RemoteException;
+	
 	/**
-	 * Show to user information about his being an Human Player in the game
+	 * Call view to show to user information about his being an Human Player in the game
 	 * 
 	 * @param name the name of the player
 	 * @throws RemoteException
 	 */
 	public void showBeingHuman (String name)throws RemoteException;
+	
 	/**
-	 * Show to user information about his being an Alien Player in the game
+	 * Call view to show to user information about his being an Alien Player in the game
 	 * 
 	 * @param name the name of the player
 	 * @throws RemoteException
 	 */
 	public void showBeingAlien (String name)throws RemoteException;
+	
 	/**
-	 * Ask input from user about the movement of his player
+	 * Call view to ask input from user about the movement of his player
 	 * 
 	 * @param reask signals if game controller is reasking the input because not valid
 	 * @return A Coordinate object with the selected coordinates
@@ -59,33 +64,37 @@ public interface Handler {
 	 * @see it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates
 	 */
 	public Coordinates askForMovement(boolean reask)  throws IOException, ClassNotFoundException;
+	
 	/**
-	 * Ask input from user about the attack of his player
+	 * Call view to ask input from user about the attack of his player
 	 * 
 	 * @return true if user wants to attack, false otherwise
 	 * @throws IOException if can't reach client 
 	 * @throws ClassNotFoundException
 	 */
 	public boolean askForAttack() throws ClassNotFoundException, IOException;
+	
 	/**
-	 * Ask input from user about where declare noise
+	 * Call view to ask input from user about where declare noise
 	 *  
 	 * @return coordinates in form of String
 	 * @throws ClassNotFoundException
 	 * @throws IOException if can't reach client 
 	 */
 	public String askForNoise() throws ClassNotFoundException, IOException;
+	
 	/**
-	 * Ask the selection of an item from user input
+	 * Call view to ask the selection of an item from user input
 	 * 
-	 * @param objects
-	 * @param fromDiscardCall
+	 * @param objects the currently owned item cards coded as a String
+	 * @param fromDiscardCall signals if the call of this methods comes from a discard cards phase
 	 * @return the index of the item selected
 	 * @throws IOException if can't reach client 
 	 */
 	public int askForItem(String objects, boolean fromDiscardCall) throws IOException;
+	
 	/**
-	 * Ask user to input the coordinates of the sector he wants to enlight
+	 * Call view to ask user to input the coordinates of the sector he wants to enlight
 	 * 
 	 * @param reask signals if game controller is reasking the input because not valid 
 	 * @return A Coordinate object with the selected coordinates
@@ -93,8 +102,9 @@ public interface Handler {
 	 * @throws ClassNotFoundException
 	 */
 	public Coordinates askForLights(boolean reask) throws IOException, ClassNotFoundException;
+	
 	/**
-	 * Ask the user if wants to discard an owned card 
+	 * Call view to ask the user if wants to discard an owned card 
 	 * to get a free slot for the recently drawn one
 	 * 
 	 * @param objects the owned items in form of string
@@ -102,8 +112,9 @@ public interface Handler {
 	 * @throws IOException if can't reach client 
 	 */
 	public int askAlienForItemChange(String objects) throws IOException;
+	
 	/**
-	 * Ask the user if wants to discard or use an owned card 
+	 * Call view to ask the user if wants to discard or use an owned card 
 	 * to get a free slot for the recently drawn one
 	 * 
 	 * @param objects the owned items in form of string
@@ -111,8 +122,9 @@ public interface Handler {
 	 * @throws IOException if can't reach client 
 	 */
 	public int askHumanForItemChange(String objects) throws IOException;
+	
 	/**
-	 * Show user the actual situation at the beginning of his turn
+	 * Call view to show to user the actual situation at the beginning of his turn
 	 * 
 	 * @param name name of the user
 	 * @param position actual position 
@@ -121,8 +133,9 @@ public interface Handler {
 	 * @throws RemoteException if can't reach client 
 	 */
 	public void showActualSituation (String name, String position, String objects, String turn) throws RemoteException;
+	
 	/**
-	 * Notify to user the (failed or succeeded) escape of a player
+	 * Call view to notify to user the (failed or succeeded) escape of a player
 	 * 
 	 * @param escaped signals if escape has succeeded or failed
 	 * @param name the name of the player who's escaping
@@ -130,8 +143,9 @@ public interface Handler {
 	 * @throws RemoteException if can't reach client 
 	 */
 	public void notifyEscape (boolean escaped, String name, String shipnumber) throws RemoteException;
+	
 	/**
-	 * Ask to display the final results of the game
+	 * Call view to display the final results of the game
 	 * 
 	 * @param iWon signals is user won or not
 	 * @param name name of the user
@@ -142,6 +156,7 @@ public interface Handler {
 	 * @throws RemoteException if can't reach client 
 	 */
 	public void showFinalResults (boolean iWon, String name, String humanlosers, String humanwinners, String alienwinners, String alienlosers) throws RemoteException;
+	
 	/**
 	 * Send to view all the updates happened in model after last user actions
 	 * 
@@ -151,6 +166,7 @@ public interface Handler {
 	 * @throws IOException if can't reach client 
 	 */
 	public void updateView(String position, String reachables, String objects) throws IOException;
+	
 	/**
 	 * Signals the view the end of the user turn
 	 * @throws RemoteException if can't reach client 

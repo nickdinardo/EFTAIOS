@@ -24,7 +24,8 @@ import java.util.List;
 
 /**
  *  The GameState class is the key class of the "model" of the application, designed accordingly to the MVC pattern.
- *  It dialogs with the Game Controller and manages all the model changes and update, including players and map modifications 
+ *  It dialogs with the Game Controller and manages all the model changes and update, including players and map modifications,
+ *  but is always the Game Controller to call its methods if and when it needs them 
  */
 public class GameState {
 	private GameController gamecontroller;
