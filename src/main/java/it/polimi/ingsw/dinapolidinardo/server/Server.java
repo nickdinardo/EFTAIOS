@@ -19,7 +19,13 @@ import java.util.Map;
 
 
 
-
+/**
+ * Class that is the server thread reference for a single game.
+ * <p>
+ * It collects all the incoming connections to this game and initialize a
+ * Game Controller with the data of all the users in play.
+ *
+ */
 public class Server implements Runnable {
 	int gameId;
 	int rmiPlayers = 0;
@@ -58,7 +64,10 @@ public class Server implements Runnable {
 	}
 	
 	
-	
+	/**
+	 * Starts both the RMI registry and the SocketServer, than calls
+	 * the collect players method
+	 */
 	public void openconnections(){
 			
 		//Starting RMI server and binding handler and remotecallableclient
@@ -93,10 +102,16 @@ public class Server implements Runnable {
 		
 	}
 	
-	
+	/**
+	 * Collect an adequate number of players for this game.
+	 * <p>
+	 * It waits till at least two players are connected, then sets a timer
+	 * that resets every time a new player connects. If timer elapses without
+	 * new connections or eight players are reached, calls the start game method
+	 */
 	public void collectplayers(){		
-		//Waiting here at least 2 players
 		
+		//Waiting here at least 2 players
 		while (totalplayers<MINPLAYERS){
 			
 			    Thread.currentThread();
@@ -116,6 +131,8 @@ public class Server implements Runnable {
 			long time= System.currentTimeMillis();
 			long end = time+WAITINGTIME;
 			int connectedplayers = totalplayers;
+			
+			//new single connection wait timer cycle
 			while (time<end){
 
 			    Thread.currentThread();
@@ -126,17 +143,23 @@ public class Server implements Runnable {
 				}
 			     
 				time = System.currentTimeMillis();
+				//when a new player connects "totalplayers" is immediately incremented,
+				//but the "connectedplayers" map has to wait the name insertion, so is < than the former.
 				if (connectedplayers < totalplayers){
 					out.println("New player found. Currently connected: "+totalplayers+" players. Waiting for further connections, or starting in a little time...");
 					break;
 					}
 				}
+			//if no new player has been found after the wait, 
+			//exits the cycle and proceed with the current amount of players (2<players<8)
 			if (connectedplayers == totalplayers){
 				break;
 			}
 		}
 		
 		try {
+			//forbid socketserver to receive further connections to this game, 
+			//that is starting
 			this.stopAcceptingOthersPlayers();
 		} catch (IOException e) {
 			out.println("Socket server has remained listening");
@@ -150,7 +173,11 @@ public class Server implements Runnable {
 			
 	
 	
-	
+	/**
+	 * Wait the name insertion of every user connected, till a certain time,
+	 * then unbind the remote connection objects to avoid further RMI connections
+	 * to this game and initialize a new Game Controller for the game
+	 */
 	public void startgame() {
 			//asking names and waiting them from socket players
 			socketserver.askForNames();

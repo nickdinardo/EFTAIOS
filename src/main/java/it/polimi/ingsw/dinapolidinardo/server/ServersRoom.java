@@ -8,7 +8,11 @@ import java.util.concurrent.Executors;
 
 
 
-
+/**
+ * Base Class of the Server Side, it instantiates a new Server Thread at the
+ * beginning and any time a game has started, granting the continuous acceptance
+ * of every new client connection
+ */
 public class ServersRoom {
 
 	private PrintStream out = System.out;
@@ -21,13 +25,18 @@ public class ServersRoom {
 		serverRoom.startServer();	
 	}
 	
-	
+	/**
+	 * Main method that creates and runs the Server Threads
+	 */
 	public void startServer(){
 		
 		gameId = 1;
 		while(true){
 			
 			boolean gameStarted = false;
+			
+			//instantiate a new server thread and runs it in parallel with 
+			//all the others Server Threads
 			Server server = new Server(gameId);
 			out.println("ServersRoom is open: starting match "+gameId);
 			executorGames = Executors.newCachedThreadPool();

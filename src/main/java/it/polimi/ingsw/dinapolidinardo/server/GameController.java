@@ -182,7 +182,7 @@ public class GameController {
 	
 	
 	/**
-	 * Send an in-game message to all the users connected 
+	 * Send a generic in-game message to all the users connected 
 	 * 
 	 * @param message the message to send
 	 * @throws RemoteException if can't reach some player
@@ -225,7 +225,9 @@ public class GameController {
 	
 	
 	/**
-	 * Send a game-over message to a killed player
+	 * Send a game-over message to a killed player and then removes his 
+	 * player instance from the GameState
+	 * 
 	 * @param dead the name of the killed player
 	 * @param killer the name of the player who killed the user contacted
 	 * @throws RemoteException if can't reach the user
@@ -534,7 +536,9 @@ public class GameController {
 	}
 
 	
-	
+	/**
+	 * Fill strings with all the winners and losers of the ended game
+	 */
 	private void fillStringsWithFinalResults(){
 		String hwbuild = "";
 		String hlbuild = "";
@@ -568,7 +572,12 @@ public class GameController {
 	}
 	
 	
-	
+	/**
+	 * Give welcome and communicate the list of all the playing players
+	 * to every single player
+	 * 
+	 * @throws IOException if can't reach some player
+	 */
 	private void giveWelcome() throws IOException{
 	
 		//print a welcome message and give the list of players to each player.
@@ -589,7 +598,12 @@ public class GameController {
 	}
 
 	
-	
+	/**
+	 * Check a personal deck to see if contains any card that is activable 
+	 * 
+	 * @param itemdeck
+	 * @return true if has at least one activable card, false otherwise
+	 */
 	private boolean hasUsableCards(List<ItemCard> itemdeck){
 		boolean hasUsables = false;
 		for (ItemCard ic : itemdeck){
@@ -602,7 +616,11 @@ public class GameController {
 	}
 	
 	
-	
+	/**
+	 * Inform every user if his character is Alien or Human in the current game
+	 * 
+	 * @throws RemoteException if can't activate the disconnection manager
+	 */
 	private void informPlayersOfTheirNature() throws RemoteException{
 		
 		//inform players on the nature of their character
@@ -623,7 +641,13 @@ public class GameController {
 	
 	
 	
-	
+	/**
+	 *  Manage a game turn for every user still in play activating 
+	 *  all the related methods and the turn timer
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws IOException if can't reach some player
+	 */
 	private void iterateATurn() throws ClassNotFoundException, IOException{
 		gamestate.increaseTurnNumber();
 		showActualSituation ();
@@ -660,7 +684,12 @@ public class GameController {
 	}
 	
 		
-	
+	/**
+	 * Items to String converter
+	 * 
+	 * @param itemdeck the personal deck of a player
+	 * @return a String where are listed all the items contained
+	 */
 	private String personalDeckListify (List<ItemCard> itemdeck){
 		
 		//utility for other methods, put in a string all the item cards of a personal deck
@@ -671,7 +700,12 @@ public class GameController {
 	}
 	
 	
-	
+	/**
+	 * Position to String converter
+	 * 
+	 * @param player the player whose position will be converted
+	 * @return a String representation of the coordinates of a player position
+	 */
 	private String positionToString (Player player){
 		String position = ""+(char)(player.getPosition().getCoordX()+64);
 		String number = ""+ player.getPosition().getCoordY();
@@ -682,7 +716,10 @@ public class GameController {
 	}
 	
 	
-	
+	/**
+	 * Removes from play at the end of every turn all the players 
+	 * that has been killed, managed to escape or whose connection has fallen
+	 */
 	private void removeDeadorEscapedPlayers(){
 		//removing dead players iteration
 	    Iterator<Map.Entry<String, String>> remover = playersInGame.entrySet().iterator();
@@ -701,20 +738,30 @@ public class GameController {
 	}
 	
 		
-	
+	/**
+	 * Communicate to every in game user the situation at the beginning of a certain turn.
+	 * <p>
+	 * Sends actual position, current items and current turn
+	 * 
+	 * @throws RemoteException
+	 */
 	private void showActualSituation () throws RemoteException{
 		
 		for (Map.Entry<String, String> entry : playersInGame.entrySet()){
 		
 			Player player;
 			player = gamestate.givemePlayerByName(entry.getKey());
-			List<ItemCard> itemdeck = player.getPersonalDeck();
+			
+			//convert to string player position
 			String position = ""+(char)(player.getPosition().getCoordX()+64)+player.getPosition().getCoordY();	
+			//convert to string player's items
+			List<ItemCard> itemdeck = player.getPersonalDeck();
 			String objects = "";
 			for (int i=0; i<itemdeck.size(); i++)
 				objects += itemdeck.get(i).getName()+" ";		
 			if (objects.length()<2)
 				objects = "no";
+			
 			try{
 				handlers.get(entry.getKey()).showActualSituation(entry.getKey(), position, objects, String.valueOf(gamestate.getTurnNumber()));
 			}
@@ -725,21 +772,35 @@ public class GameController {
 	}
 	
 	
-		
+	/**
+	 * Start the timer for a given turn, activating the DisconnectionManager
+	 * if the time elapses
+	 * 	
+	 * @param turntime
+	 * @param handler
+	 * @see DisconnectionManager
+	 */
 	private void startTurnTimer (long turntime, Handler handler){
 		this.turntimer = new Timer();
 		turntimer.schedule(new DisconnectionManager(handler) , turntime);
 	}
 	
 	
-	
+	/**
+	 * Stops the turn timer and cancel all the scheduled tasks
+	 */
 	private void stopTurnTimer(){
 		this.turntimer.cancel();	
 		this.turntimer.purge();	
 	}
 	
 	
-	
+	/**
+	 * Provide updates of the current situation to user's View
+	 * 
+	 * @param player
+	 * @throws IOException
+	 */
 	private void updateView (Player player) throws IOException{
 		
 		List<ItemCard> itemdeck = player.getPersonalDeck();
