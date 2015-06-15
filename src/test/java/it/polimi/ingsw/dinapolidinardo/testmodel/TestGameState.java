@@ -138,7 +138,7 @@ public class TestGameState {
 	}
 	
 	@Test
-	public void itemUsageTest() throws ClassNotFoundException, IOException{
+	public void itemUsageTest1() throws ClassNotFoundException, IOException{
 		//correct selection and usage of the card
 		human1.getPersonalDeck().add(new AdrenalineCard());
 		try{
@@ -150,7 +150,10 @@ public class TestGameState {
 			//has solved all the model changes due to the cards usage
 		}
 		assertTrue(human1.isAdrenalized());
-		
+	}
+	
+	@Test
+	public void itemUsageTest2() throws ClassNotFoundException, IOException{
 		human1.getPersonalDeck().add(new AdrenalineCard());
 		human1.getPersonalDeck().add(new DefenseCard());
 		human1.getPersonalDeck().add(new SedativesCard());
@@ -163,15 +166,8 @@ public class TestGameState {
 			//has solved all the model changes due to the cards usage
 		}
 		assertTrue(human1.isSedated());
-		try{
-			gamestate.itemUsageManagement("testhuman1", 1);
-		}
-		catch (NullPointerException e){
-			//as above
-		}
-		assertEquals(human1.getPersonalDeck().size(), 2);
-		
 	}
+	
 	
 	@Test
 	public void AlienAttackTest() throws RemoteException{
@@ -254,8 +250,6 @@ public class TestGameState {
 		assertTrue(human2.isAlive());
 		//check if human players has been NOT put in the losers list
 		assertTrue(!gamestate.getLosers().contains("testhuman2"));
-		//check empty personal deck of player who used defense card
-		assertTrue(human2.getPersonalDeck().isEmpty());
 		//check if both remained in the position after the attack
 		assertTrue(gamestate.getMap().getMap()[6][6].getPlayersHere().contains(human1));
 		assertTrue(gamestate.getMap().getMap()[6][6].getPlayersHere().contains(human2));

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,6 +50,8 @@ public class YouAreFrame {
         button = new JButton();
         
         frame.setUndecorated(true);
+        ImageIcon icon = new ImageIcon("externalresources\\icon2.jpg");
+		frame.setIconImage(icon.getImage());
                
         textBoxLabel.setEditable(false);
         textBoxLabel.setBackground(color);

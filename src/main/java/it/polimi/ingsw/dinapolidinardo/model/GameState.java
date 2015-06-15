@@ -109,21 +109,24 @@ public class GameState {
 		if (index > -1 && index < 3){
 			HumanPlayer player = (HumanPlayer)givemePlayerByName(name);
 			ItemCard item = player.getPersonalDeck().get(index);
+			
+			//all other type of cards, calling overrided superclass methods
+			if (!(item instanceof LightsCard) || !(item instanceof AttackCard))
+				item.doAction(player);
+			gamecontroller.cardsMessages(name, item.getName(), item.getUseMessage());
 			//cards that require special treatment
 			if (item instanceof LightsCard)
 				lightsManagement(player);
-			else if (item instanceof AttackCard)
+			if (item instanceof AttackCard)
 				attackManagement(player);
-			//all other type of cards, calling overrided superclass methods
-			else 
-				item.doAction(player);
+			
 			//discard in the itemdeck discard pile the card used, 
 			//unless is a DefenseCard (that can't be used directly)
 			if (!(item instanceof DefenseCard)){
 				ItemCard used = player.getPersonalDeck().remove(index);
 				itemdeck.getDiscards().add(used);
 			}
-			gamecontroller.cardsMessages(name, item.getName(), item.getUseMessage());
+			
 		
 		}
 		else if (index > 2 && index < 6){

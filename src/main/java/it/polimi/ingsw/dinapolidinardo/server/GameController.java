@@ -591,7 +591,7 @@ public class GameController {
 				handlers.get(entry.getKey()).notifyMessage("Welcome to the game "+ entry.getKey()+". The crew of the infected spaceship is composed by: "+listofplayers+". ");
 			}
 			catch (IOException e){
-				notifyMessageToAll("Players disconnected during the creation of the game. Game will be closed");
+				notifyMessageToAll("Players disconnected during the creation of the game.");
 				initError = true;
 				return;
 			}

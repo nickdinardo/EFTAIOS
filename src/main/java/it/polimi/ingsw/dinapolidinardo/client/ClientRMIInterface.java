@@ -131,7 +131,6 @@ public class ClientRMIInterface implements NetworkInterface {
 				String clientName = "Client";
 				try {
 					((RemoteClientRegisterer) registry.lookup(clientName)).setClientInServer(name, clientport);
-					out.println("Client handler settato nel server");
 				} catch (AccessException e) {
 					out.println("AccessException");
 						

@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
@@ -23,6 +24,7 @@ import javax.swing.*;
  */
 public class SwingView extends View{
 	
+	private PrintStream out = System.out;
 	private Information info;
 	private TurnFrame turnFrame;
 	private WaitFrame waitFrame;
@@ -391,7 +393,12 @@ public class SwingView extends View{
 	
 	@Override
 	public void print (String message){
-		turnFrame.appendToTextArea(message+"\n");
+		try{
+			turnFrame.appendToTextArea(message+"\n");
+		}
+		catch (NullPointerException e){
+			out.println(message);
+		}
 	}
 
 	@Override
