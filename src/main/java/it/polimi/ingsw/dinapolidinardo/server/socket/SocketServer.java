@@ -13,7 +13,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-
+/**
+ * Class that manages the incoming socket connections till game
+ * doesn't start and assigns them to different socket handlers.
+ * <p>
+ * The socket handlers will be used by the Game Controller 
+ * since the start of the game
+ */
 public class SocketServer extends Thread{
 
 	private int port;
@@ -27,7 +33,11 @@ public class SocketServer extends Thread{
 	private static final int MAXPLAYERS = 8;
 	
 	
-	
+	/**
+	 * Constructor with default local IP and port 
+	 * 
+	 * @param head reference to main Server Thread of the game
+	 */
 	public SocketServer(Server head) {
 		port = 8888;
 		address = LOCAL;
@@ -37,6 +47,13 @@ public class SocketServer extends Thread{
 		headserver = head;
 	}
 	
+	/**
+	 * Constructor that allows to define desired IP and port
+	 *
+	 * @param port the connection port
+	 * @param address the connection IP
+	 * @param head reference to main Server Thread of the game
+	 */
 	public SocketServer(int port, String address, Server head) {
 		super();
 		this.port = port;
@@ -59,7 +76,13 @@ public class SocketServer extends Thread{
 		}
 	}
 	
-	
+	/**
+	 * Accepts incoming Socket connections and creates a Socket Handler thread for each one.
+	 * <p>
+	 * All the Socket Handlers run concurrently and are submitted to an ExecutorService
+	 * 
+	 * @throws IOException in case of problems with SocketServer
+	 */
 	public void startListening()  throws IOException {
 		if(!listening){
 			
@@ -86,6 +109,11 @@ public class SocketServer extends Thread{
 	}
 	
 	
+	/**
+	 * Gets from main server the list of the existing names and ask to every 
+	 * Socket Handler a name. Asks again every time name chosen has already been taken, 
+	 * updating the list of existing names in case has been modified by other threads
+	 */
 	public void askForNames(){
 		
 		Runnable task = new Runnable() {
@@ -110,6 +138,9 @@ public class SocketServer extends Thread{
 								ingamenames.add(str);
 							name = sh.askName(ingamenames, true);
 						}
+						
+						//check if max time to input names has elapsed and game has started 
+						//without the user or not
 						if(!headserver.isNameCompletionElapsed()){
 							headserver.putPlayerconnected(name,"Socket");
 							headserver.putSockethandlers(name, sh);
@@ -136,9 +167,12 @@ public class SocketServer extends Thread{
 	}
 		
 
-		
-	
-	//close connections
+	/**
+	 * Stops accepting connections an closes all the generated 
+	 * Socket Handlers. Method is called at the end of a game.
+	 * 
+	 * @throws IOException if can't close the ServerSocket
+	 */
 	public void endListening() throws IOException{
 		if(listening){
 			listening = false;
@@ -151,7 +185,11 @@ public class SocketServer extends Thread{
 	}
 	
 	
-	//stop accepting connections but keeps alive current handlers
+	/**
+	 * Stops accepting connections but keeps alive current handlers
+	 * 
+	 * @throws IOException if can't close the ServerSocket
+	 */
 	public void stopAcceptingOthersPlayers() throws IOException{
 		if(listening){
 			listening = false;
@@ -160,7 +198,9 @@ public class SocketServer extends Thread{
 	}	
 	
 	
+	
 	//Getters and Setters
+	
 	public String getStatus() {
 		return status;
 	}

@@ -11,7 +11,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-
+/**
+ * Remote object that looks for a remote handler at the port indicated by the client
+ * and register it in the Server Thread for future Game Controller usage.
+ * 
+ * @see it.polimi.ingsw.dinapolidinardo.client.ClientRMIInterface
+ */
 public class ClientRegisterer implements RemoteClientRegisterer {
 	Server headserver;
 	
@@ -19,7 +24,9 @@ public class ClientRegisterer implements RemoteClientRegisterer {
 		this.headserver = server;
 	}
 	
-	
+	/**
+	 * Main method to register the clientRMIhandler in the Server
+	 */
 	@Override
 	public void setClientInServer(String name, int port) throws RemoteException, NotBoundException {
 		Registry registry;

@@ -9,18 +9,50 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ * Class that allows client to remotely call server methods.
+ * <p>
+ * It supplies methods to register client connection in the recollecting 
+ * players phase, checking if a name is still available and putting it in 
+ * the Server class lists once chosen.
+ *
+ */
 public class CallableServer implements RemoteCallableServer {
 	Server headserver;
 	
 	boolean finish = false;
 	String name = "";
 	
-	
+	/**
+	 * 
+	 * @param server the instance of the Server Thread 
+	 */
 	public CallableServer(Server server){
 		this.headserver = server;
 	}
 		
+	/**
+	 * @return the list of the names already registered in the game
+	 */
+	@Override
+	public List<String> getNamesInGame(){
+		Set<String> namesSet = headserver.getPlayersconnected().keySet();
+		List<String> ingamenames = new ArrayList<String>();
+		for (String str : namesSet)
+			ingamenames.add(str);
+		return ingamenames;
+	}
+	
+	/**
+	 * Register a player and his connection in Server lists
+	 */
+	@Override
+	public void addPlayer(String name) {
+		headserver.putPlayerconnected(name,"RMI");
 		
+	}
+	
+
 	@Override
 	public void increaseRMINumPlayers() throws RemoteException{
 		headserver.increaseRMIPlayers();
@@ -35,22 +67,7 @@ public class CallableServer implements RemoteCallableServer {
 	public int getTotalPlayers(){
 		return headserver.getTotalPlayers();
 	}
-	
-	@Override
-	public List<String> getNamesInGame(){
-		Set<String> namesSet = headserver.getPlayersconnected().keySet();
-		List<String> ingamenames = new ArrayList<String>();
-		for (String str : namesSet)
-			ingamenames.add(str);
-		return ingamenames;
-	}
-	
-	@Override
-	public void addPlayer(String name) {
-		headserver.putPlayerconnected(name,"RMI");
 		
-	}
-	
 	@Override
 	public boolean isStarted(){
 		return headserver.isStarted();

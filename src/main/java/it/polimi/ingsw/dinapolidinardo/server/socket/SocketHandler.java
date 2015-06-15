@@ -15,7 +15,14 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 
-
+/**
+ * Server side of the Socket communication.
+ * <p>
+ * Create and codify the command Strings that will be decoded by the Client Command Handler,
+ * that will call the appropriate view methods depending on their contents.
+ * 
+ * @see it.polimi.ingsw.dinapolidinardo.client.CommandHandler
+ */
 public class SocketHandler implements Handler, Runnable {
 	private Socket socket;
 	private PrintWriter out;
@@ -34,6 +41,9 @@ public class SocketHandler implements Handler, Runnable {
 	}
 	
 	
+	/**
+	 * Initialize the four socket streams
+	 */
 	@Override
 	public void run() {
 		try{
@@ -48,7 +58,9 @@ public class SocketHandler implements Handler, Runnable {
 	}
 
 	
-	
+	/**
+	 * Close the four socket streams and the main socket
+	 */
 	@Override
 	public void closeConnections() {
 		
@@ -67,7 +79,15 @@ public class SocketHandler implements Handler, Runnable {
 	}
 
 		
-	
+	/**
+	 * Ask user to input name and returns to server side an "invalid code" 
+	 * if name is not valid
+	 * 
+	 * @param names the names already present in the game
+	 * @param reask signals if it's the first time that ask the name
+	 * @return the name String or an invalid code String
+	 * @throws IOException if can't reach the server side
+	 */
 	public String askName(List<String> names, boolean reask) throws IOException{
 		if(!reask){
 			out.println("object=player&action=askname");
@@ -82,6 +102,11 @@ public class SocketHandler implements Handler, Runnable {
 		}	
 		return name;
 	}
+	
+	
+	
+	//methods implemented from Handler interface
+	
 	
 	@Override
 	public void showBeingAlien (String name){
@@ -143,6 +168,7 @@ public class SocketHandler implements Handler, Runnable {
 			out.println("object=playeritemsY&action="+objects);
 		else
 			out.println("object=playeritemsN&action="+objects);
+		//converts to int the char numeric input
 		int index = in.read()-48;
 		in.readLine();
 		return index;
@@ -151,6 +177,7 @@ public class SocketHandler implements Handler, Runnable {
 	@Override
 	public int askHumanForItemChange(String objects) throws IOException{
 		out.println("object=humanplayeritemsdiscard&action="+objects);
+		//converts to int the char numeric input
 		int index = in.read()-48;
 		in.readLine();
 		if (index == 9)
@@ -161,6 +188,7 @@ public class SocketHandler implements Handler, Runnable {
 	@Override
 	public int askAlienForItemChange(String objects) throws IOException{
 		out.println("object=alienplayeritemsdiscard&action="+objects);
+		//converts to int the char numeric input
 		int index = in.read()-48;
 		in.readLine();
 		return index;
