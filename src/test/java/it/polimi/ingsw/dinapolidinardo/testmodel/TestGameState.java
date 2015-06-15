@@ -134,6 +134,8 @@ public class TestGameState {
 		gamestate.itemUsageManagement("testhuman1", 3);
 		//this is the index for "do nothing"
 		gamestate.itemUsageManagement("testhuman1", 8);
+		//this is a wrong index
+		gamestate.itemUsageManagement("testhuman1", -3);
 		assertTrue(human1.getPersonalDeck().isEmpty());
 	}
 	
