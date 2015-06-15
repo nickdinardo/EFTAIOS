@@ -123,7 +123,7 @@ public class RegistrationFrame {
 	private class MouseOnText extends MouseAdapter {
 				
 		@Override
-		public void mouseClicked(MouseEvent event) {
+		public void mouseEntered(MouseEvent event) {
 			if (firstEnter){
 				textField.setText("");
 				textField.setForeground(Color.black);
