@@ -11,7 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JToolTip;
 import javax.swing.JButton;
 
-
+/**
+ * Class that manages the creation and usage of the Frame initialized when
+ * user has to discard a card in game. 
+ */
 public abstract class DiscardFrame {
 	protected JLabel card1;
 	protected JLabel card2;
@@ -24,14 +27,29 @@ public abstract class DiscardFrame {
 	protected static final String PATH = "externalresources\\";
 	protected static final String NEGATIVE = "Inv.jpg";
 	protected static final String FORMAT = ".jpg";
-	
 	protected ToolTipCard tips = new ToolTipCard();
  
-    
+	
+    /**
+     * Constructor, it initializes the frame calling the "build" method
+     * after getting the current items owned.
+     * 
+     * @param objects 	the items owned by the player coded as String
+     */
     public DiscardFrame(List<String> objects) {
         initComponents(objects);
     }
 
+    
+    
+    /**
+     * Initializes all the components of the Frame, differentiating it on the 
+     * base of the parameters received to grant a different visualization for alien
+     * and human players
+     * 
+     * @param objects the items owned by the player coded as String
+     * @param color	color used in the foreground of the frame buttons	
+     */
     protected void commonBuildUp(List<String> objects, Color color) {
 
     	frame = new JFrame();
@@ -70,6 +88,9 @@ public abstract class DiscardFrame {
     }
    
     
+    /**
+     * @return a list of the labels on which Listeners must be activated
+     */
     public List<JLabel> setCardHandler(){
 		List<JLabel> cards = new ArrayList<JLabel>();
 		cards.add(card1);
@@ -79,8 +100,26 @@ public abstract class DiscardFrame {
 		
 	}
 	
+    
+    
+    /**
+     * Builds the frame calling the InitComponents method and then setting
+     * a different Layout for each subclass of DiscardFrame
+     * 
+     * @param objects the items owned by the player coded as String
+     */
     protected abstract void initComponents(List<String> objects);
     
+    
+    
+    /**
+     * Substitutes the image of a card with his negative.
+     * <p>
+     * Method is called by the MouseListeners on the label, granting the effect 
+     * of "enlight" the card anytime mouse passes or does a particular action on this label
+     * 
+     * @param index the index of which card image has to be enlighted
+     */
     public void enlightCard(int index){
 		if (index == 1 && (item.get(0) != ""))
 			card1.setIcon(new ImageIcon(PATH + item.get(0) + NEGATIVE));
@@ -90,6 +129,16 @@ public abstract class DiscardFrame {
 			card3.setIcon(new ImageIcon(PATH + item.get(2) + NEGATIVE));
 	}
 
+    
+    
+    /**
+     * Substitutes the negative image of a card with his original.
+     * <p>
+     * Method is called by the MouseListeners on the label, granting the effect 
+     * of "endark" the card anytime mouse goes away or does a particular action on this label
+     * 
+     * @param index the index of which card image has to be enlighted
+     */
 	public void endarkCard(int index){
 		if (index == 1 && (item.get(0) != ""))
 			card1.setIcon(new ImageIcon(PATH + item.get(0) + FORMAT));
@@ -98,7 +147,11 @@ public abstract class DiscardFrame {
 		if (index == 3 && item.size()>2)
 			card3.setIcon(new ImageIcon(PATH + item.get(2) + FORMAT));
 	}
-	    
+	 
+	
+	
+	//getters and setters
+	
 	public JFrame getFrame(){
 		return this.frame;
 	}

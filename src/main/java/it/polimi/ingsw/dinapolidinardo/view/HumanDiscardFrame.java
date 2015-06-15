@@ -8,6 +8,13 @@ import java.util.List;
 import javax.swing.JButton;
 
 
+/**
+ * Class that manages the creation and usage of the Frame initialized when
+ * user has to discard a card in game, in the Human Player version. 
+ * <p>
+ * Has a button more in confront with the Alien version that allows user
+ * to immediately use an owned card to get a free slot for a new one just drawn
+ */
 public class HumanDiscardFrame extends DiscardFrame {
 	
 	private JButton useButton;
@@ -17,6 +24,7 @@ public class HumanDiscardFrame extends DiscardFrame {
 		super(objects);
 	}
 		
+	
 	@Override
 	public void initComponents(List<String> objects){
 		

@@ -7,11 +7,17 @@ import java.awt.Toolkit;
 import java.util.List;
 
 
+/**
+ * Class that manages the creation and usage of the Frame initialized when
+ * user has to discard a card in game, in the Alien Player version. 
+ */
 public class AlienDiscardFrame extends DiscardFrame{
+	
 	
 	public AlienDiscardFrame(List<String> objects){
 		super(objects);
 	}
+	
 	
 	@Override
 	public void initComponents(List<String> objects){

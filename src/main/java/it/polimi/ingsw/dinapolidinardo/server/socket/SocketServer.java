@@ -168,7 +168,7 @@ public class SocketServer extends Thread{
 		
 
 	/**
-	 * Stops accepting connections an closes all the generated 
+	 * Stops accepting connections and closes all the generated 
 	 * Socket Handlers. Method is called at the end of a game.
 	 * 
 	 * @throws IOException if can't close the ServerSocket

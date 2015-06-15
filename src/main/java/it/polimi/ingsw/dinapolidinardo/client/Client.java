@@ -44,7 +44,7 @@ public class Client {
 	}	
 	
 	/**
-	 *  @return a line read from the console
+	 *  @return 	a line read from the console
 	 */
 	private static String readLine(String format, Object... args) throws IOException {
 	    if (System.console() != null) {

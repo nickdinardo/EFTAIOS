@@ -15,7 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
+/**
+ * Class the keep track of the pixel position of any center of the map and offer
+ * some graphical functionalities such as the conversion to game coordinates of a click
+ * or the coloring of only determinate parts of the image
+ */
 public class ClickableBox {
 	
 	private static final int ROWS = 14;
@@ -30,7 +34,10 @@ public class ClickableBox {
 	
 	
 	
-	//Initialize each center 
+	/**
+	 * Constructor, it initialize every hexagon pixel coordinates center 
+	 * in a matrix
+	 */
 	public ClickableBox(){
 		
 		//Column A
@@ -406,7 +413,17 @@ public class ClickableBox {
 	}
 	
 	
-	
+	/**
+	 * Converts a click's coordinates expressed in pixels in the coordinates of the 
+	 * hexagon in which the click happened.
+	 * <p>
+	 * Works with an algorithm that measures the distance between the click 
+	 * and any hexagon center: when finds a distance that indicates that the click is inside
+	 * an hexagon, returns coordinates of that hexagon
+	 * 
+	 * @param clickedPoint the Point object of the click
+	 * @return a Coordinates object representing the in-game coordinates of a box
+	 */
 	public Coordinates getMinimumDistance(Point clickedPoint){
 		
 		int x = 0, y = 0;
@@ -431,7 +448,21 @@ public class ClickableBox {
 	}		
 
 	
-	
+	/**
+	 * Color only the parts of a map image that represent the actual position and the boxes
+	 * reachable with a single movement of the player
+	 * <p>
+	 * The algorithm is capable of individuate for every hexagon only the background parts 
+	 * and color only those, leaving untouched the irregular borders and the inside tag
+	 * 
+	 * @param image the basic map image that will be modified
+	 * @param color1 the color of the reachable Dangerous Sectors
+	 * @param color2 the color of the reachable Safe Sectors
+	 * @param colorPos1  the color of the actual position Sector
+	 * @param listofboxes the list of reachable boxes coded as a String
+	 * @param position the actual position box coded as a String
+	 * @return a Buffered Image identical to the basic Image but with the selected zones colored
+	 */
 	public BufferedImage colorReachablesBoxes(BufferedImage image, Color color1, Color color2, Color colorPos1, String listofboxes, String position){
 		
 		//load and draw a new image 
