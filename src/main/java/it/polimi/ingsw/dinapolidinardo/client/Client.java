@@ -1,5 +1,6 @@
 package it.polimi.ingsw.dinapolidinardo.client;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,12 +13,17 @@ import java.io.PrintStream;
  *  
  */
 public class Client {
-	private PrintStream out = System.out;
+	private static PrintStream out = System.out;
 	private String read = "";
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		Client client = new Client();
-		client.select();
+		try {
+			client.select();
+		} catch (IOException e) {
+			out.println("Problems with resources intialization.");
+			out.println("Closing client.");
+		}
 	}	
 	
 	/**

@@ -213,13 +213,14 @@ public class Server implements Runnable {
 			}
 			
 			//then start the game
-			GameController gamecontroller = new GameController(gameId, playersconnected, handlers);
-			
-				try {
-					gamecontroller.rungame();
-				} catch (ClassNotFoundException | IOException e) {
-					out.println("Problems with the game controller");
-				}
+			GameController gamecontroller;
+			try {
+				gamecontroller = new GameController(gameId, playersconnected, handlers);
+				gamecontroller.rungame();
+			} catch (ClassNotFoundException | IOException e) {
+				out.println("Problems with the game controller");
+				out.println("Closing game "+ gameId +".");
+			}
 			
 			
 	}		

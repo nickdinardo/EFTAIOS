@@ -77,7 +77,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	}
 	
 	@Override
-	public Coordinates askForMovement(boolean reask){
+	public Coordinates askForMovement(boolean reask) throws IOException{
 		return view.askMovement(reask);
 	}
 	
@@ -87,7 +87,7 @@ public class RMIHandler implements RemoteRMIHandler, Handler {
 	}
 	
 	@Override	
-	public String askForNoise(){
+	public String askForNoise() throws IOException{
 		return view.askForNoise();
 	}
 	

@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 
@@ -20,11 +21,14 @@ import javax.swing.JLabel;
 public class BoxHandler {
 	
 	private MouseListener click;
-	private ClickableBox boxes = new ClickableBox();
+	private ClickableBox boxes;
 	private Coordinates coordinates = new Coordinates(0, 0);
 	private boolean wait = false;
 	
-
+	public BoxHandler () throws IOException{
+		boxes = new ClickableBox();
+	}
+	
 	/**
 	 * MouseAdapter that gets the exact point clicked on the map image
 	 * and converts it in a box coordinates

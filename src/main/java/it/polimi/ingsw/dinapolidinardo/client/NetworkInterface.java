@@ -9,6 +9,6 @@ import java.rmi.RemoteException;
 public interface NetworkInterface {
 	boolean connect() throws IOException;
 	boolean close() throws IOException;
-	void startInterface() throws RemoteException;
+	void startInterface() throws IOException;
 	
 }

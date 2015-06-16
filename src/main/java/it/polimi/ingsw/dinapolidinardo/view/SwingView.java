@@ -29,13 +29,16 @@ public class SwingView extends View{
 	private TurnFrame turnFrame;
 	private WaitFrame waitFrame;
 	private ButtonHandler button = new ButtonHandler();
-	private ClickableBox boxUtility = new ClickableBox();
+	private ClickableBox boxUtility;
 	private boolean inputCoordinates = false;
 	private boolean hasMoved = false;
 	private boolean removedWaitFrame = true;
 	private boolean timerStarted = false;
 	private static final Coordinates WALLCOORD = new Coordinates (12,7);
 	
+	public SwingView() throws IOException{
+		boxUtility = new ClickableBox();
+	}
 	
 	
 	@Override
@@ -128,7 +131,7 @@ public class SwingView extends View{
 	}
 	
 	@Override
-	public int askItemUse(String objects, boolean discardCall){
+	public int askItemUse(String objects, boolean discardCall) throws IOException{
 		
 		if (!removedWaitFrame){
 			waitFrame.dispose();
@@ -252,7 +255,7 @@ public class SwingView extends View{
 	}
 	
 	@Override
-	public Coordinates askMovement(boolean reask){
+	public Coordinates askMovement(boolean reask) throws IOException{
 		
 		if (!removedWaitFrame){
 			waitFrame.dispose();
@@ -291,7 +294,7 @@ public class SwingView extends View{
 	}
 	
 	@Override
-	public String askForNoise(){
+	public String askForNoise() throws IOException{
 		turnFrame.appendToTextArea("--> In which sector of the map do you want to declare there's noise? <--\n");
 		BoxHandler noiseClick = new BoxHandler();
 		noiseClick.startListen(turnFrame.getBackgroundImage());

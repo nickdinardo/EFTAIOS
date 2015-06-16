@@ -17,7 +17,6 @@ import it.polimi.ingsw.dinapolidinardo.model.Player;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.LifeboatBox;
 import it.polimi.ingsw.dinapolidinardo.model.cards.AdrenalineCard;
-import it.polimi.ingsw.dinapolidinardo.model.cards.AttackCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.DefenseCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.ItemCard;
 import it.polimi.ingsw.dinapolidinardo.model.cards.LifeboatCard;
@@ -40,7 +39,7 @@ public class TestGameState {
 	HumanPlayer human7;
 	
 	@Before 
-	public void setUp(){
+	public void setUp() throws IOException{
 		
 		gamestate = new GameState(new GameController (1, null, null));
 		gamestate.getGameController().setGameState(gamestate);

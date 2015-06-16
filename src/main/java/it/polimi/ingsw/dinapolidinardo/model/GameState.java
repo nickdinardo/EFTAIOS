@@ -42,8 +42,9 @@ public class GameState {
 	 * Constructor, initialize the map and the decks of the game
 	 * 
 	 * @param gs reference to the game controller, that manages the connections
+	 * @throws IOException 
 	 */
-	public GameState(GameController gs){
+	public GameState(GameController gs) throws IOException{
 		this.map = new GalileiMap();
 		this.sectordeck = new SectorDeck();
 		this.itemdeck = new ItemDeck();

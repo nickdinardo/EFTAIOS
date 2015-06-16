@@ -6,6 +6,7 @@ import it.polimi.ingsw.dinapolidinardo.remotestubs.RemoteRMIHandler;
 import it.polimi.ingsw.dinapolidinardo.view.View;
 import it.polimi.ingsw.dinapolidinardo.view.ViewFactory;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -80,11 +81,12 @@ public class ClientRMIInterface implements NetworkInterface {
 	 * With the previously discharged server handler lead the server 
 	 * to discharge the instance of the remote client handler that server will use during the game to call the 
 	 * needed methods.
+	 * @throws IOException if has problems with remote loading or can't read Pixels GUI text file
 	 * 
 	 * @see ViewFactory
 	 */
 	@Override
-	public void startInterface() throws RemoteException {
+	public void startInterface() throws IOException {
 		
 		ViewFactory.getViewFactory();
 		view = ViewFactory.getView();

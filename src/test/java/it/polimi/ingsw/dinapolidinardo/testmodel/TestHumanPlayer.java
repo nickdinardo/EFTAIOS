@@ -2,11 +2,11 @@ package it.polimi.ingsw.dinapolidinardo.testmodel;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.dinapolidinardo.model.AlienPlayer;
-import it.polimi.ingsw.dinapolidinardo.model.GalileiMap;
 import it.polimi.ingsw.dinapolidinardo.model.GameState;
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 import it.polimi.ingsw.dinapolidinardo.model.Player;
@@ -18,12 +18,12 @@ import org.junit.Test;
 public class TestHumanPlayer {
 
 	private HumanPlayer human;
-	private GalileiMap galilei = new GalileiMap();
-	private GameState teststate = new GameState(null);
+	private GameState teststate;
 	
 	@Before 
-	public void setUp(){
-		human = new HumanPlayer(galilei, teststate, "testhuman");
+	public void setUp() throws IOException{
+		teststate = new GameState(null);
+		human = new HumanPlayer(teststate.getMap(), teststate, "testhuman");
 	}
 
 
@@ -42,14 +42,14 @@ public class TestHumanPlayer {
 	@Test
 	public void attackTest(){
 		
-		HumanPlayer victim1 = new HumanPlayer(galilei, teststate, "humanvictim");
-		victim1.setPosition(galilei.getMap()[1][2]);
-		AlienPlayer victim2 = new AlienPlayer(galilei, teststate, "alienvictim");
-		victim2.setPosition(galilei.getMap()[1][2]);
+		HumanPlayer victim1 = new HumanPlayer(teststate.getMap(), teststate, "humanvictim");
+		victim1.setPosition(teststate.getMap().getMap()[1][2]);
+		AlienPlayer victim2 = new AlienPlayer(teststate.getMap(), teststate, "alienvictim");
+		victim2.setPosition(teststate.getMap().getMap()[1][2]);
 		List<Player> victims = new ArrayList<Player>();
 		victims.add(victim1);
 		victims.add(victim2);
-		human.setPosition(galilei.getMap()[1][2]);
+		human.setPosition(teststate.getMap().getMap()[1][2]);
 		List<Player> effectivevictims = human.attack(human.getPosition());
 		
 		assertEquals(effectivevictims, victims);

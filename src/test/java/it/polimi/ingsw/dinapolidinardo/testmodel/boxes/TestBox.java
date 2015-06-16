@@ -2,17 +2,17 @@ package it.polimi.ingsw.dinapolidinardo.testmodel.boxes;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.dinapolidinardo.model.AlienPlayer;
-import it.polimi.ingsw.dinapolidinardo.model.GalileiMap;
 import it.polimi.ingsw.dinapolidinardo.model.GameState;
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
-import it.polimi.ingsw.dinapolidinardo.model.Map;
 import it.polimi.ingsw.dinapolidinardo.model.Player;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Box;
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
+import it.polimi.ingsw.dinapolidinardo.server.GameController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,12 +20,12 @@ import org.junit.Test;
 public class TestBox {
 
 	private Box box;
-	private Map galilei = new GalileiMap();
-	private GameState teststate = new GameState(null);
+	private GameState teststate; 
 	
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws IOException{
+		teststate = new GameState(new GameController (1, null, null));
 		box = new Box(10, 10);
 	}
 	
@@ -37,8 +37,8 @@ public class TestBox {
 	
 	@Test
 	public void getPlayerHereTest(){
-		Player human = new HumanPlayer(galilei, teststate, "humantest");
-		Player alien = new AlienPlayer(galilei, teststate, "alientest");
+		Player human = new HumanPlayer(teststate.getMap(), teststate, "humantest");
+		Player alien = new AlienPlayer(teststate.getMap(), teststate, "alientest");
 		List<Player> playerInBox = new ArrayList<Player>();
 		
 		playerInBox.add(human);
@@ -58,11 +58,11 @@ public class TestBox {
 	
 	@Test
 	public void isLifeboatShipHereTest(){
-		Box nolifeboat = galilei.getMap()[3][0];
+		Box nolifeboat = teststate.getMap().getMap()[3][0];
 		nolifeboat.setLifeBoatShipHere(false);
 		Coordinates coord = new Coordinates();
-		coord.setCoordX(galilei.getMap()[1][1].getCoordX());
-		coord.setCoordY(galilei.getMap()[1][1].getCoordX());
+		coord.setCoordX(teststate.getMap().getMap()[1][1].getCoordX());
+		coord.setCoordY(teststate.getMap().getMap()[1][1].getCoordX());
 		Box lifeboat = new Box(coord);
 		lifeboat.setLifeBoatShipHere(true);
 		
@@ -74,7 +74,7 @@ public class TestBox {
 	
 	@Test
 	public void correctFieldsTest(){
-		Box box = galilei.getMap()[3][0];
+		Box box = teststate.getMap().getMap()[3][0];
 		assertTrue(box.isCanBeCrossedType());
 		assertTrue(!box.isDrawingSectorCardHere());
 		

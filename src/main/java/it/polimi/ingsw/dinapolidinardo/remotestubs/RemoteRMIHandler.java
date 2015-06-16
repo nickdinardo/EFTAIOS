@@ -26,11 +26,11 @@ public interface RemoteRMIHandler extends Remote, Handler {
 	@Override
 	public void showBeingAlien (String name)throws RemoteException;
 	@Override
-	public Coordinates askForMovement(boolean reask)  throws RemoteException;
+	public Coordinates askForMovement(boolean reask)throws IOException;
 	@Override
 	public boolean askForAttack() throws ClassNotFoundException, IOException;
 	@Override
-	public String askForNoise() throws RemoteException;
+	public String askForNoise() throws IOException;
 	@Override
 	public int askForItem(String objects, boolean fromDiscardCall) throws IOException;
 	@Override

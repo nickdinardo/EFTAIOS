@@ -2,6 +2,7 @@ package it.polimi.ingsw.dinapolidinardo.testmodel;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TestGalileiMap {
 	private Box[][] map;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws IOException{
 		galilei = new GalileiMap();
 		map = galilei.getMap();
 	}

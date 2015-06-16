@@ -1,7 +1,6 @@
 package it.polimi.ingsw.dinapolidinardo.view;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 import it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates;
 
@@ -26,17 +25,19 @@ public abstract class View {
 	 * 
 	 * @param reask signals if Game Controller is reasking the input because not valid
 	 * @return A Coordinate object with the selected coordinates
+	 * @throws IOException if can't read Pixels text file for GUI initialization
 	 * @see it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates
 	 */
-	public abstract Coordinates askMovement(boolean reask);
+	public abstract Coordinates askMovement(boolean reask) throws IOException;
 	
 	
 	/**
 	 * Asks input from user about where declare noise
 	 *  
 	 * @return coordinates in form of String
+	 * @throws IOException if can't read Pixels text file for GUI initialization
 	 */
-	public abstract String askForNoise();
+	public abstract String askForNoise() throws IOException;
 	
 	
 	/**
@@ -45,8 +46,9 @@ public abstract class View {
 	 * @param objects the currently owned item cards coded as a String
 	 * @param fromDiscardCall signals if the call of this methods comes from a discard cards phase
 	 * @return the index of the item selected
+	 * @throws IOException if can't read Pixels text file for GUI initialization
 	 */
-	public abstract int askItemUse(String objects, boolean fromDiscardCall);
+	public abstract int askItemUse(String objects, boolean fromDiscardCall) throws IOException;
 	
 	
 	/**

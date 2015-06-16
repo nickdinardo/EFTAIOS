@@ -78,12 +78,13 @@ public class ClientSocketInterface implements NetworkInterface {
 	/**
 	 * Get a view instance via ViewFactory and initialize a Command Handler to where redirect all the stream inputs 
 	 * after having codified them.
+	 * @throws IOException 
 	 * 
 	 * @see ViewFactory
 	 * @see CommandHandler
 	 */
 	@Override
-	public void startInterface() {
+	public void startInterface() throws IOException {
 			
 		ViewFactory.getViewFactory();
 		view = ViewFactory.getView();

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.dinapolidinardo.view;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -35,8 +36,9 @@ public class ViewFactory {
 	 * allows user selection between CLI and swing GUI, and returns to the caller the selected type of view
 	 * 
 	 * @return an object either TextView or SwingView
+	 * @throws IOException if couldn't load the GUI pixels text file
 	 */
-	public static View getView(){
+	public static View getView() throws IOException{
 		String userAnswer;
 		out.println("To select the textual user-interface write TEXT, to select the graphical user-interface write any other key");
 		in = new Scanner(System.in);

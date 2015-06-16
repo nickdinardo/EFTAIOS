@@ -1,8 +1,10 @@
 package it.polimi.ingsw.dinapolidinardo.testmodel;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import it.polimi.ingsw.dinapolidinardo.model.AlienPlayer;
-import it.polimi.ingsw.dinapolidinardo.model.GalileiMap;
 import it.polimi.ingsw.dinapolidinardo.model.GameState;
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 import it.polimi.ingsw.dinapolidinardo.model.Player;
@@ -14,13 +16,13 @@ public class TestPlayer {
 
 	Player human;
 	Player alien;
-	private GalileiMap map = new GalileiMap();
-	private GameState teststate = new GameState(null);
+	private GameState teststate; 
 	
 	@Before
-	public void setUp(){
-		human = new HumanPlayer(map, teststate, "humantest");
-		alien = new AlienPlayer(map, teststate, "alientest");
+	public void setUp() throws IOException{
+		teststate = new GameState(null);
+		human = new HumanPlayer(teststate.getMap(), teststate, "humantest");
+		alien = new AlienPlayer(teststate.getMap(), teststate, "alientest");
 	}
 	
 	

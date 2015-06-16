@@ -50,14 +50,26 @@ public class GameController {
 	 * @param id the Id of the current game, since more game can be run in parallel
 	 * @param pc an Hashmap that maps the names of the player and a String that describes the type of the connection
 	 * @param hand an Hashmap that maps the names of the player and a reference to the connection handler
+	 * @throws RemoteException 
 	 */
-	public GameController (int id, Map<String, String> pc, Map<String, Handler> hand){
+	public GameController (int id, Map<String, String> pc, Map<String, Handler> hand) throws RemoteException{
 		
 		this.gameId = id;
 		this.playersInGame = pc;
 		this.handlers = hand;
 		//initialize model main class and update players
-		setGameState(new GameState(this));
+		try{
+			setGameState(new GameState(this));
+		}
+		catch(Exception e){
+			out.println("Map file not found or corrupted. Please check if map path exists and it's well defined.");
+			for (Handler h : handlers.values()){
+				h.notifyMessage("Couldn't load internal map resources.");
+				h.notifyMessage("This game has been closed, please retry connection again restarting the client.");
+			}
+			initError = true;
+			return;
+		}
 		connectionsClosed = new ArrayList<String>();
 	}
 	
@@ -545,6 +557,14 @@ public class GameController {
 		String hlbuild = "";
 		String awbuild = "";
 		String albuild = "";
+		
+		if(!theLastHumanEscaped){
+			for (Map.Entry<String, String> entry : playersInGame.entrySet()){
+				Player player = gamestate.givemePlayerByName(entry.getKey());
+				if(player instanceof HumanPlayer)
+					gamestate.getLosers().add(player.getName());
+			}
+		}
 		
 		for (String name : gamestate.getWinners())
 			hwbuild += name+", ";

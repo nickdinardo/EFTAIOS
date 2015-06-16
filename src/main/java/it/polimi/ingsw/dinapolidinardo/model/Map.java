@@ -103,8 +103,9 @@ public abstract class Map {
 	public boolean isValidSingleMovement(Box destination, Box position){
 		
 		//if the destination is a box that can't be crossed returns false immediately
-		if (!destination.isCanBeCrossedType()) 
+		if (!destination.isCanBeCrossedType()){ 
 			return false;
+		}
 		//distinguish between "high" and "low" boxes in a row of hexagons 
 		//needed given the matrix representation of the map
 		if (position.getCoordX()%2==0){//low ones

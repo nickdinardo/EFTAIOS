@@ -1,7 +1,9 @@
 package it.polimi.ingsw.dinapolidinardo.testmodel.cards;
 
 import static org.junit.Assert.*;
-import it.polimi.ingsw.dinapolidinardo.model.GalileiMap;
+
+import java.io.IOException;
+
 import it.polimi.ingsw.dinapolidinardo.model.GameState;
 import it.polimi.ingsw.dinapolidinardo.model.HumanPlayer;
 import it.polimi.ingsw.dinapolidinardo.model.Player;
@@ -18,11 +20,10 @@ public class TestTeleportCard {
 	private Player player;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws IOException{
 		teleport = new TeleportCard();
-		GalileiMap galilei = new GalileiMap();
 		GameState teststate = new GameState(null);
-		player = new HumanPlayer(galilei, teststate, "testplayer");
+		player = new HumanPlayer(teststate.getMap(), teststate, "testplayer");
 	}
 
 	@Test
