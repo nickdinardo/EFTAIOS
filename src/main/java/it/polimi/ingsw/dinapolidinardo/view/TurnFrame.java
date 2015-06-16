@@ -271,8 +271,8 @@ public abstract class TurnFrame {
 		public void run() {
 			if (remainingtime < 0) 
 				return;
-			int minutes = (int)(remainingtime/60000);
-		    int seconds = (int)((remainingtime-(minutes*60000))/1000);
+			int minutes = remainingtime/60000;
+		    int seconds = (remainingtime-(minutes*60000))/1000;
 		    timerLabel.setText("Remaining time: " + format.format(minutes) + ":" + format.format(seconds));	
 		    remainingtime-=1000;
 		        }
