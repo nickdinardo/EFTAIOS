@@ -68,6 +68,7 @@ public abstract class TurnFrame {
 			nameLabel.setText("   "+name.substring(0, 9)+"...");
 		turnLabel.setText("Turn: " + turn); 
 		positionLabel.setText("Position: " + actualPosition);
+		timerLabel.setText("Remaining time: 03:00");
 	}
 
 	
@@ -284,6 +285,7 @@ public abstract class TurnFrame {
 	public void stopTimer(){
 		timer.cancel();
 		remainingtime = TURNTIME;
+		timerLabel.setText("Remaining time: 03:00");
 	}
 	
 	
