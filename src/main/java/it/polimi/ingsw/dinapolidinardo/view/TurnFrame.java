@@ -258,10 +258,9 @@ public abstract class TurnFrame {
 	}
 	
 		
-	
-	//getters and setters
-	
-	
+	/**
+	 * Initializes a turn time countdown visualized on the main frame
+	 */
 	public void startTimer(){
 		
 		timer = new Timer();
@@ -279,11 +278,18 @@ public abstract class TurnFrame {
 		    }, 0, 1000);
 	}
 	
+	/**
+	 * Stops the turn time countdown
+	 */
 	public void stopTimer(){
 		timer.cancel();
 		remainingtime = TURNTIME;
 	}
 	
+	
+	
+	//getters and setters
+		
 	public List<String> getItem(){
 		return item;
 	}
