@@ -1,0 +1,629 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix atxa-strata: <http://www.architexa.com/rdf/strata#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#Layered.atxa> a atxa-core:strataFile .
+
+atxa:DetailNode atxa-core:detailLevel "0" .
+
+atxa-core:docRoot atxa-core:browseModel "com.architexa.diagrams.relo.jdt/com.architexa.diagrams.relo.jdt.browse.ClassStrucBrowseModel" ;
+	atxa-core:contains _:node19nuhsmttx1135 .
+
+_:node19nuhsmttx1135 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "false" , "true" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo$AppTest> .
+
+_:node19nuhsmttx1135 atxa-core:contains _:node19nuhsmttx1234 .
+
+_:node19nuhsmttx1234 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo$AppTest> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1136 .
+
+_:node19nuhsmttx1136 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.*> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "true" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.cards> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.decks> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes> .
+
+_:node19nuhsmttx1136 atxa-core:contains _:node19nuhsmttx1137 .
+
+_:node19nuhsmttx1137 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1136 atxa-core:contains _:node19nuhsmttx1138 .
+
+_:node19nuhsmttx1138 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.cards> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1136 atxa-core:contains _:node19nuhsmttx1139 .
+
+_:node19nuhsmttx1139 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.decks> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1136 atxa-core:contains _:node19nuhsmttx1140 .
+
+_:node19nuhsmttx1140 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "true" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Box> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Coordinates> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$HumanBox> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$AlienBox> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Wall> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$DangerousBox> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$LifeboatBox> .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1141 .
+
+_:node19nuhsmttx1141 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Box> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1142 .
+
+_:node19nuhsmttx1142 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Coordinates> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1143 .
+
+_:node19nuhsmttx1143 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$HumanBox> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true:0,true,true,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1144 .
+
+_:node19nuhsmttx1144 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$AlienBox> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true:0,true,true,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1145 .
+
+_:node19nuhsmttx1145 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$Wall> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true:0,true,true,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1146 .
+
+_:node19nuhsmttx1146 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$DangerousBox> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true:0,true,true,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1140 atxa-core:contains _:node19nuhsmttx1147 .
+
+_:node19nuhsmttx1147 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.model.boxes$LifeboatBox> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:1,false,false,true:0,true,true,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1148 .
+
+_:node19nuhsmttx1148 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.*> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "true" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.socket> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.rmi> .
+
+_:node19nuhsmttx1148 atxa-core:contains _:node19nuhsmttx1149 .
+
+_:node19nuhsmttx1149 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true:1,true,true,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "true" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$Handler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$GameController> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$DisconnectionManager> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$Server> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$ServersRoom> .
+
+_:node19nuhsmttx1149 atxa-core:contains _:node19nuhsmttx1150 .
+
+_:node19nuhsmttx1150 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$Handler> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1149 atxa-core:contains _:node19nuhsmttx1151 .
+
+_:node19nuhsmttx1151 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$GameController> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1149 atxa-core:contains _:node19nuhsmttx1152 .
+
+_:node19nuhsmttx1152 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$DisconnectionManager> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1149 atxa-core:contains _:node19nuhsmttx1153 .
+
+_:node19nuhsmttx1153 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$Server> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1149 atxa-core:contains _:node19nuhsmttx1154 .
+
+_:node19nuhsmttx1154 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server$ServersRoom> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1148 atxa-core:contains _:node19nuhsmttx1155 .
+
+_:node19nuhsmttx1155 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.socket> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true:1,true,true,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1148 atxa-core:contains _:node19nuhsmttx1156 .
+
+_:node19nuhsmttx1156 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.server.rmi> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1157 .
+
+_:node19nuhsmttx1157 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.*> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.boxes.*> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.cards.*> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.decks.*> .
+
+_:node19nuhsmttx1157 atxa-core:contains _:node19nuhsmttx1158 .
+
+_:node19nuhsmttx1158 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1157 atxa-core:contains _:node19nuhsmttx1159 .
+
+_:node19nuhsmttx1159 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.boxes.*> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.boxes.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.boxes> .
+
+_:node19nuhsmttx1159 atxa-core:contains _:node19nuhsmttx1160 .
+
+_:node19nuhsmttx1160 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.boxes> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1157 atxa-core:contains _:node19nuhsmttx1161 .
+
+_:node19nuhsmttx1161 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.cards.*> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.cards.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.cards> .
+
+_:node19nuhsmttx1161 atxa-core:contains _:node19nuhsmttx1162 .
+
+_:node19nuhsmttx1162 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.cards> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1157 atxa-core:contains _:node19nuhsmttx1163 .
+
+_:node19nuhsmttx1163 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.decks.*> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.decks.*> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.decks> .
+
+_:node19nuhsmttx1163 atxa-core:contains _:node19nuhsmttx1164 .
+
+_:node19nuhsmttx1164 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.testmodel.decks> ;
+	atxa-strata:nestedLayerIndexes "" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1165 .
+
+_:node19nuhsmttx1165 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.remotestubs> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1166 .
+
+_:node19nuhsmttx1166 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "2" ;
+	atxa-core:containerState "false" , "true" , "true" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$Client> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$NetworkInterfaceFactory> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$NetworkInterface> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$ClientSocketInterface> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$ClientRMIInterface> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$RMIHandler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$CommandHandler> .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1167 .
+
+_:node19nuhsmttx1167 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$Client> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1168 .
+
+_:node19nuhsmttx1168 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$NetworkInterfaceFactory> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1169 .
+
+_:node19nuhsmttx1169 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$NetworkInterface> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1170 .
+
+_:node19nuhsmttx1170 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$ClientSocketInterface> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1171 .
+
+_:node19nuhsmttx1171 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$ClientRMIInterface> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "2" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1172 .
+
+_:node19nuhsmttx1172 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$RMIHandler> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1166 atxa-core:contains _:node19nuhsmttx1173 .
+
+_:node19nuhsmttx1173 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.client$CommandHandler> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+atxa-core:docRoot atxa-core:contains _:node19nuhsmttx1174 .
+
+_:node19nuhsmttx1174 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "true" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreHumanFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ButtonHandler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$CardHandler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$TurnFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DiscardFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$AlienDiscardFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ClickableBox> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$SwingView> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$View> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$Information> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$WaitFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$RegistrationFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DefinitiveHumanTurnFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreAlienFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DefinitiveAlienTurnFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$BoxHandler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$LightsFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$LightsHandler> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$HumanDiscardFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$FinalResultFrame> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$TextView> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ToolTipCard> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ViewFactory> .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1175 .
+
+_:node19nuhsmttx1175 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreHumanFrame> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1176 .
+
+_:node19nuhsmttx1176 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreFrame> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1177 .
+
+_:node19nuhsmttx1177 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ButtonHandler> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1178 .
+
+_:node19nuhsmttx1178 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$CardHandler> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1179 .
+
+_:node19nuhsmttx1179 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$TurnFrame> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1180 .
+
+_:node19nuhsmttx1180 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DiscardFrame> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "2" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1181 .
+
+_:node19nuhsmttx1181 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$AlienDiscardFrame> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1182 .
+
+_:node19nuhsmttx1182 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ClickableBox> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:1,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1183 .
+
+_:node19nuhsmttx1183 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$SwingView> ;
+	atxa-strata:nestedLayerIndexes ":0,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "0" ;
+	atxa-core:containerState "false" , "false" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1184 .
+
+_:node19nuhsmttx1184 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$View> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1185 .
+
+_:node19nuhsmttx1185 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$Information> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:1,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1186 .
+
+_:node19nuhsmttx1186 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$WaitFrame> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:0,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1187 .
+
+_:node19nuhsmttx1187 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$RegistrationFrame> ;
+	atxa-strata:nestedLayerIndexes ":3,false,false,true:1,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1188 .
+
+_:node19nuhsmttx1188 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DefinitiveHumanTurnFrame> ;
+	atxa-strata:nestedLayerIndexes ":2,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "2" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1189 .
+
+_:node19nuhsmttx1189 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$YouAreAlienFrame> ;
+	atxa-strata:nestedLayerIndexes ":3,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "3" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1190 .
+
+_:node19nuhsmttx1190 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$DefinitiveAlienTurnFrame> ;
+	atxa-strata:nestedLayerIndexes ":3,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "3" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1191 .
+
+_:node19nuhsmttx1191 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$BoxHandler> ;
+	atxa-strata:nestedLayerIndexes ":4,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "4" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1192 .
+
+_:node19nuhsmttx1192 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$LightsFrame> ;
+	atxa-strata:nestedLayerIndexes ":3,false,false,true:0,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1193 .
+
+_:node19nuhsmttx1193 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$LightsHandler> ;
+	atxa-strata:nestedLayerIndexes ":5,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "5" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1194 .
+
+_:node19nuhsmttx1194 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$HumanDiscardFrame> ;
+	atxa-strata:nestedLayerIndexes ":4,false,false,true:1,false,false,true" ;
+	atxa-strata:layerIndex "1" ;
+	atxa-strata:indexWithinLayer "4" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1195 .
+
+_:node19nuhsmttx1195 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$FinalResultFrame> ;
+	atxa-strata:nestedLayerIndexes ":4,false,false,true:1,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1196 .
+
+_:node19nuhsmttx1196 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$TextView> ;
+	atxa-strata:nestedLayerIndexes ":6,false,false,true:2,false,false,true" ;
+	atxa-strata:layerIndex "2" ;
+	atxa-strata:indexWithinLayer "6" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1197 .
+
+_:node19nuhsmttx1197 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ToolTipCard> ;
+	atxa-strata:nestedLayerIndexes ":4,false,false,true:0,false,false,true:3,true,true,true" ;
+	atxa-strata:layerIndex "3" ;
+	atxa-strata:indexWithinLayer "-1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+_:node19nuhsmttx1174 atxa-core:contains _:node19nuhsmttx1198 .
+
+_:node19nuhsmttx1198 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.dinapolidinardo.view$ViewFactory> ;
+	atxa-strata:nestedLayerIndexes ":1,false,false,true:0,false,false,true" ;
+	atxa-strata:layerIndex "0" ;
+	atxa-strata:indexWithinLayer "1" ;
+	atxa-core:containerState "false" , "true" , "false" .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix atxa-strata: <http://www.architexa.com/rdf/strata#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#Layered.atxa> a atxa-core:strataFile ;
+	atxa-core:contains _:node19nuhsmttx1234 , _:node19nuhsmttx1135 , _:node19nuhsmttx1137 , _:node19nuhsmttx1138 , _:node19nuhsmttx1139 , _:node19nuhsmttx1141 , _:node19nuhsmttx1142 , _:node19nuhsmttx1143 , _:node19nuhsmttx1144 , _:node19nuhsmttx1145 , _:node19nuhsmttx1146 , _:node19nuhsmttx1147 , _:node19nuhsmttx1140 , _:node19nuhsmttx1136 , _:node19nuhsmttx1150 , _:node19nuhsmttx1151 , _:node19nuhsmttx1152 , _:node19nuhsmttx1153 , _:node19nuhsmttx1154 , _:node19nuhsmttx1149 , _:node19nuhsmttx1155 , _:node19nuhsmttx1156 , _:node19nuhsmttx1148 , _:node19nuhsmttx1158 , _:node19nuhsmttx1160 , _:node19nuhsmttx1159 , _:node19nuhsmttx1162 , _:node19nuhsmttx1161 , _:node19nuhsmttx1164 , _:node19nuhsmttx1163 , _:node19nuhsmttx1157 , _:node19nuhsmttx1165 , _:node19nuhsmttx1167 , _:node19nuhsmttx1168 , _:node19nuhsmttx1169 , _:node19nuhsmttx1170 , _:node19nuhsmttx1171 , _:node19nuhsmttx1172 , _:node19nuhsmttx1173 , _:node19nuhsmttx1166 , _:node19nuhsmttx1175 , _:node19nuhsmttx1176 , _:node19nuhsmttx1177 , _:node19nuhsmttx1178 , _:node19nuhsmttx1179 , _:node19nuhsmttx1180 , _:node19nuhsmttx1181 , _:node19nuhsmttx1182 , _:node19nuhsmttx1183 , _:node19nuhsmttx1184 , _:node19nuhsmttx1185 , _:node19nuhsmttx1186 , _:node19nuhsmttx1187 , _:node19nuhsmttx1188 , _:node19nuhsmttx1189 , _:node19nuhsmttx1190 , _:node19nuhsmttx1191 , _:node19nuhsmttx1192 , _:node19nuhsmttx1193 , _:node19nuhsmttx1194 , _:node19nuhsmttx1195 , _:node19nuhsmttx1196 , _:node19nuhsmttx1197 , _:node19nuhsmttx1198 , _:node19nuhsmttx1174 , atxa-core:docRoot , _:node19nuhsmttx1234 , _:node19nuhsmttx1135 , _:node19nuhsmttx1137 , _:node19nuhsmttx1138 , _:node19nuhsmttx1139 , _:node19nuhsmttx1141 , _:node19nuhsmttx1142 , _:node19nuhsmttx1143 , _:node19nuhsmttx1144 , _:node19nuhsmttx1145 , _:node19nuhsmttx1146 , _:node19nuhsmttx1147 , _:node19nuhsmttx1140 , _:node19nuhsmttx1136 , _:node19nuhsmttx1150 , _:node19nuhsmttx1151 , _:node19nuhsmttx1152 , _:node19nuhsmttx1153 , _:node19nuhsmttx1154 , _:node19nuhsmttx1149 , _:node19nuhsmttx1155 , _:node19nuhsmttx1156 , _:node19nuhsmttx1148 , _:node19nuhsmttx1158 , _:node19nuhsmttx1160 , _:node19nuhsmttx1159 , _:node19nuhsmttx1162 , _:node19nuhsmttx1161 , _:node19nuhsmttx1164 , _:node19nuhsmttx1163 , _:node19nuhsmttx1157 , _:node19nuhsmttx1165 , _:node19nuhsmttx1167 , _:node19nuhsmttx1168 , _:node19nuhsmttx1169 , _:node19nuhsmttx1170 , _:node19nuhsmttx1171 , _:node19nuhsmttx1172 , _:node19nuhsmttx1173 , _:node19nuhsmttx1166 , _:node19nuhsmttx1175 , _:node19nuhsmttx1176 , _:node19nuhsmttx1177 , _:node19nuhsmttx1178 , _:node19nuhsmttx1179 , _:node19nuhsmttx1180 , _:node19nuhsmttx1181 , _:node19nuhsmttx1182 , _:node19nuhsmttx1183 , _:node19nuhsmttx1184 , _:node19nuhsmttx1185 , _:node19nuhsmttx1186 , _:node19nuhsmttx1187 , _:node19nuhsmttx1188 , _:node19nuhsmttx1189 , _:node19nuhsmttx1190 , _:node19nuhsmttx1191 , _:node19nuhsmttx1192 , _:node19nuhsmttx1193 , _:node19nuhsmttx1194 , _:node19nuhsmttx1195 , _:node19nuhsmttx1196 , _:node19nuhsmttx1197 , _:node19nuhsmttx1198 , _:node19nuhsmttx1174 , atxa-core:docRoot .
+

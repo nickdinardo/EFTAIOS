@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="it.polimi.ingsw.dinapolidinardo.model.GameState" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/GameState.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1412" y="546"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="it.polimi.ingsw.dinapolidinardo.model.Map" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/Map.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="673" y="378"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="it.polimi.ingsw.dinapolidinardo.model.Player" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/Player.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2394" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="it.polimi.ingsw.dinapolidinardo.model.GalileiMap" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/GalileiMap.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="633" y="768"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="it.polimi.ingsw.dinapolidinardo.model.AlienPlayer" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/AlienPlayer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2777" y="1125"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="it.polimi.ingsw.dinapolidinardo.model.HumanPlayer" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/HumanPlayer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3060" y="920"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.Coordinates" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/Coordinates.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="658" y="1229"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.Box" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/Box.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1368" y="1184"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.AlienBox" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/AlienBox.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="188" x="834" y="1602"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.HumanBox" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/HumanBox.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="642" y="1561"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.LifeboatBox" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/LifeboatBox.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1309" y="1620"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.Wall" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/Wall.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1669" y="1564"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="it.polimi.ingsw.dinapolidinardo.model.boxes.DangerousBox" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/boxes/DangerousBox.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1824" y="1340"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.Card" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/Card.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="186" x="2791" y="1342"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.ItemCard" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/ItemCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2220" y="1636"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.LifeboatCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/LifeboatCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="186" x="2811" y="1591"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.SectorCard" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/SectorCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3378" y="1526"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.RedLifeboatCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/RedLifeboatCard.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2764" y="1820"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.GreenLifeboatCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/GreenLifeboatCard.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="186" x="2939" y="1775"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.AdrenalineCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/AdrenalineCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1580" y="1806"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.AttackCard" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/AttackCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1705" y="1959"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.DefenseCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/DefenseCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2032" y="2178"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.LightsCard" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/LightsCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2292" y="2100"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.SedativesCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/SedativesCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2566" y="2011"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.TeleportCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/TeleportCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1793" y="2160"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.SilenceCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/SilenceCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3278" y="1926"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.NoiseHereCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/NoiseHereCard.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="186" x="3473" y="1824"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.NoiseHereCardPlusItem" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/NoiseHereCardPlusItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3560" y="2106"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.NoiseAnywhereCard" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/NoiseAnywhereCard.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="186" x="3733" y="1542"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="it.polimi.ingsw.dinapolidinardo.model.cards.NoiseAnywhereCardPlusItem" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/cards/NoiseAnywhereCardPlusItem.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3866" y="1893"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="it.polimi.ingsw.dinapolidinardo.model.decks.Deck" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/decks/Deck.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3899" y="959"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="it.polimi.ingsw.dinapolidinardo.model.decks.ItemDeck" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/decks/ItemDeck.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3542" y="358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="it.polimi.ingsw.dinapolidinardo.model.decks.LifeboatDeck" 
+    project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/decks/LifeboatDeck.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3399" y="538"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="it.polimi.ingsw.dinapolidinardo.model.decks.SectorDeck" project="DiNapoliDiNardo" 
+    file="/DiNapoliDiNardo/src/main/java/it/polimi/ingsw/dinapolidinardo/model/decks/SectorDeck.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3299" y="719"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="35">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="36" name="map"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="39" name="itemdeck"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="43">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="44" name="position"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="49" name="inGamePlayers"/>      
+      <multiplicity id="50" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="52" name="personalDeck"/>      
+      <multiplicity id="53" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="55">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="56" name="gamestate"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="59">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <association id="60">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="61" name="coveredDeck"/>      
+      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="64" name="sectordeck"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="66">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="67">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="68" name="lifeboatdeck"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="70">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="71">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="74">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <association id="75">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="76" name="playerHere"/>      
+      <multiplicity id="77" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="78">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="79">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="80" name="humanStartBox"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="83" name="discards"/>      
+      <multiplicity id="84" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="85">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <generalization id="86">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="29"/>  
+  </generalization>  
+  <generalization id="87">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <association id="88">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="89" name="coord"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="91">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <generalization id="92">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="93">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="94">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="95">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="96">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="97" name="alienStartBox"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="99">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="100">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <association id="101">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="102" name="gameMap"/>      
+      <multiplicity id="103" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="104">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="105">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="106">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
